@@ -200,18 +200,9 @@ RUN pip3 install notebook==5.7.8 \
  && apt-get clean \
  && rm -rf /var/lib/apt/lists/*
 
-
-
-
-
-
 # tmp hack min-5
 # I'm not installing jupyterlab and I can't update init-actions.sh to not access it
 RUN mkdir -p /usr/local/share/jupyter/lab
-
-
-
-
 
 # make pip install to a user directory, instead of a system directory which requires root.
 # this is useful so `pip install` commands can be run in the context of a notebook.
