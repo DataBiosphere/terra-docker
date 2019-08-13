@@ -1,8 +1,8 @@
 # adapted from https://hub.docker.com/r/jupyter/base-notebook/ AKA https://github.com/jupyter/docker-stacks/tree/master/base-notebook
 
-# this is pushed to dockerhub as jmthibault79/leonardo-jupyter-min:joel-tmp-20190809-9
-
-FROM debian:stretch
+# This is copied from https://github.com/jupyter/docker-stacks/blob/master/base-notebook/Dockerfile
+ARG BASE_CONTAINER=ubuntu:bionic-20190612@sha256:9b1702dcfe32c873a770a32cfd306dd7fc1c4fd134adfb783db68defc8894b3c
+FROM $BASE_CONTAINER
 
 USER root
 
@@ -14,13 +14,7 @@ ENV DEBIAN_FRONTEND noninteractive
 ENV DEBIAN_REPO http://cdn-fastly.deb.debian.org
 ENV CRAN_REPO http://cran.mtu.edu
 
-RUN echo "deb $DEBIAN_REPO/debian stretch main"                   > /etc/apt/sources.list \
- && echo "deb $DEBIAN_REPO/debian-security stretch/updates main" >> /etc/apt/sources.list \
- && echo "deb $DEBIAN_REPO/debian stretch-backports main"        >> /etc/apt/sources.list \
- && echo "deb $DEBIAN_REPO/debian testing main"                  >> /etc/apt/sources.list \
- && echo 'APT::Default-Release "oldstable";' | tee -a /etc/apt/apt.conf.d/00local \
- && apt-get update \
- && apt-get -yq dist-upgrade \
+RUN apt-get update && apt-get -yq dist-upgrade \
  && apt-get install -yq --no-install-recommends \
 
     # gnupg requirement
@@ -33,6 +27,8 @@ RUN echo "deb $DEBIAN_REPO/debian stretch main"                   > /etc/apt/sou
 
     # google-cloud-sdk requirement
     lsb-release \
+    gcc-6 \
+    gcc-8 \
 
     # python requirements
     xz-utils \
@@ -41,7 +37,7 @@ RUN echo "deb $DEBIAN_REPO/debian stretch main"                   > /etc/apt/sou
     zlib1g-dev \
 
     # pip requirements
-    libssl-dev \
+    libssl1.0-dev \
     libbz2-dev \
     libreadline-dev \
     libsqlite3-dev \
@@ -57,7 +53,12 @@ RUN echo "deb $DEBIAN_REPO/debian stretch main"                   > /etc/apt/sou
     sudo \
     wget \
     locales \
+    git \
 
+# for jupyterlab extensions
+    nodejs-dev \
+    node-gyp \
+    npm \
  # Uncomment en_US.UTF-8 for inclusion in generation
  && sed -i 's/^# *\(en_US.UTF-8\)/\1/' /etc/locale.gen \
  # Generate locale
@@ -98,29 +99,10 @@ RUN useradd -m -s /bin/bash -N -u $WELDER_UID $WELDER_USER
 ENV JUPYTER_PORT 8000
 ENV JUPYTER_HOME /etc/jupyter
 
-ENV PYSPARK_DRIVER_PYTHON jupyter
-ENV PYSPARK_DRIVER_PYTHON_OPTS notebook
-
-ENV SPARK_HOME=/usr/lib/spark
-ENV PATH $SPARK_HOME:$SPARK_HOME/python:$SPARK_HOME/bin:$HAIL_HOME:$PATH
-ENV PYTHONPATH $PYTHONPATH:$HAIL_HOME/$HAILPYTHON:$HAIL_HOME/python:$SPARK_HOME/python:$JUPYTER_HOME/custom
-
-# Python2, kernel, and pip
-RUN apt-get update \
- && apt-get install -yq --no-install-recommends \
-    python \
-    python-dev \
-
- # jessie's default pip doesn't work well with jupyter
- && wget -nv https://bootstrap.pypa.io/get-pip.py \
- && python get-pip.py \
- && pip install ipykernel==4.10.0 \
- && python2 -m ipykernel install --name python2 --display-name "Python 2" \
- && apt-get clean \
- && rm -rf /var/lib/apt/lists/*
+ENV PYTHONPATH $PYTHONPATH:python:$JUPYTER_HOME/custom
 
 # Python3, kernel, and pip
-ENV PYTHON_VERSION 3.6.8
+ENV PYTHON_VERSION 3.7.0
 
 # lifted from https://github.com/docker-library/python/blob/dd36c08c1f94083476a8579b8bf20c4cd46c6400/3.6/stretch/Dockerfile
 RUN set -ex \
@@ -190,6 +172,9 @@ RUN set -ex; \
 
 RUN pip3 install notebook==5.7.8 \
  && pip3 install jupyter==1.0.0 \
+ && pip3 install python-datauri \
+ && pip3 install jupyterlab==0.35.4 \
+ && pip3 install cookiecutter \
  && pip3 install jupyter_contrib_nbextensions \
  && pip3 install jupyter_nbextensions_configurator \
 
@@ -209,14 +194,32 @@ RUN mkdir -p /usr/local/share/jupyter/lab
 ENV PIP_USER=true
 
 #######################
+# Install Conda
+#######################
+Run wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O /tmp/miniconda.sh \
+  && bash /tmp/miniconda.sh -b -p $HOME/miniconda \
+  && echo 'eval "$(/home/jupyter-user/miniconda/bin/conda shell.bash hook)"' >> /home/jupyter-user/.bashrc 
+
+#######################
 # Utilities
 #######################
 
-ADD scripts $JUPYTER_HOME/scripts
+COPY scripts $JUPYTER_HOME/scripts
+COPY custom $JUPYTER_HOME/custom
 
 RUN chown -R $USER:users $JUPYTER_HOME \
+ && chown -R $USER:users /usr/local/share/jupyter/lab \
  && find $JUPYTER_HOME/scripts -name '*.sh' -type f | xargs chmod +x \
- && update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-6 200
+ && update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-6 200 \
+ && update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-8 100 \
+ && $JUPYTER_HOME/scripts/extension/install_jupyter_contrib_nbextensions.sh \
+ && mkdir $HOME/.jupyter/custom/ \
+ && cp $JUPYTER_HOME/custom/google_sign_in.js $HOME/.jupyter/custom/ \
+ && cp $JUPYTER_HOME/custom/extension_entry_jupyter.js $HOME/.jupyter/custom/custom.js \
+ && cp $JUPYTER_HOME/custom/safe-mode.js $HOME/.jupyter/custom/ \
+ && cp $JUPYTER_HOME/custom/edit-mode.js $HOME/.jupyter/custom/ \
+ && $JUPYTER_HOME/scripts/extension/jupyter_install_lab_extension.sh $JUPYTER_HOME/custom/extension_entry_jupyterlab.js \
+ && mkdir $JUPYTER_HOME/nbconfig
 
 USER $USER
 WORKDIR $HOME
