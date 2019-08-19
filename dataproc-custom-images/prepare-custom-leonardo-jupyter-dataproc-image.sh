@@ -10,11 +10,11 @@ set -e -x
 #
 # Constants and Global Vars
 #
-# leonardo_jupyter_docker_image_tag="dev"
+# JUPYTER_IMAGE_TAG="dev"
 leonardo_jupyter_docker_image="us.gcr.io/broad-dsp-gcr-public/leonardo-jupyter:${JUPYTER_IMAGE_TAG:?}"
-# welder_server_docker_image_tag="latest"
+# WELDER_IMAGE_TAG="latest"
 welder_server_docker_image="us.gcr.io/broad-dsp-gcr-public/welder-server:${WELDER_IMAGE_TAG:?}"
-# openidc_proxy_docker_image_tag="2.3.1_2"
+# OPENIDC_PROXY_TAG="2.3.1_2"
 openidc_proxy_docker_image="broadinstitute/openidc-proxy:${OPENIDC_PROXY_TAG:?}"
 
 docker_image_var_names="leonardo_jupyter_docker_image welder_server_docker_image openidc_proxy_docker_image"
