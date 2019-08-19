@@ -1,4 +1,5 @@
 #!/bin/bash
+# Run `gcloud auth configure-docker --quiet` before running this script
 # Example: ./build.sh terra-jupyter-base
 
 IMAGE_DIR=$1
