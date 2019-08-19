@@ -5,5 +5,4 @@
 IMAGE_DIR=$1
 
 TAG_NAME=$(git log --pretty=format:'%h' -n 1)
-docker image build ./$IMAGE_DIR --tag us.gcr.io/broad-dsp-gcr-public/$IMAGE_DIR:$TAG_NAME
-docker push us.gcr.io/broad-dsp-gcr-public/$IMAGE_DIR:$TAG_NAME
+docker image build ./$IMAGE_DIR --tag us.gcr.io/broad-dsp-gcr-public/$IMAGE_DIR:$TAG_NAME && docker push us.gcr.io/broad-dsp-gcr-public/$IMAGE_DIR:$TAG_NAME
