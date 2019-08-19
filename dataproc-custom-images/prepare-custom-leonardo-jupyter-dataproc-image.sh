@@ -15,12 +15,12 @@ JUPYTER_IMAGE_TAG=""
 leonardo_jupyter_docker_image="us.gcr.io/broad-dsp-gcr-public/leonardo-jupyter:${JUPYTER_IMAGE_TAG:?}"
 WELDER_IMAGE_TAG=""
 welder_server_docker_image="us.gcr.io/broad-dsp-gcr-public/welder-server:${WELDER_IMAGE_TAG:?}"
-OPENIDC_PROXY_TAG=""
-openidc_proxy_docker_image="broadinstitute/openidc-proxy:${OPENIDC_PROXY_TAG:?}"
+OPENIDC_PROXY_IMAGE_TAG=""
+openidc_proxy_docker_image="broadinstitute/openidc-proxy:${OPENIDC_PROXY_IMAGE_TAG:?}"
 
 docker_image_var_names="leonardo_jupyter_docker_image welder_server_docker_image openidc_proxy_docker_image"
 
-#
+#sed -i .bak "s/^JUPYTER_IMAGE_TAG.*/JUPYTER_IMAGE_TAG=\"lol\"/" test.txt
 # Functions
 #
 
