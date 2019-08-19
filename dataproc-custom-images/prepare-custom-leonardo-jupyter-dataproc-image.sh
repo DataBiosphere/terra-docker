@@ -9,6 +9,7 @@ set -e -x
 
 #
 # Constants and Global Vars
+# the image tags are set via jenkins automation
 #
 JUPYTER_IMAGE_TAG=""
 leonardo_jupyter_docker_image="us.gcr.io/broad-dsp-gcr-public/leonardo-jupyter:${JUPYTER_IMAGE_TAG:?}"
