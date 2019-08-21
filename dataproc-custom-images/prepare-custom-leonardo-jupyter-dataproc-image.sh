@@ -5,7 +5,11 @@ set -e -x
 #
 # This script sets up a custom Dataproc image for Leonardo clusters.
 # See: https://cloud.google.com/dataproc/docs/guides/dataproc-images
-#
+# The service account used to run the parent python script must have the following permissions:
+# [  "roles/compute.admin",
+#    "roles/iam.serviceAccountUser",
+#    "roles/storage.objectViewer",
+#    "roles/dataproc.editor" ]
 
 #
 # Constants and Global Vars
