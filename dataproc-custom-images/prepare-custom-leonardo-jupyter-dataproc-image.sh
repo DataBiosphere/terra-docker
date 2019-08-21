@@ -20,7 +20,7 @@ openidc_proxy_docker_image="broadinstitute/openidc-proxy:${OPENIDC_PROXY_IMAGE_T
 
 docker_image_var_names="leonardo_jupyter_docker_image welder_server_docker_image openidc_proxy_docker_image"
 
-#sed -i .bak "s/^JUPYTER_IMAGE_TAG.*/JUPYTER_IMAGE_TAG=\"lol\"/" test.txt
+#
 # Functions
 #
 
