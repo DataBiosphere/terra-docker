@@ -7,7 +7,16 @@ RUN apt-get update \
     && add-apt-repository 'deb https://cloud.r-project.org/bin/linux/ubuntu bionic-cran35/' \
     && apt-get install -yq --no-install-recommends apt-transport-https \
     && apt update \
+#     && apt-get -y build-dep libcurl4-gnutls-dev \
     && apt install -yq --no-install-recommends \
+        apt-utils \
+        curl \
+        libssh2-1-dev \
+        libssl-dev \
+        libcurl4-gnutls-dev \
+        libgit2-dev \
+        libxml2-dev \
+        # libcurl4-gnutls-dev \
         r-base \
         r-base-dev \
         r-base-core \
@@ -32,7 +41,7 @@ RUN R -e 'install.packages(c( \
  && mkdir -p /home/jupyter-user/.rpackages \
  && echo "R_LIBS=/home/jupyter-user/.rpackages" > /home/jupyter-user/.Renviron \
  && chown -R $USER:users /home/jupyter-user/.rpackages
- 
+
 COPY scripts $JUPYTER_HOME/scripts
 
 RUN find $JUPYTER_HOME/scripts -name '*.sh' -type f | xargs chmod +x
