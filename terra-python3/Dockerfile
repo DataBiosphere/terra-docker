@@ -1,14 +1,19 @@
-FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-base:bcc4342
+FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-base:3d62742
+
+# RUN apt-get update && \
+#   apt-get install -yq --no-install-recommends \
+#   liblzo2-dev
 
 RUN pip3 install numpy==1.15.2 \
  && pip3 install py4j==0.10.7 \
  && python3 -mpip install matplotlib==3.0.0 \
  && pip3 install pandas==0.23.4 \
+ && pip3 install pandas-gbq \
  && pip3 install seaborn==0.9.0 \
  && pip3 install notebook==5.7.8 \
  && pip3 install jupyter==1.0.0 \
  && pip3 install jupyterlab==0.35.4 \
- && pip3 install python-lzo==1.12 \
+#  && pip3 install python-lzo==1.12 \
  && pip3 install google-api-core==1.5.0 \
  && pip3 install google-cloud-bigquery==1.7.0 \
  && pip3 install google-cloud-bigquery-datatransfer==0.1.1 \
