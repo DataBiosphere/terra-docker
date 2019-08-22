@@ -1,15 +1,16 @@
-FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-base:3d62742
+FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-base:0.0.1
 
 USER root
 
 RUN apt-get update && \
   apt-get install -yq --no-install-recommends \
-  python3-dev \
+  # python3-dev \
   #is python or python-dev needed?
   # python \
-  # python-dev \
+  python3.7-dev \
   # libz-dev \
-    # zlib1g-dev \ 
+  unzip \
+  zlib1g-dev \ 
     #covered in libssl-dev
   python-tk \
   liblzo2-dev \
@@ -104,7 +105,8 @@ ENV PIP_DISABLE_PIP_VERSION_CHECK 1
 #         \) -exec rm -rf '{}' +; \
 #     rm -f get-pip.py
 
-RUN pip3 install numpy==1.15.2 \
+RUN pip3 -V \
+ && pip3 install numpy==1.15.2 \
  && pip3 install py4j==0.10.7 \
  && python3 -mpip install matplotlib==3.0.0 \
  && pip3 install pandas==0.23.4 \
@@ -115,7 +117,7 @@ RUN pip3 install numpy==1.15.2 \
  && pip3 install jupyterlab==0.35.4 \
  && pip3 install python-lzo==1.12 \
  && pip3 install google-cloud-core==0.29.0 \
- && pip install google-auth==1.5.1 \
+ && pip3 install google-auth==1.5.1 \
  && pip3 install google-api-core==1.5.0 \
  && pip3 install google-cloud-bigquery==1.9.0 \
  && pip3 install google-cloud-bigquery-datatransfer==0.1.1 \
@@ -126,7 +128,7 @@ RUN pip3 install numpy==1.15.2 \
  && pip3 install scikit-learn==0.20.0 \
  && pip3 install statsmodels==0.9.0 \
  && pip3 install ggplot==0.11.5 \
- && sed -i 's/pandas.lib/pandas/g' /home/jupyter-user/.local/lib/python3.6/site-packages/ggplot/stats/smoothers.py \
+ && sed -i 's/pandas.lib/pandas/g' /usr/local/lib/python3.7/site-packages/ggplot/stats/smoothers.py \
 #&& sed -i 's/pandas.lib/pandas/g' /usr/local/lib/python3.6/site-packages/ggplot/stats/smoothers.py \
  && pip3 install bokeh==1.0.0 \
  && pip3 install pyfasta==0.5.2 \
