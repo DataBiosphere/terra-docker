@@ -79,7 +79,7 @@ ENV UID 1000
 #    && ln -s python3-config python-config
 
 # if this is called "PIP_VERSION", pip explodes with "ValueError: invalid truth value '<VERSION>'"
-ENV PYTHON_PIP_VERSION 19.0.1
+# ENV PYTHON_PIP_VERSION 19.0.1
 
 #supress this so legitimate errors are more apparent
 ENV PIP_DISABLE_PIP_VERSION_CHECK 1
