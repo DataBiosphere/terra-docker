@@ -25,6 +25,11 @@ RUN apt-get update && apt-get -yq dist-upgrade \
     gcc-6 \
     gcc-8 \
 
+   #useful utilities for debugging within the docker
+   unzip \
+   nano \
+   procps \
+
     # python requirements
     checkinstall \
     build-essential \
