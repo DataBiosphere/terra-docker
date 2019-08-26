@@ -1,0 +1,3 @@
+This folder contains
+- A submodule to a google repository with a script that creates a custom dataproc image. This google script is passed our initialization script, and is run via [this](https://fc-jenkins.dsp-techops.broadinstitute.org/job/leonardo-publish-dataproc-image/) Jenkins job. 
+- Our initialization script, which bakes the tool docker images into the GCE VM instance, with the tool docker image tags templated in via parameters to the Jenkins job. 
