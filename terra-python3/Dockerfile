@@ -1,18 +1,15 @@
-FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-base:3d62742
+FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-base:0.0.1
 
 USER root
+ENV PIP_USER=false
+# ENV USER jupyter-user
 
 RUN apt-get update && \
   apt-get install -yq --no-install-recommends \
-  python3-dev \
-  #is python or python-dev needed?
-  # python \
-  # python-dev \
-  # libz-dev \
-    # zlib1g-dev \ 
+  python3.7-dev \
+  #remove these 2 once its tested
     #covered in libssl-dev
   python-tk \
-  liblzo2-dev \
   #is current in base, should it be?
   # libbz2-dev \
   tk-dev \
@@ -20,16 +17,23 @@ RUN apt-get update && \
   #in original, but not in base
   # default-jre \
   # default-jdk \
-  # openssl \
-  # make \
   # aptitude \
+  #quarantine
   libssl-dev \
-  xz-utils 
+  python3-dev \
+  xz-utils \
+  # python-h5py \
+  libhdf5-dev \
+  openssl \
+  make \
+  liblzo2-dev \
+  unzip \ 
+  zlib1g-dev \ 
+  libz-dev 
 
 #should this be in base?
 # ENV PYTHON_VERSION 3.6.8
-ENV USER jupyter-user
-ENV UID 1000
+# ENV UID 1000
 # RUN useradd -m -s /bin/bash -N -u $UID $USER
 # ENV PYTHONPATH $PYTHONPATH:$JUPYTER_HOME/custom
 # ENV PATH PATH:$PYTHONPATH
@@ -79,7 +83,7 @@ ENV UID 1000
 #    && ln -s python3-config python-config
 
 # if this is called "PIP_VERSION", pip explodes with "ValueError: invalid truth value '<VERSION>'"
-ENV PYTHON_PIP_VERSION 19.0.1
+# ENV PYTHON_PIP_VERSION 19.0.1
 
 #supress this so legitimate errors are more apparent
 ENV PIP_DISABLE_PIP_VERSION_CHECK 1
@@ -104,7 +108,8 @@ ENV PIP_DISABLE_PIP_VERSION_CHECK 1
 #         \) -exec rm -rf '{}' +; \
 #     rm -f get-pip.py
 
-RUN pip3 install numpy==1.15.2 \
+RUN pip3 -V \
+ && pip3 install numpy==1.15.2 \
  && pip3 install py4j==0.10.7 \
  && python3 -mpip install matplotlib==3.0.0 \
  && pip3 install pandas==0.23.4 \
@@ -115,7 +120,7 @@ RUN pip3 install numpy==1.15.2 \
  && pip3 install jupyterlab==0.35.4 \
  && pip3 install python-lzo==1.12 \
  && pip3 install google-cloud-core==0.29.0 \
- && pip install google-auth==1.5.1 \
+ && pip3 install google-auth==1.5.1 \
  && pip3 install google-api-core==1.5.0 \
  && pip3 install google-cloud-bigquery==1.9.0 \
  && pip3 install google-cloud-bigquery-datatransfer==0.1.1 \
@@ -126,7 +131,7 @@ RUN pip3 install numpy==1.15.2 \
  && pip3 install scikit-learn==0.20.0 \
  && pip3 install statsmodels==0.9.0 \
  && pip3 install ggplot==0.11.5 \
- && sed -i 's/pandas.lib/pandas/g' /home/jupyter-user/.local/lib/python3.6/site-packages/ggplot/stats/smoothers.py \
+ && sed -i 's/pandas.lib/pandas/g' /usr/local/lib/python3.7/dist-packages/ggplot/stats/smoothers.py \
 #&& sed -i 's/pandas.lib/pandas/g' /usr/local/lib/python3.6/site-packages/ggplot/stats/smoothers.py \
  && pip3 install bokeh==1.0.0 \
  && pip3 install pyfasta==0.5.2 \
@@ -147,7 +152,8 @@ RUN pip3 install numpy==1.15.2 \
  && pip3 install protobuf==3.7.1 \
  && pip3 install pymc3==3.1 \
  && pip3 install pyparsing==2.2.0 \
- && pip3 install pysam==0.13 \
+ 
+ RUN pip3 install pysam==0.15.1  \
  && pip3 install python-dateutil==2.6.1 \
  && pip3 install pytz==2017.3 \
  && pip3 install pyvcf==0.6.8 \
@@ -165,8 +171,9 @@ RUN pip3 install numpy==1.15.2 \
  && pip3 install setuptools==36.4.0 \
  && pip3 install wheel
 
+ENV USER jupyter-user
 USER $USER
-WORKDIR $HOME
+ENV PIP_USER=true
 
 # Note: this entrypoint is provided for running Jupyter independently of Leonardo.
 # When Leonardo deploys this image onto a cluster, the entrypoint is overwritten to enable
