@@ -93,18 +93,19 @@ RUN useradd -m -s /bin/bash -N -u $WELDER_UID $WELDER_USER
 ENV JUPYTER_PORT 8000
 ENV JUPYTER_HOME /etc/jupyter
 
-ENV PYTHONPATH $PYTHONPATH:python:$JUPYTER_HOME/custom
+ENV PYTHONPATH $PYTHONPATH:$JUPYTER_HOME/custom
 
 # # Python3, kernel, and pip
 RUN apt update \
    && apt install -yq software-properties-common \
    && add-apt-repository ppa:deadsnakes/ppa \
    && apt install -yq python3.7 \
-   && update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.6 1 \
-   && update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.7 2 \
-   && apt-get -yq install python3-pip
+   && update-alternatives --install /usr/local/bin/python3 python3 /usr/bin/python3.7 1 \
+   && apt-get -yq install python3-pip \
+   && /usr/local/bin/python3 -m pip install --upgrade pip
 
-RUN pip3 install notebook==5.7.8 \
+RUN pip3 -V \
+ && pip3 install notebook==5.7.8 \
  && pip3 install jupyter==1.0.0 \
  && pip3 install python-datauri \
  && pip3 install jupyterlab==0.35.4 \
