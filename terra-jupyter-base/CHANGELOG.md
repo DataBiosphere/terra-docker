@@ -8,3 +8,4 @@
 - Add Jupyter & JupyterLab
 - Add Leonardo customizations/extensions
 
+Image URL: us.gcr.io/broad-dsp-gcr-public/terra-jupyter-base:0.0.1
