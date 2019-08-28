@@ -26,7 +26,8 @@ RUN apt-get update \
 
 RUN R -e 'install.packages(c( \
     "remotes", \
-    "BiocManager"))' \
+    "BiocManager", 
+    "devtools"))' \
  && R -e 'BiocManager::install(c( \
     # Jupyter notebook essentials 
     "IRdisplay",  \
