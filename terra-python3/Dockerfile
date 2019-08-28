@@ -4,7 +4,7 @@ USER root
 ENV PIP_USER=false
 # ENV USER jupyter-user
 
-RUN apt-get update && \
+RUN apt-get update &&  apt-get upgrade -y && \
   apt-get install -yq --no-install-recommends \
   python3.7-dev \
   #remove these 2 once its tested
@@ -20,9 +20,8 @@ RUN apt-get update && \
   # aptitude \
   #quarantine
   libssl-dev \
-  python3-dev \
   xz-utils \
-  # python-h5py \
+  # hdf5-tools \
   libhdf5-dev \
   openssl \
   make \
@@ -30,6 +29,17 @@ RUN apt-get update && \
   unzip \ 
   zlib1g-dev \ 
   libz-dev 
+  # python3-dev\
+  # libopenblas-dev \
+  # liblapack-dev \
+  # gfortran \
+  # gcc \ 
+  # python-dev \
+  # cython \ 
+  # clang \
+  # libpng-dev \
+  # pkg-config 
+
 
 #should this be in base?
 # ENV PYTHON_VERSION 3.6.8
@@ -86,7 +96,7 @@ RUN apt-get update && \
 # ENV PYTHON_PIP_VERSION 19.0.1
 
 #supress this so legitimate errors are more apparent
-ENV PIP_DISABLE_PIP_VERSION_CHECK 1
+# ENV PIP_DISABLE_PIP_VERSION_CHECK 1
 
 #TODO is this still needed? Is it covered in the base image?
 # RUN set -ex; \
@@ -109,6 +119,7 @@ ENV PIP_DISABLE_PIP_VERSION_CHECK 1
 #     rm -f get-pip.py
 
 RUN pip3 -V \
+ && pip3 install --upgrade pip \
  && pip3 install numpy==1.15.2 \
  && pip3 install py4j==0.10.7 \
  && python3 -mpip install matplotlib==3.0.0 \
@@ -152,15 +163,15 @@ RUN pip3 -V \
  && pip3 install protobuf==3.7.1 \
  && pip3 install pymc3==3.1 \
  && pip3 install pyparsing==2.2.0 \
- 
- RUN pip3 install pysam==0.15.1  \
+ && pip3 install pysam==0.15.1 \
  && pip3 install python-dateutil==2.6.1 \
  && pip3 install pytz==2017.3 \
  && pip3 install pyvcf==0.6.8 \
  && pip3 install pyyaml==3.12 \
- && pip3 install scipy==1.0.0 \
+ && pip3 install scipy \
  && pip3 install six==1.11.0 \
- && pip3 install tensorflow==1.9.0 \
+ #could be a breaking version, needs testing
+ && pip3 install tensorflow==2.0.0a0 \
  && pip3 install theano==0.9.0 \
  && pip3 install tqdm==4.19.4 \
  && pip3 install werkzeug==0.12.2 \
