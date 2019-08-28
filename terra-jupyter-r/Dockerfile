@@ -26,7 +26,8 @@ RUN apt-get update \
 
 RUN R -e 'install.packages(c( \
     "remotes", \
-    "BiocManager"))' \
+    "BiocManager", \
+    "devtools"))' \
  && R -e 'BiocManager::install(c( \
     # Jupyter notebook essentials 
     "IRdisplay",  \
@@ -41,7 +42,6 @@ RUN R -e 'install.packages(c( \
     "uuid"))' \
  && R -e 'IRkernel::installspec(user=FALSE)' \
  && chown -R $USER:users /home/jupyter-user/.local  \
- && R -e 'BiocManager::install("apache/spark@v2.2.3", subdir="R/pkg")' \
  && mkdir -p /home/jupyter-user/.rpackages \
  && echo "R_LIBS=/home/jupyter-user/.rpackages" > /home/jupyter-user/.Renviron \
  && chown -R $USER:users /home/jupyter-user/.rpackages
