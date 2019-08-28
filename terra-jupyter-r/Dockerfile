@@ -37,7 +37,7 @@ RUN  mkdir -p /home/jupyter-user/.rpackages \
  && echo "R_LIBS=/home/jupyter-user/.rpackages" > /home/jupyter-user/.Renviron \
  && R -e 'install.packages(c( \
     "remotes", \
-    "BiocManager", 
+    "BiocManager", \
     "devtools"))' \
  && R -e 'BiocManager::install(c( \
     # Jupyter notebook essentials
@@ -52,6 +52,4 @@ RUN  mkdir -p /home/jupyter-user/.rpackages \
     "pbdZMQ", \
     "uuid"))' \
  && R -e 'IRkernel::installspec(user=FALSE)' \
- && chown -R $USER:users /home/jupyter-user/.local  \
-## Why is apache/spark@v2.2.3 so specific?
- && R -e 'BiocManager::install("apache/spark@v2.2.3", subdir="R/pkg")'
+ && chown -R $USER:users /home/jupyter-user/.local 
