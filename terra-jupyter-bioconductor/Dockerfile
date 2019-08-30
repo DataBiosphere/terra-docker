@@ -4,7 +4,6 @@ FROM nitesh1989/terra-jupyter-r:v3
 USER root
 
 ## Install system dependencies needed
-# Update apt-get
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
     byacc \
@@ -67,11 +66,16 @@ RUN apt-get update \
     xfonts-75dpi \
     biber \
     python-dev \
-    ## symlink libgfortran.so as versions of gcc and gfortran are different \
+    ## symlink libgfortran.so as versions of gcc and gfortran are different(installs DESeq2) \
     && ln -s /usr/lib/x86_64-linux-gnu/libgfortran.so.4 /usr/lib/x86_64-linux-gnu/libgfortran.so \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
+## Miniconda python vs regular /usr/local/bin/python3
+#RUN pip install wheel && \
+#	pip install sklearn cwltool pandas pyyaml
+
+# Install libsbml and xvfb
 RUN cd /tmp \
     && curl -O https://s3.amazonaws.com/linux-provisioning/libSBML-5.10.2-core-src.tar.gz \
     && tar zxf libSBML-5.10.2-core-src.tar.gz \
@@ -79,15 +83,9 @@ RUN cd /tmp \
     && ./configure --enable-layout \
     && make \
     && make install \
+    && ldconfig \
     && rm -rf /tmp/libsbml-5.10.2 \
     && rm -rf /tmp/libSBML-5.10.2-core-src.tar.gz
-
-# ## Python dependencies
-# RUN pip install wheel \
-#     && pip install sklearn \
-#     pandas \
-#     pyyaml \
-#     cwltool
 
 USER $USER
 
@@ -98,4 +96,3 @@ RUN R -e 'BiocManager::install(c( \
     "GenomicAlignments", \
     "ShortRead", \
     "DESeq2"))'
-
