@@ -1,5 +1,4 @@
-#FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-r:9d4b474
-FROM nitesh1989/terra-jupyter-r:v3
+FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-r:0.0.3
 
 USER root
 
@@ -70,10 +69,6 @@ RUN apt-get update \
     && ln -s /usr/lib/x86_64-linux-gnu/libgfortran.so.4 /usr/lib/x86_64-linux-gnu/libgfortran.so \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
-
-## Miniconda python vs regular /usr/local/bin/python3
-#RUN pip install wheel && \
-#	pip install sklearn cwltool pandas pyyaml
 
 # Install libsbml and xvfb
 RUN cd /tmp \
