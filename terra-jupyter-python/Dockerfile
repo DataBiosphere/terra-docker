@@ -16,7 +16,9 @@ RUN apt-get update &&  apt-get upgrade -y && \
   make \
   liblzo2-dev \
   zlib1g-dev \ 
-  libz-dev 
+  libz-dev \
+  && apt-get clean \
+  && rm -rf /var/lib/apt/lists/*
 
 RUN pip3 -V \
  && pip3 install --upgrade pip \
