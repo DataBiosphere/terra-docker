@@ -53,3 +53,4 @@ RUN  mkdir -p /home/jupyter-user/.rpackages \
     "uuid"))' \
  && R -e 'IRkernel::installspec(user=FALSE)' \
  && chown -R $USER:users /home/jupyter-user/.local 
+
