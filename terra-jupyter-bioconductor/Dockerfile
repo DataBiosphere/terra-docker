@@ -64,7 +64,6 @@ RUN apt-get update \
     xfonts-100dpi \
     xfonts-75dpi \
     biber \
-    python-dev \
     ## symlink libgfortran.so as versions of gcc and gfortran are different(installs DESeq2) \
     && ln -s /usr/lib/x86_64-linux-gnu/libgfortran.so.4 /usr/lib/x86_64-linux-gnu/libgfortran.so \
     && apt-get clean \
@@ -82,7 +81,26 @@ RUN cd /tmp \
     && rm -rf /tmp/libsbml-5.10.2 \
     && rm -rf /tmp/libSBML-5.10.2-core-src.tar.gz
 
+## Pip runs as root
+ENV PIP_USER=false
+
+## Install python packages needed for a few Bioc packages
+RUN apt-get update \
+    && apt-get upgrade -y \
+    && apt-get install -yq --no-install-recommends python3.7-dev \
+    && pip3 -V \
+    && pip3 install --upgrade pip \
+    && pip3 install cwltool==1.0.20190228155703 \
+    && pip3 install pandas==0.25.1 \
+    && pip3 install pyyaml \
+    && pip3 install scikit-learn==0.21.3 \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
+
+## Change back to jupyter-user
 USER $USER
+## pip runs as jupyter-user
+ENV PIP_USER=true
 
 ## Install Bioconductor Core packages
 RUN R -e 'BiocManager::install(c( \
