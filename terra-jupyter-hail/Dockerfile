@@ -3,7 +3,7 @@ USER root
 ENV PIP_USER=false
 # Use Spark 2.4.0 which corresponds to Dataproc 1.2. See:
 #   https://cloud.google.com/dataproc/docs/concepts/versioning/dataproc-versions
-# Note: we are actually using Spark 2.4.0, but the Hail package is built using 2.4.0
+# Note: we are actually using Spark 2.4.0
 ENV SPARK_VER 2.4.0
 ENV SPARK_HOME=/usr/lib/spark
 
@@ -23,7 +23,13 @@ COPY scripts $JUPYTER_HOME/scripts
 # Make empty conf dirs for the update-alternatives commands.
 RUN apt-get update && apt-get -yq dist-upgrade \
     && apt install -yq --no-install-recommends openjdk-8-jdk \
-    && pip3 -V \
+    && pip3 install --no-dependencies hail \
+    && X=$(mktemp -d) \
+    && mkdir -p $X \
+    && (cd $X && pip download hail --no-dependencies && \
+        unzip hail*.whl &&  \
+        grep 'Requires-Dist: ' hail*dist-info/METADATA | sed 's/Requires-Dist: //' | sed 's/ (//' | sed 's/)//' | grep -v 'pyspark' | xargs pip install) \
+    && rm -rf $X \
     && pip3 install parsimonious==0.8.1 \
     && find $JUPYTER_HOME/scripts -name '*.sh' -type f | xargs chmod +x \
     && mkdir -p /etc/spark/conf.dist && mkdir -p /etc/hadoop/conf.empty && mkdir -p /etc/hive/conf.dist \
@@ -31,8 +37,8 @@ RUN apt-get update && apt-get -yq dist-upgrade \
     && update-alternatives --install /etc/hadoop/conf hadoop-conf /etc/hadoop/conf.empty 100 \
     && update-alternatives --install /etc/hive/conf hive-conf /etc/hive/conf.dist 100 \
     && mkdir $HAIL_HOME && cd $HAIL_HOME \
-    && wget -nv http://storage.googleapis.com/hail-common/builds/0.2/jars/$HAILJAR \
-    && wget -nv http://storage.googleapis.com/hail-common/builds/0.2/python/$HAILPYTHON \
+    # && wget -nv http://storage.googleapis.com/hail-common/builds/0.2/jars/$HAILJAR \
+    # && wget -nv http://storage.googleapis.com/hail-common/builds/0.2/python/$HAILPYTHON \
     && cd -
 
 ENV PIP_USER=true

@@ -98,7 +98,7 @@ RUN useradd -m -s /bin/bash -N -u $WELDER_UID $WELDER_USER
 ENV JUPYTER_PORT 8000
 ENV JUPYTER_HOME /etc/jupyter
 
-ENV PYTHONPATH $PYTHONPATH:$JUPYTER_HOME/custom
+ENV PYTHONPATH ${PYTHONPATH:+$PYTHONPATH:}$JUPYTER_HOME/custom
 
 # # Python3, kernel, and pip
 RUN apt update \

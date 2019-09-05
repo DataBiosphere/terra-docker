@@ -21,11 +21,11 @@ cat <<EOT >> ${SPARK_EXTRAS}
 
 # Distributes from master node to the working directories of executors
 
-spark.jars ${HAIL_HOME}/${HAILJAR}
-spark.submit.pyFiles ${HAIL_HOME}/${HAILPYTHON}
+# spark.jars ${HAIL_HOME}/${HAILJAR}
+# spark.submit.pyFiles ${HAIL_HOME}/${HAILPYTHON}
 
 # Add JARs to Classpaths: driver can use absolute paths
-spark.driver.extraClassPath ${HAIL_HOME}/${HAILJAR}
+# spark.driver.extraClassPath ${HAIL_HOME}/${HAILJAR}
 
 # Add JARs to Classpaths: distributed to executor working directory by above spark.jars directive
 spark.executor.extraClassPath ./${HAILJAR}
