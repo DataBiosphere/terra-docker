@@ -69,7 +69,7 @@ RUN apt-get update \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
-# Install libsbml and xvfb
+# Install libsbml
 RUN cd /tmp \
     && curl -O https://s3.amazonaws.com/linux-provisioning/libSBML-5.10.2-core-src.tar.gz \
     && tar zxf libSBML-5.10.2-core-src.tar.gz \
