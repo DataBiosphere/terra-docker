@@ -1,3 +1,5 @@
+
+import hudson.model.*
 def branchName = "delete-me"
 
 //declared in outer scope so it persists between steps
@@ -12,6 +14,7 @@ def ArrayList<String> getChangedImages() {
   for (int i = 0; i < images.size(); i++) {
     currImage = images[i]
     if(hasImageChanged(currImage)) {
+      println("detected change for $currImage")
       filteredImages.add(currImage) 
     }
   }
@@ -19,13 +22,12 @@ def ArrayList<String> getChangedImages() {
   return filteredImages
 }
 
+//TODO: change to ~1
 def Boolean hasImageChanged(dir) {
   def String output = sh (
         script: "git diff HEAD..HEAD~5 $dir",
         returnStdout: true
   ).trim()
-
-  println("output for $dir is $output")
 
   !output.isEmpty()
 }
@@ -40,8 +42,15 @@ def void buildAll(ArrayList<String> imageDirs) {
 
 def void buildImage(String imageDir) {
   def workingDir = pwd()
-  sh "echo 'printing in buildImage function: $imageDir'"
-  sh "$workingDir/build.sh $imageDir"
+  sh "echo 'building the following image: $imageDir'"
+  def exitCode = sh(
+    script: "$workingDir/build.sh $imageDir",
+    returnStatus: true
+  )
+
+  if (exitCode != 0) {
+    currentBuild.setResult(Result.UNSTABLE)
+  }
 }
 
 def LinkedHashMap<String, String> getVersionMap(imageDirs) {
@@ -52,10 +61,10 @@ def LinkedHashMap<String, String> getVersionMap(imageDirs) {
     currImageDir = imageDirs[i]
     def workingDir = pwd()
     def version = sh(
-      script: "cat $workingDir/$currImageDir/VERSION"
+      script: "cat $workingDir/$currImageDir/VERSION",
       returnStdout: true
     )
-    versionMap["$imageDir"] = "$version"
+    versionMap["$currImageDir"] = "$version"
   }
 
   versionMap
@@ -63,6 +72,12 @@ def LinkedHashMap<String, String> getVersionMap(imageDirs) {
 
 pipeline {
    agent { label 'node210' }
+
+//@@@@@@@@@@@ TODO: uncomment
+  // options { 
+      //we don't want to be building to PR changes at once, we will queue them instead
+    // disableConcurrentBuilds() 
+  // }
 
    stages {
      
@@ -84,18 +99,24 @@ pipeline {
       }
     }
 
+
+    //filter image directories based on whether there are changes, and then build all
     stage('Build Images') {
       steps {
-
-        //filter image directories based on whether there are changes, and then build all
         script {
           def ArrayList<String> changedImageDirs = getChangedImages()
-          buildAll(changedImageDirs)
+          // buildAll(changedImageDirs)
           versionMap = getVersionMap(changedImageDirs)
-          println versionMap
             //have a corresponding text file or config with a map to the names in the leo confs to find and replace
           //then update the hash in the leo repo
         }
+      }
+    }
+
+    stage('Leonardo Git') {
+      steps {
+        git credentialsId: 'jenkins-ssh-github', url: 'git@github.com:DataBiosphere/leonardo.git', branch: 'develop'
+        sh "ls"
       }
     }
 
