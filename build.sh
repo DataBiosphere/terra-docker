@@ -10,14 +10,15 @@ REPO="us.gcr.io/broad-dsp-gcr-public"
 
 IMAGE_EXISTS=$(gcloud container images list-tags $REPO/$IMAGE_DIR | grep $VERSION)
 
-exit 1
+exit 14
 
 if [ -z "$IMAGE_EXISTS" ]
 then 
     echo "An image for this version not exist. Proceeding with build"
 else 
     echo "An image for the version you are trying to build already exists. Ensure you have updated the VERSION file."
-    exit 1
+    #unreserved exit code for checking in jenkins
+    exit 14
 fi
 
 docker image build ./$IMAGE_DIR --tag $REPO/$IMAGE_DIR:$TAG_NAME --tag $REPO/$IMAGE_DIR:$VERSION \
