@@ -1,14 +1,19 @@
 import hudson.model.*
 import hudson.FilePath
 import jenkins.model.Jenkins
+
+//branch name we will create in leo. Will be appended with the build number.
 def branchName = "automated-leonardo-hash-update-"
+
+//used to exit early if no changes are detected
+def shouldAbortBuild = false
 
 //declared in outer scope so it persists between steps
 //omitting the 'def' is what makes it global
 LinkedHashMap<String, String> versionMap = [:]
 
 def ArrayList<String> getChangedImages() {
-  def String[] images = readFile("imageDirs.txt").trim().split("\n")
+  def String[] images = readFile("jenkins/imageDirs.txt").trim().split("\n")
 
   def filteredImages = []
   //we must use a c-style loop due to jenkins serialization, aka https://www.devopscat.tech/2018/10/what-is-noncps-in-jenkins-pipeline/
@@ -56,6 +61,7 @@ def void buildImage(String imageDir) {
   } else if (exitCode != 0) {
     throw new RuntimeException("Unexpected error code recieved from build.sh: $exitCode")
   }
+  //we do nothing in the else case, the shell command exitted as expected
 }
 
 def LinkedHashMap<String, String> getVersionMap(imageDirs) {
@@ -99,7 +105,9 @@ def void replaceTags(String filePath, LinkedHashMap<String, String> replacementM
       currLine = contents[j]
       if (currLine.contains(currReplacement))  {
         location = currLine.indexOf(currReplacement)
-        //we add 1 because the image name is suffixed with : before the tag we wish to replace
+        //find the image name from imageDirs.txt in the config, and substring it so we preserve everything up to the hash
+        //we add 1 because the image name is suffixed with a ':'' before the hash that we wish to replace
+        //note we must also close the quote with this approach
         def String newLine = currLine.substring(0, location + currReplacement.length() + 1) + replacementMap[currReplacement] + '"'
         println("replacing line $currLine with $newLine")
         contents[j] = newLine
@@ -112,11 +120,11 @@ def void replaceTags(String filePath, LinkedHashMap<String, String> replacementM
   def workingDir = pwd()
  
   fp = createFilePath("$workingDir/$filePath")
-  //we add the trailing newline as its lost in the split/join process
+  //we add a trailing newline to the file as its lost in the split/join process
   fp.write(joinedContents + "\n", "UTF-8")
 }
 
-//Filepath is an object that abstracts away the fact the file can be on a remote node or the master node
+//Filepath is an object that abstracts away the fact the file can be on a remote jenkins node or the master jenkins node
 def FilePath createFilePath(String path) {
     if (env['NODE_NAME'] == null) {
         throw new RuntimeException("envvar NODE_NAME is not set, probably not inside a node {} or running a different version of Jenkins!");
@@ -132,15 +140,20 @@ pipeline {
    agent { label 'node210' }
 
   options { 
-    //we don't want to be building to PR changes at once, we will queue them instead
+    //we don't want to be building more than one PR's changes at once, we will queue them instead
     disableConcurrentBuilds() 
+  }
+
+  triggers {
+       // poll repo every 2 minute for changes
+       pollSCM('*/2 * * * *')
   }
 
    stages {
      
     stage('Terra Docker Git') {
       steps {
-        git credentialsId: 'jenkins-ssh-github', url: 'git@github.com:DataBiosphere/terra-docker.git', branch: 'jc-jenkinsfile'
+        git credentialsId: 'jenkins-ssh-github', url: 'git@github.com:DataBiosphere/terra-docker.git', branch: 'master'
       }
     }
 
@@ -157,42 +170,47 @@ pipeline {
       }
     }
 
-
     //filter image directories based on whether there are changes, and then build all
     stage('Build Images') {
       steps {
         script {
           def ArrayList<String> changedImageDirs = getChangedImages()
 
-          // if (changedImageDirs.isEmpty()) {
-          //       currentBuild.setResult('ABORTED')
-          //       currentBuild.get
-          // }
-
-        //TODO, check if there are any changes, and abort appropriately if none
+          if (changedImageDirs.isEmpty()) {
+              currentBuild.setResult('ABORTED')
+              currentBuild.setDescription("No image changes detected. Aborting the build.")
+              shouldAbortBuild = true
+              sh "exit 0"
+          }
 
           buildAll(changedImageDirs)
-          //@@@@@@@@@@@@TODO: remove this
-          // sh "echo '0.0.2' > terra-jupyter-python/VERSION"
+          //this is maintained as state between stages
           versionMap = getVersionMap(changedImageDirs)
         }
       }
     }
 
+    //we are done with the terra-docker repo, clone the leo repo
     stage('Leonardo Git') {
+      //run this step if the expression is true
+       when { expression { !shouldAbortBuild } }
+
       steps {
-        git credentialsId: 'jenkins-ssh-github', url: 'git@github.com:DataBiosphere/leonardo.git', branch: 'jc-jenkinsfile'
+        git credentialsId: 'jenkins-ssh-github', url: 'git@github.com:DataBiosphere/leonardo.git', branch: 'develop'
       }
     }
 
     //update the built image hashes in the leo repo
     stage('Update Leonardo Hashes') {
+      when { expression { !shouldAbortBuild } }
+
       steps {
         sh """
           git submodule init && git submodule update
         """
 
         script {
+          //even thought versionMap is global, we must pass it to the function here for some reason
           updateConfigHashes(versionMap)
         }
 
@@ -206,48 +224,16 @@ pipeline {
       }
     }
 
+    //we only notify slack on success, as there is no post-build
+    //if this becomes a problem, we could introduce something more robust, but it is unlikely to be pretty
     stage('Notify Slack') {
+      when { expression { !shouldAbortBuild } }
+
       steps {
-        
-        slackSend(channel: '#newrelictest', message: "Jenkins has successfully created a branch with the updated terra-docker hashes.\n" +
-         "https://github.com/DataBiosphere/leonardo/compare/develop...$branchName${BUILD_NUMBER}")
-        //  slackNotifier {
-        //     notifyFailure(true)
-        //     notifyRepeatedFailure(true)
-        //     notifySuccess(true)
-        //     // includeCustomMessage(true)
-        //     // customMessage("Jenkins has successfully created a branch with the updated welder hash.\n" +
-        //             // "https://github.com/DataBiosphere/leonardo/compare/develop...${branchBaseName}\${BUILD_NUMBER}")
-        //     room("newrelictest")
-        // }
+        slackSend(channel: '#dsp-callisto-internal', message: "Jenkins has successfully created a branch with the updated terra-docker hashes.\n" + 
+         "https://github.com/DataBiosphere/leonardo/pull/new/$branchName${BUILD_NUMBER}")
       }
     }
-
-    // stage('Env Test') {
-    //   steps {
-    //     sh """
-    //     A=1
-    //     echo $A
-    //     """
-    //   }
-    // }
-     
-    // stage('Test') {
-    //   steps {
-    //     sshagent(['jenkins-ssh-github']) {
-    //       sh """
-    //         echo $branchName-${BUILD_NUMBER}
-    //         git checkout -b $branchName-${BUILD_NUMBER}
-    //         git add temp.txt
-    //         git commit -m "test commit"
-    //         git push origin $branchName-${BUILD_NUMBER}
-    //     """
-    // // export NEW_BRANCH=${branchName}-${BUILD_NUMBER}
-    // //          echo $NEW_BRANCH
-    //     // }
-    //     }
-    //   }
-    // }
      
    }
 
