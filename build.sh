@@ -10,8 +10,6 @@ REPO="us.gcr.io/broad-dsp-gcr-public"
 
 IMAGE_EXISTS=$(gcloud container images list-tags $REPO/$IMAGE_DIR | grep $VERSION)
 
-exit 14
-
 if [ -z "$IMAGE_EXISTS" ]
 then 
     echo "An image for this version not exist. Proceeding with build"
