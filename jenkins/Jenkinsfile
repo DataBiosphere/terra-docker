@@ -51,7 +51,7 @@ def void buildImage(String imageDir) {
   )
 
   //if we cannot build an image because it will cause an overwrite of the remote gcr image, we set the build to unstable. 
-  //We do this because the most likely scenario is it was desired that the image to build, but the VERSION file was not updated.
+  //We do this because the most likely scenario is it was desired that the image builds, but the VERSION file was not updated.
   //we do not want to fail in this circumstance, as there are other images to build
   if (exitCode == 14) {
     println("The build script reported that building would result in overwritting an existing image. Setting build status to UNSTABLE. Consider updating the VERSION file for $imageDir")
@@ -106,7 +106,7 @@ def void replaceTags(String filePath, LinkedHashMap<String, String> replacementM
       if (currLine.contains(currReplacement))  {
         location = currLine.indexOf(currReplacement)
         //find the image name from imageDirs.txt in the config, and substring it so we preserve everything up to the hash
-        //we add 1 because the image name is suffixed with a ':'' before the hash that we wish to replace
+        //we add 1 because the image name is suffixed with a ':' before the hash that we wish to replace
         //note we must also close the quote with this approach
         def String newLine = currLine.substring(0, location + currReplacement.length() + 1) + replacementMap[currReplacement] + '"'
         println("replacing line $currLine with $newLine")
