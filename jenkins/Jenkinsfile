@@ -94,6 +94,9 @@ def void updateConfigHashes(replacementMap) {
 }
 
 //parameterize with ":" prefix and end quote suffix instead of hardcode?
+//an example of a line it would update is: `IMAGE_DIR:TAG"`. 
+  //In this example, IMAGE_DIR would be the key in the map, and TAG would be whats replaced by the value. 
+  //This function assumes that the line will end with a quote as well, and manually adds the quote so as not to assume a particular length for TAG
 def void replaceTags(String filePath, LinkedHashMap<String, String> replacementMap) {
   def contents = readFile(filePath).split('\n')
 
@@ -137,6 +140,7 @@ def FilePath createFilePath(String path) {
 }
 
 pipeline {
+    //fixes this job to a specific node since some slaves have older versions of docker that cause problems
    agent { label 'node210' }
 
   options { 
