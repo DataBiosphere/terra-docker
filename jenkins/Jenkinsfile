@@ -149,7 +149,7 @@ pipeline {
   }
 
   triggers {
-       // trigger build on pr hooks
+       // trigger build on pr hooks and not poll is what empty string does here, of course
        pollSCM('')
   }
 
