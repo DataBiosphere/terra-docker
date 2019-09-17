@@ -149,8 +149,8 @@ pipeline {
   }
 
   triggers {
-       // poll repo every 2 minute for changes
-       pollSCM('*/2 * * * *')
+       // trigger build on pr hooks
+       pollSCM('')
   }
 
    stages {
