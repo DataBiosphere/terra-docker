@@ -2,15 +2,12 @@ name: Lint CI
 
 jobs:
   build:
-  
-  #initial code for testing
     on:
       pull_request:
         branches:
           - jc-lint  
 
     runs-on: ubuntu-latest
-    
 #     on:
   #     pull_request:
   #       branches:
