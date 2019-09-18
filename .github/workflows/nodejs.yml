@@ -1,6 +1,4 @@
-name: Node CI
-
-on: [push]
+name: Lint CI
 
 jobs:
   build:
@@ -20,7 +18,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [8.x, 10.x, 12.x]
+        node-version: 10.16.0
 
     steps:
     - uses: actions/checkout@v1
