@@ -4,7 +4,7 @@ This repo contains the terra-jupyter-python image that is compatible with notebo
 
 ## Image contents
 
-The terra-jupyter-base extends the terra-jupyter-base image, supported in this repo.
+The terra-jupyter-base extends the [terra-jupyter-base](../terra-jupyter-base) image, supported in this repo.
 
 To see the complete contents of this image please see the [Dockerfile](./Dockerfile).
 
