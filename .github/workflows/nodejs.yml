@@ -8,10 +8,6 @@ jobs:
           - jc-lint  
 
     runs-on: ubuntu-latest
-#     on:
-  #     pull_request:
-  #       branches:
-#         - master  
 
     strategy:
       matrix:
