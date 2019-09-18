@@ -3,7 +3,7 @@ name: Lint CI
 jobs:
   build:
     on:
-      pull_request:
+      push:
         branches:
           - jc-lint  
 
