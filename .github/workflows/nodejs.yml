@@ -7,7 +7,7 @@ jobs:
     on:
       pull_request:
         branches:
-        - jc-lint  
+          - jc-lint  
 
     runs-on: ubuntu-latest
     
