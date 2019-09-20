@@ -1,27 +1,25 @@
-name: Lint CI
+name: Lint C
+on: 
+  push:
+    branches:
+      - jc-lint-config
 
 jobs:
-  build:
-    on: 
-      push:
-        branches:
-          - jc-lint-config
+  runs-on: ubuntu-latest
 
-    runs-on: ubuntu-latest
+  strategy:
+    matrix:
+      node_version: [8, 10, 12]
 
-    strategy:
-      matrix:
-        node_version: [8, 10, 12]
-
-    steps:
-      - uses: actions/checkout@v1
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v1
-        with:
-          node-version: ${{ matrix.node-version }}
-      - name: linting
-        run: |
-          npm install
-          eslint --fix terra-jupyter-base/custom/*.js
-        env:
-          CI: true
+  steps:
+  - uses: actions/checkout@v1
+  - name: Use Node.js ${{ matrix.node-version }}
+    uses: actions/setup-node@v1
+    with:
+      node-version: ${{ matrix.node-version }}
+  - name: linting
+    run: |
+      npm install
+      eslint --fix terra-jupyter-base/custom/*.js
+    env:
+      CI: true
