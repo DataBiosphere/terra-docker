@@ -21,8 +21,9 @@ jobs:
         
     - name: linting
       run: |
+        cd terra-jupyter-base/custom
         npm install
-        eslint --fix terra-jupyter-base/custom/*.js
+        eslint --fix *.js
       env:
         CI: true
 
