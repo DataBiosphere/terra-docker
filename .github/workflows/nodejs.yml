@@ -23,4 +23,4 @@ jobs:
       run: |
         cd terra-jupyter-base/custom
         npm install
-       ./node_modules/.bin/eslint --fix *.js
+        node_modules/.bin/eslint --fix *.js
