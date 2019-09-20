@@ -23,8 +23,6 @@ jobs:
       run: |
         cd terra-jupyter-base/custom
         npm install
-        # echo "test"
-        # sudo npm i -g eslint
        ./node_modules/.bin/eslint --fix *.js
       env:
         CI: true
