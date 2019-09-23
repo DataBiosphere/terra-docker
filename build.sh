@@ -3,7 +3,7 @@
 # Example: ./build.sh terra-jupyter-base
 
 PYTHON_IMAGES=("terrra-jupyter-hail" "terra-jupyter-python" "terra-jupyter-base" "terra-jupyter-bioconductor")
-R_IMAGES=("terra-jupyter-r")
+R_IMAGES=("terra-jupyter-r", "terra-jupyter-bioconductor")
 
 function contains() {
     local n=$#
@@ -40,15 +40,16 @@ docker image build ./$IMAGE_DIR --tag $REPO/$IMAGE_DIR:$TAG_NAME --tag $REPO/$IM
     && docker push $REPO/$IMAGE_DIR:$TAG_NAME \
     && docker push $REPO/$IMAGE_DIR:$VERSION
 
-#update remote documentation
-#will fail if you are not gcloud authed as dspci-wb-gcr-service-account
-    #docker run --rm  -v ~/.vault-token:/root/.vault-token:ro broadinstitute/dsde-toolbox:latest vault read --format=json secret/dsde/dsp-techops/common/dspci-wb-gcr-service-account.json | jq .data > dspci-wb-gcr-service-account.json
-    #gcloud auth activate-service-account --key-file=dspci-wb-gcr-service-account.json
+# will fail if you are not gcloud authed as dspci-wb-gcr-service-account
+    docker run --rm  -v ~/.vault-token:/root/.vault-token:ro broadinstitute/dsde-toolbox:latest vault read --format=json secret/dsde/dsp-techops/common/dspci-wb-gcr-service-account.json | jq .data > dspci-wb-gcr-service-account.json
+    gcloud auth activate-service-account --key-file=dspci-wb-gcr-service-account.json
 docker run --rm -itd -u root -e PIP_USER=false --entrypoint='/bin/bash' --name $IMAGE_DIR $REPO/$IMAGE_DIR:$TAG_NAME
 
 PYTHON_OUTPUT_FILE="$IMAGE_DIR-$VERSION-python-packages.txt"
 R_OUTPUT_FILE="$IMAGE_DIR-$VERSION-r-packages.txt"
 
+
+#update remote documentation
 #determine if we should produce python or R documentation for a package, and upload it to a bucket if so
 if [ $(contains "${PYTHON_IMAGES[@]}" "$IMAGE_DIR") == "true" ]; then
     docker exec $IMAGE_DIR pip list > $PYTHON_OUTPUT_FILE;
