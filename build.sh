@@ -6,6 +6,23 @@ IMAGE_DIR=$1
 VERSION=$(cat $IMAGE_DIR/VERSION)
 
 TAG_NAME=$(git log --pretty=format:'%h' -n 1)
-docker image build ./$IMAGE_DIR --tag us.gcr.io/broad-dsp-gcr-public/$IMAGE_DIR:$TAG_NAME --tag us.gcr.io/broad-dsp-gcr-public/$IMAGE_DIR:$VERSION \
-    && docker push us.gcr.io/broad-dsp-gcr-public/$IMAGE_DIR:$TAG_NAME \
-    && docker push us.gcr.io/broad-dsp-gcr-public/$IMAGE_DIR:$VERSION
+REPO="us.gcr.io/broad-dsp-gcr-public"
+
+IMAGE_EXISTS=$(gcloud container images list-tags $REPO/$IMAGE_DIR | grep $VERSION)
+
+if [ -z "$IMAGE_EXISTS" ]
+then 
+    echo "An image for this version not exist. Proceeding with build"
+else 
+    echo "An image for the version you are trying to build already exists. Ensure you have updated the VERSION file."
+    #unreserved exit code for checking in jenkins
+    exit 14
+fi
+
+docker image build ./$IMAGE_DIR --tag $REPO/$IMAGE_DIR:$TAG_NAME --tag $REPO/$IMAGE_DIR:$VERSION \
+    && docker push $REPO/$IMAGE_DIR:$TAG_NAME \
+    && docker push $REPO/$IMAGE_DIR:$VERSION
+
+docker rm $REPO/$IMAGE_DIR
+
+echo "Successfully completed build script for $IMAGE_DIR"

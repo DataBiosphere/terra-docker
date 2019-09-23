@@ -1,0 +1,5 @@
+terra-jupyter-base
+terra-jupyter-bioconductor
+terra-jupyter-hail
+terra-jupyter-python
+terra-jupyter-r
