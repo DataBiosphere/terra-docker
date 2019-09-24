@@ -139,6 +139,13 @@ def FilePath createFilePath(String path) {
     }
 }
 
+def abortBuild() {
+  currentBuild.setResult('ABORTED')
+  currentBuild.setDescription("No image changes detected. Aborting the build.")
+  shouldAbortBuild = true
+  sh "exit 0"
+}
+
 pipeline {
     //fixes this job to a specific node since some slaves have older versions of docker that cause problems
    agent { label 'node210' }
@@ -181,10 +188,7 @@ pipeline {
           def ArrayList<String> changedImageDirs = getChangedImages()
 
           if (changedImageDirs.isEmpty()) {
-              currentBuild.setResult('ABORTED')
-              currentBuild.setDescription("No image changes detected. Aborting the build.")
-              shouldAbortBuild = true
-              sh "exit 0"
+            abortBuild()
           }
 
           buildAll(changedImageDirs)
@@ -216,6 +220,16 @@ pipeline {
         script {
           //even thought versionMap is global, we must pass it to the function here for some reason
           updateConfigHashes(versionMap)
+
+          def changesMade = sh(
+            script: "git diff",
+            returnStdout: true
+          )
+
+          //needed, because if a VERSION is not updated for all imageDirs with changes, the below git actions will cause the build to fail
+          if (changesMade.isEmpty()) {
+            abortBuild() 
+          }
         }
 
         sshagent(['jenkins-ssh-github']) {
