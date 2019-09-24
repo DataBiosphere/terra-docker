@@ -1,0 +1,26 @@
+name: Lint CI
+on: 
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  lint:
+    name: Lint on node ${{ matrix.node-version }}
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node_version: [8, 10, 12]
+
+    steps:
+    - uses: actions/checkout@v1
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
+        
+    - name: linting
+      run: |
+        cd terra-jupyter-base/custom
+        npm install
+        node_modules/.bin/eslint --fix *.js
