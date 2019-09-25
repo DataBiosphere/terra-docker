@@ -12,7 +12,10 @@ RUN apt-get update && apt-get -yq dist-upgrade \
         liblz4-dev \
     && pip3 install pypandoc \
     && pip3 install hail==0.2.1 \
-    && find $JUPYTER_HOME/scripts -name '*.sh' -type f | xargs chmod +x
+    && mkdir -p /etc/spark/conf.dist && mkdir -p /etc/hadoop/conf.empty && mkdir -p /etc/hive/conf.dist    \
+    && update-alternatives --install /etc/spark/conf spark-conf /etc/spark/conf.dist 100 \ 
+    && update-alternatives --install /etc/hadoop/conf hadoop-conf /etc/hadoop/conf.empty 100 \
+    && update-alternatives --install /etc/hive/conf hive-conf /etc/hive/conf.dist 100
 
 ENV PIP_USER=true
 USER $USER
