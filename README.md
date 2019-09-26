@@ -18,10 +18,20 @@ chmod 755 .git/hooks/apply-git-secrets.sh
 ```
 
 ## Generate New Image
-- Update VERSION file
-- Update CHANGELOG.md
-- Follow [instructions](https://broadworkbench.atlassian.net/wiki/spaces/AP/pages/100401153/Testing+notebook+functionality+with+Fiab) to test the image
-- Run jenkins job for publishing the image (TBD)
+If you are adding a new image:
+    - Create a new directory with the Dockerfile, a VERSION file and a CHANGELOG.md. 
+    - Add the directory name to the file jenkins/imageDirs.txt 
+    - Add your directory name to the array(s) R_IMAGES and/or PYTHON_IMAGES at the top of build.sh based on which packages are relevant to document
+
+If you are updating an existing image:
+    - Update VERSION file
+    - Update CHANGELOG.md
+    - Follow [instructions](https://broadworkbench.atlassian.net/wiki/spaces/AP/pages/100401153/Testing+notebook+functionality+with+Fiab) to test the image
+    - Once you merge a PR, A jenkins job will automatically detect which image you have updated and build it + generate documentation. 
+
+If you wish to build locally, run `docker build [your_dir] -t [name]`. 
+
+It is not advised to run build.sh locally, as this will push to the remote docker repo and delete the image locally upon completion.  
 
 ## Testing your image manually
 - In a terminal, do `gcloud auth login` and follow the instructions to authenticate with a google account that has appropriate permissions in Terra
