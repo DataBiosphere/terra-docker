@@ -36,13 +36,14 @@ else
     exit 14
 fi
 
+# will fail if you are not gcloud authed as dspci-wb-gcr-service-account
+docker run --rm  -v ~/.vault-token:/root/.vault-token:ro broadinstitute/dsde-toolbox:latest vault read --format=json secret/dsde/dsp-techops/common/dspci-wb-gcr-service-account.json | jq .data > dspci-wb-gcr-service-account.json
+gcloud auth activate-service-account --key-file=dspci-wb-gcr-service-account.json
+
 docker image build ./$IMAGE_DIR --tag $REPO/$IMAGE_DIR:$TAG_NAME --tag $REPO/$IMAGE_DIR:$VERSION \
     && docker push $REPO/$IMAGE_DIR:$TAG_NAME \
     && docker push $REPO/$IMAGE_DIR:$VERSION
 
-# will fail if you are not gcloud authed as dspci-wb-gcr-service-account
-    docker run --rm  -v ~/.vault-token:/root/.vault-token:ro broadinstitute/dsde-toolbox:latest vault read --format=json secret/dsde/dsp-techops/common/dspci-wb-gcr-service-account.json | jq .data > dspci-wb-gcr-service-account.json
-    gcloud auth activate-service-account --key-file=dspci-wb-gcr-service-account.json
 docker run --rm -itd -u root -e PIP_USER=false --entrypoint='/bin/bash' --name $IMAGE_DIR $REPO/$IMAGE_DIR:$TAG_NAME
 
 PYTHON_OUTPUT_FILE="$IMAGE_DIR-$VERSION-python-packages.txt"
