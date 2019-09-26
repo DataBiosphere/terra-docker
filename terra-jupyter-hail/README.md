@@ -1,6 +1,7 @@
 # terra-jupyter-hail image
 
-This repo contains the terra-jupyter-r image that is compatible with notebook service in [Terra]("https://app.terra.bio/") called Leonardo. For example, use `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-r:{version}` in terra.
+This image DOES NOT work properly yet. Use `us.gcr.io/broad-dsp-gcr-public/leonardo-jupyter:prod` instead if you'd like to use hail on Terra.
+This repo contains the terra-jupyter-hail image that is compatible with notebook service in [Terra]("https://app.terra.bio/") called Leonardo. For example, use `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-hail:{version}` in terra.
 
 ## Image contents
 
