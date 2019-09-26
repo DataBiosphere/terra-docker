@@ -42,7 +42,7 @@ gcloud auth activate-service-account --key-file=dspci-wb-gcr-service-account.jso
 
 docker image build ./$IMAGE_DIR --tag $REPO/$IMAGE_DIR:$TAG_NAME --tag $REPO/$IMAGE_DIR:$VERSION \
     && docker push $REPO/$IMAGE_DIR:$TAG_NAME \
-    && docker push $REPO/$IMAGE_DIR:$VERSIONq
+    && docker push $REPO/$IMAGE_DIR:$VERSION
 
 docker run --rm -itd -u root -e PIP_USER=false --entrypoint='/bin/bash' --name $IMAGE_DIR $REPO/$IMAGE_DIR:$VERSION
 
