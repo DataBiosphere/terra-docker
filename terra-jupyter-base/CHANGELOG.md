@@ -1,4 +1,4 @@
-## 0.0.1 - 08/21/2018
+## 0.0.1 - 08/21/2019
 
 - Extends Ubuntu base image
 - Add google-cloud-sdk

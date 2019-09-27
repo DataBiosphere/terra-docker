@@ -14,3 +14,5 @@
 | tensorflow | 1.9.0 | 2.0.0a0 |
 | certifi |	2016.2.28 | 2017.4.17 |
 | google-cloud-bigquery | 1.7.0 | 1.9.0 |
+
+Image URL: us.gcr.io/broad-dsp-gcr-public/terra-jupyter-python:0.0.1
