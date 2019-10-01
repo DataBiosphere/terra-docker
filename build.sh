@@ -2,8 +2,8 @@
 # Run `gcloud auth configure-docker --quiet` before running this script
 # Example: ./build.sh terra-jupyter-base
 
-PYTHON_IMAGES=("terrra-jupyter-hail" "terra-jupyter-python" "terra-jupyter-base" "terra-jupyter-bioconductor")
-R_IMAGES=("terra-jupyter-r", "terra-jupyter-bioconductor")
+PYTHON_IMAGES=("terra-jupyter-hail" "terra-jupyter-python" "terra-jupyter-base" "terra-jupyter-bioconductor" "terra-jupyter-gatk")
+R_IMAGES=("terra-jupyter-r" "terra-jupyter-bioconductor" "terra-jupyter-gatk")
 
 function contains() {
     local n=$#
@@ -28,9 +28,9 @@ DOCUMENTATION_BUCKET="gs://terra-docker-image-documentation"
 IMAGE_EXISTS=$(gcloud container images list-tags $REPO/$IMAGE_DIR | grep $VERSION)
 
 if [ -z "$IMAGE_EXISTS" ]
-then 
+then
     echo "An image for this version does not exist. Proceeding with build"
-else 
+else
     echo "An image for the version you are trying to build already exists. Ensure you have updated the VERSION file."
     #unreserved exit code for checking in jenkins
     exit 14
