@@ -3,9 +3,15 @@ This repo provides docker images for running jupyter notebook in [Terra](https:/
 # Terra Base Images
 [terra-jupyter-base](terra-jupyter-base/README.md)
 
+[terra-jupyter-python](terra-jupyter-python/README.md)
+
 [terra-jupyter-r](terra-jupyter-r/README.md)
 
 [terra-jupyter-hail](terra-jupyter-hail/README.md)
+
+[terra-jupyter-gatk](terra-jupyter-gatk/README.md)
+
+[terra-jupyter-bioconductor](terra-jupyter-bioconductor/README.md)
 
 # How to create your own terra images
 * Add `FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-base:0.0.1` to your dockerfile (`terra-jupyter-base` is the smallest image you can extend from)
