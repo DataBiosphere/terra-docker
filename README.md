@@ -37,15 +37,16 @@ chmod 755 .git/hooks/apply-git-secrets.sh
 
 ## Generate New Image
 If you are adding a new image:
-    - Create a new directory with the Dockerfile, a VERSION file and a CHANGELOG.md. 
-    - Add the directory name to the file jenkins/imageDirs.txt 
-    - Add your directory name to the array(s) R_IMAGES and/or PYTHON_IMAGES at the top of build.sh based on which packages are relevant to document
+- Create a new directory with the Dockerfile, a VERSION file and a CHANGELOG.md. 
+- Add the directory name to the file jenkins/imageDirs.txt 
+- Add your directory name to the array(s) R_IMAGES and/or PYTHON_IMAGES at the top of build.sh based on which packages are relevant to document
 
 If you are updating an existing image:
-    - Update VERSION file
-    - Update CHANGELOG.md
-    - Follow [instructions](https://broadworkbench.atlassian.net/wiki/spaces/AP/pages/100401153/Testing+notebook+functionality+with+Fiab) to test the image
-    - Once you merge a PR, A [jenkins job](https://fc-jenkins.dsp-techops.broadinstitute.org/job/leonardo-build-terra-docker/) will automatically detect which image you have updated and build it + generate documentation. 
+- Update VERSION file
+- Update CHANGELOG.md
+- Ensure that no `From` statements need to be updated based on the image you updated (i.e., if you update the base image, you will need to update several other images)
+- Follow [instructions](https://broadworkbench.atlassian.net/wiki/spaces/AP/pages/100401153/Testing+notebook+functionality+with+Fiab) to test the image
+- Once you merge a PR, A [jenkins job](https://fc-jenkins.dsp-techops.broadinstitute.org/job/leonardo-build-terra-docker/) will automatically detect which image you have updated and build it + generate documentation. 
 
 If you wish to build locally, run `docker build [your_dir] -t [name]`. 
 
