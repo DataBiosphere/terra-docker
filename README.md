@@ -45,7 +45,7 @@ If you are updating an existing image:
     - Update VERSION file
     - Update CHANGELOG.md
     - Follow [instructions](https://broadworkbench.atlassian.net/wiki/spaces/AP/pages/100401153/Testing+notebook+functionality+with+Fiab) to test the image
-    - Once you merge a PR, A jenkins job will automatically detect which image you have updated and build it + generate documentation. 
+    - Once you merge a PR, A [jenkins job](https://fc-jenkins.dsp-techops.broadinstitute.org/job/leonardo-build-terra-docker/) will automatically detect which image you have updated and build it + generate documentation. 
 
 If you wish to build locally, run `docker build [your_dir] -t [name]`. 
 
