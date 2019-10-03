@@ -1,1 +1,5 @@
+<<<<<<< HEAD
+lol
+=======
 Python 3.7.4
+>>>>>>> df3dcd882d59bee1a08ce9dc003e360666604e2c
