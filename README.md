@@ -13,13 +13,15 @@ This repo provides docker images for running jupyter notebook in [Terra](https:/
 
 [terra-jupyter-bioconductor](terra-jupyter-bioconductor/README.md)
 
-# How to create your own terra images
-* Add `FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-base:0.0.1` to your dockerfile (`terra-jupyter-base` is the smallest image you can extend from)
-* Customize your image (see the [terra-jupyter-python](terra-jupyter-python/Dockerfile) dockerfile for an example)
+# How to create your own Custom image to use with notebooks on Terra
+Custom docker images need to use a Terra base image (see above) in order to work with the service that runs notebooks on Terra
+* You can use any of the base images above
+* Here is an example of how to build off of a base image: Add `FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-base:0.0.1` to your dockerfile (`terra-jupyter-base` is the smallest image you can extend from)
+* Customize your image (see the [terra-jupyter-python](terra-jupyter-python/Dockerfile) dockerfile for an example of how to extend from one of our base images
 * Publish the image to either GCR or Dockerhub; the image must be public to be used
-* Use the published image path when creating notebook runtime
-* Dockerhub path example: [image name]:[tag]
-* GCR path examppe: us.gcr.io/repository/[image name]:[tag]
+* Use the published container image location when creating notebook runtime
+* Dockerhub image example: [image name]:[tag]
+* GCR image example: us.gcr.io/repository/[image name]:[tag]
     
 
 # Development
