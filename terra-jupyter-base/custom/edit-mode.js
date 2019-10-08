@@ -195,7 +195,7 @@ define(() => {
             handleCheckMetaResp(res); // displays modal if theres an issue in the payload
             //if its not the first time we are acquiring lock, wait half the time until next check meta call before calling this.
             waitTime = shouldStaggerCalls ? lastLockedTimer / 2 : 0
-            setTimeout(getLock(res), waitTime); // gets lock if in edit mode
+            setTimeout(() => getLock(res), waitTime); // gets lock if in edit mode
         }
         renderModeBanner(isEditMode); // sets edit/safe mode banner
     }
