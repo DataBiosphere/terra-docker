@@ -142,7 +142,7 @@ define(() => {
                 return res.json();
             })
             .then((res) => {
-                handleMetaSuccess(res, shouldStaggerCalls);
+                handleMetaSuccess(res);
                 return res;
             })
             .catch((err) => {
@@ -189,7 +189,7 @@ define(() => {
         }
     }
 
-    function handleMetaSuccess(res, shouldStaggerCalls) {
+    function handleMetaSuccess(res) {
         toggleMetaFailureBanner(false); // sets banner for meta status
 
         const isEditMode = res.syncMode == 'EDIT';
