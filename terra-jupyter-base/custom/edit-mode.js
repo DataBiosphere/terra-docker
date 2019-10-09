@@ -196,7 +196,7 @@ define(() => {
 
         if (isEditMode) {
             handleCheckMetaResp(res); // displays modal if theres an issue in the payload
-            getLock(res) // gets lock if in edit mode
+            getLock(res); // gets lock if in edit mode
         }
         renderModeBanner(isEditMode); // sets edit/safe mode banner
     }
