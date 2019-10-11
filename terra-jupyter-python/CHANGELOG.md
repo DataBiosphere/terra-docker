@@ -1,3 +1,7 @@
+## 0.0.2 - 10/10/2019
+
+Use jupyter base image 0.0.3
+
 ## 0.0.1 - 08/28/2019
 
 - added pandas-gqb

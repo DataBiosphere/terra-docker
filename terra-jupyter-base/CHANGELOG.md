@@ -1,3 +1,12 @@
+
+## 0.0.3 - 10/09/2019
+
+Check Metadata and lock interval on extension are now staggered
+
+## 0.0.2 - 10/01/2019
+
+Lint the .js extension files
+
 ## 0.0.1 - 08/21/2019
 
 - Extends Ubuntu base image

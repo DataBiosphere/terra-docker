@@ -107,7 +107,10 @@ define(() => {
         }
 
         checkMeta();
-        initSyncMaintainer();
+
+        const initialSyncDelay = 27000;
+        //we want subsequent checkMeta + lock calls to be off-cycle of autosave
+        setTimeout(() => initSyncMaintainer(), initialSyncDelay);
     }
 
     function initSyncMaintainer() {

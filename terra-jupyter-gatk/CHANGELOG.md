@@ -1,3 +1,7 @@
+## 0.0.2 - 10/10/2019
+
+Use version 0.0.2 of python image
+
 ## 0.0.1 - 09/24/2019
 
 - added all from terra-jupyter-python:0.0.1
