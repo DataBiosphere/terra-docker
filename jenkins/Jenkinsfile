@@ -5,7 +5,7 @@ import jenkins.model.Jenkins
 //branch name we will create in leo. Will be appended with the build number.
 def branchName = "automated-leonardo-hash-update-"
 
-def prBody = "Automated terra-docker image hash update [jenkins-generated-message]"
+def prBody = "[jenkins-generated-pr] Automated terra-docker image hash update"
 
 //used to exit early if no changes are detected
 def shouldAbortBuild = false
