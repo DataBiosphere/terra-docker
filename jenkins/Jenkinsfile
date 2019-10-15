@@ -34,7 +34,7 @@ def ArrayList<String> getChangedImages() {
 def Boolean hasImageChanged(dir) {
   def String output = sh (
     //TODO revert
-        script: "git diff HEAD..HEAD~40 $dir",
+        script: "git diff HEAD..HEAD~10 $dir",
         returnStdout: true
   ).trim()
 
