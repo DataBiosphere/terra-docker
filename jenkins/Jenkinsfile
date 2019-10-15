@@ -168,7 +168,9 @@ pipeline {
      
     stage('Terra Docker Git') {
       steps {
-        git credentialsId: 'jenkins-ssh-github', url: 'git@github.com:DataBiosphere/terra-docker.git', branch: 'master'
+
+        //TODO revert
+        git credentialsId: 'jenkins-ssh-github', url: 'git@github.com:DataBiosphere/terra-docker.git', branch: 'jc-update-jenkinsfile'
       }
     }
 
