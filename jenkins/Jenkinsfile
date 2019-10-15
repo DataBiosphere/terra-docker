@@ -5,8 +5,12 @@ import jenkins.model.Jenkins
 //branch name we will create in leo. Will be appended with the build number.
 def branchName = "automated-leonardo-hash-update-"
 
+def prBody = "Automated terra-docker image hash update [jenkins-generated-message]"
+
 //used to exit early if no changes are detected
 def shouldAbortBuild = false
+
+def prLink = ""
 
 //declared in outer scope so it persists between steps
 //omitting the 'def' is what makes it global
@@ -29,7 +33,8 @@ def ArrayList<String> getChangedImages() {
 
 def Boolean hasImageChanged(dir) {
   def String output = sh (
-        script: "git diff HEAD..HEAD~1 $dir",
+    //TODO revert
+        script: "git diff HEAD..HEAD~40 $dir",
         returnStdout: true
   ).trim()
 
@@ -142,7 +147,6 @@ def FilePath createFilePath(String path) {
 def abortBuild() {
   currentBuild.setResult('ABORTED')
   currentBuild.setDescription("No image changes detected. Aborting the build.")
-  shouldAbortBuild = true
   sh "exit 0"
 }
 
@@ -189,9 +193,11 @@ pipeline {
 
           if (changedImageDirs.isEmpty()) {
             abortBuild()
+            shouldAbortBuild = true
           }
-
-          buildAll(changedImageDirs)
+          
+          //TODO REVERT
+          // buildAll(changedImageDirs)
           //this is maintained as state between stages
           versionMap = getVersionMap(changedImageDirs)
         }
@@ -213,10 +219,6 @@ pipeline {
       when { expression { !shouldAbortBuild } }
 
       steps {
-        sh """
-          git submodule init && git submodule update
-        """
-
         script {
           //even thought versionMap is global, we must pass it to the function here for some reason
           updateConfigHashes(versionMap)
@@ -228,17 +230,51 @@ pipeline {
 
           //needed, because if a VERSION is not updated for all imageDirs with changes, the below git actions will cause the build to fail
           if (changesMade.isEmpty()) {
-            abortBuild() 
+            abortBuild()
+            shouldAbortBuild = true 
           }
         }
 
         sshagent(['jenkins-ssh-github']) {
           sh """
+            git config --global user.name "Jenkins Role account"
+            git config --global user.email jenkins@dsp-fc-jenkins-slave-prod210.c.broad-dsp-techops.internal
+
             git checkout -b $branchName${BUILD_NUMBER}
             git commit -m "automated config hash updates"
             git push origin $branchName${BUILD_NUMBER}
           """
         }
+         
+      }
+    }
+
+    stage('Create PR') {
+       when { expression { !shouldAbortBuild } }
+
+      steps {
+         withCredentials([file(credentialsId: 'hub-token', variable: 'token')]) {
+          sh """
+            docker pull us.gcr.io/broad-dsp-gcr-public/hub:1
+            docker rm -f hub-runtime | true
+
+            docker run -itd --name=hub-runtime -u root -v ${WORKSPACE}:/app/leo us.gcr.io/broad-dsp-gcr-public/hub:1 
+            docker cp \$token hub-runtime:/home/dsde-jenkins/.config/hub
+            docker exec hub-runtime sudo chmod 777 /home/dsde-jenkins/.config/hub
+          """
+        }
+
+        script {
+             prLink = sh(
+              script: "docker exec --user dsde-jenkins hub-runtime hub pull-request -m \"$prBody\"",
+              returnStdout: true
+            ).trim()
+        }
+
+        sh """
+          docker stop hub-runtime
+          docker rm -f hub-runtime | true
+        """
       }
     }
 
@@ -248,8 +284,9 @@ pipeline {
       when { expression { !shouldAbortBuild } }
 
       steps {
-        slackSend(channel: '#dsp-callisto-internal', message: "Jenkins has successfully created a branch with the updated terra-docker hashes.\n" + 
-         "https://github.com/DataBiosphere/leonardo/pull/new/$branchName${BUILD_NUMBER}")
+        //TODO revert dsp-callisto-internal
+        slackSend(channel: '#newrelictest', message: "Jenkins has successfully built images and created a PR with the updated terra-docker hashes.\n" + 
+         "\nIf you would like to check the status of the PR, click: $prLink")
       }
     }
      
