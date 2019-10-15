@@ -13,10 +13,10 @@ TAG_NAME=$(git log --pretty=format:'%h' -n 1)
 REPO="us.gcr.io/broad-dsp-gcr-public"
 DOCUMENTATION_BUCKET="gs://terra-docker-image-documentation"
 
-IMAGE_EXISTS=$(gcloud container images list-tags $REPO/$IMAGE_DIR | grep $VERSION)
+#for some reason, this command fails if the script is in strict mode because grep not finding something exits with 1
+IMAGE_EXISTS=$(gcloud container images list-tags $REPO/$IMAGE_DIR | grep $VERSION) | true
 
-if [ -z "$IMAGE_EXISTS" ]
-then
+if [ -z "$IMAGE_EXISTS" ]; then
     echo "An image for this version does not exist. Proceeding with build"
 else
     echo "An image for the version you are trying to build already exists. Ensure you have updated the VERSION file."
