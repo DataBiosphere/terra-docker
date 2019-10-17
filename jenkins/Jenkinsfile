@@ -1,3 +1,10 @@
+//Builds the images in the terra-docker repo.
+
+// Currently, this is referenced in a jenkins job with the following configuration:
+// Create a 'New Item' that is a Pipeline in Jenkins
+// Specify Pipeline script from SCM with the scm for terra-docker and the appropriate branch
+// Script Path should be the location of this file relative to the repo root
+
 import hudson.model.*
 import hudson.FilePath
 import jenkins.model.Jenkins
