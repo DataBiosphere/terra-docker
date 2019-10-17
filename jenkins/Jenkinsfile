@@ -67,8 +67,7 @@ def LinkedHashSet<String> getSortedChangedImages() {
 
 def Boolean hasImageChanged(String dir) {
   def String output = sh (
-    //TODO revert
-        script: "git diff HEAD..HEAD~10 $dir",
+        script: "git diff HEAD..HEAD~1 $dir",
         returnStdout: true
   ).trim()
 
@@ -345,8 +344,7 @@ pipeline {
       when { expression { !shouldAbortBuild } }
 
       steps {
-        //TODO revert dsp-callisto-internal
-        slackSend(channel: '#newrelictest', message: "Jenkins has successfully built images and created a PR with the updated terra-docker hashes.\n" + 
+        slackSend(channel: '#dsp-callisto-internal', message: "Jenkins has successfully built images and created a PR with the updated terra-docker hashes.\n" + 
          "\nIf you would like to check the status of the PR, click: $prLink")
       }
     }
