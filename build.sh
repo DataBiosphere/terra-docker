@@ -3,7 +3,7 @@
 # Example: ./build.sh terra-jupyter-base
 set -e -x
 
-PYTHON_IMAGES="terra-jupyter-hail terra-jupyter-python terra-jupyter-base terra-jupyter-bioconductor terra-jupyter-gatk"
+PYTHON_IMAGES="terra-jupyter-hail terra-jupyter-python terra-jupyter-base terra-jupyter-bioconductor"
 R_IMAGES="terra-jupyter-r terra-jupyter-bioconductor terra-jupyter-gatk"
 
 IMAGE_DIR=$1
