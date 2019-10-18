@@ -1,3 +1,9 @@
+## 0.0.3 - 10/18/2019
+- Update `terra-jupyter-r` version to `0.0.4`
+
+`Image URL: us.gcr.io/broad-dsp-gcr-public/terra-jupyter-bioconductor:0.0.3`
+
+
 ## 0.0.2 - 09/04/2019
 - Install python packages needed for BiocSklearn, Rcwl.
 - Install python3.7-dev for headers required to compile python modules.
