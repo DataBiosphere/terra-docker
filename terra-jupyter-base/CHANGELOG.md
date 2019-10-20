@@ -1,6 +1,7 @@
 ## 0.0.4 - 10/18/2019
 
 - Fix a bug in google_sign_in.js
+- Fix WORKSPACE_NAME environment variable
   
 Image URL: us.gcr.io/broad-dsp-gcr-public/terra-jupyter-base:0.0.4
 
