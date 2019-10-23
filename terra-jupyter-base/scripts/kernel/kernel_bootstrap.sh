@@ -13,6 +13,6 @@
 
 # The workspace name is simply the CWD of the running notebook.
 PWD="$(pwd)"
-export WORKSPACE_NAME=`basename "$(dirname $(pwd)")`
+export WORKSPACE_NAME=`basename "$(dirname $(pwd))"`
 
 exec "$@"
