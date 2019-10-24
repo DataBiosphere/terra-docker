@@ -25,32 +25,10 @@ def prLink = ""
 //omitting the 'def' is what makes it global
 LinkedHashMap<String, String> versionMap = [:]
 
-  //the thing sorted is assumed to be a set here
-
-
-//we must sort using this unconventional approach until this issue is resolved: https://issues.jenkins-ci.org/browse/JENKINS-44924
-def LinkedHashSet<String> getSortedSet(Collection<String> imageSet) {
-  def sortedSet = new LinkedHashSet<String>();
-  def ArrayList<String> priorityOrder = ["terra-jupyter-base", "terra-jupyter-python", "terra-jupyter-r"]
-  
-  for (String priorityImage in priorityOrder) {
-    if (imageSet.contains(priorityImage)) {
-      sortedSet.add(priorityImage)
-      imageSet.remove(priorityImage)
-    }
-  }
-
-  sortedSet.addAll(imageSet)
-
-  return sortedSet;
-}
 
 def LinkedHashSet<String> getSortedChangedImages() {
   def String[] images = readFile("jenkins/imageDirs.txt").trim().split("\n")
 
-  //Ensures the base images which may be used to build other images are built first.
-  //The order they will be sorted is terra-jupyter-base -> terra-jupyter-python -> terra-jupyter-r -> [...tail]
-  //If any of those images aren't present, the other will move up in the order
   def LinkedHashSet<String> filteredImages = new LinkedHashSet<String>();
   //we must use a c-style loop due to jenkins serialization, aka https://www.devopscat.tech/2018/10/what-is-noncps-in-jenkins-pipeline/
   for (String currImage in images) {
@@ -74,6 +52,26 @@ def Boolean hasImageChanged(String dir) {
   return !output.isEmpty()
 }
 
+//we must sort using this unconventional approach until this issue is resolved: https://issues.jenkins-ci.org/browse/JENKINS-44924
+  //Ensures the base images which may be used to build other images are built first.
+  //The order they will be sorted is terra-jupyter-base -> terra-jupyter-python -> terra-jupyter-r -> [...tail]
+  //If any of those images aren't present, the other will move up in the order
+def LinkedHashSet<String> getSortedSet(Collection<String> imageSet) {
+  def sortedSet = new LinkedHashSet<String>();
+  def ArrayList<String> priorityOrder = ["terra-jupyter-base", "terra-jupyter-python", "terra-jupyter-r"]
+  
+  for (String priorityImage in priorityOrder) {
+    if (imageSet.contains(priorityImage)) {
+      sortedSet.add(priorityImage)
+      imageSet.remove(priorityImage)
+    }
+  }
+
+  sortedSet.addAll(imageSet)
+
+  return sortedSet;
+}
+
 def void buildAll(LinkedHashSet<String> imageDirs) {
   for (String imageDir in imageDirs) {
     buildImage(imageDir)
@@ -84,7 +82,6 @@ def void buildImage(String imageDir) {
   def workingDir = pwd()
   sh "echo 'building the following image: $imageDir'"
   def exitCode = sh(
-    //; echo \"the build code was: \$?\""
     script: "$workingDir/build.sh $imageDir 2>&1",
     returnStatus: true
   )
