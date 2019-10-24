@@ -6,9 +6,6 @@ USER root
 #######################
 # Prerequisites
 #######################
-ENV DEBIAN_FRONTEND noninteractive
-ENV CRAN_REPO http://cran.mtu.edu
-
 RUN apt-get update && apt-get -yq dist-upgrade \
  && apt-get install -yq --no-install-recommends \
 
