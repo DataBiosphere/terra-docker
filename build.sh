@@ -1,22 +1,10 @@
 #!/bin/bash
 # Run `gcloud auth configure-docker --quiet` before running this script
 # Example: ./build.sh terra-jupyter-base
+set -e -x
 
-PYTHON_IMAGES="terra-jupyter-hail terra-jupyter-python terra-jupyter-base terra-jupyter-bioconductor terra-jupyter-gatk"
+PYTHON_IMAGES="terra-jupyter-hail terra-jupyter-python terra-jupyter-base terra-jupyter-bioconductor"
 R_IMAGES="terra-jupyter-r terra-jupyter-bioconductor terra-jupyter-gatk"
-
-function contains() {
-    local n=$#
-    local value=${!n}
-    for ((i=1;i < $#;i++)) {
-        if [ "${!i}" == "${value}" ]; then
-            echo "true"
-            return 0
-        fi
-    }
-    echo "false"
-    return 1
-}
 
 IMAGE_DIR=$1
 VERSION=$(cat $IMAGE_DIR/VERSION)
@@ -25,10 +13,10 @@ TAG_NAME=$(git log --pretty=format:'%h' -n 1)
 REPO="us.gcr.io/broad-dsp-gcr-public"
 DOCUMENTATION_BUCKET="gs://terra-docker-image-documentation"
 
-IMAGE_EXISTS=$(gcloud container images list-tags $REPO/$IMAGE_DIR | grep $VERSION)
+#for some reason, this command fails if the script is in strict mode because grep not finding something exits with 1
+IMAGE_EXISTS=$(gcloud container images list-tags $REPO/$IMAGE_DIR | grep $VERSION) | true
 
-if [ -z "$IMAGE_EXISTS" ]
-then
+if [ -z "$IMAGE_EXISTS" ]; then
     echo "An image for this version does not exist. Proceeding with build"
 else
     echo "An image for the version you are trying to build already exists. Ensure you have updated the VERSION file."
@@ -36,8 +24,13 @@ else
     exit 14
 fi
 
+VAULT_LOCATION=~/.vault-token
+if [[ $VAULT_LOCATION == *"jenkins"* ]]; then
+    VAULT_LOCATION="/etc/vault-token-dsde"
+fi
+
 # will fail if you are not gcloud authed as dspci-wb-gcr-service-account
-docker run --rm  -v ~/.vault-token:/root/.vault-token:ro broadinstitute/dsde-toolbox:latest vault read --format=json secret/dsde/dsp-techops/common/dspci-wb-gcr-service-account.json | jq .data > dspci-wb-gcr-service-account.json
+docker run --rm  -v $VAULT_LOCATION:/root/.vault-token:ro broadinstitute/dsde-toolbox:latest vault read --format=json secret/dsde/dsp-techops/common/dspci-wb-gcr-service-account.json | jq .data > dspci-wb-gcr-service-account.json
 gcloud auth activate-service-account --key-file=dspci-wb-gcr-service-account.json
 
 docker image build ./$IMAGE_DIR --tag $REPO/$IMAGE_DIR:$TAG_NAME --tag $REPO/$IMAGE_DIR:$VERSION \
