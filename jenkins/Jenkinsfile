@@ -27,7 +27,10 @@ LinkedHashMap<String, String> versionMap = [:]
 
 
 def LinkedHashSet<String> getSortedChangedImages() {
-  def String[] images = readFile("jenkins/imageDirs.txt").trim().split("\n")
+  def String[] images = sh( 
+    script: "cat config/conf.json | jq -r '.image_data | .[] | select(.automated_flags.build == true) | .name'",
+    returnStdout: true
+  ).trim().split("\n")
 
   def LinkedHashSet<String> filteredImages = new LinkedHashSet<String>();
   //we must use a c-style loop due to jenkins serialization, aka https://www.devopscat.tech/2018/10/what-is-noncps-in-jenkins-pipeline/
@@ -109,7 +112,9 @@ def LinkedHashMap<String, String> getVersionMap(LinkedHashSet<String> imageDirs)
   for (String currImageDir in imageDirs) {
     def workingDir = pwd()
     def version = sh(
-      script: "cat $workingDir/$currImageDir/VERSION",
+      script: """
+        cat config/conf.json | jq -r ".image_data | .[] | select(.name == \"$currImageDir\") | .version"
+      """,
       returnStdout: true
     ).trim()
     versionMap[currImageDir] = version
