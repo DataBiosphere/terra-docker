@@ -15,28 +15,21 @@ def main():
 
 def generate_docs():
   docs = []
+
+  #filter for images in the conf that have the generate_docs flag set to true
   image_configs = filter(lambda image: image["automated_flags"]["generate_docs"] == True, config["image_data"])
 
   for image_config in image_configs:
       doc = generate_doc_for_image(image_config)
       docs.append(doc)
-    
 
   docs.append(get_static_legacy_doc())
   return docs
 
-def get_image_dirs():
-  image_dirs = []
-  
-  with open("jenkins/imageDirs.txt") as dir_file:
-    for line in dir_file:
-      image_dirs.append(line.strip())
-
-  return image_dirs
-
 def generate_doc_for_image(image_config):
   version = image_config["version"]
   image_dir = image_config["name"]
+  
   doc = {
     "label": get_doc_label(image_config, version),
     "version": version,
@@ -67,7 +60,6 @@ def get_doc_label(image_config, version):
 
 def get_doc_link(image_dir):
   link = f"{config['storage_api']}/{config['doc_bucket_no_prefix']}/{image_dir}-{config['doc_suffix']}"
-
   return link
 
 # will be in YYYY-MM-DD format, which is what terra ui wants
@@ -90,29 +82,4 @@ def get_static_legacy_doc():
 
 if __name__ == "__main__":
   main()
-
-
-
-#   export const leoImages = [
-#   {
-#     label: 'Default (Python 3.6.8, R 3.5.2, Hail 0.2.11)',
-#     version: 'FINAL',
-#     updated: '2019-08-26',
-#     packages: {
-#       python: 'https://storage.googleapis.com/terra-docker-image-documentation/leonardo-jupyter-dev-python-packages.txt',
-#       r: 'https://storage.googleapis.com/terra-docker-image-documentation/leonardo-jupyter-dev-r-packages.txt',
-#       tools: 'https://storage.googleapis.com/terra-docker-image-documentation/leonardo-jupyter-dev-system-packages.txt'
-#     },
-#     image: 'us.gcr.io/broad-dsp-gcr-public/leonardo-jupyter:5c51ce6935da'
-#   },
-#   {
-#     label: 'Bioconductor (R 3.6.1, Bioconductor 3.9, Tidyverse 1.2.1)',
-#     version: '0.0.2',
-#     updated: '2019-09-06',
-#     packages: {
-#       python: 'https://storage.googleapis.com/terra-docker-image-documentation/terra-jupyter-bioconductor-0.0.2-python-packages.txt',
-#       r: 'https://storage.googleapis.com/terra-docker-image-documentation/terra-jupyter-bioconductor-0.0.2-r-packages.txt'
-#     },
-#     image: 'us.gcr.io/broad-dsp-gcr-public/terra-jupyter-bioconductor:0.0.2'
-#   }
-# ]
+  
