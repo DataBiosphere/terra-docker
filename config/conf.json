@@ -2,7 +2,8 @@
     "storage_api": "https://storage.googleapis.com",
     "tools": [
         "python",
-        "r"
+        "r",
+        "gatk"
     ],
     "version_master_file": "terra-docker-versions.json",
     "doc_suffix": "versions.json",
@@ -78,7 +79,7 @@
             "automated_flags": {
                 "generate_docs": false,
                 "build": true,
-                "include_in_custom_dataproc": true
+                "include_in_custom_dataproc": false
             }
         }
     ]

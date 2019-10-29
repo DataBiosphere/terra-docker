@@ -39,12 +39,11 @@ chmod 755 .git/hooks/apply-git-secrets.sh
 
 ## Generate New Image
 If you are adding a new image:
-- Create a new directory with the Dockerfile, a VERSION file and a CHANGELOG.md. 
-- Add the directory name to the file jenkins/imageDirs.txt 
-- Add your directory name to the array(s) R_IMAGES and/or PYTHON_IMAGES at the top of build.sh based on which packages are relevant to document
+- Create a new directory with the Dockerfile and a CHANGELOG.md. 
+- Add the directory name (also referred to as the image name) as an entry to the image_data array in the file in config/conf.json. For more info on what is needed for a new image, see the section on the config
 
 If you are updating an existing image:
-- Update VERSION file
+- Update the version in config/conf.json
 - Update CHANGELOG.md
 - Ensure that no `From` statements need to be updated based on the image you updated (i.e., if you update the base image, you will need to update several other images)
 - Follow [instructions](https://broadworkbench.atlassian.net/wiki/spaces/AP/pages/100401153/Testing+notebook+functionality+with+Fiab) to test the image
@@ -69,4 +68,44 @@ It is not advised to run build.sh locally, as this will push to the remote docke
 - Open the notebook and check if things work as expected
 
 ## Automation Tests
-[Here](https://github.com/DataBiosphere/leonardo/tree/develop/automation/src/test/scala/org/broadinstitute/dsde/workbench/leonardo/notebooks) are automation tests for various docker image, please update the image hash for relevant tests.
+[Here](https://github.com/DataBiosphere/leonardo/tree/develop/automation/src/test/scala/org/broadinstitute/dsde/workbench/leonardo/notebooks) are automation tests for various docker image, please update the image hash for relevant tests. You can run the job build-terra-docker to automatically create a PR with your branch if you manually specify versions.
+
+## Config
+
+There is a config file located at `config/conf.json` that contains the configuration used by all automated jobs and build scripts that interface with this repo. 
+
+There are some constants included, such as the tools supported by this repo. Of particular interest is the image_data array.
+
+Each time you update or add an image, you will need to update the appropriate entry in this array:
+```
+   {
+            "name": "terra-jupyter-base",           //the name of the image. should correspond to the directory it is located
+
+            "base_label": "Minimal",                //the base name used in the UI for this image. This is appended with some information about the packages in this image.
+
+            "tools": ["python"],                    //the tools present in this image. see the top-level "tools" array for valid entries. 
+                                                    //The significance of 'tools' is that there is expected to be an entry in the documentation specifying the version of this tool
+                                                    //If you wish to add a tool, you will need to add a handler to the function get_doc_builder in generate_package_documentation.py
+
+            "packages": [],                         //The packages that we wish to single out to display to the user at a later date. 
+                                                    //The difference between a package and a tool is that a tool can have a set of packages associated with it (i.e. pip packages for python)
+
+            "version": "0.0.4",                     //The current version the image is at
+
+            "automated_flags": {                    //Flags used as control flow for scripts
+
+                "generate_docs": true,              //Whether documentation should be auto-generated for this image. This is superceded by the build flag (i.e. if build=false, this flag is ignored)
+
+                "build": true,                      //Whether or not the jenkins job that builds the docker images in this repo should build this image
+
+                "include_in_custom_dataproc": true  //Whether or not the jenkins job that builds the custom dataproc image should include this image. 
+                                                    //This is superceded by the build flag
+            }
+        },
+```
+
+## Scripts
+
+The scripts folder has scripts used for building.
+- `generate_package_docs.py` is used to generate a .json with the versions for relevant packages in an image
+- `generate_version_docs.py` is used to generate a master versions file for the UI to look up the documentation for the current version
