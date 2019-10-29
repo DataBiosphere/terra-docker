@@ -78,30 +78,30 @@ There are some constants included, such as the tools supported by this repo. Of 
 
 Each time you update or add an image, you will need to update the appropriate entry in this array:
 ```
-   {
-            "name": "terra-jupyter-base",           //the name of the image. should correspond to the directory it is located
+{
+    "name": "terra-jupyter-base", //the name of the image. should correspond to the directory it is located
 
-            "base_label": "Minimal",                //the base name used in the UI for this image. This is appended with some information about the packages in this image.
+    "base_label": "Minimal",      //the base name used in the UI for this image. This is appended with some information about the packages in this image.
 
-            "tools": ["python"],                    //the tools present in this image. see the top-level "tools" array for valid entries. 
-                                                    //The significance of 'tools' is that there is expected to be an entry in the documentation specifying the version of this tool
-                                                    //If you wish to add a tool, you will need to add a handler to the function get_doc_builder in generate_package_documentation.py
+    "tools": ["python"],          //the tools present in this image. see the top-level "tools" array for valid entries. 
+                                  //The significance of 'tools' is that there is expected to be an entry in the documentation specifying the version of this tool
+                                  //If you wish to add a tool, you will need to add a handler to the function get_doc_builder in generate_package_documentation.py
 
-            "packages": [],                         //The packages that we wish to single out to display to the user at a later date. 
-                                                    //The difference between a package and a tool is that a tool can have a set of packages associated with it (i.e. pip packages for python)
+    "packages": [],               //The packages that we wish to single out to display to the user at a later date. 
+                                  //The difference between a package and a tool is that a tool can have a set of packages associated with it (i.e. pip packages for python)
 
-            "version": "0.0.4",                     //The current version the image is at
+    "version": "0.0.4",           //The current version the image is at
 
-            "automated_flags": {                    //Flags used as control flow for scripts
+    "automated_flags": {          //Flags used as control flow for scripts
 
-                "generate_docs": true,              //Whether documentation should be auto-generated for this image. This is superceded by the build flag (i.e. if build=false, this flag is ignored)
+        "generate_docs": true,    //Whether documentation should be auto-generated for this image. This is superceded by the build flag (i.e. if build=false, this flag is ignored)
 
-                "build": true,                      //Whether or not the jenkins job that builds the docker images in this repo should build this image
+        "build": true,            //Whether or not the jenkins job that builds the docker images in this repo should build this image
 
-                "include_in_custom_dataproc": true  //Whether or not the jenkins job that builds the custom dataproc image should include this image. 
-                                                    //This is superceded by the build flag
-            }
-        },
+        "include_in_custom_dataproc": true  //Whether or not the jenkins job that builds the custom dataproc image should include this image. 
+                                            //This is superceded by the build flag
+    }
+},
 ```
 
 ## Scripts
