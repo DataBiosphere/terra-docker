@@ -51,7 +51,7 @@
             "base_label": "Minimal",
             "tools": ["python"],
             "packages": [],
-            "version": "0.0.4",
+            "version": "test",
             "automated_flags": {
                 "generate_docs": true,
                 "build": true,
