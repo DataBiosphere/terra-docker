@@ -87,9 +87,9 @@ Each time you update or add an image, you will need to update the appropriate en
                                   //The significance of 'tools' is that there is expected to be an entry in the documentation specifying the version of this tool
                                   //If you wish to add a tool, you will need to add a handler to the function get_doc_builder in generate_package_documentation.py
 
-    "packages": [],               //The packages that we wish to single out to display to the user at a later date. 
+    "packages": { "python": ["pandas"] },               //The packages that we wish to single out to display to the user at a later date. 
                                   //The difference between a package and a tool is that a tool can have a set of packages associated with it (i.e. pip packages for python)
-
+                                  // A package  must have a tool associated with it
     "version": "0.0.4",           //The current version the image is at
 
     "automated_flags": {          //Flags used as control flow for scripts

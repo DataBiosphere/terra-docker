@@ -11,14 +11,17 @@ def read_json_file(file_name):
   
   return data
 
-def gsutil_cp(file, bucket):
- command = f"gsutil cp {file} {bucket}"
- subprocess.run(command, shell=True)
+def gsutil_cp(file, bucket, copy_to_remote=True):
+  if copy_to_remote:
+    command = f"gsutil cp {file} {bucket}"
+  else:
+    command = f"gsutil cp {bucket}/{file} {file}"
+  return shell_exec(command)
 
-def docker_exec(image_name, cmd):
-  command = f"docker exec {image_name} {cmd}"
+def docker_exec(image_name, command):
+  docker_command = f"docker exec {image_name} {command}"
+  return shell_exec(docker_command)
 
+def shell_exec(command):
   output = subprocess.check_output(command, shell=True)
   return output.decode('UTF-8').strip()
-
-  return data

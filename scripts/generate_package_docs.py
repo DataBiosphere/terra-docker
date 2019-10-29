@@ -20,13 +20,15 @@ def get_docs(params):
   tools = params.image_config["tools"]
   doc_builder = get_doc_builder()
 
-  docs = []
+  docs = {}
   for tool in tools:
-    doc = doc_builder[tool](params)
-    docs = docs + doc
+      #flattens the arrays of objects with packages:version key value pairs into single object with all key value pairs
+    docs[tool] = dict(ChainMap(*doc_builder[tool](params)))
+
+  print(f"docs: {docs}")
   
-  #flattens the arrays of objects with package:version key value pairs into single object with all key value pairs
-  return dict(ChainMap(*docs))
+
+  return docs
 
 def get_doc_builder():
   builder = {
@@ -85,7 +87,7 @@ def get_gatk_doc(params):
 class ParamProcessor():
 
   def __init__(self, params):
-    if not len(params) == 3:
+    if not len(params) == 2:
       raise ValueError(f"Usage: python generate_package_docs.py [STRING: image_dir], given: {params}")
 
     self.image_dir = argv[1]
@@ -103,4 +105,3 @@ class ParamProcessor():
 
 if __name__ == '__main__':
   main()
-  

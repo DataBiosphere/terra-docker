@@ -253,7 +253,10 @@ pipeline {
     stage('Build Images') {
       steps {
         script {
+          sh "python --version"
           buildAll(imagesToBuild)
+
+          sh "python script/generate_version_docs.py"
           //this is maintained as state between stages
           versionMap = getVersionMap(imagesToBuild)
         }
