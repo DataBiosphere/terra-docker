@@ -3,7 +3,9 @@
     "tools": [
         "python",
         "r",
-        "gatk"
+        "gatk",
+        "spark",
+        "samtools"
     ],
     "version_master_file": "terra-docker-versions.json",
     "doc_suffix": "versions.json",
