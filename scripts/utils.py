@@ -13,15 +13,21 @@ def read_json_file(file_name):
 
 def gsutil_cp(file, bucket, copy_to_remote=True):
   if copy_to_remote:
-    command = f"gsutil cp {file} {bucket}"
+    command = "gsutil cp {} {}".format(file, bucket)
   else:
-    command = f"gsutil cp {bucket}/{file} {file}"
+    command = "gsutil cp {}/{} {}".format(bucket, file, file)
   return shell_exec(command)
 
 def docker_exec(image_name, command):
-  docker_command = f"docker exec {image_name} {command}"
+  docker_command = "docker exec {} {}".format(image_name, command)
   return shell_exec(docker_command)
 
 def shell_exec(command):
   output = subprocess.check_output(command, shell=True)
   return output.decode('UTF-8').strip()
+
+def flatten_list_of_dicts(l):
+  flattened = {}
+  [flattened.update(item) for item in l]
+
+  return flattened

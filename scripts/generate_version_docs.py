@@ -1,6 +1,4 @@
-import subprocess
 import utils
-from collections import ChainMap
 
 def get_config(path):
   return utils.read_json_file(path)
@@ -22,15 +20,17 @@ def generate_docs():
   remote_docs = get_current_versions()
 
   #maps the current documentation to a map of {image_name: version} key values
-  remote_versions = ChainMap(*list(map(lambda image_doc: {image_doc["id"]: image_doc["version"]}, remote_docs)))
-  print(f"current versions detected: {remote_versions}")
+  remote_versions_list = list(map(lambda image_doc: {image_doc["id"]: image_doc["version"]}, remote_docs))
+  remote_versions = utils.flatten_list_of_dicts(remote_versions_list)
+
+  print "current versions detected: " + str(remote_versions)
 
   for image_config in image_configs:
       # Here we check first if the remote documentation exists, then if the local version is the same as the remote. 
       # If the remote documentation exists and the version matches the local, we re-use the old documentation
       if image_config["name"] in remote_versions and image_config["version"] == remote_versions[image_config["name"]]:
         remote_doc = list(filter(lambda image_doc: image_doc["id"] == image_config["name"], remote_docs))[0]
-        print(f"using remote doc: {remote_doc}")
+        print "using remote doc: {}".format(remote_doc)
         doc = remote_doc
       else:
         doc = generate_doc_for_image(image_config)
@@ -49,7 +49,7 @@ def generate_doc_for_image(image_config):
     "version": version,
     "updated": get_last_updated(image_config),
     "packages": get_doc_link(image_dir),
-    "image": f"{config['gcr_image_repo']}/{image_dir}:{version}"
+    "image": "{}/{}:{}".format(config['gcr_image_repo'], image_dir, version)
   }
 
   return doc
@@ -60,25 +60,24 @@ def get_doc_label(image_config):
   base_label = image_config["base_label"]
   doc_suffix = config["doc_suffix"]
 
-  package_file = f"{image_config['name']}-{image_config['version']}-{doc_suffix}"
+  package_file = "{}-{}-{}".format(image_config['name'], image_config['version'], doc_suffix)
   packages = utils.read_json_file(package_file)
 
   additional_package_labels = []
-  print(f"packages: {packages}")
   for tool in additional_package_names.keys():
-    labels = map(lambda package: f"{package} {packages[tool][package]}", additional_package_names[tool])
+    labels = map(lambda package: "{} {}".format(package, packages[tool][package]), additional_package_names[tool])
     additional_package_labels = additional_package_labels + list(labels)
 
-  tool_labels = map(lambda tool: f"{tool.capitalize()} {packages[tool][tool]}", tools)
+  tool_labels = map(lambda tool: "{} {}".format(tool.capitalize(), packages[tool][tool]), tools)
 
   labels = list(additional_package_labels) + list(tool_labels)
 
-  label = f"{base_label}: ({', '.join(labels)})"
+  label = "{}: ({})".format(base_label,', '.join(labels))
 
   return label
 
 def get_doc_link(image_dir):
-  link = f"{config['storage_api']}/{config['doc_bucket_no_prefix']}/{image_dir}-{config['doc_suffix']}"
+  link = "{}/{}/{}-{}".format(config['storage_api'], config['doc_bucket_no_prefix'], image_dir,config['doc_suffix'])
   return link
 
 # will be in YYYY-MM-DD format, which is what terra ui wants
@@ -87,7 +86,7 @@ def get_last_updated(image_config):
   image_repo = config["gcr_image_repo"]
   image_name = image_config["name"]
   version = image_config["version"]
-  command = f"gcloud container images list-tags {image_repo}/{image_name} | grep {version} | awk '{{print $NF}}'"
+  command = "gcloud container images list-tags {}/{} | grep {} | awk '{{print $NF}}'".format(image_repo, image_name, version)
   ISO8601_date = utils.shell_exec(command)
   terra_date = ISO8601_date.split("T")[0]
 
