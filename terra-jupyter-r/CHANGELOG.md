@@ -1,3 +1,8 @@
+## 0.0.6 - 11/22/2019
+- Update make recommended packages updatable.
+- Update `terra-jupyter-r` version to `0.0.6`
+`Image URL: us.gcr.io/broad-dsp-gcr-public/terra-jupyter-r:0.0.6`
+
 ## 0.0.5 - 11/16/2019
 - Update `terra-jupyter-base` version to `0.0.5`
 - Remove apt-get upgrade for security purposes
