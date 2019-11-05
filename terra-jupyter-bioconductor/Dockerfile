@@ -108,4 +108,9 @@ RUN R -e 'BiocManager::install(c( \
     "GenomicFeatures", \
     "GenomicAlignments", \
     "ShortRead", \
-    "DESeq2"))'
+    "DESeq2", \
+    "AnnotationHub", \
+    "ExperimentHub", \
+    "ensembldb", \
+    "scRNAseq", \
+    "Rtsne"))'
