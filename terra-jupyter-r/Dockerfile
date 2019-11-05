@@ -21,10 +21,8 @@ RUN apt-get update \
 	libgit2-dev \
 	libxml2-dev \
 	# libcurl4-gnutls-dev \
-	r-base \
 	r-base-dev \
 	r-base-core \
-	r-recommended \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
@@ -39,8 +37,23 @@ RUN  mkdir -p /home/jupyter-user/.rpackages \
     "remotes", \
     "BiocManager", \
     "devtools"))' \
- && R -e 'BiocManager::install(version="3.9")' \
+ && R -e 'BiocManager::install(version="3.9", ask=FALSE)' \
  && R -e 'BiocManager::install(c( \
+    "boot", \
+    "class", \
+    "cluster", \
+    "codetools", \
+    "foreign", \
+    "kernsmooth", \
+    "lattice", \
+    "mass", \
+    "matrix", \
+    "mgcv", \
+    "nlme", \
+    "nnet", \
+    "rpart", \
+    "spatial", \
+    "survival", \
     # Jupyter notebook essentials
     "IRdisplay",  \
     "DataBiosphere/Ronaldo", \
