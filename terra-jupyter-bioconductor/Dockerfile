@@ -1,4 +1,4 @@
-FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-r:0.0.4
+FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-r:0.0.5
 
 USER root
 
@@ -108,4 +108,9 @@ RUN R -e 'BiocManager::install(c( \
     "GenomicFeatures", \
     "GenomicAlignments", \
     "ShortRead", \
-    "DESeq2"))'
+    "DESeq2", \
+    "AnnotationHub", \
+    "ExperimentHub", \
+    "ensembldb", \
+    "scRNAseq", \
+    "Rtsne"))'
