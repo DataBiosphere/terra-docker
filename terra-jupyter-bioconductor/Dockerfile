@@ -1,4 +1,4 @@
-FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-r:0.0.5
+FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-r:0.0.5-snap
 
 USER root
 
