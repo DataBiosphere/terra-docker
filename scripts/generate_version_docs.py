@@ -16,7 +16,7 @@ def generate_docs():
   docs = []
 
   #filter for images in the conf that have the generate_docs flag set to true
-  image_configs = filter(lambda image: image["automated_flags"]["generate_docs"] == True, config["image_data"])
+  image_configs = filter(lambda image: image["automated_flags"]["generate_docs"] == True and image["automated_flags"]["include_in_ui"] == True and image["automated_flags"]["build"] == True, config["image_data"])
   remote_docs = get_current_versions()
 
   #maps the current documentation to a map of {image_name: version} key values
@@ -48,7 +48,7 @@ def generate_doc_for_image(image_config):
     "label": get_doc_label(image_config),
     "version": version,
     "updated": get_last_updated(image_config),
-    "packages": get_doc_link(image_dir),
+    "packages": get_doc_link(image_config),
     "image": "{}/{}:{}".format(config['gcr_image_repo'], image_dir, version)
   }
 
@@ -70,14 +70,14 @@ def get_doc_label(image_config):
 
   tool_labels = map(lambda tool: "{} {}".format(tool.capitalize(), packages[tool][tool]), tools)
 
-  labels = list(additional_package_labels) + list(tool_labels)
+  labels = list(tool_labels) + list(additional_package_labels)
 
   label = "{}: ({})".format(base_label,', '.join(labels))
 
   return label
 
-def get_doc_link(image_dir):
-  link = "{}/{}/{}-{}".format(config['storage_api'], config['doc_bucket_no_prefix'], image_dir,config['doc_suffix'])
+def get_doc_link(image_config):
+  link = "{}/{}/{}-{}-{}".format(config['storage_api'], config['doc_bucket_no_prefix'], image_config["name"], image_config["version"], config['doc_suffix'])
   return link
 
 # will be in YYYY-MM-DD format, which is what terra ui wants

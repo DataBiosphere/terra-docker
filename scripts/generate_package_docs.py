@@ -23,7 +23,7 @@ def get_docs(params):
   for tool in tools:
     print "Writing doc for tool {}".format(tool)
       #flattens the arrays of objects with packages:version key value pairs into single object with all key value pairs
-    docs[tool] = utils.flatten_list_of_dicts(doc_builder[tool](params))
+    docs[tool] = utils.flatten_list_of_dicts(doc_builder[tool](params.image_dir))
 
   return docs
 
@@ -36,11 +36,11 @@ def get_doc_builder():
 
   return builder
 
-def get_r_doc(params):
-  raw_r_doc =  utils.docker_exec(params.image_dir, "sh -c \"echo 'ip <- as.data.frame(installed.packages()[,c(1,3:4)]) \n rownames(ip) <- NULL \n ip <- ip[is.na(ip\$Priority),1:2,drop=FALSE] \n print(ip, row.names=FALSE)' > temp.r; Rscript temp.r; rm temp.r\"")
+def get_r_doc(image_dir):
+  raw_r_doc =  utils.docker_exec(image_dir, "sh -c \"echo 'ip <- as.data.frame(installed.packages()[,c(1,3:4)]) \n rownames(ip) <- NULL \n ip <- ip[is.na(ip\$Priority),1:2,drop=FALSE] \n print(ip, row.names=FALSE)' > temp.r; Rscript temp.r; rm temp.r\"")
   packages = raw_r_doc.strip().split("\n")
 
-  r_version_output = utils.docker_exec(params.image_dir, "R --version | head -1")
+  r_version_output = utils.docker_exec(image_dir, "R --version | head -1")
   try:
     r_version = re.search("(\d+\.)(\d+\.)(\*|\d+)", r_version_output).group(0)
   except AttributeError as e:
@@ -57,9 +57,9 @@ def get_r_doc(params):
 
   return package_json
 
-def get_python_doc(params):
-  python_version_output = utils.docker_exec(params.image_dir, "python3 --version")
-  raw_python_doc = utils.docker_exec(params.image_dir, "pip list --format=json")
+def get_python_doc(image_dir):
+  python_version_output = utils.docker_exec(image_dir, "python3 --version")
+  raw_python_doc = utils.docker_exec(image_dir, "pip list --format=json")
 
   try:
     python_version = re.search("(\d+\.)(\d+\.)(\*|\d+)", python_version_output).group(0)
@@ -72,12 +72,16 @@ def get_python_doc(params):
 
   return json_python_doc
 
-def get_gatk_doc(params):
+def get_gatk_doc(image_dir):
   cmd = "ls /etc/ | grep gatk | tr '-' ' ' | awk '{print $2}'"
-  gatk_version = utils.docker_exec(params.image_dir, cmd)
+  gatk_version = utils.docker_exec(image_dir, cmd)
 
   return [{"gatk": gatk_version}]
 
+# defines 3 params
+#  image_dir: the name of the image being processed. This is passed from the caller.
+#  image_config: the json config associated with the image_dir passed
+#  config: the full json config
 class ParamProcessor():
 
   def __init__(self, params):
