@@ -1,4 +1,4 @@
-FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-base:0.0.4
+FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-base:0.0.5
 USER root
 
 COPY scripts $JUPYTER_HOME/scripts
@@ -39,7 +39,7 @@ RUN  mkdir -p /home/jupyter-user/.rpackages \
     "remotes", \
     "BiocManager", \
     "devtools"))' \
- && R -e 'BiocManager::install(version="3.9")' \
+ && R -e 'BiocManager::install(version="3.9", ask=FALSE)' \
  && R -e 'BiocManager::install(c( \
     # Jupyter notebook essentials
     "IRdisplay",  \
@@ -53,5 +53,5 @@ RUN  mkdir -p /home/jupyter-user/.rpackages \
     "pbdZMQ", \
     "uuid"))' \
  && R -e 'IRkernel::installspec(user=FALSE)' \
- && chown -R $USER:users /home/jupyter-user/.local 
+ && chown -R $USER:users /home/jupyter-user/.local
 
