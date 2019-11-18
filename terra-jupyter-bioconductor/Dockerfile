@@ -1,4 +1,4 @@
-FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-r:0.0.4
+FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-r:0.0.5
 
 USER root
 
@@ -86,7 +86,6 @@ ENV PIP_USER=false
 
 ## Install python packages needed for a few Bioc packages
 RUN apt-get update \
-    && apt-get upgrade -y \
     && apt-get install -yq --no-install-recommends python3.7-dev \
     && pip3 -V \
     && pip3 install --upgrade pip \

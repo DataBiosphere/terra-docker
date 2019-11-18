@@ -1,3 +1,9 @@
+## 0.0.5 - 11/16/2019
+
+- Remove apt-get upgrade for security purposes
+
+Image URL: us.gcr.io/broad-dsp-gcr-public/terra-jupyter-base:0.0.5
+
 ## 0.0.4 - 10/18/2019
 
 - Fix a bug in google_sign_in.js

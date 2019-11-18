@@ -1,4 +1,4 @@
-FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-python:0.0.3
+FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-python:0.0.4
 USER root
 ENV PIP_USER=false
 
@@ -11,11 +11,11 @@ RUN mkdir -p /etc/spark/conf.dist && mkdir -p /etc/hadoop/conf.empty && mkdir -p
     && update-alternatives --install /etc/spark/conf spark-conf /etc/spark/conf.dist 100 \
     && update-alternatives --install /etc/hadoop/conf hadoop-conf /etc/hadoop/conf.empty 100 \
     && update-alternatives --install /etc/hive/conf hive-conf /etc/hive/conf.dist 100 \
-    && apt-get update && apt-get -yq dist-upgrade \
+    && apt-get update \
     && apt install -yq --no-install-recommends openjdk-8-jdk \
         g++ \
         liblz4-dev \
-    && pip3 install pypandoc \    
+    && pip3 install pypandoc \
     && pip3 install --no-dependencies hail==$HAIL_VERSION \
     && X=$(mktemp -d) \
     && mkdir -p $X \

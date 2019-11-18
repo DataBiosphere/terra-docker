@@ -1,3 +1,9 @@
+## 0.0.4 - 11/16/2019
+
+- Update `terra-jupyter-base` version to `0.0.5`
+- Removed apt-get upgrade for security purposes
+`Image URL: us.gcr.io/broad-dsp-gcr-public/terra-jupyter-python:0.0.4`
+
 ## 0.0.3 - 10/18/2019
 
 - Update `terra-jupyter-base` version to `0.0.4`
