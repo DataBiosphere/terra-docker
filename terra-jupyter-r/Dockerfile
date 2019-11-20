@@ -57,7 +57,7 @@ RUN mkdir -p /home/jupyter-user/.rpackages \
     # Jupyter notebook essentials
     "IRdisplay",  \
     "DataBiosphere/Ronaldo", \
-    "IRkernel/IRkernel", \
+    "IRkernel", \
     # GCP essentials
     "bigrquery",  \
     "googleCloudStorageR", \
@@ -65,6 +65,6 @@ RUN mkdir -p /home/jupyter-user/.rpackages \
     "tidyverse", \
     "pbdZMQ", \
     "uuid"))' \
-&& R -e 'BiocManager::install("IRkernel")' \
     && R -e 'IRkernel::installspec(user=FALSE)' \
-    && chown -R $USER:users /home/jupyter-user/.local 
+    && chown -R $USER:users /home/jupyter-user/.local
+    
