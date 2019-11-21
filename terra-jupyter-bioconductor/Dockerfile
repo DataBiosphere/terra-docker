@@ -64,8 +64,6 @@ RUN apt-get update \
     xfonts-100dpi \
     xfonts-75dpi \
     biber \
-    ## symlink libgfortran.so as versions of gcc and gfortran are different(installs DESeq2) \
-    && ln -s /usr/lib/x86_64-linux-gnu/libgfortran.so.4 /usr/lib/x86_64-linux-gnu/libgfortran.so \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
