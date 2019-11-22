@@ -1,5 +1,5 @@
 ## 0.0.4 - 11/05/2019
-- Install AnnotationHub, ExperimentHub, ensembldb, Rtse, scRNAseq.
+- Install AnnotationHub, ExperimentHub, ensembldb, Rtse, scRNAseq, scran.
 - Update `terra-jupyter-bioconductor` version to `0.0.4`
 
 `Image URL: us.gcr.io/broad-dsp-gcr-public/terra-jupyter-bioconductor:0.0.4`
