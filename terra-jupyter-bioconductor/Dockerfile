@@ -110,4 +110,5 @@ RUN R -e 'BiocManager::install(c( \
     "ExperimentHub", \
     "ensembldb", \
     "scRNAseq", \
+    "scran", \
     "Rtsne"))'
