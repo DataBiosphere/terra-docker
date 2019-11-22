@@ -11,7 +11,6 @@ RUN apt-get update \
     && add-apt-repository 'deb https://cloud.r-project.org/bin/linux/ubuntu bionic-cran35/' \
     && apt-get install -yq --no-install-recommends apt-transport-https \
     && apt update \
-#     && apt-get -y build-dep libcurl4-gnutls-dev \
     && apt install -yq --no-install-recommends \
 	apt-utils \
 	curl \
@@ -20,11 +19,10 @@ RUN apt-get update \
 	libcurl4-gnutls-dev \
 	libgit2-dev \
 	libxml2-dev \
-	# libcurl4-gnutls-dev \
-	r-base \
+	libgfortran-7-dev \
 	r-base-dev \
 	r-base-core \
-	r-recommended \
+    && ln -s /usr/lib/gcc/x86_64-linux-gnu/7/libgfortran.so /usr/lib/x86_64-linux-gnu/libgfortran.so \ 
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
@@ -33,18 +31,33 @@ USER $USER
 ## Reasons for change, 1. Message during installation, 2. User cannot
 ## update packages installed in the Dockerfile.
 
-RUN  mkdir -p /home/jupyter-user/.rpackages \
- && echo "R_LIBS=/home/jupyter-user/.rpackages" > /home/jupyter-user/.Renviron \
- && R -e 'install.packages(c( \
+RUN mkdir -p /home/jupyter-user/.rpackages \
+    && echo "R_LIBS=/home/jupyter-user/.rpackages" > /home/jupyter-user/.Renviron \
+    && R -e 'install.packages(c( \
     "remotes", \
     "BiocManager", \
     "devtools"))' \
- && R -e 'BiocManager::install(version="3.9", ask=FALSE)' \
- && R -e 'BiocManager::install(c( \
+    && R -e 'BiocManager::install(version="3.9", ask=FALSE)' \
+    && R -e 'BiocManager::install(c( \
+    "boot", \
+    "class", \
+    "cluster", \
+    "codetools", \
+    "foreign", \
+    "kernsmooth", \
+    "lattice", \
+    "mass", \
+    "Matrix", \
+    "mgcv", \
+    "nlme", \
+    "nnet", \
+    "rpart", \
+    "spatial", \
+    "survival", \
     # Jupyter notebook essentials
     "IRdisplay",  \
     "DataBiosphere/Ronaldo", \
-    "IRkernel/IRkernel", \
+    "IRkernel", \
     # GCP essentials
     "bigrquery",  \
     "googleCloudStorageR", \
@@ -52,6 +65,6 @@ RUN  mkdir -p /home/jupyter-user/.rpackages \
     "tidyverse", \
     "pbdZMQ", \
     "uuid"))' \
- && R -e 'IRkernel::installspec(user=FALSE)' \
- && chown -R $USER:users /home/jupyter-user/.local
-
+    && R -e 'IRkernel::installspec(user=FALSE)' \
+    && chown -R $USER:users /home/jupyter-user/.local
+    

@@ -1,4 +1,4 @@
-FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-r:0.0.5
+FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-r:0.0.6
 
 USER root
 
@@ -64,8 +64,6 @@ RUN apt-get update \
     xfonts-100dpi \
     xfonts-75dpi \
     biber \
-    ## symlink libgfortran.so as versions of gcc and gfortran are different(installs DESeq2) \
-    && ln -s /usr/lib/x86_64-linux-gnu/libgfortran.so.4 /usr/lib/x86_64-linux-gnu/libgfortran.so \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
@@ -107,4 +105,10 @@ RUN R -e 'BiocManager::install(c( \
     "GenomicFeatures", \
     "GenomicAlignments", \
     "ShortRead", \
-    "DESeq2"))'
+    "DESeq2", \
+    "AnnotationHub", \
+    "ExperimentHub", \
+    "ensembldb", \
+    "scRNAseq", \
+    "scran", \
+    "Rtsne"))'
