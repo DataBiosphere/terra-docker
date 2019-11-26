@@ -22,7 +22,7 @@ RUN apt-get update \
 	libgfortran-7-dev \
 	r-base-dev \
 	r-base-core \
-    && ln -s /usr/lib/gcc/x86_64-linux-gnu/7/libgfortran.so /usr/lib/x86_64-linux-gnu/libgfortran.so \ 
+    && ln -s /usr/lib/gcc/x86_64-linux-gnu/7/libgfortran.so /usr/lib/x86_64-linux-gnu/libgfortran.so \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
@@ -37,7 +37,7 @@ RUN mkdir -p /home/jupyter-user/.rpackages \
     "remotes", \
     "BiocManager", \
     "devtools"))' \
-    && R -e 'BiocManager::install(version="3.9", ask=FALSE)' \
+    && R -e 'BiocManager::install(version="3.10", ask=FALSE)' \
     && R -e 'BiocManager::install(c( \
     "boot", \
     "class", \
@@ -67,4 +67,3 @@ RUN mkdir -p /home/jupyter-user/.rpackages \
     "uuid"))' \
     && R -e 'IRkernel::installspec(user=FALSE)' \
     && chown -R $USER:users /home/jupyter-user/.local
-    
