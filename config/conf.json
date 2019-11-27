@@ -84,10 +84,10 @@
             "packages": {},
             "version": "0.0.6",
             "automated_flags": {
-                "include_in_ui": true,
+                "include_in_ui": false,
                 "generate_docs": false,
                 "build": true,
-                "include_in_custom_dataproc": false
+                "include_in_custom_dataproc": true
             }
         }
     ]
