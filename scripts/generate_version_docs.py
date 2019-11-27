@@ -61,6 +61,7 @@ def get_doc_label(image_config):
   doc_suffix = config["doc_suffix"]
 
   package_file = "{}-{}-{}".format(image_config['name'], image_config['version'], doc_suffix)
+  utils.gsutil_cp(package_file, config["doc_bucket"], copy_to_remote=False)
   packages = utils.read_json_file(package_file)
 
   additional_package_labels = []

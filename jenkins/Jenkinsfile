@@ -11,6 +11,7 @@ import jenkins.model.Jenkins
 
 //branch name we will create in leo. Will be appended with the build number.
 def branchName = "automated-leonardo-hash-update-"
+def helpfulOutputFile = "build-output.txt"
 
 def prBody = "[jenkins-generated-pr] Automated terra-docker image hash update"
 
@@ -103,7 +104,8 @@ def void buildImage(String imageDir) {
     println("Error detected building image $imageDir")
     throw new RuntimeException("Unexpected error recieved from build.sh: \n\tCode: $exitCode")
   } else {
-    println("Successfully build image $imageDir")
+    sh "echo 'Successfully built image $imageDir' >> $helpfulOutputFile"
+    println("Successfully built image $imageDir")
   }
   //we do nothing in the else case, the shell command exitted as expected
 }
@@ -181,7 +183,8 @@ def FilePath createFilePath(String path) {
 
 def abortBuild(reason) {
   currentBuild.setResult('ABORTED')
-  currentBuild.setDescription("$reason. Aborting the build.")
+  prevDesc = currentBuild.getDescription() == null ? "" : currentBuild.getDescription() + "<br/>"
+  currentBuild.setDescription(prevDesc + "$reason. Aborting the build.")
 }
 
 pipeline {
@@ -352,6 +355,12 @@ pipeline {
       steps {
         slackSend(channel: '#dsp-callisto-internal', message: "Jenkins has successfully built images and created a PR with the updated terra-docker hashes.\n" + 
          "\nIf you would like to check the status of the PR, click: $prLink")
+      }
+    }
+
+    post {
+      always {
+          archiveArtifacts artifacts: "$helpfulOutputFile"
       }
     }
      
