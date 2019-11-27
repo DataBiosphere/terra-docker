@@ -1,4 +1,4 @@
-## 0.0.7 - 11/22/2019
+## 0.0.7 - 11/27/2019
 - Use new Bioconductor version 3.10
 - Update `terra-jupyter-bioconductor` version to `0.0.7`
 
