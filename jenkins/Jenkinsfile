@@ -358,7 +358,6 @@ pipeline {
       }
     }
 
-
     post {
       always {
           archiveArtifacts artifacts: "$helpfulOutputFile"
