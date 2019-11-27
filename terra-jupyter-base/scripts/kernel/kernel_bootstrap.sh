@@ -11,7 +11,14 @@
 # It exploits the fact that the CWD of a launching notebook is named after the workspace.
 # If notebooks are ever launched from other directories, this script will break.
 
+PWD="$(pwd)"
 # The workspace name is simply the CWD of the running notebook.
-export WORKSPACE_NAME=`basename "$(dirname "$(pwd)")"`
+export WORKSPACE_NAME=`basename "$(dirname "$PWD")"`
+
+# Parse the .delocalize.json file (if it exists) in the workspace directory to obtain the workspace bucket.
+DELOCALIZE_FILE="$PWD/.delocalize.json"
+if [ -f "$DELOCALIZE_FILE" ]; then
+    export WORKSPACE_BUCKET="$(dirname "$(cat "$DELOCALIZE_FILE" | jq -r '.destination')")"
+fi
 
 exec "$@"

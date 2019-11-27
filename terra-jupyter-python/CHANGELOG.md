@@ -1,3 +1,9 @@
+## 0.0.5 - 11/26/2019
+
+- Fix `WORKSPACE_BUCKET` environment variable
+
+Image URL: us.gcr.io/broad-dsp-gcr-public/terra-jupyter-base:0.0.5
+
 ## 0.0.4 - 11/16/2019
 
 - Update `terra-jupyter-base` version to `0.0.5`

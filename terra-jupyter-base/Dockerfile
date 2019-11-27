@@ -52,6 +52,7 @@ RUN apt-get update && apt-get install -yq --no-install-recommends \
     wget \
     locales \
     git \
+    jq \
 
 # for jupyterlab extensions
     nodejs-dev \
