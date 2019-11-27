@@ -53,7 +53,7 @@
         },
         {
             "name": "terra-jupyter-base",
-            "base_label": "Minimal",
+            "base_label": "Base",
             "tools": ["python"],
             "packages": {},
             "version": "0.0.6",
