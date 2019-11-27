@@ -87,7 +87,6 @@ def void buildAll(LinkedHashSet<String> imageDirs) {
 def void buildImage(String imageDir) {
   def workingDir = pwd()
   sh "echo 'building the following image: $imageDir'"
-  sh 
   def exitCode = sh(
     script: "$workingDir/build.sh $imageDir 2>&1",
     returnStatus: true
@@ -260,8 +259,6 @@ pipeline {
         script {
           sh "python --version"
           buildAll(imagesToBuild)
-
-          recordImagesBuilt()
 
           sh "python scripts/generate_version_docs.py"
           //this is maintained as state between stages

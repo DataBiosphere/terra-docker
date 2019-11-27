@@ -104,7 +104,7 @@ Each time you update or add an image, you will need to update the appropriate en
 },
 ```
 
-## How this interacts with terra-uia
+## How this interacts with terra-ui
 
 ## Terra-ui representation
 The leonardo-build-terra-docker job builds this repo, and after each build it will re-generate a master version file, and upload it under the name specified in the conf.
