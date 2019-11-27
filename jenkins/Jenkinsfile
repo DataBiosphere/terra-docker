@@ -357,6 +357,7 @@ pipeline {
          "\nIf you would like to check the status of the PR, click: $prLink")
       }
     }
+   }
 
     post {
       always {
@@ -364,6 +365,5 @@ pipeline {
       }
     }
      
-   }
 
 }
