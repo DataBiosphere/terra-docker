@@ -1,3 +1,9 @@
+## 0.0.7 - 11/26/2019
+- Update Bioconductor version to 3.10.
+- Fix `WORKSPACE_BUCKET` environment variable
+- Update `terra-jupyter-r` version to `0.0.7`
+`Image URL: us.gcr.io/broad-dsp-gcr-public/terra-jupyter-r:0.0.7`
+
 ## 0.0.6 - 11/22/2019
 - Update make recommended packages updatable.
 - Update `terra-jupyter-r` version to `0.0.6`

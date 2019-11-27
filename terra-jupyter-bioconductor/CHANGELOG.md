@@ -1,8 +1,14 @@
+## 0.0.7 - 11/27/2019
+- Use new Bioconductor version 3.10
+- Update `terra-jupyter-bioconductor` version to `0.0.7`
+
+`Image URL: us.gcr.io/broad-dsp-gcr-public/terra-jupyter-bioconductor:0.0.7`
+
 ## 0.0.6 - 11/26/2019
 
 - Fix `WORKSPACE_BUCKET` environment variable
 
-Image URL: us.gcr.io/broad-dsp-gcr-public/terra-jupyter-bioconductor:0.0.6
+`Image URL: us.gcr.io/broad-dsp-gcr-public/terra-jupyter-bioconductor:0.0.6`
 
 ## 0.0.5 - 11/22/2019
 - Install AnnotationHub, ExperimentHub, ensembldb, Rtse, scRNAseq, scran.
