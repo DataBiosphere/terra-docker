@@ -234,6 +234,7 @@ pipeline {
      
     stage('Terra Docker Git') {
       steps {
+        sh "touch $helpfulOutputFile"
         git credentialsId: 'jenkins-ssh-github', url: 'git@github.com:DataBiosphere/terra-docker.git', branch: "$BRANCH"
       }
     }
