@@ -1,10 +1,9 @@
-FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-base:0.0.4
+FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-base:0.0.6
 USER root
 #this makes it so pip runs as root, not the user
 ENV PIP_USER=false
 
-RUN apt-get update &&  apt-get upgrade -y && \
-  apt-get install -yq --no-install-recommends \
+RUN apt-get update && apt-get install -yq --no-install-recommends \
   python3.7-dev \
   python-tk \
   tk-dev \
@@ -14,7 +13,7 @@ RUN apt-get update &&  apt-get upgrade -y && \
   openssl \
   make \
   liblzo2-dev \
-  zlib1g-dev \ 
+  zlib1g-dev \
   libz-dev \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/*

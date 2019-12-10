@@ -1,6 +1,6 @@
-FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-python:0.0.3 AS python
+FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-python:0.0.5 AS python
 
-FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-r:0.0.4
+FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-r:0.0.7
 
 # copy everything pip installed from the python image
 COPY --from=python /usr/local/lib/python3.7/dist-packages /usr/local/lib/python3.7/dist-packages
@@ -8,8 +8,7 @@ COPY --from=python /usr/local/lib/python3.7/dist-packages /usr/local/lib/python3
 USER root
 
 # need to apt-get everything for python since we can only copy pip installed packages
-RUN apt-get update &&  apt-get upgrade -y && \
-  apt-get install -yq --no-install-recommends \
+RUN apt-get update && apt-get install -yq --no-install-recommends \
   python3.7-dev \
   python-tk \
   tk-dev \

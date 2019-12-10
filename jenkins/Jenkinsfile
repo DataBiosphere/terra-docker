@@ -11,8 +11,8 @@ import jenkins.model.Jenkins
 
 //branch name we will create in leo. Will be appended with the build number.
 def branchName = "automated-leonardo-hash-update-"
-
-def prBody = "[jenkins-generated-pr] Automated terra-docker image hash update"
+//lack of def makes it global
+helpfulOutputFile = "build-output.txt"
 
 //used to exit early if no changes are detected
 def shouldAbortBuild = false
@@ -25,9 +25,35 @@ def prLink = ""
 //omitting the 'def' is what makes it global
 LinkedHashMap<String, String> versionMap = [:]
 
+def String getChangeDescription(LinkedHashMap<String,String> versionMap) {
+  def title = "[jenkins-generated-pr] Automated terra-docker image hash update"
+  def body = "$title\n These are the images that were built on this run"
+  def version = ""
+  println("version map in getChangeDescription: " + versionMap.toString())
+
+  def String[] builtImages = sh( 
+    script: "cat $helpfulOutputFile",
+    returnStdout: true
+  ).trim().split("\n")
+
+  println("built images in getChangeDescription: " + versionMap.toString())
+
+  for (String image in builtImages) {
+    version = versionMap[image]
+    println("updating body with $image: $version")
+    body = body + "\n- $image: $version"
+  }
+
+  return body
+}
 
 def LinkedHashSet<String> getSortedChangedImages() {
-  def String[] images = readFile("jenkins/imageDirs.txt").trim().split("\n")
+  def String[] images = sh( 
+    script: "cat config/conf.json | jq -r '.image_data | .[] | select(.automated_flags.build == true) | .name'",
+    returnStdout: true
+  ).trim().split("\n")
+
+  println("Images to build from config: $images")
 
   def LinkedHashSet<String> filteredImages = new LinkedHashSet<String>();
   //we must use a c-style loop due to jenkins serialization, aka https://www.devopscat.tech/2018/10/what-is-noncps-in-jenkins-pipeline/
@@ -98,7 +124,8 @@ def void buildImage(String imageDir) {
     println("Error detected building image $imageDir")
     throw new RuntimeException("Unexpected error recieved from build.sh: \n\tCode: $exitCode")
   } else {
-    println("Successfully build image $imageDir")
+    sh "echo 'Successfully built image $imageDir' >> $helpfulOutputFile"
+    println("Successfully built image $imageDir")
   }
   //we do nothing in the else case, the shell command exitted as expected
 }
@@ -109,9 +136,10 @@ def LinkedHashMap<String, String> getVersionMap(LinkedHashSet<String> imageDirs)
   for (String currImageDir in imageDirs) {
     def workingDir = pwd()
     def version = sh(
-      script: "cat $workingDir/$currImageDir/VERSION",
+      script: String.format("cat config/conf.json | jq -r '.image_data | .[] | select(.name == \"%s\") | .version'", currImageDir),
       returnStdout: true
     ).trim()
+    println("Obtained version for $currImageDir: $version")
     versionMap[currImageDir] = version
   }
 
@@ -175,7 +203,8 @@ def FilePath createFilePath(String path) {
 
 def abortBuild(reason) {
   currentBuild.setResult('ABORTED')
-  currentBuild.setDescription("$reason. Aborting the build.")
+  prevDesc = currentBuild.getDescription() == null ? "" : currentBuild.getDescription() + "<br/>"
+  currentBuild.setDescription(prevDesc + "$reason. Aborting the build.")
 }
 
 pipeline {
@@ -248,7 +277,10 @@ pipeline {
     stage('Build Images') {
       steps {
         script {
+          sh "python --version"
           buildAll(imagesToBuild)
+
+          sh "python scripts/generate_version_docs.py"
           //this is maintained as state between stages
           versionMap = getVersionMap(imagesToBuild)
         }
@@ -322,6 +354,7 @@ pipeline {
         }
 
         script {
+             def prBody = getChangeDescription(versionMap)
              prLink = sh(
               script: "docker exec --user dsde-jenkins hub-runtime hub pull-request -b develop -m \"$prBody\"",
               returnStdout: true
@@ -334,18 +367,20 @@ pipeline {
         """
       }
     }
+   }
 
-    //we only notify slack on success, as there is no post-build
-    //if this becomes a problem, we could introduce something more robust, but it is unlikely to be pretty
-    stage('Notify Slack') {
-      when { expression { !shouldAbortBuild } }
-
-      steps {
-        slackSend(channel: '#dsp-callisto-internal', message: "Jenkins has successfully built images and created a PR with the updated terra-docker hashes.\n" + 
+    post {
+      always {
+          archiveArtifacts artifacts: "$helpfulOutputFile"
+      }
+      success {
+          slackSend(channel: '#dsp-callisto-internal', message: "Jenkins has successfully built images and created a PR with the updated terra-docker hashes.\n" + 
          "\nIf you would like to check the status of the PR, click: $prLink")
+      }
+      failure {
+        slackSend(channel: '#dsp-callisto-internal', message: "Jenkins has failed to on a build of the terra-docker repo. Some of the images may have been successfully built. See the log for details: $BUILD_URL")
       }
     }
      
-   }
 
 }
