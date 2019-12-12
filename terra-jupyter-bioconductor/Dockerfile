@@ -100,15 +100,6 @@ USER $USER
 ENV PIP_USER=true
 
 ## Install Bioconductor Core packages
-RUN R -e 'BiocManager::install(c( \
-    "SingleCellExperiment", \
-    "GenomicFeatures", \
-    "GenomicAlignments", \
-    "ShortRead", \
-    "DESeq2", \
-    "AnnotationHub", \
-    "ExperimentHub", \
-    "ensembldb", \
-    "scRNAseq", \
-    "scran", \
-    "Rtsne"))'
+RUN curl -O ent.com/Bioconductor/anvil-docker/master/anvil-rstudio-bioconductor/install.R \
+	&& R -f install.R \
+	&& rm -rf install.R

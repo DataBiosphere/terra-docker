@@ -22,6 +22,18 @@ including the following:
 
 * DESeq2
 
+* AnnotationHub
+
+* ExperimentHub
+
+* ensembldb
+
+* scRNAseq
+
+* scran
+
+* Rtsne
+
 **NOTE**: The image is able to install all Bioconductor packages as needed
 by the user. Please use `BiocManager::install()` to install additional
 packages.

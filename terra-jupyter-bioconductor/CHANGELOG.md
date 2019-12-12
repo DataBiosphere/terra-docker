@@ -1,3 +1,9 @@
+# 0.0.8 - 12/11/2019
+- Standardize both Jupyter and RStudio Bioconductor package installation.
+- Update `terra-jupyter-bioconductor` version to `0.0.8`
+
+`Image URL: us.gcr.io/broad-dsp-gcr-public/terra-jupyter-bioconductor:0.0.8`
+
 ## 0.0.7 - 11/27/2019
 - Use new Bioconductor version 3.10
 - Update `terra-jupyter-bioconductor` version to `0.0.7`
