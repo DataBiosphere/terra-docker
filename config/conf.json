@@ -17,7 +17,7 @@
             "base_label": "Bioconductor",
             "tools": ["python", "r"],
             "packages": { "r": ["BiocVersion", "tidyverse"] },
-            "version": "0.0.7",
+            "version": "0.0.8",
             "automated_flags": {
                 "generate_docs": true,
                 "include_in_ui": true,
