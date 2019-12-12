@@ -88,7 +88,7 @@ RUN apt-get update \
     && pip3 -V \
     && pip3 install --upgrade pip \
     && pip3 install cwltool==1.0.20190228155703 \
-    && pip3 install pandas==0.25.1 \
+    && pip3 install pandas==0.25.3 \
     && pip3 install pyyaml \
     && pip3 install scikit-learn==0.21.3 \
     && apt-get clean \
