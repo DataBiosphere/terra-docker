@@ -378,7 +378,7 @@ pipeline {
          "\nIf you would like to check the status of the PR, click: $prLink")
       }
       failure {
-        slackSend(channel: '#dsp-callisto-internal', message: "Jenkins has failed to on a build of the terra-docker repo. Some of the images may have been successfully built. See the log for details: $BUILD_URL")
+        slackSend(channel: '#newrelictest', message: "Jenkins has failed to on a build of the terra-docker repo. Some of the images may have been successfully built. See the log for details: $BUILD_URL")
       }
     }
      
