@@ -12,7 +12,7 @@ import jenkins.model.Jenkins
 //branch name we will create in leo. Will be appended with the build number.
 def branchName = "automated-leonardo-hash-update-"
 //lack of def makes it global
-builtImagesFile = "build-output.txt"
+builtImagesFile = "built_images.txt"
 
 //used to exit early if no changes are detected
 def shouldAbortBuild = false
