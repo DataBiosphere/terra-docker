@@ -26,8 +26,11 @@ if [[ $VAULT_LOCATION == *"jenkins"* ]]; then
 fi
 
 # will fail if you are not gcloud authed as dspci-wb-gcr-service-account
-docker run --rm  -v $VAULT_LOCATION:/root/.vault-token:ro broadinstitute/dsde-toolbox:latest vault read --format=json secret/dsde/dsp-techops/common/dspci-wb-gcr-service-account.json | jq .data > dspci-wb-gcr-service-account.json
-gcloud auth activate-service-account --key-file=dspci-wb-gcr-service-account.json
+# docker run --rm  -v $VAULT_LOCATION:/root/.vault-token:ro broadinstitute/dsde-toolbox:latest vault read --format=json secret/dsde/dsp-techops/common/dspci-wb-gcr-service-account.json | jq .data > dspci-wb-gcr-service-account.json
+# gcloud auth activate-service-account --key-file=dspci-wb-gcr-service-account.json
+docker run --rm  -v /etc/vault-token-dsde:/root/.vault-token:ro broadinstitute/dsde-toolbox:latest vault read --format=json secret/dsde/firecloud/common/image-build-account.json | jq .data > image-build-account.json
+gcloud auth activate-service-account --key-file=image-build-account.json
+gcloud auth configure-docker --quiet
 
 docker image build ./$IMAGE_DIR --tag $GCR_IMAGE_REPO/$IMAGE_DIR:$TAG_NAME --tag $GCR_IMAGE_REPO/$IMAGE_DIR:$VERSION \
     && docker push $GCR_IMAGE_REPO/$IMAGE_DIR:$TAG_NAME \
