@@ -1,8 +1,15 @@
+## 0.0.6 - 12/12/2019
+
+- Upgrade pandas from 0.23.4 to 0.25.3
+- Upgrade pandas-gbq from 0.11.0 to 0.12.0
+
+`Image URL: us.gcr.io/broad-dsp-gcr-public/terra-jupyter-python:0.0.6`
+
 ## 0.0.5 - 11/26/2019
 
 - Fix `WORKSPACE_BUCKET` environment variable
 
-Image URL: us.gcr.io/broad-dsp-gcr-public/terra-jupyter-base:0.0.5
+`Image URL: us.gcr.io/broad-dsp-gcr-public/terra-jupyter-python:0.0.5`
 
 ## 0.0.4 - 11/16/2019
 
@@ -36,4 +43,4 @@ Use jupyter base image 0.0.3
 | certifi |	2016.2.28 | 2017.4.17 |
 | google-cloud-bigquery | 1.7.0 | 1.9.0 |
 
-Image URL: us.gcr.io/broad-dsp-gcr-public/terra-jupyter-python:0.0.1
+`Image URL: us.gcr.io/broad-dsp-gcr-public/terra-jupyter-python:0.0.1`
