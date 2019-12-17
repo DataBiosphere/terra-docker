@@ -265,7 +265,7 @@ pipeline {
         //the chown is necessary because something on the jenkins instance keeps touching the logs with sudo and changing the owner to root
         //this which causes gcloud auth command to fail
         sh """
-          sudo chown -R jenkins:jenkins /home/jenkins/.configgit s
+          sudo chown -R jenkins:jenkins /home/jenkins/.config
           docker run --rm  -v /etc/vault-token-dsde:/root/.vault-token:ro broadinstitute/dsde-toolbox:latest vault read --format=json secret/dsde/dsp-techops/common/dspci-wb-gcr-service-account.json | jq .data > dspci-wb-gcr-service-account.json   
           gcloud auth activate-service-account --key-file=dspci-wb-gcr-service-account.json
           gcloud auth configure-docker --quiet
