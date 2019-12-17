@@ -124,7 +124,7 @@ def void buildImage(String imageDir) {
     println("Error detected building image $imageDir")
     throw new RuntimeException("Unexpected error recieved from build.sh: \n\tCode: $exitCode")
   } else {
-    sh "echo 'Successfully built image $imageDir' >> $helpfulOutputFile"
+    sh "echo '$imageDir' >> $helpfulOutputFile"
     println("Successfully built image $imageDir")
   }
   //we do nothing in the else case, the shell command exitted as expected
@@ -378,7 +378,7 @@ pipeline {
          "\nIf you would like to check the status of the PR, click: $prLink")
       }
       failure {
-        slackSend(channel: '#newrelictest', message: "Jenkins has failed to on a build of the terra-docker repo. Some of the images may have been successfully built. See the log for details: $BUILD_URL")
+        slackSend(channel: '#dsp-callisto-internal', message: "Jenkins has failed to on a build of the terra-docker repo. Some of the images may have been successfully built. See the log for details: $BUILD_URL")
       }
     }
      
