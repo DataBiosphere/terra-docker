@@ -1,7 +1,11 @@
+# 0.0.9 - 12/17/2019
+- Upgrade pandas from 0.25.1 to 0.25.3
+
+`Image URL: us.gcr.io/broad-dsp-gcr-public/terra-jupyter-bioconductor:0.0.9`
+
 # 0.0.8 - 12/11/2019
 - Standardize both Jupyter and RStudio Bioconductor package installation.
 - Update `terra-jupyter-bioconductor` version to `0.0.8`
-- Upgrade pandas from 0.25.1 to 0.25.3
 
 `Image URL: us.gcr.io/broad-dsp-gcr-public/terra-jupyter-bioconductor:0.0.8`
 
