@@ -235,6 +235,10 @@ pipeline {
    stages {
      
     stage('Terra Docker Git') {
+      script {
+        println("checking url")
+      }
+      sh "echo ${GIT_URL}"
       steps {
         git credentialsId: 'jenkins-ssh-github', url: 'git@github.com:DataBiosphere/terra-docker.git', branch: "$BRANCH"
       }
@@ -280,9 +284,9 @@ pipeline {
       steps {
         script {
           sh "python --version"
-          buildAll(imagesToBuild)
+          // buildAll(imagesToBuild)
 
-          sh "python scripts/generate_version_docs.py"
+          // sh "python scripts/generate_version_docs.py"
           //this is maintained as state between stages
           versionMap = getVersionMap(imagesToBuild)
         }
@@ -375,13 +379,13 @@ pipeline {
       always {
           archiveArtifacts artifacts: "$builtImagesFile"
       }
-      success {
-          slackSend(channel: '#dsp-callisto-internal', message: "Jenkins has successfully built images and created a PR with the updated terra-docker hashes.\n" + 
-         "\nIf you would like to check the status of the PR, click: $prLink")
-      }
-      failure {
-        slackSend(channel: '#dsp-callisto-internal', message: "Jenkins has failed to on a build of the terra-docker repo. Some of the images may have been successfully built. See the log for details: $BUILD_URL")
-      }
+      // success {
+      //     slackSend(channel: '#dsp-callisto-internal', message: "Jenkins has successfully built images and created a PR with the updated terra-docker hashes.\n" + 
+      //    "\nIf you would like to check the status of the PR, click: $prLink")
+      // }
+      // failure {
+      //   slackSend(channel: '#dsp-callisto-internal', message: "Jenkins has failed to on a build of the terra-docker repo. Some of the images may have been successfully built. See the log for details: $BUILD_URL")
+      // }
     }
      
 
