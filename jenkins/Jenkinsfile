@@ -29,7 +29,6 @@ def String getChangeDescription(LinkedHashMap<String,String> versionMap) {
   def title = "[jenkins-generated-pr] Automated terra-docker image hash update"
   def body = "$title\n These are the images that were built on this run"
   def version = ""
-  println("version map in getChangeDescription: " + versionMap.toString())
 
   def String[] builtImages = sh( 
     script: "cat $builtImagesFile",
@@ -99,6 +98,9 @@ def LinkedHashSet<String> getSortedSet(Collection<String> imageSet) {
 }
 
 def void buildAll(LinkedHashSet<String> imageDirs) {
+  //clear file
+  sh "rm $builtImagesFile"
+  
   for (String imageDir in imageDirs) {
     buildImage(imageDir)
   }
