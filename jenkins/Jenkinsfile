@@ -37,8 +37,12 @@ def String getChangeDescription(LinkedHashMap<String,String> versionMap) {
 
   println("built images in getChangeDescription: " + versionMap.toString())
 
+  versionMap["x"] = null
   for (String image in builtImages) {
     version = versionMap[image]
+    if (version == null) {
+      continue
+    }
     println("updating body with $image: $version")
     body = body + "\n- $image: $version"
   }
@@ -99,8 +103,8 @@ def LinkedHashSet<String> getSortedSet(Collection<String> imageSet) {
 
 def void buildAll(LinkedHashSet<String> imageDirs) {
   //clear file
-  sh "rm $builtImagesFile | true"
-
+  sh "rm $builtImagesFile"
+  
   for (String imageDir in imageDirs) {
     buildImage(imageDir)
   }
@@ -109,10 +113,10 @@ def void buildAll(LinkedHashSet<String> imageDirs) {
 def void buildImage(String imageDir) {
   def workingDir = pwd()
   sh "echo 'building the following image: $imageDir'"
-  def exitCode = sh(
-    script: "$workingDir/build.sh $imageDir 2>&1",
-    returnStatus: true
-  )
+  def exitCode = 0//sh(
+  //   script: "$workingDir/build.sh $imageDir 2>&1",
+  //   returnStatus: true
+  // )
 
   //if we cannot build an image because it will cause an overwrite of the remote gcr image, we set the build to unstable. 
   //We do this because the most likely scenario is it was desired that the image builds, but the VERSION file was not updated.
@@ -261,28 +265,14 @@ pipeline {
       }
     }
 
-
-    stage('Docker Auth') {
-      steps {
-        //the chown is necessary because something on the jenkins instance keeps touching the logs with sudo and changing the owner to root
-        //this which causes gcloud auth command to fail
-        sh """
-          sudo chown -R jenkins:jenkins /home/jenkins/.config
-          docker run --rm  -v /etc/vault-token-dsde:/root/.vault-token:ro broadinstitute/dsde-toolbox:latest vault read --format=json secret/dsde/dsp-techops/common/dspci-wb-gcr-service-account.json | jq .data > dspci-wb-gcr-service-account.json   
-          gcloud auth activate-service-account --key-file=dspci-wb-gcr-service-account.json
-          gcloud auth configure-docker --quiet
-        """
-      }
-    }
-
     //filter image directories based on whether there are changes, and then build all
     stage('Build Images') {
       steps {
         script {
-          sh "python --version"
+          sh "sudo chown -R jenkins:jenkins /home/jenkins/.config"
           buildAll(imagesToBuild)
 
-          sh "python scripts/generate_version_docs.py"
+          // sh "python scripts/generate_version_docs.py"
           //this is maintained as state between stages
           versionMap = getVersionMap(imagesToBuild)
         }
@@ -375,13 +365,13 @@ pipeline {
       always {
           archiveArtifacts artifacts: "$builtImagesFile"
       }
-      success {
-          slackSend(channel: '#dsp-callisto-internal', message: "Jenkins has successfully built images and created a PR with the updated terra-docker hashes.\n" + 
-         "\nIf you would like to check the status of the PR, click: $prLink")
-      }
-      failure {
-        slackSend(channel: '#dsp-callisto-internal', message: "Jenkins has failed to on a build of the terra-docker repo. Some of the images may have been successfully built. See the log for details: $BUILD_URL")
-      }
+      // success {
+      //     slackSend(channel: '#dsp-callisto-internal', message: "Jenkins has successfully built images and created a PR with the updated terra-docker hashes.\n" + 
+      //    "\nIf you would like to check the status of the PR, click: $prLink")
+      // }
+      // failure {
+      //   slackSend(channel: '#dsp-callisto-internal', message: "Jenkins has failed to on a build of the terra-docker repo. Some of the images may have been successfully built. See the log for details: $BUILD_URL")
+      // }
     }
      
 
