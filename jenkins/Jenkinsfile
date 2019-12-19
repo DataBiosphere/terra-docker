@@ -39,6 +39,9 @@ def String getChangeDescription(LinkedHashMap<String,String> versionMap) {
 
   for (String image in builtImages) {
     version = versionMap[image]
+    if (version == null) {
+      continue
+    }
     println("updating body with $image: $version")
     body = body + "\n- $image: $version"
   }
@@ -100,7 +103,7 @@ def LinkedHashSet<String> getSortedSet(Collection<String> imageSet) {
 def void buildAll(LinkedHashSet<String> imageDirs) {
   //clear file
   sh "rm $builtImagesFile | true"
-
+  
   for (String imageDir in imageDirs) {
     buildImage(imageDir)
   }
@@ -261,25 +264,11 @@ pipeline {
       }
     }
 
-
-    stage('Docker Auth') {
-      steps {
-        //the chown is necessary because something on the jenkins instance keeps touching the logs with sudo and changing the owner to root
-        //this which causes gcloud auth command to fail
-        sh """
-          sudo chown -R jenkins:jenkins /home/jenkins/.config
-          docker run --rm  -v /etc/vault-token-dsde:/root/.vault-token:ro broadinstitute/dsde-toolbox:latest vault read --format=json secret/dsde/dsp-techops/common/dspci-wb-gcr-service-account.json | jq .data > dspci-wb-gcr-service-account.json   
-          gcloud auth activate-service-account --key-file=dspci-wb-gcr-service-account.json
-          gcloud auth configure-docker --quiet
-        """
-      }
-    }
-
     //filter image directories based on whether there are changes, and then build all
     stage('Build Images') {
       steps {
         script {
-          sh "python --version"
+          sh "sudo chown -R jenkins:jenkins /home/jenkins/.config"
           buildAll(imagesToBuild)
 
           sh "python scripts/generate_version_docs.py"
