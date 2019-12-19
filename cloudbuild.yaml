@@ -1,0 +1,5 @@
+steps:
+- name: 'gcr.io/cloud-builders/docker'
+  args: [ 'build', '-t', 'us.gcr.io/broad-dsp-gcr-public/terra-jupyter-bioconductor:0.0.9-snap', 'terra-jupyter-bioconductor' ]
+images:
+- 'us.gcr.io/broad-dsp-gcr-public/terra-jupyter-bioconductor:0.0.9-snap'
