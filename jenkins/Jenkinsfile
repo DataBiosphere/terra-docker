@@ -99,7 +99,7 @@ def LinkedHashSet<String> getSortedSet(Collection<String> imageSet) {
 
 def void buildAll(LinkedHashSet<String> imageDirs) {
   //clear file
-  sh "rm $builtImagesFile"
+  sh "rm $builtImagesFile" || true
   
   for (String imageDir in imageDirs) {
     buildImage(imageDir)
