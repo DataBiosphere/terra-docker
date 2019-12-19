@@ -100,6 +100,6 @@ USER $USER
 ENV PIP_USER=true
 
 ## Install Bioconductor Core packages
-RUN curl -O ent.com/Bioconductor/anvil-docker/master/anvil-rstudio-bioconductor/install.R \
+RUN curl -O https://raw.githubusercontent.com/Bioconductor/anvil-docker/master/anvil-rstudio-bioconductor/install.R \
 	&& R -f install.R \
 	&& rm -rf install.R
