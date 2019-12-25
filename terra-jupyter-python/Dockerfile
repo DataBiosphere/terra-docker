@@ -28,9 +28,9 @@ RUN pip3 -V \
  && pip3 install seaborn==0.9.0 \
  && pip3 install notebook==5.7.8 \
  && pip3 install python-lzo==1.12 \
- && pip3 install google-cloud-bigquery==1.9.0 \
+ && pip3 install google-cloud-bigquery==1.23.1 \
  && pip3 install google-api-core==1.6.0 \
- && pip3 install google-cloud-bigquery-datatransfer==0.1.1 \
+ && pip3 install google-cloud-bigquery-datatransfer==0.4.1 \
  && pip3 install google-cloud-datastore==1.7.0 \
  && pip3 install google-cloud-resource-manager==0.28.1 \
  && pip3 install google-cloud-storage==1.13.0 \
@@ -39,6 +39,10 @@ RUN pip3 -V \
  && pip3 install statsmodels==0.9.0 \
  && pip3 install ggplot==0.11.5 \
  && sed -i 's/pandas.lib/pandas/g' /usr/local/lib/python3.7/dist-packages/ggplot/stats/smoothers.py \
+ # the next few `sed` lines are workaround for a ggplot bug. See https://github.com/yhat/ggpy/issues/662
+ && sed -i 's/pandas.tslib.Timestamp/pandas.Timestamp/g' /usr/local/lib/python3.7/dist-packages/ggplot/stats/smoothers.py \
+ && sed -i 's/pd.tslib.Timestamp/pd.Timestamp/g' /usr/local/lib/python3.7/dist-packages/ggplot/stats/smoothers.py \
+ && sed -i 's/pd.tslib.Timestamp/pd.Timestamp/g' /usr/local/lib/python3.7/dist-packages/ggplot/utils.py \
  && pip3 install bokeh==1.0.0 \
  && pip3 install pyfasta==0.5.2 \
  && pip3 install markdown==2.4.1 \
