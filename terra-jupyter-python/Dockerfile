@@ -31,10 +31,10 @@ RUN pip3 -V \
  && pip3 install google-cloud-bigquery==1.23.1 \
  && pip3 install google-api-core==1.6.0 \
  && pip3 install google-cloud-bigquery-datatransfer==0.4.1 \
- && pip3 install google-cloud-datastore==1.7.0 \
- && pip3 install google-cloud-resource-manager==0.28.1 \
- && pip3 install google-cloud-storage==1.13.0 \
- && pip3 install --ignore-installed firecloud==0.16.18 \
+ && pip3 install google-cloud-datastore==1.10.0 \
+ && pip3 install google-cloud-resource-manager==0.30.0 \
+ && pip3 install google-cloud-storage==1.23.0 \
+ && pip3 install --ignore-installed firecloud==0.16.25 \
  && pip3 install scikit-learn==0.20.0 \
  && pip3 install statsmodels==0.9.0 \
  && pip3 install ggplot==0.11.5 \
@@ -46,7 +46,7 @@ RUN pip3 -V \
  && pip3 install bokeh==1.0.0 \
  && pip3 install pyfasta==0.5.2 \
  && pip3 install markdown==2.4.1 \
- && pip3 install pdoc==0.3.2 \
+ && pip3 install pdoc3==0.7.2 \
  && pip3 install biopython==1.72 \
  && pip3 install bx-python==0.8.2 \
  && pip3 install fastinterval==0.1.1 \
@@ -68,7 +68,7 @@ RUN pip3 -V \
  && pip3 install pyvcf==0.6.8 \
  && pip3 install pyyaml==3.12 \
  && pip3 install scipy==1.2 \
- && pip3 install six==1.11.0 \
+ && pip3 install six==1.13.0 \
  && pip3 install tensorflow==2.0.0a0 \
  && pip3 install theano==0.9.0 \
  && pip3 install tqdm==4.19.4 \
@@ -77,7 +77,7 @@ RUN pip3 -V \
  && pip3 install intel-openmp==2018.0.0 \
  && pip3 install mkl==2018.0.3 \
  && pip3 install readline==6.2 \
- && pip3 install setuptools==36.4.0 \
+ && pip3 install setuptools==42.0.2 \
  && pip3 install wheel
 
 ENV USER jupyter-user
