@@ -30,7 +30,7 @@
             "base_label": "Hail",
             "tools": ["python"],
             "packages": { "python": ["hail"] },
-            "version": "0.0.4",
+            "version": "0.0.5",
             "automated_flags": {
                 "generate_docs": true,
                 "include_in_ui": true,
@@ -82,7 +82,7 @@
             "base_label": "GATK",
             "tools": ["python", "gatk"],
             "packages": {},
-            "version": "0.0.6",
+            "version": "0.0.7",
             "automated_flags": {
                 "include_in_ui": false,
                 "generate_docs": false,
