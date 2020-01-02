@@ -1,9 +1,9 @@
-FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-python:0.0.5
+FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-python:0.0.6
 USER root
 ENV PIP_USER=false
 
 ENV PYTHONPATH $PYTHONPATH:/usr/lib/spark/python
-ENV HAIL_VERSION=0.2.27
+ENV HAIL_VERSION=0.2.30
 
 # Note Spark and Hadoop are mounted from the outside Dataproc VM.
 # Make empty conf dirs for the update-alternatives commands.

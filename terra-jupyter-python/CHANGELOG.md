@@ -2,6 +2,15 @@
 
 - Upgrade pandas from 0.23.4 to 0.25.3
 - Upgrade pandas-gbq from 0.11.0 to 0.12.0
+- Upgrade `google-cloud-bigquery` to `1.23.1`
+- Upgrade `google-cloud-bigquery-datatransfer` to `0.4.1`
+- Upgrade `google-cloud-datastore` to `1.10.0`
+- Upgrade `google-cloud-resource-manager` to `0.30.0`
+- Upgrade `google-cloud-storage` to `1.23.0`
+- Upgrade `firecloud` to `0.16.25`
+- Upgrade `six` to `1.13.0`
+- Upgrade `setuptools` to `42.0.2`
+- Install `pdoc3` instead of `pdoc`
 
 `Image URL: us.gcr.io/broad-dsp-gcr-public/terra-jupyter-python:0.0.6`
 
