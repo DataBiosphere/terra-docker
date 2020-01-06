@@ -79,13 +79,13 @@
         },
         {
             "name": "terra-jupyter-gatk",
-            "base_label": "GATK",
+            "base_label": "??? ()",
             "tools": ["python", "gatk"],
             "packages": {},
             "version": "0.0.8",
             "automated_flags": {
-                "include_in_ui": false,
-                "generate_docs": false,
+                "include_in_ui": true,
+                "generate_docs": true,
                 "build": true,
                 "include_in_custom_dataproc": true
             }
