@@ -101,9 +101,7 @@ def LinkedHashSet<String> getSortedSet(Collection<String> imageSet) {
 }
 
 def void buildAll(LinkedHashSet<String> imageDirs) {
-  //clear file
-  sh "rm $builtImagesFile | true"
-  
+  sh "touch $builtImagesFile"
   for (String imageDir in imageDirs) {
     buildImage(imageDir)
   }
@@ -243,6 +241,16 @@ pipeline {
       }
     }
 
+    stage('Docker Auth') {
+      steps {
+        sh """
+          sudo chown -R jenkins:jenkins /home/jenkins/.config
+          docker run --rm  -v /etc/vault-token-dsde:/root/.vault-token:ro broadinstitute/dsde-toolbox:latest vault read --format=json secret/dsde/firecloud/common/image-build-account.json | jq .data > image-build-account.json
+          gcloud auth activate-service-account --key-file=image-build-account.json
+        """
+      }
+    }
+
     stage('Get Images') {
       steps {
         script {
@@ -268,7 +276,6 @@ pipeline {
     stage('Build Images') {
       steps {
         script {
-          sh "sudo chown -R jenkins:jenkins /home/jenkins/.config"
           buildAll(imagesToBuild)
 
           sh "python scripts/generate_version_docs.py"
@@ -362,7 +369,8 @@ pipeline {
 
     post {
       always {
-          archiveArtifacts artifacts: "$builtImagesFile"
+          archiveArtifacts artifacts: "$builtImagesFile", allowEmptyArchive: true
+          cleanWs()
       }
       success {
           slackSend(channel: '#dsp-callisto-internal', message: "Jenkins has successfully built images and created a PR with the updated terra-docker hashes.\n" + 
