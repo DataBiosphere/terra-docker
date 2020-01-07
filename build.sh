@@ -29,7 +29,7 @@ fi
 # the below works locally but not on jenkins for some reason, using a different account until a resolution is found
 # docker run --rm  -v $VAULT_LOCATION:/root/.vault-token:ro broadinstitute/dsde-toolbox:latest vault read --format=json secret/dsde/dsp-techops/common/dspci-wb-gcr-service-account.json | jq .data > dspci-wb-gcr-service-account.json
 # gcloud auth activate-service-account --key-file=dspci-wb-gcr-service-account.json
-docker run --rm  -v /etc/vault-token-dsde:/root/.vault-token:ro broadinstitute/dsde-toolbox:latest vault read --format=json secret/dsde/firecloud/common/image-build-account.json | jq .data > image-build-account.json
+docker run --rm  -v $VAULT_LOCATION:/root/.vault-token:ro broadinstitute/dsde-toolbox:latest vault read --format=json secret/dsde/firecloud/common/image-build-account.json | jq .data > image-build-account.json
 gcloud auth activate-service-account --key-file=image-build-account.json
 gcloud auth configure-docker --quiet
 
