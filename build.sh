@@ -37,6 +37,13 @@ docker image build ./$IMAGE_DIR --tag $GCR_IMAGE_REPO/$IMAGE_DIR:$TAG_NAME --tag
     && docker push $GCR_IMAGE_REPO/$IMAGE_DIR:$TAG_NAME \
     && docker push $GCR_IMAGE_REPO/$IMAGE_DIR:$VERSION
 
+rm -f /home/jenkins/.docker/config.json
+
+if [ $$IMAGE_DIR = "terra-jupyter-gatk" ]; then
+  docker push broadinstitute/$IMAGE_DIR:$VERSION
+  docker push broadinstitute/$IMAGE_DIR:$TAG_NAME
+fi
+
 docker kill $IMAGE_DIR | true 
 docker rm -f $IMAGE_DIR | true
 docker run --rm -itd -u root -e PIP_USER=false --entrypoint='/bin/bash' --name $IMAGE_DIR $GCR_IMAGE_REPO/$IMAGE_DIR:$VERSION
