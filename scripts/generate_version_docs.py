@@ -96,7 +96,7 @@ def get_last_updated(image_config):
 def get_static_legacy_doc():
   doc = {
     "id": 'leonardo-jupyter-dev',
-    "label": 'Legacy (Python 3.6.8, R 3.5.2, Hail 0.2.11)',
+    "label": 'Legacy (default prior to January 14)',
     "version": 'FINAL',
     "updated": '2019-08-26',
     "packages": 'https://storage.googleapis.com/terra-docker-image-documentation/leonardo-jupyter-dev-versions.json',
