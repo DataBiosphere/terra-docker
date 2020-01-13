@@ -82,7 +82,7 @@
             "base_label": "GATK",
             "tools": ["python", "gatk"],
             "packages": {},
-            "version": "0.0.7",
+            "version": "0.0.8",
             "automated_flags": {
                 "include_in_ui": false,
                 "generate_docs": false,

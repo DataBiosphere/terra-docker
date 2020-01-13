@@ -1,3 +1,9 @@
+## 0.0.8 - 1/11/2020
+
+- Upgrade GATK version to `4.1.4.1`
+
+Image URL: us.gcr.io/broad-dsp-gcr-public/terra-jupyter-gatk:0.0.8
+
 ## 0.0.7 - 1/2/2020
 
 - Upgrade `terra-jupyter-python` version
