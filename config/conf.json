@@ -22,7 +22,7 @@
                 "generate_docs": true,
                 "include_in_ui": true,
                 "build": true,
-                "include_in_custom_dataproc": false
+                "include_in_custom_dataproc": true
             }
         },
         {
@@ -35,7 +35,7 @@
                 "generate_docs": true,
                 "include_in_ui": true,
                 "build": true,
-                "include_in_custom_dataproc": false
+                "include_in_custom_dataproc": true
             }
         },
         {
