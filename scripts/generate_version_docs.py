@@ -45,7 +45,7 @@ def generate_doc_for_image(image_config):
   image_dir = image_config["name"]
   doc = {
     "id": image_dir,
-    "label": get_doc_label(image_config),
+    "label": image_config["base_label"],
     "version": version,
     "updated": get_last_updated(image_config),
     "packages": get_doc_link(image_config),
@@ -53,29 +53,6 @@ def generate_doc_for_image(image_config):
   }
 
   return doc
-
-def get_doc_label(image_config):
-  additional_package_names = image_config["packages"]
-  tools = image_config["tools"]
-  base_label = image_config["base_label"]
-  doc_suffix = config["doc_suffix"]
-
-  package_file = "{}-{}-{}".format(image_config['name'], image_config['version'], doc_suffix)
-  utils.gsutil_cp(package_file, config["doc_bucket"], copy_to_remote=False)
-  packages = utils.read_json_file(package_file)
-
-  additional_package_labels = []
-  for tool in additional_package_names.keys():
-    labels = map(lambda package: "{} {}".format(package, packages[tool][package]), additional_package_names[tool])
-    additional_package_labels = additional_package_labels + list(labels)
-
-  tool_labels = map(lambda tool: "{} {}".format(tool.capitalize(), packages[tool][tool]), tools)
-
-  labels = list(tool_labels) + list(additional_package_labels)
-
-  label = "{}: ({})".format(base_label,', '.join(labels))
-
-  return label
 
 def get_doc_link(image_config):
   link = "{}/{}/{}-{}-{}".format(config['storage_api'], config['doc_bucket_no_prefix'], image_config["name"], image_config["version"], config['doc_suffix'])
