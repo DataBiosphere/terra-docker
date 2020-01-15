@@ -1,3 +1,9 @@
+## 0.0.7 - 01/15/2020
+
+- Install `pandas-profiling` version `2.4.0`
+
+`Image URL: us.gcr.io/broad-dsp-gcr-public/terra-jupyter-python:0.0.7`
+
 ## 0.0.6 - 12/12/2019
 
 - Upgrade pandas from 0.23.4 to 0.25.3
