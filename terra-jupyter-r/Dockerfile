@@ -37,7 +37,13 @@ RUN mkdir -p /home/jupyter-user/.rpackages \
     "remotes", \
     "BiocManager", \
     "devtools"))' \
+    
     && R -e 'BiocManager::install(version="3.10", ask=FALSE)' \
+   
+    # fix for AoU-blocking bug https://github.com/rstudio/reticulate/issues/693
+    # after version 1.15 is released to CRAN, we can install reticulate in the standard way
+    && R -e 'BiocManager::install("rstudio/reticulate", ref="00172079")' \
+
     && R -e 'BiocManager::install(c( \
     "boot", \
     "class", \

@@ -1,3 +1,10 @@
+## 0.0.9 - 1/15/2020
+
+- Update `terra-jupyter-python` version to `0.0.7`
+- Update `terra-jupyter-r` version to `0.0.8`
+
+Image URL: us.gcr.io/broad-dsp-gcr-public/terra-jupyter-gatk:0.0.9
+
 ## 0.0.8 - 1/11/2020
 
 - Upgrade GATK version to `4.1.4.1`

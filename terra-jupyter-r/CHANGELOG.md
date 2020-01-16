@@ -1,3 +1,8 @@
+## 0.0.8 - 01/15/2020
+- Install reticulate.
+- Update `terra-jupyter-r` version to `0.0.8`
+`Image URL: us.gcr.io/broad-dsp-gcr-public/terra-jupyter-r:0.0.8`
+
 ## 0.0.7 - 11/26/2019
 - Update Bioconductor version to 3.10.
 - Fix `WORKSPACE_BUCKET` environment variable
