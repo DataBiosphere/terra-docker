@@ -69,7 +69,7 @@ def get_doc_label(image_config):
     labels = map(lambda package: "{} {}".format(package, packages[tool][package]), additional_package_names[tool])
     additional_package_labels = additional_package_labels + list(labels)
 
-  tool_labels = map(lambda tool: "{} {}".format(tool.capitalize(), packages[tool][tool]), tools)
+  tool_labels = map(lambda tool: "{} {}".format(get_tool_label(tool), packages[tool][tool]), tools)
 
   labels = list(tool_labels) + list(additional_package_labels)
 
@@ -108,6 +108,12 @@ def get_static_legacy_doc():
 def get_current_versions():
   utils.gsutil_cp(config["version_master_file"], config["doc_bucket"], copy_to_remote=False)
   return utils.read_json_file(config["version_master_file"])
+
+def get_tool_label(tool):
+  if tool == 'gatk':
+    return tool.upper()
+  else:
+    return tool.capitalize()
 
 if __name__ == "__main__":
   main()
