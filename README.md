@@ -110,8 +110,7 @@ Each time you update or add an image, you will need to update the appropriate en
 The leonardo-build-terra-docker job builds this repo, and after each build it will re-generate a master version file, and upload it under the name specified in the conf.
 This master version file contains an entry for each image that will appear in the UI. This file is *NOT* automatically included in the UI.
 As of now, we wish to control when we change what shows up in the UI via a manual process. Currently, you must go to the google bucket `gs://terra-docker-image-documentation`.
-In this bucket, you will find a file matching the name conf.version_master_file. 
-If you change that file, which will be updated each build, to `terra-docker-versions.json`, the newest images will instantly show up in all UIs on refresh.
+In this bucket, you will find a file named `terra-docker-versions-new.json`. Make sure this file looks good to you. Copy this file and name it `terra-docker-versions.json` (this will overwrite the existing `terra-docker-versions.json` file) in google cloud console. The newest images will instantly show up in all UIs on refresh.
 
 
 ## Scripts
