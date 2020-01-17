@@ -80,7 +80,7 @@
         {
             "name": "terra-jupyter-gatk",
             "base_label": "New Default (released on January 14)",
-            "tools": ["GATK", "python", "r"],
+            "tools": ["gatk", "python", "r"],
             "packages": {},
             "version": "0.0.9",
             "automated_flags": {
