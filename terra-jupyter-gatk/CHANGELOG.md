@@ -1,3 +1,12 @@
+# 0.0.10 - 01/17/2020
+
+- Update `terra-jupyter-python` version to `0.0.8`
+- Update `terra-jupyter-r` version to `0.0.9`
+- Make docker image locally runnable with:
+   - `docker run --rm -it -p 8000:8000 <image>`
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-gatk:0.0.10`
+
 ## 0.0.9 - 1/15/2020
 
 - Update `terra-jupyter-python` version to `0.0.7`

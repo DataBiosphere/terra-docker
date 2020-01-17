@@ -17,7 +17,7 @@
             "base_label": "Bioconductor",
             "tools": ["python", "r"],
             "packages": { "r": ["BiocVersion", "tidyverse"] },
-            "version": "0.0.9",
+            "version": "0.0.10",
             "automated_flags": {
                 "generate_docs": true,
                 "include_in_ui": true,
@@ -30,7 +30,7 @@
             "base_label": "Hail",
             "tools": ["python"],
             "packages": { "python": ["hail"] },
-            "version": "0.0.5",
+            "version": "0.0.6",
             "automated_flags": {
                 "generate_docs": true,
                 "include_in_ui": true,
@@ -43,7 +43,7 @@
             "base_label": "Python",
             "tools": ["python"],
             "packages": { "python": ["pandas", "scikit-learn"] },
-            "version": "0.0.7",
+            "version": "0.0.8",
             "automated_flags": {
                 "generate_docs": true,
                 "include_in_ui": true,
@@ -56,7 +56,7 @@
             "base_label": "Base",
             "tools": ["python"],
             "packages": {},
-            "version": "0.0.6",
+            "version": "0.0.7",
             "automated_flags": {
                 "generate_docs": true,
                 "include_in_ui": false,
@@ -69,7 +69,7 @@
             "base_label": "R",
             "tools": ["r"],
             "packages": {},
-            "version": "0.0.8",
+            "version": "0.0.9",
             "automated_flags": {
                 "include_in_ui": false,
                 "generate_docs": true,
@@ -82,7 +82,7 @@
             "base_label": "New Default (released on January 14)",
             "tools": ["gatk", "python", "r"],
             "packages": {},
-            "version": "0.0.9",
+            "version": "0.0.10",
             "automated_flags": {
                 "include_in_ui": true,
                 "generate_docs": true,

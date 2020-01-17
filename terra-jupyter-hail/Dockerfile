@@ -1,4 +1,4 @@
-FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-python:0.0.6
+FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-python:0.0.8
 USER root
 ENV PIP_USER=false
 

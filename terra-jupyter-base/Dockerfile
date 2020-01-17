@@ -118,11 +118,10 @@ RUN pip3 -V \
  && pip3 install cookiecutter \
  && pip3 install jupyter_contrib_nbextensions \
  && pip3 install jupyter_nbextensions_configurator \
-
  # for jupyter_delocalize.py and jupyter_notebook_config.py
  && pip3 install tornado==4.5.3 \
  && pip3 install requests \
-
+ && pip3 install firecloud==0.16.25 \
  && apt-get clean \
  && rm -rf /var/lib/apt/lists/*
 
@@ -137,7 +136,7 @@ ENV PIP_USER=true
 #######################
 # Install Conda
 #######################
-Run wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O /tmp/miniconda.sh \
+RUN wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O /tmp/miniconda.sh \
   && bash /tmp/miniconda.sh -b -p $HOME/miniconda \
   && echo 'eval "$(/home/jupyter-user/miniconda/bin/conda shell.bash hook)"' >> /home/jupyter-user/.bashrc
 
@@ -147,6 +146,7 @@ Run wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -
 
 COPY scripts $JUPYTER_HOME/scripts
 COPY custom $JUPYTER_HOME/custom
+COPY jupyter_notebook_config.py $JUPYTER_HOME
 
 RUN chown -R $USER:users $JUPYTER_HOME \
  && chown -R $USER:users /usr/local/share/jupyter/lab \
