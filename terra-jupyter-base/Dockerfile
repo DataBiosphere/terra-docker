@@ -160,7 +160,8 @@ RUN chown -R $USER:users $JUPYTER_HOME \
  && cp $JUPYTER_HOME/custom/safe-mode.js $HOME/.jupyter/custom/ \
  && cp $JUPYTER_HOME/custom/edit-mode.js $HOME/.jupyter/custom/ \
  && $JUPYTER_HOME/scripts/extension/jupyter_install_lab_extension.sh $JUPYTER_HOME/custom/extension_entry_jupyterlab.js \
- && mkdir $JUPYTER_HOME/nbconfig
+ && mkdir $JUPYTER_HOME/nbconfig \
+ && $JUPYTER_HOME/scripts/kernel/kernelspec.sh $JUPYTER_HOME/scripts/kernel /usr/local/share/jupyter/kernels
 
 USER $USER
 WORKDIR $HOME

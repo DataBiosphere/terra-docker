@@ -3,7 +3,8 @@ USER root
 
 COPY scripts $JUPYTER_HOME/scripts
 
-RUN find $JUPYTER_HOME/scripts -name '*.sh' -type f | xargs chmod +x
+RUN find $JUPYTER_HOME/scripts -name '*.sh' -type f | xargs chmod +x \
+ && $JUPYTER_HOME/scripts/kernel/kernelspec.sh $JUPYTER_HOME/scripts/kernel /usr/local/share/jupyter/kernels
 
 # https://cran.r-project.org/bin/linux/ubuntu/README.html
 RUN apt-get update \
