@@ -3,7 +3,7 @@
 - Make docker image locally runnable with:
    - `docker run --rm -it -p 8000:8000 <image>`
 - Add FISS library
-Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-r:0.0.8`
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-r:0.0.9`
 
 ## 0.0.8 - 01/15/2020
 - Install reticulate.

@@ -5,7 +5,7 @@
    - `docker run --rm -it -p 8000:8000 <image>`
 - Remove FISS from this image since it's now included in the base
 
-Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-python:0.0.7`
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-python:0.0.8`
 
 ## 0.0.7 - 01/15/2020
 
