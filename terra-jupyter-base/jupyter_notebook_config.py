@@ -1,10 +1,6 @@
 # adapted from https://github.com/jupyter/docker-stacks/blob/master/base-notebook/jupyter_notebook_config.py
 
-from jupyter_core.paths import jupyter_data_dir
-import subprocess
 import os
-import errno
-import stat
 
 c = get_config()
 c.NotebookApp.ip = '0.0.0.0'
@@ -44,8 +40,6 @@ if os.environ.get('WELDER_ENABLED') == 'true':
   mgr_class = 'WelderContentsManager'
 c.NotebookApp.contents_manager_class = 'jupyter_delocalize.' + mgr_class
 
-# Content-Security-Policy is set by the Leo proxy so Jupyter can be rendered in an iframe
-# See https://jupyter-notebook.readthedocs.io/en/latest/public_server.html?highlight=server#embedding-the-notebook-in-another-website
 c.NotebookApp.tornado_settings = {
     'static_url_prefix':'/notebooks' + fragment + 'static/'
 }

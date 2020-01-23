@@ -58,7 +58,7 @@ RUN apt-get update && apt-get install -yq --no-install-recommends \
     node-gyp \
     npm \
 
-    # java
+    # openjdk 11
     default-jre \
     default-jdk \
 
