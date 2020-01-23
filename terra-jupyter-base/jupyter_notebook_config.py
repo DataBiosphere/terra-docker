@@ -1,4 +1,7 @@
 # adapted from https://github.com/jupyter/docker-stacks/blob/master/base-notebook/jupyter_notebook_config.py
+# Note: this file also lives in the Leonardo repo here: 
+# https://github.com/DataBiosphere/leonardo/blob/develop/http/src/main/resources/jupyter/jupyter_notebook_config.py
+# If you change this please keep the other version consistent as well.
 
 import os
 

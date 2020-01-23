@@ -110,10 +110,7 @@ def get_current_versions():
   return utils.read_json_file(config["version_master_file"])
 
 def get_tool_label(tool):
-  if tool == 'gatk':
-    return tool.upper()
-  else:
-    return tool.capitalize()
+  return tool.upper() if tool == 'gatk' else tool.capitalize()
 
 if __name__ == "__main__":
   main()
