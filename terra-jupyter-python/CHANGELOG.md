@@ -4,6 +4,7 @@
 - Make docker image locally runnable with:
    - `docker run --rm -it -p 8000:8000 <image>`
 - Remove FISS from this image since it's now included in the base
+- Add OpenJDK 11
 
 Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-python:0.0.8`
 

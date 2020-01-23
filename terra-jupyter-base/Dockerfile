@@ -7,7 +7,6 @@ USER root
 # Prerequisites
 #######################
 ENV DEBIAN_FRONTEND noninteractive
-ENV CRAN_REPO http://cran.mtu.edu
 
 RUN apt-get update && apt-get install -yq --no-install-recommends \
 
@@ -24,10 +23,10 @@ RUN apt-get update && apt-get install -yq --no-install-recommends \
     gcc-6 \
     gcc-8 \
 
-   #useful utilities for debugging within the docker
-   unzip \
-   nano \
-   procps \
+    # useful utilities for debugging within the docker
+    unzip \
+    nano \
+    procps \
 
     # python requirements
     checkinstall \
@@ -54,10 +53,15 @@ RUN apt-get update && apt-get install -yq --no-install-recommends \
     git \
     jq \
 
-# for jupyterlab extensions
+    # for jupyterlab extensions
     nodejs-dev \
     node-gyp \
     npm \
+
+    # java
+    default-jre \
+    default-jdk \
+
  # Uncomment en_US.UTF-8 for inclusion in generation
  && sed -i 's/^# *\(en_US.UTF-8\)/\1/' /etc/locale.gen \
  # Generate locale

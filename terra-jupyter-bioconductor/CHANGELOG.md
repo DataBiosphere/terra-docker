@@ -3,6 +3,7 @@
 - Make docker image locally runnable with:
    - `docker run --rm -it -p 8000:8000 <image>`
 - Add FISS library
+- Add OpenJDK 11
 
 Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-bioconductor:0.0.10`
 

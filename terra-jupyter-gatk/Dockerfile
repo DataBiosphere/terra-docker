@@ -20,8 +20,6 @@ RUN apt-get update && apt-get install -yq --no-install-recommends \
   liblzo2-dev \
   zlib1g-dev \
   libz-dev \
-  default-jre \
-  default-jdk \
   samtools \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/*

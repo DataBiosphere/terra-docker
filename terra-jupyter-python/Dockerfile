@@ -74,8 +74,9 @@ RUN pip3 -V \
  && pip3 install tqdm==4.19.4 \
  && pip3 install werkzeug==0.12.2 \
  && pip3 install certifi==2017.4.17 \
- && pip3 install intel-openmp==2018.0.0 \
- && pip3 install mkl==2018.0.3 \
+# TODO having trouble installing intel-openmp and mkl on a Mac. Commenting for now.
+ #&& pip3 install intel-openmp==2018.0.0 \
+ #&& pip3 install mkl==2018.0.3 \
  && pip3 install readline==6.2 \
  && pip3 install setuptools==42.0.2 \
  && pip3 install wheel

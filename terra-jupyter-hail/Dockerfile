@@ -15,6 +15,8 @@ RUN mkdir -p /etc/spark/conf.dist && mkdir -p /etc/hadoop/conf.empty && mkdir -p
     && apt install -yq --no-install-recommends openjdk-8-jdk \
         g++ \
         liblz4-dev \
+    # specify Java 8
+    && update-alternatives --set java /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java \
     && pip3 install pypandoc \
     && pip3 install --no-dependencies hail==$HAIL_VERSION \
     && X=$(mktemp -d) \
