@@ -1,4 +1,4 @@
-FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-base:0.0.6
+FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-base:0.0.7
 USER root
 #this makes it so pip runs as root, not the user
 ENV PIP_USER=false
@@ -35,7 +35,6 @@ RUN pip3 -V \
  && pip3 install google-cloud-datastore==1.10.0 \
  && pip3 install google-cloud-resource-manager==0.30.0 \
  && pip3 install google-cloud-storage==1.23.0 \
- && pip3 install --ignore-installed firecloud==0.16.25 \
  && pip3 install scikit-learn==0.20.0 \
  && pip3 install statsmodels==0.9.0 \
  && pip3 install ggplot==0.11.5 \

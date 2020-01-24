@@ -14,7 +14,7 @@ This repo provides docker images for running jupyter notebook in [Terra](https:/
 [terra-jupyter-bioconductor](terra-jupyter-bioconductor/README.md)
 
 # How to create your own Custom image to use with notebooks on Terra
-Custom docker images need to use a Terra base image (see above) in order to work with the service that runs notebooks on Terra
+Custom docker images need to use a Terra base image (see above) in order to work with the service that runs notebooks on Terra.
 * You can use any of the base images above
 * Here is an example of how to build off of a base image: Add `FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-base:0.0.1` to your dockerfile (`terra-jupyter-base` is the smallest image you can extend from)
 * Customize your image (see the [terra-jupyter-python](terra-jupyter-python/Dockerfile) dockerfile for an example of how to extend from one of our base images
@@ -54,18 +54,23 @@ If you wish to build locally, run `docker build [your_dir] -t [name]`.
 It is not advised to run build.sh locally, as this will push to the remote docker repo and delete the image locally upon completion.  
 
 ## Testing your image manually
-- In a terminal, do `gcloud auth login` and follow the instructions to authenticate with a google account that has appropriate permissions in Terra
-- Create a cluster
-  - Do ```curl -X PUT --header 'Content-Type: application/json' --header "Authorization: Bearer `gcloud auth print-access-token`" -d @/tmp/createCluster https://leonardo.dsde-prod.broadinstitute.org/api/cluster/{google project}/{cluster name}```
-  - /tmp/createCluster looks like
-    ```
-    {
-        "jupyterDockerImage": "{your image url}"
-    }
-    ```
-- Go to `https://portal.firecloud.org/`
-- Create a notebook and choose the cluster you just created
-- Open the notebook and check if things work as expected
+All images can be run locally. For example:
+```
+docker run --rm -it -p 8000:8000 us.gcr.io/broad-dsp-gcr-public/terra-jupyter-base:0.0.7
+```
+Then navigate a browser to http://localhost:8000/notebooks to access the Jupyter UI.
+
+You can gain root access and open a bash terminal as follows:
+```
+docker run --rm -it -u root -p 8000:8000 --entrypoint /bin/bash us.gcr.io/broad-dsp-gcr-public/terra-jupyter-base:0.0.7
+```
+
+Running locally is conventient for quick development and exploring the image. However it has some limitations compared to running through Terra. Namely:
+- there are no service account credentials when run locally
+- there are no environment variables like `GOOGLE_PROJECT`, `WORKSPACE_NAME`, `WORKSPACE_BUCKET`, etc when running locally
+- there is no workspace-syncing when run locally
+
+To launch an image through Terra, navigate to https://app.terra.bio, select a workspace, enter your image in the "Custom Image" field, and click Create.
 
 ## Automation Tests
 [Here](https://github.com/DataBiosphere/leonardo/tree/develop/automation/src/test/scala/org/broadinstitute/dsde/workbench/leonardo/notebooks) are automation tests for various docker image, please update the image hash for relevant tests. You can run the job build-terra-docker to automatically create a PR with your branch if you manually specify versions.

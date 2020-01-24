@@ -13,6 +13,8 @@ The terra-jupyter-base extends the [Ubuntu base image]("https://github.com/tiano
 - conda
 - Jupyter & JupyterLab
 - Leonardo customizations/extensions
+- Terra python client library ([FISS](https://github.com/broadinstitute/fiss))
+- OpenJDK 11
 
 To see the complete contents of this image please see the [Dockerfile](./Dockerfile).
 

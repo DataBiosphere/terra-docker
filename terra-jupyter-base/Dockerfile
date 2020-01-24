@@ -7,7 +7,6 @@ USER root
 # Prerequisites
 #######################
 ENV DEBIAN_FRONTEND noninteractive
-ENV CRAN_REPO http://cran.mtu.edu
 
 RUN apt-get update && apt-get install -yq --no-install-recommends \
 
@@ -24,10 +23,11 @@ RUN apt-get update && apt-get install -yq --no-install-recommends \
     gcc-6 \
     gcc-8 \
 
-   #useful utilities for debugging within the docker
-   unzip \
-   nano \
-   procps \
+    # useful utilities for debugging within the docker
+    unzip \
+    nano \
+    vim \
+    procps \
 
     # python requirements
     checkinstall \
@@ -54,10 +54,15 @@ RUN apt-get update && apt-get install -yq --no-install-recommends \
     git \
     jq \
 
-# for jupyterlab extensions
+    # for jupyterlab extensions
     nodejs-dev \
     node-gyp \
     npm \
+
+    # openjdk 11
+    default-jre \
+    default-jdk \
+
  # Uncomment en_US.UTF-8 for inclusion in generation
  && sed -i 's/^# *\(en_US.UTF-8\)/\1/' /etc/locale.gen \
  # Generate locale
@@ -118,11 +123,10 @@ RUN pip3 -V \
  && pip3 install cookiecutter \
  && pip3 install jupyter_contrib_nbextensions \
  && pip3 install jupyter_nbextensions_configurator \
-
  # for jupyter_delocalize.py and jupyter_notebook_config.py
  && pip3 install tornado==4.5.3 \
  && pip3 install requests \
-
+ && pip3 install firecloud==0.16.25 \
  && apt-get clean \
  && rm -rf /var/lib/apt/lists/*
 
@@ -137,7 +141,7 @@ ENV PIP_USER=true
 #######################
 # Install Conda
 #######################
-Run wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O /tmp/miniconda.sh \
+RUN wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O /tmp/miniconda.sh \
   && bash /tmp/miniconda.sh -b -p $HOME/miniconda \
   && echo 'eval "$(/home/jupyter-user/miniconda/bin/conda shell.bash hook)"' >> /home/jupyter-user/.bashrc
 
@@ -147,6 +151,7 @@ Run wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -
 
 COPY scripts $JUPYTER_HOME/scripts
 COPY custom $JUPYTER_HOME/custom
+COPY jupyter_notebook_config.py $JUPYTER_HOME
 
 RUN chown -R $USER:users $JUPYTER_HOME \
  && chown -R $USER:users /usr/local/share/jupyter/lab \
@@ -160,7 +165,8 @@ RUN chown -R $USER:users $JUPYTER_HOME \
  && cp $JUPYTER_HOME/custom/safe-mode.js $HOME/.jupyter/custom/ \
  && cp $JUPYTER_HOME/custom/edit-mode.js $HOME/.jupyter/custom/ \
  && $JUPYTER_HOME/scripts/extension/jupyter_install_lab_extension.sh $JUPYTER_HOME/custom/extension_entry_jupyterlab.js \
- && mkdir $JUPYTER_HOME/nbconfig
+ && mkdir $JUPYTER_HOME/nbconfig \
+ && $JUPYTER_HOME/scripts/kernel/kernelspec.sh $JUPYTER_HOME/scripts/kernel /usr/local/share/jupyter/kernels
 
 USER $USER
 WORKDIR $HOME
