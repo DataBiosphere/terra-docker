@@ -26,6 +26,7 @@ RUN apt-get update && apt-get install -yq --no-install-recommends \
     # useful utilities for debugging within the docker
     unzip \
     nano \
+    vim \
     procps \
 
     # python requirements
