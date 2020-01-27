@@ -1,7 +1,9 @@
 FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-python:0.0.8
 USER root
-ENV PIP_USER=false
 
+COPY scripts $JUPYTER_HOME/scripts
+
+ENV PIP_USER=false
 ENV PYTHONPATH $PYTHONPATH:/usr/lib/spark/python
 ENV HAIL_VERSION=0.2.30
 

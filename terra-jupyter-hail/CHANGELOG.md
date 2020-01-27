@@ -1,3 +1,8 @@
+## 0.0.7 - 01/27/2020
+
+- Specify PYSPARK_PYTHON="python3" in Jupyter kernel to resolve pyspark python mismatch errors
+   - See https://broadworkbench.atlassian.net/browse/IA-1637
+
 ## 0.0.6 - 01/17/2020
 
 - Update `terra-jupyter-python` version to `0.0.8`
