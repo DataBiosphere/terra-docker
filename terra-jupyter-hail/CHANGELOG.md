@@ -1,6 +1,6 @@
 ## 0.0.7 - 01/27/2020
 
-- Specify PYSPARK_PYTHON="python3.6" in Jupyter kernel to resolve pyspark python mismatch errors
+- Specify PYSPARK_PYTHON="python3" in Jupyter kernel to resolve pyspark python mismatch errors
    - See https://broadworkbench.atlassian.net/browse/IA-1637
 
 Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-hail:0.0.7`
