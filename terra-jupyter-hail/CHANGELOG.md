@@ -2,8 +2,6 @@
 
 - Specify PYSPARK_PYTHON="python3" in Jupyter kernel to resolve pyspark python mismatch errors
    - See https://broadworkbench.atlassian.net/browse/IA-1637
-- Upgrade Hail to 0.2.31
-   - Release notes here: https://hail.is/docs/0.2/change_log.html#version-0-2-31
 
 Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-hail:0.0.7`
 
