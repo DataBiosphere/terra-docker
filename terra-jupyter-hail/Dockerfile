@@ -3,7 +3,7 @@ USER root
 ENV PIP_USER=false
 
 ENV PYTHONPATH $PYTHONPATH:/usr/lib/spark/python
-ENV HAIL_VERSION=0.2.30
+ENV HAIL_VERSION=0.2.31
 
 # Note Spark and Hadoop are mounted from the outside Dataproc VM.
 # Make empty conf dirs for the update-alternatives commands.
