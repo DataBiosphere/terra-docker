@@ -56,6 +56,8 @@ docker run --rm -itd -u root -e PIP_USER=false --entrypoint='/bin/bash' --name $
 gcloud auth list
 python scripts/generate_package_docs.py "$IMAGE_DIR"
 
+docker kill $IMAGE_DIR || true 
+docker rm -f $IMAGE_DIR || true
 docker image rm -f $GCR_IMAGE_REPO/$IMAGE_DIR:$VERSION
 docker image rm -f $GCR_IMAGE_REPO/$IMAGE_DIR:$TAG_NAME
 
