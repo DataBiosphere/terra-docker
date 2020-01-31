@@ -9,9 +9,7 @@ VERSION=$(cat config/conf.json | jq -r ".image_data | .[] | select(.name == \"$I
 TAG_NAME=$(git log --pretty=format:'%h' -n 1)
 GCR_IMAGE_REPO=$(cat config/conf.json | jq -r .gcr_image_repo)
 
-#for some reason, this command fails if the script is in strict mode because grep not finding something exits with 1
-#we grep for "$VERSION," because the result we are interested will always be of the form " $VERSION,$GIT_HASH " and this ensures we don't match on substrings
-#This is subject to being broken if we tag/push the images in a different order.  
+#below is a regex to match strictly on $VERSION, not any tags which have a substring of $VERSION
 IMAGE_EXISTS=$(gcloud container images list-tags  --filter="TAGS~^$VERSION$" $GCR_IMAGE_REPO/$IMAGE_DIR)
 
 if [ -z "$IMAGE_EXISTS" ]; then
