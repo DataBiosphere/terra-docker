@@ -9,8 +9,8 @@ VERSION=$(cat config/conf.json | jq -r ".image_data | .[] | select(.name == \"$I
 TAG_NAME=$(git log --pretty=format:'%h' -n 1)
 GCR_IMAGE_REPO=$(cat config/conf.json | jq -r .gcr_image_repo)
 
-#for some reason, this command fails if the script is in strict mode because grep not finding something exits with 1
-IMAGE_EXISTS=$(gcloud container images list-tags $GCR_IMAGE_REPO/$IMAGE_DIR | grep $VERSION) | true
+#below is a regex to match strictly on $VERSION, not any tags which have a substring of $VERSION
+IMAGE_EXISTS=$(gcloud container images list-tags  --filter="TAGS~^$VERSION$" $GCR_IMAGE_REPO/$IMAGE_DIR)
 
 if [ -z "$IMAGE_EXISTS" ]; then
     echo "An image for this version does not exist. Proceeding with build"
@@ -47,13 +47,15 @@ if [ $IMAGE_DIR = "terra-jupyter-gatk" ]; then
   docker push broadinstitute/$IMAGE_DIR:$TAG_NAME
 fi
 
-docker kill $IMAGE_DIR | true 
-docker rm -f $IMAGE_DIR | true
+docker kill $IMAGE_DIR || true 
+docker rm -f $IMAGE_DIR || true
 docker run --rm -itd -u root -e PIP_USER=false --entrypoint='/bin/bash' --name $IMAGE_DIR $GCR_IMAGE_REPO/$IMAGE_DIR:$VERSION
 
 gcloud auth list
 python scripts/generate_package_docs.py "$IMAGE_DIR"
 
+docker kill $IMAGE_DIR || true 
+docker rm -f $IMAGE_DIR || true
 docker image rm -f $GCR_IMAGE_REPO/$IMAGE_DIR:$VERSION
 docker image rm -f $GCR_IMAGE_REPO/$IMAGE_DIR:$TAG_NAME
 
