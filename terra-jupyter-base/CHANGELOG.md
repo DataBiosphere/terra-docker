@@ -1,3 +1,10 @@
+## 0.0.8 - 02/05/2020
+
+- Fix bug in `google_sign_in.js` in the base image
+   - See https://broadworkbench.atlassian.net/browse/IA-1653
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-base:0.0.8`
+
 ## 0.0.7 - 01/17/2020
 
 - Make image locally runnable with:

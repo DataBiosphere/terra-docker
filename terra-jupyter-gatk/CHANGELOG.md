@@ -1,3 +1,11 @@
+## 0.0.11 - 02/05/2020
+
+- Update `terra-jupyter-python` version to `0.0.9`
+- Update `terra-jupyter-r` version to `0.0.10`
+- Fixes bug: https://broadworkbench.atlassian.net/browse/IA-1653
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-gatk:0.0.11`
+
 ## 0.0.10 - 01/17/2020
 
 - Update `terra-jupyter-python` version to `0.0.8`
