@@ -81,7 +81,8 @@ function startTimer() {
   setInterval(statusCheck, 60000);
 }
 
-// Note: this should match https://github.com/DataBiosphere/leonardo/blob/develop/http/src/main/scala/org/broadinstitute/dsde/workbench/leonardo/util/CookieHelper.scala
+// Note: this should match
+// https://github.com/DataBiosphere/leonardo/blob/develop/http/src/main/scala/org/broadinstitute/dsde/workbench/leonardo/util/CookieHelper.scala
 function setCookie(token, expiresIn) {
   document.cookie = 'LeoToken=' + token + '; Max-Age=' + expiresIn + '; Path=/; Secure; SameSite=None'
 }
