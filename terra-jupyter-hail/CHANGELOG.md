@@ -1,3 +1,10 @@
+## 0.0.8 - 02/05/2020
+
+- Update `terra-jupyter-python` base image to `0.0.9`
+   - Fixes https://broadworkbench.atlassian.net/browse/IA-1653
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-hail:0.0.8`
+
 ## 0.0.7 - 01/27/2020
 
 - Specify PYSPARK_PYTHON="python3" in Jupyter kernel to resolve pyspark python mismatch errors

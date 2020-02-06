@@ -1,3 +1,8 @@
+## 0.0.10 - 02/05/2020
+- Update `terra-jupyter-base` version to `0.0.8`
+   - Fixes https://broadworkbench.atlassian.net/browse/IA-1653
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-r:0.0.10`
+
 ## 0.0.9 - 01/17/2020
 - Update `terra-jupyter-base` version to `0.0.7`
 - Make docker image locally runnable with:
