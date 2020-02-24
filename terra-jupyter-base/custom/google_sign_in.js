@@ -16,14 +16,45 @@ const params = {
   clusterName: ''
 };
 
-// update params with any specified in the server's config file
+// update params with any specified in the server's config file,
+// or retrieve that info from the url if we cannot access it (as is the case in terminal view)
 function updateParams() {
+  if (!Jupyter.notebook) {
+    readFallbackConfig();
+  } else {
+    readNotebookConfig();
+  }
+}
+
+function readNotebookConfig() {
   const config = Jupyter.notebook.config;
   for (const key in params) {
     if (config.data.hasOwnProperty(key)) {
       params[key] = config.data[key];
     }
   }
+}
+
+// here we attempt to parse the url for the googleProject and the clusterName
+function readFallbackConfig() {
+  const url = window.location.href;
+  const initialSearch = 'proxy/';
+
+  const projectSubstringStartLocation = url.search(initialSearch) + initialSearch.length;
+  const projectSubstring = url.substring(projectSubstringStartLocation, url.length);
+  const projectEndLocation = projectSubstring.search('/');
+  const googleProject = projectSubstring.substring(0, projectEndLocation);
+
+  // we add 1 for the slash between project and cluster
+  const clusterSubstring = projectSubstring.substring(projectEndLocation + 1, projectSubstring.length);
+  const clusterEndLocation = clusterSubstring.search('/');
+  const clusterName = clusterSubstring.substring(0, clusterEndLocation);
+
+  console.info(`Attempted to parse the url for a fallback configuration. 
+                         Found googleProject: '${googleProject}' and clusterName '${clusterName}'`);
+
+  params.googleProject = googleProject;
+  params.clusterName = clusterName;
 }
 
 function receive(event) {
@@ -75,7 +106,7 @@ function startTimer() {
 
   function statusCheck() {
     const xhttp = new XMLHttpRequest();
-    xhttp.open("GET", "/notebooks/" + params.googleProject + "/" + params.clusterName + "/api/status", true);
+    xhttp.open('GET', '/notebooks/' + params.googleProject + '/' + params.clusterName + '/api/status', true);
     xhttp.send();
   }
   setInterval(statusCheck, 60000);
