@@ -60,7 +60,7 @@ function readFallbackConfig() {
 }
 
 function fallbackReadNotebookConfig(googleProject, clusterName) {
-  const url = `/proxy/${googleProject}/${clusterName}/api/config/notebook`;
+  const url = `/proxy/${googleProject}/${clusterName}/jupyter/api/config/notebook`;
   xhttpGet(url, (res) => {
     readNotebookConfig(res);
   });
@@ -128,7 +128,7 @@ function startTimer() {
   });
 
   function statusCheck() {
-    const url = `/proxy/${params.googleProject}/${params.clusterName}/api/status`;
+    const url = `/proxy/${params.googleProject}/${params.clusterName}/jupyter/api/status`;
     // logging the statusCheck can be noisy, and it will tell us in the console if it fails
     xhttpGet(url, () => {});
   }
