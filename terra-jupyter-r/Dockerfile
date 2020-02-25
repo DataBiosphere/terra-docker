@@ -1,4 +1,4 @@
-FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-base:0.0.8
+FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-base:0.0.9
 USER root
 
 COPY scripts $JUPYTER_HOME/scripts
@@ -38,9 +38,9 @@ RUN mkdir -p /home/jupyter-user/.rpackages \
     "remotes", \
     "BiocManager", \
     "devtools"))' \
-    
+
     && R -e 'BiocManager::install(version="3.10", ask=FALSE)' \
-   
+
     # fix for AoU-blocking bug https://github.com/rstudio/reticulate/issues/693
     # after version 1.15 is released to CRAN, we can install reticulate in the standard way
     && R -e 'BiocManager::install("rstudio/reticulate", ref="00172079")' \

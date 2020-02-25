@@ -1,3 +1,12 @@
+## 0.0.9 - 02/25/2020
+- Fixes https://broadworkbench.atlassian.net/browse/IA-1676 in `google_sign_in.js` 
+    - Adds a fallback method to set needed config when in non-notebook views
+- Lints .js files
+- Fixes bug in `edit-mode.js` that caused errors in console due to modules loading prematurely
+    - also renames saveAs function due to global namespace conflicts with https://github.com/eligrey/FileSaver.js
+   
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-base:0.0.9`
+
 ## 0.0.8 - 02/05/2020
 
 - Fix bug in `google_sign_in.js` in the base image
