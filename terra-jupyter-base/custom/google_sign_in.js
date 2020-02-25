@@ -19,18 +19,18 @@ const params = {
 // update params with any specified in the server's config file,
 // or retrieve that info from the url if we cannot access it (as is the case in terminal view)
 function updateParams() {
-  if (!Jupyter.notebook) {
+  if (!Jupyter.notebook || !Jupyter.notebook.config || !Jupyter.notebook.config.data) {
+    console.warn('Unable to read notebook config. This is expected in terminal view, but not elsewhere. Attempting to read fallback config.');
     readFallbackConfig();
   } else {
-    readNotebookConfig();
+    readNotebookConfig(Jupyter.notebook.config.data);
   }
 }
 
-function readNotebookConfig() {
-  const config = Jupyter.notebook.config;
+function readNotebookConfig(config) {
   for (const key in params) {
-    if (config.data.hasOwnProperty(key)) {
-      params[key] = config.data[key];
+    if (config.hasOwnProperty(key)) {
+      params[key] = config[key];
     }
   }
 }
@@ -55,6 +55,15 @@ function readFallbackConfig() {
 
   params.googleProject = googleProject;
   params.clusterName = clusterName;
+
+  fallbackReadNotebookConfig(googleProject, clusterName);
+}
+
+function fallbackReadNotebookConfig(googleProject, clusterName) {
+  const url = `/notebooks/${googleProject}/${clusterName}/api/config/notebook`;
+  xhttpGet(url, (res) => {
+    readNotebookConfig(res);
+  });
 }
 
 function receive(event) {
@@ -77,6 +86,21 @@ function receive(event) {
       }
     }, event.origin);
   }
+}
+
+// https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/response
+function xhttpGet(url, callback) {
+  const xhr = new XMLHttpRequest();
+
+  xhr.onreadystatechange = function() {
+    if (xhr.readyState === 4 && xhr.status == 200) {
+      const jsonResp = JSON.parse(xhr.responseText);
+      callback(jsonResp);
+    }
+  };
+
+  xhr.open('GET', url, true);
+  xhr.send('');
 }
 
 function startTimer() {
@@ -103,19 +127,19 @@ function startTimer() {
     setInterval(doAuth, 180000);
   });
 
-
   function statusCheck() {
-    const xhttp = new XMLHttpRequest();
-    xhttp.open('GET', '/notebooks/' + params.googleProject + '/' + params.clusterName + '/api/status', true);
-    xhttp.send();
+    const url = `/notebooks/${params.googleProject}/${params.clusterName}/api/status`;
+    // logging the statusCheck can be noisy, and it will tell us in the console if it fails
+    xhttpGet(url, () => {});
   }
+
   setInterval(statusCheck, 60000);
 }
 
 // Note: this should match
 // https://github.com/DataBiosphere/leonardo/blob/develop/http/src/main/scala/org/broadinstitute/dsde/workbench/leonardo/util/CookieHelper.scala
 function setCookie(token, expiresIn) {
-  document.cookie = 'LeoToken=' + token + '; Max-Age=' + expiresIn + '; Path=/; Secure; SameSite=None'
+  document.cookie = 'LeoToken=' + token + '; Max-Age=' + expiresIn + '; Path=/; Secure; SameSite=None';
 }
 
 function loadGapi(googleLib, continuation) {
