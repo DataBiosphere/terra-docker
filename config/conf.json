@@ -82,7 +82,7 @@
             "base_label": "New Default (released on January 14)",
             "tools": ["gatk", "python", "r"],
             "packages": {},
-            "version": "0.0.12",
+            "version": "0.0.13",
             "automated_flags": {
                 "include_in_ui": true,
                 "generate_docs": true,
