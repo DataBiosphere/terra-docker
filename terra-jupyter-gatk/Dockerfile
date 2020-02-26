@@ -11,6 +11,7 @@ USER root
 RUN apt-get update && apt-get install -yq --no-install-recommends \
   python3.7-dev \
   python-tk \
+  openjdk-8-jdk \
   tk-dev \
   libssl-dev \
   xz-utils \
@@ -21,6 +22,8 @@ RUN apt-get update && apt-get install -yq --no-install-recommends \
   zlib1g-dev \
   libz-dev \
   samtools \
+  # specify Java 8
+  && update-alternatives --set java /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/*
 
