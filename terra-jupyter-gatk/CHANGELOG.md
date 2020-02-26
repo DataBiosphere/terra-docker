@@ -1,6 +1,6 @@
 ## 0.0.13 - 02/26/2020
 
-- Install OpenJDK 8
+- Install OpenJDK 8 instead of OpenJDK 11 to be compatible with GATK
    - Fixes https://broadworkbench.atlassian.net/browse/IA-1706
 
 Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-gatk:0.0.13`
