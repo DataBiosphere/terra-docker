@@ -1,3 +1,10 @@
+## 0.0.9 - 02/25/2020
+
+- Update `terra-jupyter-python` base image to `0.0.10`
+    - Fixes https://broadworkbench.atlassian.net/browse/IA-1676
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-hail:0.0.9`
+
 ## 0.0.8 - 02/05/2020
 
 - Update `terra-jupyter-python` base image to `0.0.9`

@@ -1,4 +1,5 @@
 import utils
+import subprocess
 
 def get_config(path):
   return utils.read_json_file(path)
@@ -106,8 +107,14 @@ def get_static_legacy_doc():
   return doc
 
 def get_current_versions():
-  utils.gsutil_cp(config["version_master_file"], config["doc_bucket"], copy_to_remote=False)
-  return utils.read_json_file(config["version_master_file"])
+  try:
+    utils.gsutil_cp(config["version_master_file"], config["doc_bucket"], copy_to_remote=False)
+    current_versions = utils.read_json_file(config["version_master_file"])
+  except subprocess.CalledProcessError:
+    print("detected remote file doesn't exist, will regenerate versions")
+    current_versions = {}
+  
+  return current_versions
 
 def get_tool_label(tool):
   return tool.upper() if tool == 'gatk' else tool.capitalize()

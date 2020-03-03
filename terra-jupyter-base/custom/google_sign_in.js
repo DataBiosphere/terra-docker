@@ -16,14 +16,54 @@ const params = {
   clusterName: ''
 };
 
-// update params with any specified in the server's config file
+// update params with any specified in the server's config file,
+// or retrieve that info from the url if we cannot access it (as is the case in terminal view)
 function updateParams() {
-  const config = Jupyter.notebook.config;
+  if (!Jupyter.notebook || !Jupyter.notebook.config || !Jupyter.notebook.config.data) {
+    console.warn('Unable to read notebook config. This is expected in terminal view, but not elsewhere. Attempting to read fallback config.');
+    readFallbackConfig();
+  } else {
+    readNotebookConfig(Jupyter.notebook.config.data);
+  }
+}
+
+function readNotebookConfig(config) {
   for (const key in params) {
-    if (config.data.hasOwnProperty(key)) {
-      params[key] = config.data[key];
+    if (config.hasOwnProperty(key)) {
+      params[key] = config[key];
     }
   }
+}
+
+// here we attempt to parse the url for the googleProject and the clusterName
+function readFallbackConfig() {
+  const url = window.location.href;
+  const initialSearch = 'proxy/';
+
+  const projectSubstringStartLocation = url.search(initialSearch) + initialSearch.length;
+  const projectSubstring = url.substring(projectSubstringStartLocation, url.length);
+  const projectEndLocation = projectSubstring.search('/');
+  const googleProject = projectSubstring.substring(0, projectEndLocation);
+
+  // we add 1 for the slash between project and cluster
+  const clusterSubstring = projectSubstring.substring(projectEndLocation + 1, projectSubstring.length);
+  const clusterEndLocation = clusterSubstring.search('/');
+  const clusterName = clusterSubstring.substring(0, clusterEndLocation);
+
+  console.info(`Attempted to parse the url for a fallback configuration. 
+                         Found googleProject: '${googleProject}' and clusterName '${clusterName}'`);
+
+  params.googleProject = googleProject;
+  params.clusterName = clusterName;
+
+  fallbackReadNotebookConfig(googleProject, clusterName);
+}
+
+function fallbackReadNotebookConfig(googleProject, clusterName) {
+  const url = `/proxy/${googleProject}/${clusterName}/jupyter/api/config/notebook`;
+  xhttpGet(url, (res) => {
+    readNotebookConfig(res);
+  });
 }
 
 function receive(event) {
@@ -46,6 +86,21 @@ function receive(event) {
       }
     }, event.origin);
   }
+}
+
+// https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/response
+function xhttpGet(url, callback) {
+  const xhr = new XMLHttpRequest();
+
+  xhr.onreadystatechange = function() {
+    if (xhr.readyState === 4 && xhr.status == 200) {
+      const jsonResp = JSON.parse(xhr.responseText);
+      callback(jsonResp);
+    }
+  };
+
+  xhr.open('GET', url, true);
+  xhr.send('');
 }
 
 function startTimer() {
@@ -72,19 +127,19 @@ function startTimer() {
     setInterval(doAuth, 180000);
   });
 
-
   function statusCheck() {
-    const xhttp = new XMLHttpRequest();
-    xhttp.open("GET", "/notebooks/" + params.googleProject + "/" + params.clusterName + "/api/status", true);
-    xhttp.send();
+    const url = `/proxy/${params.googleProject}/${params.clusterName}/jupyter/api/status`;
+    // logging the statusCheck can be noisy, and it will tell us in the console if it fails
+    xhttpGet(url, () => {});
   }
+
   setInterval(statusCheck, 60000);
 }
 
 // Note: this should match
 // https://github.com/DataBiosphere/leonardo/blob/develop/http/src/main/scala/org/broadinstitute/dsde/workbench/leonardo/util/CookieHelper.scala
 function setCookie(token, expiresIn) {
-  document.cookie = 'LeoToken=' + token + '; Max-Age=' + expiresIn + '; Path=/; Secure; SameSite=None'
+  document.cookie = 'LeoToken=' + token + '; Max-Age=' + expiresIn + '; Path=/; Secure; SameSite=None';
 }
 
 function loadGapi(googleLib, continuation) {

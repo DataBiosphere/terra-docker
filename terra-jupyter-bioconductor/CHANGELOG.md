@@ -1,3 +1,10 @@
+## 0.0.12 - 02/25/2020
+          
+- Update `terra-jupyter-r` version to `0.0.11`
+    - Fixes https://broadworkbench.atlassian.net/browse/IA-1676
+ 
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-bioconductor:0.0.12`
+
 ## 0.0.11 - 02/05/2020
 - Update `terra-jupyter-r` base image to `0.0.10`
    - Fixes https://broadworkbench.atlassian.net/browse/IA-1653
