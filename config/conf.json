@@ -89,6 +89,19 @@
                 "build": true,
                 "include_in_custom_dataproc": true
             }
+        },
+        {
+            "name": "terra-jupyter-aou",
+            "base_label": "All of Us",
+            "tools": ["python", "r"],
+            "packages": {},
+            "version": "0.0.1",
+            "automated_flags": {
+                "include_in_ui": false,
+                "generate_docs": false,
+                "build": true,
+                "include_in_custom_dataproc": true
+            }
         }
     ]
 }

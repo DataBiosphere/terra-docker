@@ -23,21 +23,29 @@ RUN apt-get update && apt-get install -yq --no-install-recommends \
   zlib1g-dev \
   libz-dev \
   libmagick++-dev \
+  iproute2 \
   # specify Java 8
   && update-alternatives --set java /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/*
 
-RUN pip3 install --upgrade \
-  plotnine \
-  statsmodels==0.10.0rc2
+# Install Wondershaper from source, for client-side egress limiting.
+RUN cd /usr/local/share && \
+  git clone https://github.com/magnific0/wondershaper.git --depth 1 && \
+  cd wondershaper && \
+  make install && \
+  cd $HOME
 
 RUN echo "Sys.setenv(RETICULATE_PYTHON = '$(which python3)')" >> ~/.Rprofile
 
 ENV USER jupyter-user
 USER $USER
 
-# Install R libraries as the user.
+# Install Notebook libraries as the user.
+
+RUN pip3 install --upgrade \
+  plotnine \
+  statsmodels==0.10.0rc2
 
 RUN R -e 'devtools::install_github("all-of-us/bigrquery")'
 
