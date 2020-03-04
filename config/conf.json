@@ -100,7 +100,8 @@
                 "include_in_ui": false,
                 "generate_docs": false,
                 "build": true,
-                "include_in_custom_dataproc": true
+                "include_in_custom_dataproc": true,
+                "include_in_custom_gce": true
             }
         }
     ]
