@@ -44,8 +44,8 @@ If you are adding a new image:
 - If you wish the image to be baked into our custom image, which makes the runtime load significantly faster (recommended), make a PR into the leonardo [repo](https://github.com/DataBiosphere/leonardo) doing the following within the `jenkins` folder:
     - Add the image to the parameter list in the Jenkinsfile
     - Update the relevant `prepare` script in each subdirectory. Currently there is a prepare script for gce and dataproc.
-    - It is recommended to a test in the `automation` directory
-    - Add your image to the `reference.conf` in the automation directory. This will be the only plalce any future version updates to your image happen, and ensure, along with the test in the previous step, that any changes to the image are tested.
+    - It is recommended to add a test in the `automation` directory
+    - Add your image to the `reference.conf` in the automation directory. This will be the only place any future version updates to your image happen. This ensures, along with the test in the previous step, that any changes to the image are tested.
 
 If you are updating an existing image:
 - Update the version in config/conf.json
