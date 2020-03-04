@@ -41,6 +41,11 @@ chmod 755 .git/hooks/apply-git-secrets.sh
 If you are adding a new image:
 - Create a new directory with the Dockerfile and a CHANGELOG.md. 
 - Add the directory name (also referred to as the image name) as an entry to the image_data array in the file in config/conf.json. For more info on what is needed for a new image, see the section on the config
+- If you wish the image to be baked into our custom image, which makes the runtime load significantly faster (recommended), make a PR into the leonardo [repo](https://github.com/DataBiosphere/leonardo) doing the following within the `jenkins` folder:
+    - Add the image to the parameter list in the Jenkinsfile
+    - Update the relevant `prepare` script in each subdirectory. Currently there is a prepare script for gce and dataproc.
+    - It is recommended to a test in the `automation` directory
+    - Add your image to the `reference.conf` in the automation directory. This will be the only plalce any future version updates to your image happen, and ensure, along with the test in the previous step, that any changes to the image are tested.
 
 If you are updating an existing image:
 - Update the version in config/conf.json
