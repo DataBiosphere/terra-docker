@@ -50,7 +50,8 @@ def generate_doc_for_image(image_config):
     "version": version,
     "updated": get_last_updated(image_config),
     "packages": get_doc_link(image_config),
-    "image": "{}/{}:{}".format(config['gcr_image_repo'], image_dir, version)
+    "image": "{}/{}:{}".format(config['gcr_image_repo'], image_dir, version),
+    "requiresSpark": "spark" in image_config["tools"]
   }
 
   return doc
@@ -101,7 +102,8 @@ def get_static_legacy_doc():
     "version": 'FINAL',
     "updated": '2019-08-26',
     "packages": 'https://storage.googleapis.com/terra-docker-image-documentation/leonardo-jupyter-dev-versions.json',
-    "image": 'us.gcr.io/broad-dsp-gcr-public/leonardo-jupyter:5c51ce6935da'
+    "image": 'us.gcr.io/broad-dsp-gcr-public/leonardo-jupyter:5c51ce6935da',
+    "requiresSpark": True
   }
 
   return doc

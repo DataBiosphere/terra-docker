@@ -4,14 +4,14 @@
         "python",
         "r",
         "gatk",
-        "spark",
-        "samtools"
+        "spark"
     ],
     "version_master_file": "terra-docker-versions-new.json",
     "doc_suffix": "versions.json",
     "gcr_image_repo": "us.gcr.io/broad-dsp-gcr-public",
     "doc_bucket": "gs://terra-docker-image-documentation",
     "doc_bucket_no_prefix": "terra-docker-image-documentation",
+    "spark_version": "2.4.5",
     "image_data": [{
             "name": "terra-jupyter-bioconductor",
             "base_label": "Bioconductor",
@@ -29,7 +29,7 @@
         {
             "name": "terra-jupyter-hail",
             "base_label": "Hail",
-            "tools": ["python"],
+            "tools": ["python", "spark"],
             "packages": { "python": ["hail"] },
             "version": "0.0.9",
             "automated_flags": {
