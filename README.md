@@ -84,6 +84,9 @@ To launch an image through Terra, navigate to https://app.terra.bio, select a wo
 
 There is a config file located at `config/conf.json` that contains the configuration used by all automated jobs and build scripts that interface with this repo. 
 
+There is a field for "spark_version" top-level which must be updated if we update the debian version used in the custom image. 
+Currently it assumes 1.4x https://cloud.google.com/dataproc/docs/concepts/versioning/dataproc-release-1.4
+
 There are some constants included, such as the tools supported by this repo. Of particular interest is the image_data array.
 
 Each time you update or add an image, you will need to update the appropriate entry in this array:
@@ -108,9 +111,13 @@ Each time you update or add an image, you will need to update the appropriate en
 
         "build": true,            //Whether or not the jenkins job that builds the docker images in this repo should build this image
 
-        "include_in_custom_dataproc": true  //Whether or not the jenkins job that builds the custom dataproc image should include this image. 
+        "include_in_custom_dataproc": true,  //Whether or not the jenkins job that builds the custom dataproc image should include this image. 
                                             //This is superceded by the build flag
-    }
+        "include_in_ui": true, // Whether or not this should be included in the .json file that power the terra ui dropdown for available images
+        "include_in_custom_gce": true, //Whether or not the jenkins job that builds the custom gce image should include this image.
+                                 //This is superceded by the build flag   
+        "requires_spark": true // Whether or not this image requires a dataproc cluster to run (as opposed to most, which just need a GCE VM)
+    }   
 },
 ```
 

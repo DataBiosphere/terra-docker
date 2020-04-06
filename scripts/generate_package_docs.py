@@ -23,7 +23,7 @@ def get_docs(params):
   for tool in tools:
     print "Writing doc for tool {}".format(tool)
       #flattens the arrays of objects with packages:version key value pairs into single object with all key value pairs
-    docs[tool] = utils.flatten_list_of_dicts(doc_builder[tool](params.image_dir))
+    docs[tool] = utils.flatten_list_of_dicts(doc_builder[tool](params))
 
   return docs
 
@@ -31,12 +31,14 @@ def get_doc_builder():
   builder = {
     "r": get_r_doc,
     "python": get_python_doc,
-    "gatk": get_gatk_doc
+    "gatk": get_gatk_doc,
+    "spark": get_spark_doc
   }
 
   return builder
 
-def get_r_doc(image_dir):
+def get_r_doc(params):
+  image_dir = params.image_dir
   raw_r_doc =  utils.docker_exec(image_dir, "sh -c \"echo 'ip <- as.data.frame(installed.packages()[,c(1,3:4)]) \n rownames(ip) <- NULL \n ip <- ip[is.na(ip\$Priority),1:2,drop=FALSE] \n print(ip, row.names=FALSE)' > temp.r; Rscript temp.r; rm temp.r\"")
   packages = raw_r_doc.strip().split("\n")
 
@@ -57,7 +59,8 @@ def get_r_doc(image_dir):
 
   return package_json
 
-def get_python_doc(image_dir):
+def get_python_doc(params):
+  image_dir = params.image_dir
   python_version_output = utils.docker_exec(image_dir, "python3 --version")
   raw_python_doc = utils.docker_exec(image_dir, "pip list --format=json")
 
@@ -72,11 +75,15 @@ def get_python_doc(image_dir):
 
   return json_python_doc
 
-def get_gatk_doc(image_dir):
+def get_gatk_doc(params):
+  image_dir = params.image_dir
   cmd = "ls /etc/ | grep gatk | tr '-' ' ' | awk '{print $2}'"
   gatk_version = utils.docker_exec(image_dir, cmd)
 
   return [{"gatk": gatk_version}]
+
+def get_spark_doc(params):
+  return [{"spark": params.config["spark_version"]}]
 
 # defines 3 params
 #  image_dir: the name of the image being processed. This is passed from the caller.
