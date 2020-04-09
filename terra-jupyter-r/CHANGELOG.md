@@ -1,3 +1,8 @@
+## 0.0.12 - 04/15/2020
+- Update `terra-jupyter-r` version to `0.0.12`
+- Install most system dependencies needed for CRAN and Bioconductor packages.
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-r:0.0.12`
+
 ## 0.0.11 - 02/25/2020
 - Update `terra-jupyter-base` version to `0.0.9`
    - Fixes https://broadworkbench.atlassian.net/browse/IA-1676

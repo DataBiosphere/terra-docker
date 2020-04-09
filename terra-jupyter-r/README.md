@@ -8,6 +8,8 @@ The terra-jupyter-r extends the [terra-jupyter-base](../terra-jupyter-base/READM
 
 - R 3.6
 
+- CRAN and Bioc 3.10 package system dependencies
+
 To see the complete contents of this image please see the [Dockerfile](./Dockerfile).
 
 ## Selecting prior versions of this image
