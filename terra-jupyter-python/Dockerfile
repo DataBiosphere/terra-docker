@@ -62,7 +62,6 @@ RUN pip3 -V \
  && pip3 install protobuf==3.7.1 \
  && pip3 install pymc3==3.1 \
  && pip3 install pyparsing==2.2.0 \
- && pip3 install pysam==0.15.1 \
  && pip3 install python-dateutil==2.6.1 \
  && pip3 install pytz==2017.3 \
  && pip3 install pyvcf==0.6.8 \
@@ -79,6 +78,9 @@ RUN pip3 -V \
  && pip3 install readline==6.2 \
  && pip3 install setuptools==42.0.2 \
  && pip3 install wheel
+
+ENV HTSLIB_CONFIGURE_OPTIONS="--enable-plugins --enable-libcurl --enable-gcs”
+pip3 install pysam==0.15.4 --no-binary pysam
 
 ENV USER jupyter-user
 USER $USER
