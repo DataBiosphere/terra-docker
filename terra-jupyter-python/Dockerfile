@@ -79,7 +79,7 @@ RUN pip3 -V \
  && pip3 install setuptools==42.0.2 \
  && pip3 install wheel
 
-ENV HTSLIB_CONFIGURE_OPTIONS="--enable-plugins --enable-libcurl --enable-gcs”
+ENV HTSLIB_CONFIGURE_OPTIONS="--enable-plugins --enable-libcurl --enable-gcs"
 pip3 install pysam==0.15.4 --no-binary pysam
 
 ENV USER jupyter-user
