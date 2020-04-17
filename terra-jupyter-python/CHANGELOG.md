@@ -1,3 +1,9 @@
+## 0.0.11 - 04/17/2020
+
+- Add Google Cloud support to pysam.
+   
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-python:0.0.11`
+
 ## 0.0.10 - 02/25/2020
 
 - Update `terra-jupyter-base` version to `0.0.9`
