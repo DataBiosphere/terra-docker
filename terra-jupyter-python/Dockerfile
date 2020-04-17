@@ -80,7 +80,7 @@ RUN pip3 -V \
  && pip3 install wheel
 
 ENV HTSLIB_CONFIGURE_OPTIONS="--enable-plugins --enable-libcurl --enable-gcs"
-pip3 install pysam==0.15.4 --no-binary pysam
+pip3 install Cython && pip3 install pysam==0.15.4 --no-binary pysam
 
 ENV USER jupyter-user
 USER $USER
