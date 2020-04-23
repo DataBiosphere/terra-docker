@@ -13,7 +13,7 @@ def read_json_file(file_name):
 
 def gsutil_cp(file, bucket, copy_to_remote=True, debug=True):
   log_name = "gsutil_cp.log"
-  base_command = "gsutil cp -L {}".format(log_name)
+  base_command = "gsutil -h 'Cache-Control:no-cache,max-age=0' cp -L {}".format(log_name)
   if copy_to_remote:
     command = "{} {} {}".format(base_command, file, bucket)
   else:
