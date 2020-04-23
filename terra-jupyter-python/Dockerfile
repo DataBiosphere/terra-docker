@@ -15,6 +15,7 @@ RUN apt-get update && apt-get install -yq --no-install-recommends \
   liblzo2-dev \
   zlib1g-dev \
   libz-dev \
+  libcurl4-openssl-dev \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/*
 
@@ -79,7 +80,7 @@ RUN pip3 -V \
  && pip3 install setuptools==42.0.2 \
  && pip3 install wheel
 
-ENV HTSLIB_CONFIGURE_OPTIONS="--enable-plugins --enable-libcurl --enable-gcs"
+ENV HTSLIB_CONFIGURE_OPTIONS="--enable-gcs"
 pip3 install Cython && pip3 install pysam==0.15.4 --no-binary pysam
 
 ENV USER jupyter-user
