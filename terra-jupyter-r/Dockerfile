@@ -4,8 +4,8 @@ USER root
 COPY scripts $JUPYTER_HOME/scripts
 
 # Add env vars to identify binary package installation
-ENV R_PLATFORM="terra-jupyter-r"
-ENV R_PLATFORM_BINARY_VERSION=0.99.0
+ENV TERRA_R_PLATFORM="terra-jupyter-r"
+ENV TERRA_R_PLATFORM_BINARY_VERSION=0.99.0
 
 
 RUN find $JUPYTER_HOME/scripts -name '*.sh' -type f | xargs chmod +x \
@@ -158,5 +158,11 @@ RUN mkdir -p /home/jupyter-user/.rpackages \
     "tidyverse", \
     "pbdZMQ", \
     "uuid"))' \
-    && R -e 'IRkernel::installspec(user=TRUE)' \
     && chown -R $USER:users /home/jupyter-user/.local
+
+
+USER root
+
+RUN R -e 'IRkernel::installspec(user=FALSE)'
+
+USER $USER
