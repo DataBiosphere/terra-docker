@@ -1,3 +1,8 @@
+## 0.0.13 - 04/23/2020
+- Update `terra-jupyter-r` version to `0.0.13`
+- Change env var names to avoid conflict.
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-r:0.0.13`
+
 ## 0.0.12 - 04/15/2020
 - Update `terra-jupyter-r` version to `0.0.12`
 - Install most system dependencies needed for CRAN and Bioconductor packages.
