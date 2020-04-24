@@ -1,3 +1,10 @@
+## 0.0.2 - 04/24/2020
+
+- Update to `terra-jupyter-r:0.0.13`.
+- Update `terra-jupyter-aou` image version to `0.0.2`.
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-aou:0.0.2`
+
 ## 0.0.1 - 02/28/2020
 
 - Iniitalized image; based on terra-jupyter-gatk, combined with the original
