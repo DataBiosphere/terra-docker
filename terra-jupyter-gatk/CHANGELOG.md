@@ -1,3 +1,10 @@
+## 0.0.14 - 04/24/2020
+
+- Update `terra-jupyter-r` version to `0.0.13`
+- Update `terra-jupyter-gatk` version to `0.0.14`
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-gatk:0.0.14`
+
 ## 0.0.13 - 02/26/2020
 
 - Install OpenJDK 8 instead of OpenJDK 11 to be compatible with GATK

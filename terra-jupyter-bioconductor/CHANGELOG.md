@@ -1,3 +1,11 @@
+## 0.0.13 - 04/24/2020
+          
+- Inherit from terra-jupyter-r:0.0.13
+- Remove redundant system libraries.
+- Update `terra-jupyter-bioconductor` version to `0.0.13`.
+ 
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-bioconductor:0.0.13`
+
 ## 0.0.12 - 02/25/2020
           
 - Update `terra-jupyter-r` version to `0.0.11`
