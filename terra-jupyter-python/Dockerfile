@@ -15,8 +15,11 @@ RUN apt-get update && apt-get install -yq --no-install-recommends \
   liblzo2-dev \
   zlib1g-dev \
   libz-dev \
+  libcurl4-openssl-dev \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/*
+
+ENV HTSLIB_CONFIGURE_OPTIONS="--enable-gcs"
 
 RUN pip3 -V \
  && pip3 install --upgrade pip \
@@ -62,7 +65,8 @@ RUN pip3 -V \
  && pip3 install protobuf==3.7.1 \
  && pip3 install pymc3==3.1 \
  && pip3 install pyparsing==2.2.0 \
- && pip3 install pysam==0.15.1 \
+ && pip3 install Cython \
+ && pip3 install pysam==0.15.4 --no-binary pysam \
  && pip3 install python-dateutil==2.6.1 \
  && pip3 install pytz==2017.3 \
  && pip3 install pyvcf==0.6.8 \
