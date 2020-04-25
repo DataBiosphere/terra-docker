@@ -84,9 +84,6 @@ RUN pip3 -V \
  && pip3 install setuptools==42.0.2 \
  && pip3 install wheel
 
-ENV HTSLIB_CONFIGURE_OPTIONS="--enable-gcs"
-pip3 install Cython && pip3 install pysam==0.15.4 --no-binary pysam
-
 ENV USER jupyter-user
 USER $USER
 #we want pip to install into the user's dir when the notebook is running
