@@ -1,8 +1,15 @@
+## 0.0.11 - 4/28/2020
+
+- Update `terra-jupyter-python` base image to `0.0.11`
+   - Add Google Cloud support to pysam
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-hail:0.0.11`
+
 ## 0.0.10 - 4/22/2020
 
 - Upgrade `hail` to `0.2.38`
 
-`Image URL: us.gcr.io/broad-dsp-gcr-public/terra-jupyter-hail:0.0.10`
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-hail:0.0.10`
 
 ## 0.0.9 - 02/25/2020
 
