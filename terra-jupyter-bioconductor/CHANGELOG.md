@@ -1,3 +1,9 @@
+## 0.0.14 - 04/28/2020
+
+- Fix bug in version `0.0.13`: switch back to `jupyter-user` at the end
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-bioconductor:0.0.14`
+
 ## 0.0.13 - 04/24/2020
           
 - Inherit from terra-jupyter-r:0.0.13
