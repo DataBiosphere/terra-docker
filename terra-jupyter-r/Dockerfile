@@ -5,7 +5,7 @@ COPY scripts $JUPYTER_HOME/scripts
 
 # Add env vars to identify binary package installation
 ENV TERRA_R_PLATFORM="terra-jupyter-r"
-ENV TERRA_R_PLATFORM_BINARY_VERSION=0.99.0
+ENV TERRA_R_PLATFORM_BINARY_VERSION=0.99.1
 
 
 RUN find $JUPYTER_HOME/scripts -name '*.sh' -type f | xargs chmod +x \
@@ -14,7 +14,7 @@ RUN find $JUPYTER_HOME/scripts -name '*.sh' -type f | xargs chmod +x \
 # https://cran.r-project.org/bin/linux/ubuntu/README.html
 RUN apt-get update \
     && apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E298A3A825C0D65DFD57CBB651716619E084DAB9 \
-    && add-apt-repository 'deb https://cloud.r-project.org/bin/linux/ubuntu bionic-cran35/' \
+    && add-apt-repository 'deb https://cloud.r-project.org/bin/linux/ubuntu bionic-cran40/' \
     && apt-get install -yq --no-install-recommends apt-transport-https \
     && apt update \
     && apt install -yq --no-install-recommends \
@@ -127,7 +127,7 @@ RUN mkdir -p /home/jupyter-user/.rpackages \
     && echo "R_LIBS=/home/jupyter-user/.rpackages" > /home/jupyter-user/.Renviron \
     && R -e 'install.packages("BiocManager")' \
     ## check version
-    && R -e 'BiocManager::install(version="3.10", ask=FALSE)' \
+    && R -e 'BiocManager::install(version="3.11", ask=FALSE)' \
     && R -e 'BiocManager::install(c( \
     "boot", \
     "class", \
