@@ -17,7 +17,7 @@
             "base_label": "Bioconductor",
             "tools": ["python", "r"],
             "packages": { "r": ["BiocVersion", "tidyverse"] },
-            "version": "0.0.15",
+            "version": "1.0.0",
             "automated_flags": {
                 "generate_docs": true,
                 "include_in_ui": true,
@@ -73,7 +73,7 @@
             "base_label": "R",
             "tools": ["r"],
             "packages": {},
-            "version": "0.0.14",
+            "version": "1.0.0",
             "automated_flags": {
                 "include_in_ui": false,
                 "generate_docs": true,
@@ -87,7 +87,7 @@
             "base_label": "New Default (released on January 14)",
             "tools": ["gatk", "python", "r"],
             "packages": {},
-            "version": "0.0.16",
+            "version": "1.0.0",
             "automated_flags": {
                 "include_in_ui": true,
                 "generate_docs": true,
@@ -101,7 +101,7 @@
             "base_label": "All of Us",
             "tools": ["python", "r"],
             "packages": {},
-            "version": "0.0.4",
+            "version": "1.0.0",
             "automated_flags": {
                 "include_in_ui": false,
                 "generate_docs": false,

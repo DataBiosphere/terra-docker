@@ -1,3 +1,8 @@
+## 1.0.0 - 05/21/2020
+- Update `terra-jupyter-r` version to `1.0.0`
+- Update R_VERSION to 4.0 and Bioconductor version to release 3.11.
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-r:1.0.0`
+
 ## 0.0.14 - 05/18/2020
 - Update `terra-jupyter-base` image version to `0.0.10`
    - Adds jupyter notebook extension collapsible headers and code-folding
