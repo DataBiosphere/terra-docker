@@ -59,7 +59,7 @@
             "base_label": "Base",
             "tools": ["python"],
             "packages": {},
-            "version": "0.0.9",
+            "version": "0.0.10",
             "automated_flags": {
                 "generate_docs": true,
                 "include_in_ui": false,
