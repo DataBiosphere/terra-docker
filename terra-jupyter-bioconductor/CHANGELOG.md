@@ -1,3 +1,11 @@
+## 1.0.0 - 05/21/2020
+
+- Inherit from terra-jupyter-r:1.0.0.
+- This version updates to R-4.0.0 and Bioconductor RELEASE_3_11.
+- Update `terra-jupyter-bioconductor` version to `1.0.0`
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-bioconductor:1.0.0`
+
 # 0.0.15 - 05/18/2020
 
 - Update `terra-jupyter-r` base image to `0.0.14`
@@ -12,18 +20,18 @@ Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-bioconductor:0.0.15`
 Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-bioconductor:0.0.14`
 
 ## 0.0.13 - 04/24/2020
-          
+
 - Inherit from terra-jupyter-r:0.0.13
 - Remove redundant system libraries.
 - Update `terra-jupyter-bioconductor` version to `0.0.13`.
- 
+
 Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-bioconductor:0.0.13`
 
 ## 0.0.12 - 02/25/2020
-          
+
 - Update `terra-jupyter-r` version to `0.0.11`
     - Fixes https://broadworkbench.atlassian.net/browse/IA-1676
- 
+
 Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-bioconductor:0.0.12`
 
 ## 0.0.11 - 02/05/2020
