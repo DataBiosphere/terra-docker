@@ -1,3 +1,8 @@
+## 0.0.14 - 05/18/2020
+- Update `terra-jupyter-base` image version to `0.0.10`
+   - Adds jupyter notebook extension collapsible headers and code-folding
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-r:0.0.14`
+
 ## 0.0.13 - 04/23/2020
 - Update `terra-jupyter-r` version to `0.0.13`
 - Change env var names to avoid conflict.
