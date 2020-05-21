@@ -1,3 +1,8 @@
+## 0.0.10 - 05/18/2020
+- Adds jupyter notebook extension collapsible headers and code-folding
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-base:0.0.10`
+
 ## 0.0.9 - 02/25/2020
 - Fixes https://broadworkbench.atlassian.net/browse/IA-1676 in `google_sign_in.js` 
     - Adds a fallback method to set needed config when in non-notebook views

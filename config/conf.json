@@ -17,7 +17,7 @@
             "base_label": "Bioconductor",
             "tools": ["python", "r"],
             "packages": { "r": ["BiocVersion", "tidyverse"] },
-            "version": "0.0.14",
+            "version": "0.0.15",
             "automated_flags": {
                 "generate_docs": true,
                 "include_in_ui": true,
@@ -31,7 +31,7 @@
             "base_label": "Hail",
             "tools": ["python", "spark"],
             "packages": { "python": ["hail"] },
-            "version": "0.0.12",
+            "version": "0.0.13",
             "automated_flags": {
                 "generate_docs": true,
                 "include_in_ui": true,
@@ -45,7 +45,7 @@
             "base_label": "Python",
             "tools": ["python"],
             "packages": { "python": ["pandas", "scikit-learn"] },
-            "version": "0.0.11",
+            "version": "0.0.12",
             "automated_flags": {
                 "generate_docs": true,
                 "include_in_ui": true,
@@ -59,7 +59,7 @@
             "base_label": "Base",
             "tools": ["python"],
             "packages": {},
-            "version": "0.0.9",
+            "version": "0.0.10",
             "automated_flags": {
                 "generate_docs": true,
                 "include_in_ui": false,
@@ -73,7 +73,7 @@
             "base_label": "R",
             "tools": ["r"],
             "packages": {},
-            "version": "0.0.13",
+            "version": "0.0.14",
             "automated_flags": {
                 "include_in_ui": false,
                 "generate_docs": true,
@@ -87,7 +87,7 @@
             "base_label": "New Default (released on January 14)",
             "tools": ["gatk", "python", "r"],
             "packages": {},
-            "version": "0.0.15",
+            "version": "0.0.16",
             "automated_flags": {
                 "include_in_ui": true,
                 "generate_docs": true,
@@ -101,7 +101,7 @@
             "base_label": "All of Us",
             "tools": ["python", "r"],
             "packages": {},
-            "version": "0.0.3",
+            "version": "0.0.4",
             "automated_flags": {
                 "include_in_ui": false,
                 "generate_docs": false,

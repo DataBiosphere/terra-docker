@@ -1,3 +1,10 @@
+## 0.0.13 - 05/18/2020
+
+- Update `terra-jupyter-python` image to 0.0.12
+   - Adds jupyter notebook extension collapsible headers and code-folding
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-hail:0.0.13`
+
 ## 0.0.12 - 4/30/2020
 
 - Upgrade `hail` to `0.2.39`

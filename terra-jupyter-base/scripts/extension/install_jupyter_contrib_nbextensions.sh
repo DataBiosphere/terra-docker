@@ -6,3 +6,6 @@ set -e
 sudo -E -u jupyter-user jupyter nbextensions_configurator enable --user
 sudo -E -u jupyter-user jupyter contrib nbextension install --user
 sudo -E -u jupyter-user jupyter nbextension enable toc2/main
+sudo -E -u jupyter-user jupyter nbextension enable codefolding/main
+sudo -E -u jupyter-user jupyter nbextension enable collapsible_headings/main
+

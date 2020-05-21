@@ -1,3 +1,10 @@
+## 0.0.16 - 05/18/2020
+
+- Update `terra-jupyter-python` base image to `0.0.12` and `terra-jupyter-r` base image to `0.0.14`
+   - Adds jupyter notebook extension collapsible headers and code-folding
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-gatk:0.0.16`
+
 ## 0.0.15 - 04/28/2020
 
 - Update `terra-jupyter-python` base image to `0.0.11`
