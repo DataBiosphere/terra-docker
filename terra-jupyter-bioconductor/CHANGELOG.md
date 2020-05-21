@@ -1,7 +1,7 @@
 # 0.0.15 - 05/18/2020
 
 - Update `terra-jupyter-r` base image to `0.0.14`
-   - - Adds jupyter notebook extension collapsible headers and code-folding
+   - Adds jupyter notebook extension collapsible headers and code-folding
 
 Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-bioconductor:0.0.15`
 
