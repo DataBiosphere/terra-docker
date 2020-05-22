@@ -14,7 +14,7 @@
     "spark_version": "2.4.5",
     "image_data": [{
             "name": "terra-jupyter-bioconductor",
-            "base_label": "Bioconductor",
+            "base_label": "R / Bioconductor",
             "tools": ["python", "r"],
             "packages": { "r": ["BiocVersion", "tidyverse"] },
             "version": "1.0.0",
@@ -84,7 +84,7 @@
         },
         {
             "name": "terra-jupyter-gatk",
-            "base_label": "New Default (released on January 14)",
+            "base_label": "Default",
             "tools": ["gatk", "python", "r"],
             "packages": {},
             "version": "1.0.0",
