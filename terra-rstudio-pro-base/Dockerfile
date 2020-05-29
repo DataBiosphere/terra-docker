@@ -15,12 +15,12 @@ RUN apt-get update && apt-get install -yq --no-install-recommends \
 
 # install BiocManager and google-cloud R packages
 # TODO: should we include other bioconductor setup?
-RUN R -e "install.packages(c( \
-  'remotes', \
-  'BiocManager', \
-  'devtools'), \
-  repos = 'http://cran.us.r-project.org')" \ 
+RUN R -e "install.packages( \
+   'BiocManager', \
+   repos = 'http://cran.us.r-project.org')" \
  && R -e "BiocManager::install(c( \
+    'remotes', \
+    'devtools', \
     'DataBiosphere/Ronaldo', \
     'bigrquery',  \
     'googleCloudStorageR'))"
