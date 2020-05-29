@@ -109,7 +109,7 @@ def get_static_docs():
     },
     {
       "id": 'terra-jupyter-gatk_legacy',
-      "label": 'Legacy GATK (default prior to May XX, 2020) (GATK 4.1.4.1, Python 3.7.7, R 3.6.3)',
+      "label": 'Legacy GATK (default prior to June 1, 2020) (GATK 4.1.4.1, Python 3.7.7, R 3.6.3)',
       "version": '0.0.16',
       "updated": '2020-05-18',
       "packages": 'https://storage.googleapis.com/terra-docker-image-documentation/terra-jupyter-gatk-0.0.16-versions.json',
