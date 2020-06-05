@@ -63,6 +63,9 @@ RUN apt-get update && apt-get install -yq --no-install-recommends \
     default-jre \
     default-jdk \
 
+    # for root access
+    sudo \
+
  # Uncomment en_US.UTF-8 for inclusion in generation
  && sed -i 's/^# *\(en_US.UTF-8\)/\1/' /etc/locale.gen \
  # Generate locale
@@ -87,7 +90,11 @@ ENV LC_ALL en_US.UTF-8
 
 ENV USER jupyter-user
 ENV UID 1000
-RUN useradd -m -s /bin/bash -N -u $UID $USER
+ENV HOME /home/$USER
+
+RUN adduser --home $HOME --shell /bin/bash --uid $UID --disabled-password --gecos '' $USER \
+ && adduser $USER sudo \
+ && echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers 
 
 ENV HOME /home/$USER
 
