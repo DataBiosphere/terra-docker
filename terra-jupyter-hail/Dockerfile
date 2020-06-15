@@ -1,11 +1,11 @@
-FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-python:0.0.12
+FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-python:0.0.13
 USER root
 
 COPY scripts $JUPYTER_HOME/scripts
 
 ENV PIP_USER=false
 ENV PYTHONPATH $PYTHONPATH:/usr/lib/spark/python
-ENV HAIL_VERSION=0.2.44
+ENV HAIL_VERSION=0.2.45
 
 RUN find $JUPYTER_HOME/scripts -name '*.sh' -type f | xargs chmod +x \
     && $JUPYTER_HOME/scripts/kernel/kernelspec.sh $JUPYTER_HOME/scripts/kernel /usr/local/share/jupyter/kernels \

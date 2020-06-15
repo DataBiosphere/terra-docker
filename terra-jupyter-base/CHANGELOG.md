@@ -1,3 +1,8 @@
+## 0.0.11 - 06/15/2020
+- Add terra-notebook-utils to base image
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-base:0.0.11`
+
 ## 0.0.10 - 05/18/2020
 - Adds jupyter notebook extension collapsible headers and code-folding
 

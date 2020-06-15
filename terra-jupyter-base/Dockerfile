@@ -121,6 +121,7 @@ RUN pip3 -V \
  && pip3 install python-datauri \
  && pip3 install jupyterlab==0.35.4 \
  && pip3 install cookiecutter \
+ && pip3 install terra-notebook-utils \
  && pip3 install jupyter_contrib_nbextensions \
  && pip3 install jupyter_nbextensions_configurator \
  # for jupyter_delocalize.py and jupyter_notebook_config.py
