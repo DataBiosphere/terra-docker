@@ -102,9 +102,10 @@ RUN useradd -m -s /bin/bash -N -u $WELDER_UID $WELDER_USER
 # ensure this matches c.NotebookApp.port in jupyter_notebook_config.py
 ENV JUPYTER_PORT 8000
 ENV JUPYTER_HOME /etc/jupyter
+ENV USER_INSTALL_DIR /home/jupyter-user/notebooks/packages
 
 # Prepend existing PYTHONPATH if it's not empty; otherwise prepend it
-ENV PYTHONPATH ${PYTHONPATH:+$PYTHONPATH:}$JUPYTER_HOME/custom
+ENV PYTHONPATH ${PYTHONPATH:+$PYTHONPATH:}$JUPYTER_HOME/custom:$USER_INSTALL_DIR
 
 # # Python3, kernel, and pip
 RUN apt update \
