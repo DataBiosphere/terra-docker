@@ -31,6 +31,7 @@ RUN pip3 -V \
  && pip3 install pandas-profiling==2.4.0 \
  && pip3 install seaborn==0.9.0 \
  && pip3 install notebook==5.7.8 \
+ && pip3 install terra-notebook-utils==0.2.1 \
  && pip3 install python-lzo==1.12 \
  && pip3 install google-cloud-bigquery==1.23.1 \
  && pip3 install google-api-core==1.6.0 \

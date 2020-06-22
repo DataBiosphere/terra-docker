@@ -1,6 +1,7 @@
 ## 0.0.13 - 06/15/2020
 
 - Update `terra-jupyter-base` image version to `0.0.11`
+- Add terra-notebook-utils package
 
 Image URL `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-python:0.0.13`
 
