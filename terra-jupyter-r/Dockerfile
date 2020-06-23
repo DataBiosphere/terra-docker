@@ -156,11 +156,11 @@ ENV PIP_USER=true
 ## After image installations, switch back to jupyter-user and create packages lib
 USER $USER
 RUN mkdir -p /home/jupyter-user/notebooks/packages \
-    && echo "R_LIBS=/home/jupyter-user/notebooks/packages" > /home/jupyter-user/.Renviron
+    && echo "R_LIBS=/home/jupyter-user/notebooks/packages" > /home/jupyter-user/.Renviron \
+    && sudo chown -R $USER:users /usr/local/lib/R/site-library
 
 USER root
 
-RUN R -e 'IRkernel::installspec(user=FALSE)' \
-    && chown -R $USER:users /usr/local/lib/R/site-library
+RUN R -e 'IRkernel::installspec(user=FALSE)'
 
 USER $USER
