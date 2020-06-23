@@ -1,3 +1,9 @@
+## 1.0.1 - 06/15/2020
+- Update `terra-jupyter-r` base image to `1.0.1` and `terra-jupyter-python` base image to `0.0.13`
+- Update `terra-jupyter-aou` to version `1.0.1`
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-aou:1.0.1`
+
 ## 1.0.0 - 05/21/2020
 
 - Update `terra-jupyter-aou` to version `1.0.0`
