@@ -1,7 +1,8 @@
-## 1.0.2 - 06/23/2020
+## 1.0.2 - 06/26/2020
 - Install all image packages as root user
 - remove /home/jupyter-user/.rpackages
 - Add /home/jupyter-user/notebooks/packages so user installed packages persist
+
 Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-r:1.0.2`
 
 ## 1.0.1 - 06/15/2020
