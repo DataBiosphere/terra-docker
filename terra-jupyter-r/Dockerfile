@@ -150,15 +150,6 @@ RUN R -e 'install.packages("BiocManager")' \
     "uuid"))' \
     && chown -R $USER:users /home/jupyter-user/.local
 
-## pip runs as jupyter-user
-ENV PIP_USER=true
-
-## After image installations, switch back to jupyter-user and create packages lib
-USER $USER
-RUN echo "R_LIBS=/home/jupyter-user/notebooks/packages" > /home/jupyter-user/.Renviron
-
-USER root
-
 RUN R -e 'IRkernel::installspec(user=FALSE)' \
     && chown -R $USER:users /usr/local/lib/R/site-library
 
