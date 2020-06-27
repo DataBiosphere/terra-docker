@@ -1,6 +1,6 @@
 FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-python:0.0.13 AS python
 
-FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-r:1.0.1
+FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-r:1.0.2
 
 # copy everything pip installed from the python image
 COPY --from=python /usr/local/lib/python3.7/dist-packages /usr/local/lib/python3.7/dist-packages

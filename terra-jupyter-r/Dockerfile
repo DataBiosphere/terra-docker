@@ -115,18 +115,7 @@ RUN apt-get update \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
-## pip runs as jupyter-user
-ENV PIP_USER=true
-
-## Change back to jupyter-user
-USER $USER
-
-## Reasons for change, 1. Message during installation, 2. User cannot
-## update packages installed in the Dockerfile.
-
-RUN mkdir -p /home/jupyter-user/.rpackages \
-    && echo "R_LIBS=/home/jupyter-user/.rpackages" > /home/jupyter-user/.Renviron \
-    && R -e 'install.packages("BiocManager")' \
+RUN R -e 'install.packages("BiocManager")' \
     ## check version
     && R -e 'BiocManager::install(version="3.11", ask=FALSE)' \
     && R -e 'BiocManager::install(c( \
@@ -161,9 +150,16 @@ RUN mkdir -p /home/jupyter-user/.rpackages \
     "uuid"))' \
     && chown -R $USER:users /home/jupyter-user/.local
 
+## pip runs as jupyter-user
+ENV PIP_USER=true
+
+## After image installations, switch back to jupyter-user and create packages lib
+USER $USER
+RUN echo "R_LIBS=/home/jupyter-user/notebooks/packages" > /home/jupyter-user/.Renviron
 
 USER root
 
-RUN R -e 'IRkernel::installspec(user=FALSE)'
+RUN R -e 'IRkernel::installspec(user=FALSE)' \
+    && chown -R $USER:users /usr/local/lib/R/site-library
 
 USER $USER

@@ -1,3 +1,9 @@
+## 1.0.2 - 06/26/2020
+
+- Update `terra-jupyter-r` version to `1.0.2`
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-gatk:1.0.2`
+
 ## 1.0.1 - 06/15/2020
 
 - Update `terra-jupyter-python` base image to `0.0.32` and `terra-jupyter-r` base image to `1.0.1`

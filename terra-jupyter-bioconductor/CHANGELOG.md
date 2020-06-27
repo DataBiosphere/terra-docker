@@ -1,4 +1,11 @@
+## 1.0.2 - 06/26/2020
+
+- Update `terra-jupyter-r` version to `1.0.2`
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-bioconductor:1.0.2`
+
 ## 1.0.1 - 06/15/2020
+
 - Update `terra-jupyter-r` version to `1.0.1`
 
 Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-bioconductor:1.0.1`
