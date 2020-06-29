@@ -1,3 +1,8 @@
+## 1.0.3 - 06/29/2020
+- Remove `/home/jupyter-user/notebooks/packages` from .Renviron file because derived images installed packages should not persist
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-r:1.0.3`
+
 ## 1.0.2 - 06/26/2020
 - Install all image packages as root user
 - remove /home/jupyter-user/.rpackages
