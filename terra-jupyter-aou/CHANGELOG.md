@@ -1,6 +1,6 @@
 ## 1.0.3 - 06/29/2020
 
-- Image package installations should not persist
+- Only user package installations will persist (installed to `/home/jupyter-user/notebooks/packages`) not image installed packages
 - Update `terra-jupyter-r` base image to `1.0.3`
 - Update `terra-jupyter-aou` to version `1.0.3`
 

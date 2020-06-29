@@ -1,6 +1,6 @@
 ## 1.0.3 - 06/29/2020
 
-- Image package installations should not persist
+- Only user package installations (not image package installations) will persist
 - Update `terra-jupyter-r` version to `1.0.3`
 
 Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-gatk:1.0.3`
