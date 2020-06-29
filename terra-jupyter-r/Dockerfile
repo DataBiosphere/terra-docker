@@ -150,6 +150,9 @@ RUN R -e 'install.packages("BiocManager")' \
     "uuid"))' \
     && chown -R $USER:users /home/jupyter-user/.local
 
+## pip runs as jupyter-user
+ENV PIP_USER=true
+
 RUN R -e 'IRkernel::installspec(user=FALSE)' \
     && chown -R $USER:users /usr/local/lib/R/site-library
 
