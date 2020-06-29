@@ -1,13 +1,6 @@
-## 1.0.4 - 06/29/2020
-
-- Fix AOU image build failure bug in `terra-jupyter-r`
-- Update `terra-jupyter-r` version to `1.0.4`
-
-Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-gatk:1.0.4`
-
 ## 1.0.3 - 06/29/2020
 
-- Image package installations should not persist
+- User package installations will persist
 - Update `terra-jupyter-r` version to `1.0.3`
 
 Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-gatk:1.0.3`
