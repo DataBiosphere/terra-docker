@@ -1,5 +1,6 @@
 ## 1.0.3 - 06/29/2020
 
+- Image package installations should not persist
 - Update `terra-jupyter-r` base image to `1.0.3`
 - Update `terra-jupyter-aou` to version `1.0.3`
 
