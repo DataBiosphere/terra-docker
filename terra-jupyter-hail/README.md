@@ -1,14 +1,15 @@
 # terra-jupyter-hail image
 
-This image DOES NOT work properly yet. Use `us.gcr.io/broad-dsp-gcr-public/leonardo-jupyter:prod` instead if you'd like to use hail on Terra.
-This repo contains the terra-jupyter-hail image that is compatible with notebook service in [Terra]("https://app.terra.bio/") called Leonardo. For example, use `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-hail:{version}` in terra.
+This repo contains the terra-jupyter-hail image that is compatible with notebook service in [Terra]("https://app.terra.bio/") called Leonardo. For example, use `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-hail:{version}` in Terra.
+
+This image expects to be launched on a Google Cloud Dataproc Terra rutime.
 
 ## Image contents
 
-The terra-jupyter-r extends the [terra-jupyter-base](../terra-jupyter-base/README.md) by including the following:
+The terra-jupyter-hail image extends the [terra-jupyter-python](../terra-jupyter-python/README.md) by including the following:
 
 - Hail
-- Spark
+- Spark configs which get mounted in from Dataproc-managed VMs
 
 To see the complete contents of this image please see the [Dockerfile](./Dockerfile).
 
