@@ -1,0 +1,10 @@
+[{
+    "id": "Pegasus",
+    "label": "Pegasus (Pegasuspy 1.0, Python 3.7, scPlot 0.0.16, harmony-pytorch 0.1.3)",
+    "version": "1.0",
+    "updated": "2020-07-21",
+    "packages": "https://storage.googleapis.com/terra-docker-image-documentation/placeholder.json",
+    "image": "cumulusprod/pegasus-terra:1.0",
+    "requiresSpark": false,
+    "isCommunity": true
+}]
