@@ -11,20 +11,14 @@ def read_json_file(file_name):
   
   return data
 
-def gsutil_cp(file, bucket, copy_to_remote=True, debug=True):
-  log_name = "gsutil_cp.log"
-  base_command = "gsutil -h 'Cache-Control:no-cache,max-age=0' cp -L {}".format(log_name)
+def gsutil_cp(file, bucket, copy_to_remote=True):
+  base_command = "gsutil -h 'Cache-Control:no-cache,max-age=0' cp"
   if copy_to_remote:
     command = "{} {} {}".format(base_command, file, bucket)
   else:
     command = "{} {}/{} {}".format(base_command, bucket, file, file)
 
   output = shell_exec(command)
-
-  if debug:
-    debug_output_command = "cat {}".format(log_name)
-    debug_info = shell_exec(debug_output_command)
-    print "printing the output of command {}: \n\t{}".format(command, debug_info)
     
 
 def docker_exec(image_name, command):

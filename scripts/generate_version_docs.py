@@ -5,12 +5,14 @@ def get_config(path):
   return utils.read_json_file(path)
 
 config_location = "config/conf.json"
+community_config_location = "config/community_images.json"
 config = get_config(config_location)
 
 def main():
   docs = generate_docs()
 
   utils.write_json_to_file(docs, config["version_master_file"])
+  print("copying to remote bucket")
   utils.gsutil_cp(config["version_master_file"], config["doc_bucket"])
 
 def generate_docs():
@@ -38,7 +40,7 @@ def generate_docs():
 
       docs.append(doc)
 
-  docs.extend(get_static_docs())
+  docs.extend(get_other_docs())
   return docs
 
 def generate_doc_for_image(image_config):
@@ -96,8 +98,9 @@ def get_last_updated(image_config):
   return terra_date
 
 # See definitions in https://docs.google.com/document/d/1qAp1wJTEx1UNtZ4vz1aV4PZRfjyYfF7QkwwOjK4LoD8/edit
-def get_static_docs():
-  docs = [
+def get_other_docs():
+  community_docs = utils.read_json_file(community_config_location)
+  static_docs = [
     {
       "id": 'leonardo-jupyter-dev',
       "label": 'Legacy Python/R (default prior to January 14, 2020)',
@@ -127,13 +130,16 @@ def get_static_docs():
     }
   ]
 
-  return docs
+  return community_docs + static_docs
 
 def get_current_versions():
   try:
     utils.gsutil_cp(config["version_master_file"], config["doc_bucket"], copy_to_remote=False)
     current_versions = utils.read_json_file(config["version_master_file"])
   except subprocess.CalledProcessError:
+    print("detected remote file doesn't exist, will regenerate versions")
+    current_versions = {}
+  except IOError:
     print("detected remote file doesn't exist, will regenerate versions")
     current_versions = {}
   
