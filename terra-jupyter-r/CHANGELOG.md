@@ -1,3 +1,9 @@
+## 1.0.4 - 07/27/2020
+
+- Update `terra-jupyter-base` image version to `0.0.12`
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-r:1.0.4`
+
 ## 1.0.3 - 06/29/2020
 - Remove `/home/jupyter-user/notebooks/packages` from .Renviron file because derived images installed packages should not persist
 - Only user package installations (not image package installations) will persist

@@ -1,3 +1,10 @@
+## 1.0.5 - 07/27/2020
+
+- Update `terra-jupyter-python` to `0.0.14`
+- Update `terra-jupyter-r` to `1.0.4`
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-aou:1.0.5`
+
 ## 1.0.4 - 07/28/2020
 
 - Drop fork install of bigrquery (patches have now been merged and released in the main bigrquery package)

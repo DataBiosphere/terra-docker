@@ -1,3 +1,9 @@
+## 1.0.4 - 07/27/2020
+
+- Update `terra-jupyter-r` version to `1.0.4`
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-bioconductor:1.0.4`
+
 ## 1.0.3 - 06/29/2020
 
 - Only user package installations (not image package installations) will persist

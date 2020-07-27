@@ -106,6 +106,7 @@ ENV USER_INSTALL_DIR /home/jupyter-user/notebooks/packages
 
 # Prepend existing PYTHONPATH if it's not empty; otherwise prepend it
 ENV PYTHONPATH ${PYTHONPATH:+$PYTHONPATH:}$JUPYTER_HOME/custom:$USER_INSTALL_DIR
+ENV PATH ${PATH:+$PATH:}$USER_INSTALL_DIR/bin
 
 # # Python3, kernel, and pip
 RUN apt update \
