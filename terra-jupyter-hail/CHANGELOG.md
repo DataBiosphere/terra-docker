@@ -1,3 +1,8 @@
+## 0.0.16 - 06/27/2020
+- Upgrade `hail` to `0.2.50`
+
+Image URL `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-hail:0.0.16
+
 ## 0.0.15 - 06/15/2020
 - Upgrade `hail` to `0.2.45`
 - Update `terra-jupyter-python` image to `0.0.13`

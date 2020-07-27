@@ -31,7 +31,7 @@
             "base_label": "Hail",
             "tools": ["python", "spark"],
             "packages": { "python": ["hail"] },
-            "version": "0.0.15",
+            "version": "0.0.16",
             "automated_flags": {
                 "generate_docs": true,
                 "include_in_ui": true,
