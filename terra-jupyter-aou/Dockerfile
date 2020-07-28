@@ -45,7 +45,6 @@ USER $USER
 
 RUN pip3 install --upgrade \
   plotnine \
-  statsmodels==0.10.0rc2
-
-RUN R -e 'devtools::install_github("all-of-us/bigrquery")'
+  statsmodels==0.10.0rc2 \
+  "git+git://github.com/all-of-us/workbench-snippets.git#egg=terra_widgets&subdirectory=py"
 
