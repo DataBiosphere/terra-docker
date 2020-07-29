@@ -2,6 +2,7 @@
 
 - Drop fork install of bigrquery (patches have now been merged and released in the main bigrquery package)
 - Install new AoU Python library
+- Avoid installing pandas 1.0 for now; pin other packages
 
 Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-aou:1.0.4`
 

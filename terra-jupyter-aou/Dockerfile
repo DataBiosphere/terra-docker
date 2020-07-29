@@ -44,7 +44,10 @@ USER $USER
 # Install Notebook libraries as the user.
 
 RUN pip3 install --upgrade \
-  plotnine \
+  # Fix plotnine and its dependency mizani to a version that's compatible with 0.25.* of pandas.
+  # The next versions require pandas 1.0 which we're not ready to upgrade to just yet.
+  plotnine==0.6.0 \
+  mizani==0.6.0 \
   statsmodels==0.10.0rc2 \
   "git+git://github.com/all-of-us/workbench-snippets.git#egg=terra_widgets&subdirectory=py"
 
