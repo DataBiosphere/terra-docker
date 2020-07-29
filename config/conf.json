@@ -101,7 +101,7 @@
             "base_label": "All of Us",
             "tools": ["python", "r"],
             "packages": {},
-            "version": "1.0.4",
+            "version": "1.0.5",
             "automated_flags": {
                 "include_in_ui": false,
                 "generate_docs": false,
