@@ -1,6 +1,6 @@
-FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-python:0.0.13 AS python
+FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-python:0.0.14 AS python
 
-FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-r:1.0.3
+FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-r:1.0.4
 
 # copy everything pip installed from the python image
 COPY --from=python /usr/local/lib/python3.7/dist-packages /usr/local/lib/python3.7/dist-packages
@@ -38,10 +38,10 @@ RUN cd /usr/local/share && \
 
 RUN echo "Sys.setenv(RETICULATE_PYTHON = '$(which python3)')" >> ~/.Rprofile
 
+# Install Notebook libraries as the user.
+
 ENV USER jupyter-user
 USER $USER
-
-# Install Notebook libraries as the user.
 
 RUN pip3 install --upgrade \
   # Fix plotnine and its dependency mizani to a version that's compatible with 0.25.* of pandas.

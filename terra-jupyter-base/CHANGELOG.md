@@ -1,3 +1,8 @@
+## 0.0.12 - 07/27/2020
+- Fix issue where packages with CLI functionality were not available on path
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-base:0.0.12`
+
 ## 0.0.11 - 06/15/2020
 - Add terra-notebook-utils to base image
 - Add /home/jupyter-user/notebooks/packages to PYTHONPATH so user package installs persist using PDs
