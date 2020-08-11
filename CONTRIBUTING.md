@@ -12,7 +12,7 @@ This is also a good opportunity to verify that all the appropriate image version
 
 If you are from outside the Broad, don't worry about adding a JIRA issue number to PRs. More to come on external contributions.
 
-## Community images
+## Community Images
 
 If you wish to add an approved community image to the terra UI, you must update the json file `config/community_images.json`. 
 It contains an array of community images. The fields needed (with comments removed) are:
