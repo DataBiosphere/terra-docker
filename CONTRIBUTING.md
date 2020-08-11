@@ -12,6 +12,39 @@ This is also a good opportunity to verify that all the appropriate image version
 
 If you are from outside the Broad, don't worry about adding a JIRA issue number to PRs. More to come on external contributions.
 
+## Community Images
+
+If you wish to add an approved community image to the terra UI, you must update the json file `config/community_images.json`. 
+It contains an array of community images. The fields needed (with comments removed) are:
+
+This image will show up in the terra UI when either
+1. When the documentation script is manually run (on request to #dsp-callisto)
+2. When the next batch of images are build (occurs frequently but not with any schedule)
+
+```
+{
+    //Unique Id for the image
+    "id": "Pegasus", 
+    //label that will be shown for the image in the terra UI dropdown
+    //Typically used to call out important versions
+    "label": "Pegasus (Pegasuspy 1.0, Python 3.7, scPlot 0.0.16, harmony-pytorch 0.1.3)",
+    //The version for the image. This will need to be updated if iteration occurs
+    "version": "1.0",
+    //When the version above was created
+    "updated": "2020-07-21",
+    //A link to documentation about the packages in the image
+    //This needs to be properly formatted .json file. For examples, see the bucket linked below
+    //If you don't wish to generate documentation, leave this set to the empty placeholder below 
+    "packages": "https://storage.googleapis.com/terra-docker-image-documentation/placeholder.json",
+    //The image URI
+    "image": "cumulusprod/pegasus-terra:1.0",
+    //If the image needs spark to run. E.g. Hail.
+    "requiresSpark": false,
+    //This should always be true if you are contributing a community image
+    "isCommunity": true
+}]
+```
+
 ## Merging your PR
 
 Make sure to get two thumbs before merging your PR. We often reach out to the AOU or Bioconductor team to also review changes we are making to their images (Bioconductor team may also want to review changes to `terra-jupyter-r`).
