@@ -1,3 +1,10 @@
+## 1.0.5 - 2020-08-18T13:43:26.263Z
+
+- Update `terra-jupyter-base` to `0.0.13`
+  - update notebook to 6.1.1, tornado to 5.1.1
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-gatk:1.0.5`
+
 ## 1.0.4 - 07/27/2020
 
 - Update `terra-jupyter-r` to `1.0.4`

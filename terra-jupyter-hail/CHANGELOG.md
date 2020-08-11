@@ -1,3 +1,10 @@
+## 0.0.19 - 2020-08-18T13:43:26.202Z
+
+- Update `terra-jupyter-base` to `0.0.13`
+  - update notebook to 6.1.1, tornado to 5.1.1
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-hail:0.0.19`
+
 ## 0.0.18 - 07/12/2020
 - Upgrade `hail` to `0.2.54`
    - See https://hail.is/docs/0.2/change_log.html#version-0-2-54 for details.

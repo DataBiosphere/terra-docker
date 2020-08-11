@@ -1,3 +1,9 @@
+## 0.0.13 - 2020-08-18T13:43:26.123Z
+
+- update notebook to 6.1.1, tornado to 5.1.1
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-base:0.0.13`
+
 ## 0.0.12 - 07/27/2020
 - Fix issue where packages with CLI functionality were not available on path
 
