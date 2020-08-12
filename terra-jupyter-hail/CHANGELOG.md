@@ -1,3 +1,9 @@
+## 0.0.18 - 07/12/2020
+- Upgrade `hail` to `0.2.54`
+   - See https://hail.is/docs/0.2/change_log.html#version-0-2-54 for details.
+
+Image URL `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-hail:0.0.18`
+
 ## 0.0.17 - 07/27/2020
 
 - Update `terra-jupyter-python` image to `0.0.14`
