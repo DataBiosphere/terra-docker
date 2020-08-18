@@ -1,3 +1,11 @@
+## 1.0.6 - 8/18/2020
+
+- Update to newer TensorFlow python package.
+- Update numpy to match documented version.
+- Reinstall AoU fork of bigrquery (new patch taken from ahead of the main package)
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-aou:1.0.6`
+
 ## 1.0.5 - 07/27/2020
 
 - Update `terra-jupyter-python` to `0.0.14`
