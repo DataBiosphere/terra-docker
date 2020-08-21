@@ -1,113 +1,155 @@
 {
-    "storage_api": "https://storage.googleapis.com",
-    "tools": [
+    "storage_api" : "https://storage.googleapis.com",
+    "tools" : [
         "python",
         "r",
         "gatk",
         "spark"
     ],
-    "version_master_file": "terra-docker-versions-new.json",
-    "doc_suffix": "versions.json",
-    "gcr_image_repo": "us.gcr.io/broad-dsp-gcr-public",
-    "doc_bucket": "gs://terra-docker-image-documentation",
-    "doc_bucket_no_prefix": "terra-docker-image-documentation",
-    "spark_version": "2.4.5",
-    "image_data": [{
-            "name": "terra-jupyter-bioconductor",
-            "base_label": "R / Bioconductor",
-            "tools": ["python", "r"],
-            "packages": { "r": ["BiocVersion", "tidyverse"] },
-            "version": "1.0.4",
-            "automated_flags": {
-                "generate_docs": true,
-                "include_in_ui": true,
-                "build": true,
-                "include_in_custom_dataproc": true,
-                "include_in_custom_gce": true
+    "version_master_file" : "terra-docker-versions-new.json",
+    "doc_suffix" : "versions.json",
+    "gcr_image_repo" : "us.gcr.io/broad-dsp-gcr-public",
+    "doc_bucket" : "gs://terra-docker-image-documentation",
+    "doc_bucket_no_prefix" : "terra-docker-image-documentation",
+    "spark_version" : "2.4.5",
+    "image_data" : [
+        {
+            "name" : "terra-jupyter-bioconductor",
+            "base_label" : "R / Bioconductor",
+            "tools" : [
+                "python",
+                "r"
+            ],
+            "packages" : {
+                "r" : [
+                    "BiocVersion",
+                    "tidyverse"
+                ]
+            },
+            "version" : "1.0.5",
+            "automated_flags" : {
+                "generate_docs" : true,
+                "include_in_ui" : true,
+                "build" : true,
+                "include_in_custom_dataproc" : true,
+                "include_in_custom_gce" : true
             }
         },
         {
-            "name": "terra-jupyter-hail",
-            "base_label": "Hail",
-            "tools": ["python", "spark"],
-            "packages": { "python": ["hail"] },
-            "version": "0.0.18",
-            "automated_flags": {
-                "generate_docs": true,
-                "include_in_ui": true,
-                "build": true,
-                "include_in_custom_dataproc": true,
-                "include_in_custom_gce": false
+            "name" : "terra-jupyter-hail",
+            "base_label" : "Hail",
+            "tools" : [
+                "python",
+                "spark"
+            ],
+            "packages" : {
+                "python" : [
+                    "hail"
+                ]
+            },
+            "version" : "0.0.19",
+            "automated_flags" : {
+                "generate_docs" : true,
+                "include_in_ui" : true,
+                "build" : true,
+                "include_in_custom_dataproc" : true,
+                "include_in_custom_gce" : false
             }
         },
         {
-            "name": "terra-jupyter-python",
-            "base_label": "Python",
-            "tools": ["python"],
-            "packages": { "python": ["pandas", "scikit-learn"] },
-            "version": "0.0.14",
-            "automated_flags": {
-                "generate_docs": true,
-                "include_in_ui": true,
-                "build": true,
-                "include_in_custom_dataproc": true,
-                "include_in_custom_gce": true
+            "name" : "terra-jupyter-python",
+            "base_label" : "Python",
+            "tools" : [
+                "python"
+            ],
+            "packages" : {
+                "python" : [
+                    "pandas",
+                    "scikit-learn"
+                ]
+            },
+            "version" : "0.0.15",
+            "automated_flags" : {
+                "generate_docs" : true,
+                "include_in_ui" : true,
+                "build" : true,
+                "include_in_custom_dataproc" : true,
+                "include_in_custom_gce" : true
             }
         },
         {
-            "name": "terra-jupyter-base",
-            "base_label": "Base",
-            "tools": ["python"],
-            "packages": {},
-            "version": "0.0.12",
-            "automated_flags": {
-                "generate_docs": true,
-                "include_in_ui": false,
-                "build": true,
-                "include_in_custom_dataproc": true,
-                "include_in_custom_gce": true
+            "name" : "terra-jupyter-base",
+            "base_label" : "Base",
+            "tools" : [
+                "python"
+            ],
+            "packages" : {
+                
+            },
+            "version" : "0.0.13",
+            "automated_flags" : {
+                "generate_docs" : true,
+                "include_in_ui" : false,
+                "build" : true,
+                "include_in_custom_dataproc" : true,
+                "include_in_custom_gce" : true
             }
         },
         {
-            "name": "terra-jupyter-r",
-            "base_label": "R",
-            "tools": ["r"],
-            "packages": {},
-            "version": "1.0.4",
-            "automated_flags": {
-                "include_in_ui": false,
-                "generate_docs": true,
-                "build": true,
-                "include_in_custom_dataproc": true,
-                "include_in_custom_gce": true
+            "name" : "terra-jupyter-r",
+            "base_label" : "R",
+            "tools" : [
+                "r"
+            ],
+            "packages" : {
+                
+            },
+            "version" : "1.0.5",
+            "automated_flags" : {
+                "include_in_ui" : false,
+                "generate_docs" : true,
+                "build" : true,
+                "include_in_custom_dataproc" : true,
+                "include_in_custom_gce" : true
             }
         },
         {
-            "name": "terra-jupyter-gatk",
-            "base_label": "Default",
-            "tools": ["gatk", "python", "r"],
-            "packages": {},
-            "version": "1.0.4",
-            "automated_flags": {
-                "include_in_ui": true,
-                "generate_docs": true,
-                "build": true,
-                "include_in_custom_dataproc": true,
-                "include_in_custom_gce": true
+            "name" : "terra-jupyter-gatk",
+            "base_label" : "Default",
+            "tools" : [
+                "gatk",
+                "python",
+                "r"
+            ],
+            "packages" : {
+                
+            },
+            "version" : "1.0.5",
+            "automated_flags" : {
+                "include_in_ui" : true,
+                "generate_docs" : true,
+                "build" : true,
+                "include_in_custom_dataproc" : true,
+                "include_in_custom_gce" : true
             }
         },
         {
-            "name": "terra-jupyter-aou",
-            "base_label": "All of Us",
-            "tools": ["python", "r"],
-            "packages": {},
-            "version": "1.0.6",
-            "automated_flags": {
-                "include_in_ui": false,
-                "generate_docs": false,
-                "build": true,
-                "include_in_custom_dataproc": true,
-                "include_in_custom_gce": true
+            "name" : "terra-jupyter-aou",
+            "base_label" : "All of Us",
+            "tools" : [
+                "python",
+                "r"
+            ],
+            "packages" : {
+                
+            },
+            "version" : "1.0.7",
+            "automated_flags" : {
+                "include_in_ui" : false,
+                "generate_docs" : false,
+                "build" : true,
+                "include_in_custom_dataproc" : true,
+                "include_in_custom_gce" : true
             }
         }
     ]

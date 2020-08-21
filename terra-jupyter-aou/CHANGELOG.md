@@ -1,3 +1,10 @@
+## 1.0.7 - 2020-08-18T13:43:26.277Z
+
+- Update `terra-jupyter-base` to `0.0.13`
+  - update notebook to 6.1.1, tornado to 5.1.1
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-aou:1.0.7`
+
 ## 1.0.6 - 8/18/2020
 
 - Update to newer TensorFlow python package.
