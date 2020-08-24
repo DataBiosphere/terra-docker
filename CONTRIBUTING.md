@@ -16,6 +16,9 @@ If you are from outside the Broad, don't worry about adding a JIRA issue number 
 
 ## Community Images
 
+Community images must be vetted before they will be introduced into Terra.
+To contribute a community image, please engage the Interactive Analysis team via email at `workbench-interactive-analysis@broadinstitute.org` prior to making a PR. 
+
 If you wish to add an approved community image to the terra UI, you must update the json file `config/community_images.json`. 
 It contains an array of community images. The fields needed (with comments removed) are:
 
