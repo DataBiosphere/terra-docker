@@ -55,7 +55,7 @@ This image will show up in the terra UI when either
 
 You can have a .json file with package versions and the tools that your image uses. You have a few options in terms of documentation
 1. If your image is farely static, you can manually create the `.json` file needed and update it as appropriate
-2. You can use an empty placeholder for the package documetnation, and provide important version callouts in the label
+2. You can use an empty placeholder for the package documemtation, and provide important version callouts in the label
 
 ## Merging your PR
 
