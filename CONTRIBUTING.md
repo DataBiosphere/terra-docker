@@ -22,10 +22,6 @@ To contribute a community image, please engage the Interactive Analysis team via
 If you wish to add an approved community image to the terra UI, you must update the json file `config/community_images.json`. 
 It contains an array of community images. The fields needed (with comments removed) are:
 
-This image will show up in the terra UI when either
-1. When the documentation script is manually run (on request to #dsp-callisto)
-2. When the next batch of images are build (occurs frequently but not with any schedule)
-
 ```
 {
     //Unique Id for the image
@@ -40,6 +36,7 @@ This image will show up in the terra UI when either
     //A link to documentation about the packages in the image
     //This needs to be properly formatted .json file. For examples, see the bucket linked below
     //If you don't wish to generate documentation, leave this set to the empty placeholder below 
+    //See the section below for details
     "packages": "https://storage.googleapis.com/terra-docker-image-documentation/placeholder.json",
     //The image URI
     "image": "cumulusprod/pegasus-terra:1.0",
@@ -49,6 +46,16 @@ This image will show up in the terra UI when either
     "isCommunity": true
 }]
 ```
+
+This image will show up in the terra UI when either
+1. When the documentation script is manually run (on request to #dsp-callisto)
+2. When the next batch of images are build (occurs frequently but not with any schedule)
+
+#### Community Images Package Documentaton
+
+You can have a .json file with package versions and the tools that your image uses. You have a few options in terms of documentation
+1. If your image is farely static, you can manually create the `.json` file needed and update it as appropriate
+2. You can use an empty placeholder for the package documetnation, and provide important version callouts in the label
 
 ## Merging your PR
 
