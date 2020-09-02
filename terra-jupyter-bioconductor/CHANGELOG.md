@@ -1,3 +1,10 @@
+## 1.0.6 - 2020-09-02T15:12:19.845Z
+
+- Update `terra-jupyter-base` to `0.0.14`
+  - Terminal now opens to /notebooks directory where PD is mounted
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-bioconductor:1.0.6`
+
 ## 1.0.5 - 2020-08-18T13:43:26.184Z
 
 - Update `terra-jupyter-base` to `0.0.13`
