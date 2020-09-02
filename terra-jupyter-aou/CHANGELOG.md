@@ -1,3 +1,10 @@
+## 1.0.8 - 2020-09-02T15:12:19.917Z
+
+- Update `terra-jupyter-base` to `0.0.14`
+  - Terminal now opens to /notebooks directory where PD is mounted
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-aou:1.0.8`
+
 ## 1.0.7 - 2020-08-18T13:43:26.277Z
 
 - Update `terra-jupyter-base` to `0.0.13`
