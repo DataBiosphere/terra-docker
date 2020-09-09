@@ -1,3 +1,10 @@
+## 1.0.9 - 2020-09-09T20:30:32.982Z
+
+- Update `terra-jupyter-base` to `0.0.15`
+  - downgrade notebook to 5.7.8, tornado to 4.5.3
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-aou:1.0.9`
+
 ## 1.0.8 - 2020-09-02T15:12:19.917Z
 
 - Update `terra-jupyter-base` to `0.0.14`

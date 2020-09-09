@@ -1,3 +1,9 @@
+## 0.0.15 - 2020-09-09T20:30:32.853Z
+
+- downgrade notebook to 5.7.8, tornado to 4.5.3
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-base:0.0.15`
+
 ## 0.0.14 - 2020-09-02T15:12:19.821Z
 
 - Terminal now opens to /notebooks directory where PD is mounted
