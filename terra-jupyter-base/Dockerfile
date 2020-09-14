@@ -118,6 +118,9 @@ RUN apt update \
    && /usr/local/bin/python3 -m pip install --upgrade pip
 
 RUN pip3 -V \
+ # When we upgraded from jupyter 5.7.8 to 6.1.1, we broke terminal button on terra-ui.
+ # Hence, make sure to manually test out "launch terminal" button (the button in the green bar next to start and stop buttons)
+ # to make sure we don't accidentally break it every time we upgrade notebook version until we figure out an automation test for this
  && pip3 install notebook==6.1.1 \
  && pip3 install jupyter==1.0.0 \
  && pip3 install python-datauri \
