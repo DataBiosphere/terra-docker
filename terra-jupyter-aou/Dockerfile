@@ -57,3 +57,4 @@ RUN pip3 install --upgrade \
   "git+git://github.com/all-of-us/workbench-snippets.git#egg=terra_widgets&subdirectory=py"
 
 RUN R -e 'devtools::install_github("all-of-us/bigrquery")'
+
