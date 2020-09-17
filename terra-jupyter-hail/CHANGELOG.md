@@ -1,3 +1,10 @@
+## 0.0.21 - 2020-09-17
+
+- Update `hail` to `0.2.57`
+   - See https://hail.is/docs/0.2/change_log.html#version-0-2-57 for details.
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-hail:0.0.21`
+
 ## 0.0.20 - 2020-09-02T15:12:19.860Z
 
 - Update `terra-jupyter-base` to `0.0.14`
