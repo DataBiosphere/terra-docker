@@ -35,8 +35,11 @@ gcloud auth configure-docker --quiet
 
 docker image build ./$IMAGE_DIR --tag $GCR_IMAGE_REPO/$IMAGE_DIR:$TAG_NAME --tag $GCR_IMAGE_REPO/$IMAGE_DIR:$VERSION 
 
+echo "Pull trivy latest image"
+docker pull aquasec/trivy:latest
+
 echo "Scanning the docker image for any critical security vulnerabilities..."
-docker run --rm -v /var/run/docker.sock:/var/run/docker.sock -v "$HOME"/Library/Caches:/root/.cache/ aquasec/trivy:latest -q -d --exit-code 1 --severity CRITICAL "$GCR_IMAGE_REPO"/"$IMAGE_DIR":"$TAG_NAME"
+docker run --rm -v /var/run/docker.sock:/var/run/docker.sock -v "$HOME"/Library/Caches:/root/.cache/ aquasec/trivy:latest --exit-code 1 --severity CRITICAL "$GCR_IMAGE_REPO"/"$IMAGE_DIR":"$VERSION"
 
 docker push $GCR_IMAGE_REPO/$IMAGE_DIR:$TAG_NAME 
 docker push $GCR_IMAGE_REPO/$IMAGE_DIR:$VERSION
