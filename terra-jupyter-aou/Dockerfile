@@ -36,6 +36,34 @@ RUN cd /usr/local/share && \
   make install && \
   cd $HOME
 
+# Install the variantstore branch of the GATK jar. This will eventually be
+# merged into the main release, at which point we can simply download the usual
+# GATK release jar and delete this entire section.
+ENV GATK_COMMIT=9b83e93
+
+# GATK build process requires git-lfs.
+RUN mkdir /tmp/git-lfs && \
+  curl -L -o /tmp/git-lfs/git-lfs.tar.gz https://github.com/git-lfs/git-lfs/releases/download/v2.12.0/git-lfs-linux-amd64-v2.12.0.tar.gz && \
+  cd /tmp/git-lfs && \
+  tar -xvzf git-lfs.tar.gz && \
+  ./install.sh && \
+  git lfs install && \
+  cd $HOME
+
+RUN cd /tmp && \
+  git clone https://github.com/broadinstitute/gatk && \
+  cd gatk && \
+  # From the ah_var_store branch
+  git checkout $GATK_COMMIT && \
+  ./gradlew bundle && \
+  mv build/bundle-files-collected /usr/local/share/gatk-$GATK_COMMIT && \
+  ln -s /usr/local/share/gatk-$GATK_COMMIT/gatk /bin/gatk && \
+  cd $HOME && \
+  rm -rf /tmp/gatk
+
+RUN /home/jupyter-user/miniconda/bin/conda install -c bioconda plink && \
+  ln -s /home/jupyter-user/miniconda/bin/plink /bin/plink
+
 RUN echo "Sys.setenv(RETICULATE_PYTHON = '$(which python3)')" >> ~/.Rprofile
 
 # Install Notebook libraries as the user.
