@@ -39,7 +39,7 @@ RUN cd /usr/local/share && \
 # Install the variantstore branch of the GATK jar. This will eventually be
 # merged into the main release, at which point we can simply download the usual
 # GATK release jar and delete this entire section.
-ENV GATK_COMMIT=9b83e93
+ENV GATK_COMMIT=c79cd40
 
 # GATK build process requires git-lfs.
 RUN mkdir /tmp/git-lfs && \
