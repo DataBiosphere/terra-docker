@@ -1,3 +1,11 @@
+## 1.0.9 - 09/17/2020
+
+ - Install plink binary
+ - Build/install ah_var_store branch of GATK jar:
+   https://github.com/broadinstitute/gatk/tree/ah_var_store
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-aou:1.0.9`
+
 ## 1.0.8 - 2020-09-02T15:12:19.917Z
 
 - Update `terra-jupyter-base` to `0.0.14`
