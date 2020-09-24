@@ -19,6 +19,8 @@ RUN apt-get update && apt-get install -yq --no-install-recommends \
   libhdf5-dev \
   openssl \
   make \
+  g++ \
+  liblz4-dev \
   liblzo2-dev \
   zlib1g-dev \
   libz-dev \
@@ -28,6 +30,36 @@ RUN apt-get update && apt-get install -yq --no-install-recommends \
   && update-alternatives --set java /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/*
+
+
+# Spark setup.
+# Copied from terra-jupyter-hail; keep updated.
+
+# Note Spark and Hadoop are mounted from the outside Dataproc VM.
+# Make empty conf dirs for the update-alternatives commands.
+RUN mkdir -p /etc/spark/conf.dist && mkdir -p /etc/hadoop/conf.empty && mkdir -p /etc/hive/conf.dist \
+    && update-alternatives --install /etc/spark/conf spark-conf /etc/spark/conf.dist 100 \
+    && update-alternatives --install /etc/hadoop/conf hadoop-conf /etc/hadoop/conf.empty 100 \
+    && update-alternatives --install /etc/hive/conf hive-conf /etc/hive/conf.dist 100
+
+ENV HAIL_VERSION=0.2.57
+ENV PIP_USER=false
+
+# For dataproc clusters, this path with will be automatically mounted. Else,
+# this is effectively ignored. On GCE VMs, this will result in failures to
+# import the pyspark package.
+ENV PYTHONPATH $PYTHONPATH:/usr/lib/spark/python
+
+RUN pip3 install pypandoc \
+    && pip3 install --no-dependencies hail==$HAIL_VERSION \
+    && X=$(mktemp -d) \
+    && mkdir -p $X \
+    && (cd $X && pip3 download hail==$HAIL_VERSION --no-dependencies && \
+        unzip hail*.whl &&  \
+        grep 'Requires-Dist: ' hail*dist-info/METADATA | sed 's/Requires-Dist: //' | sed 's/ (//' | sed 's/)//' | grep -v 'pyspark' | xargs pip install) \
+    && rm -rf $X
+
+ENV PIP_USER=true
 
 # Install Wondershaper from source, for client-side egress limiting.
 RUN cd /usr/local/share && \

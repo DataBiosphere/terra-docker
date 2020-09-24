@@ -1,5 +1,6 @@
 ## 1.0.10 - 09/18/2020
 
+ - Add Hail / Spark libs.
  - Bump GATK jar to latest commit ah_var_store branch:
    https://github.com/broadinstitute/gatk/tree/ah_var_store
 
