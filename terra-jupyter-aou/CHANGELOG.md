@@ -1,3 +1,11 @@
+## 1.0.10 - 09/18/2020
+
+ - Add Hail / Spark libs.
+ - Bump GATK jar to latest commit ah_var_store branch:
+   https://github.com/broadinstitute/gatk/tree/ah_var_store
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-aou:1.0.10`
+
 ## 1.0.9 - 09/17/2020
 
  - Install plink binary
