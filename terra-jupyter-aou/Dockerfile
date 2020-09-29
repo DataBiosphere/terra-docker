@@ -68,6 +68,16 @@ RUN cd /usr/local/share && \
   make install && \
   cd $HOME
 
+# Install the variantstore branch of the GATK jar. This will eventually be
+# merged into the main release, at which point we can simply download the usual
+# GATK release jar and delete this entire section.
+ENV VARSTORE_GATK_RELEASE=v0.1-092820
+ENV GATK_LOCAL_JAR="/usr/local/share/gatk-${VARSTORE_GATK_RELEASE}/gatk.jar"
+
+RUN mkdir "/usr/local/share/gatk-${VARSTORE_GATK_RELEASE}" && \
+  curl -L -o "${GATK_LOCAL_JAR}" \
+    "https://github.com/broadinstitute/variantstore/releases/download/${VARSTORE_GATK_RELEASE}/gatk-variantstore.jar"
+
 RUN /home/jupyter-user/miniconda/bin/conda install -c bioconda plink && \
   ln -s /home/jupyter-user/miniconda/bin/plink /bin/plink
 

@@ -1,6 +1,6 @@
 ## 1.0.11 - 09/29/2020
 
- - Temporarily drop GATK jar; causing image build issues: DDO-752
+ - Just download the custom GATK jar instead of building it.
 
 ## 1.0.10 - 09/18/2020
 
