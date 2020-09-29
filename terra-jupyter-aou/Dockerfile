@@ -72,7 +72,7 @@ RUN cd /usr/local/share && \
 # merged into the main release, at which point we can simply download the usual
 # GATK release jar and delete this entire section.
 ENV VARSTORE_GATK_RELEASE=v0.1-092820
-ENV GATK_LOCAL_JAR="/usr/local/share/gatk-${VARSTORE_GATK_RELEASE}/gatk.jar"
+ENV GATK_LOCAL_JAR=/usr/local/share/gatk.jar
 
 RUN mkdir "/usr/local/share/gatk-${VARSTORE_GATK_RELEASE}" && \
   curl -L -o "${GATK_LOCAL_JAR}" \
