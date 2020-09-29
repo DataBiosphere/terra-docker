@@ -1,3 +1,7 @@
+## 1.0.11 - 09/29/2020
+
+ - Temporarily drop GATK jar; causing image build issues: DDO-752
+
 ## 1.0.10 - 09/18/2020
 
  - Add Hail / Spark libs.
