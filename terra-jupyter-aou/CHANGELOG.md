@@ -1,3 +1,7 @@
+## 1.0.11 - 09/29/2020
+
+ - Just download the custom GATK jar instead of building it.
+
 ## 1.0.10 - 09/18/2020
 
  - Add Hail / Spark libs.
