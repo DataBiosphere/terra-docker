@@ -1,3 +1,10 @@
+## 0.0.23 - 2020-10-08T18:42:19.690Z
+
+- Update `terra-jupyter-base` to `0.0.15`
+  - include pip binary installation location in PATH
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-hail:0.0.23`
+
 ## 0.0.22 - 2020-09-30
 - No changes; version bump due to CI/CD issues
 
