@@ -108,7 +108,7 @@ def main(updatedImage: String, updatedImageReleaseNote: String): Unit = {
                 val firstSplit = s.split(":")
                 val splited = firstSplit(1).split("\\.")
                 s"${firstSplit(0)}:${splited(0)}.${splited(1)}.${splited(2).toInt + 1}\n"
-              } else if(s.contains("AS")) {
+              } else if(s.contains(" AS ")) {
                 val firstSplit = s.split(":")
                 val secondSplit = firstSplit(1).split(" ")
                 val splited = secondSplit(0).split("\\.")

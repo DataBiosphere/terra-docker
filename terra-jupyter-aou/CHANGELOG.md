@@ -1,3 +1,10 @@
+## 1.0.12 - 2020-10-08T18:42:19.744Z
+
+- Update `terra-jupyter-base` to `0.0.15`
+  - include pip binary installation location in PATH
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-aou:1.0.12`
+
 ## 1.0.11 - 09/29/2020
 
  - Just download the custom GATK jar instead of building it.

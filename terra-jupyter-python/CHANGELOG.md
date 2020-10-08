@@ -1,3 +1,10 @@
+## 0.0.17 - 2020-10-08T18:42:19.709Z
+
+- Update `terra-jupyter-base` to `0.0.15`
+  - include pip binary installation location in PATH
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-python:0.0.17`
+
 ## 0.0.16 - 2020-09-02T15:12:19.878Z
 
 - Update `terra-jupyter-base` to `0.0.14`

@@ -142,6 +142,10 @@ RUN mkdir -p /usr/local/share/jupyter/lab
 # make pip install to a user directory, instead of a system directory which requires root.
 # this is useful so `pip install` commands can be run in the context of a notebook.
 ENV PIP_USER=true
+# When using PIP_USER=true packages are installed into Python site.USER_BASE, which is '/home/jupyter-user' for this system.
+# Append '/home/jupyter-user/.local/bin' to PATH
+# pip docs: https://pip.pypa.io/en/stable/reference/pip_install/#cmdoption-user
+ENV PATH="${PATH}:/home/jupyter-user/.local/bin"
 
 #######################
 # Install Conda
