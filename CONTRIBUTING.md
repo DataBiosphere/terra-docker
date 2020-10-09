@@ -14,6 +14,8 @@ You can also run `amm ./updateVersions.sc <image name> <release note>` to upgrad
 
 If you are from outside the Broad, don't worry about adding a JIRA issue number to PRs. More to come on external contributions.
 
+If you are handling these contributions from the Broad side, please remember to create a corresponding JIRA ticket. This ticket number will be used to track contributions internally.
+
 ## Community Images
 
 Community images must be vetted before they will be introduced into Terra.
@@ -73,7 +75,7 @@ Once all automation tests (including coverage) have passed, you can merge this P
 
 Merging this PR will automatically kick off another Jenkins [job](https://fc-jenkins.dsp-techops.broadinstitute.org/job/leonardo-dataproc-image/) (given title "Automated custom-image hash update"). This job generates a file called `terra-docker-versions-new.json` which we will use later.
 
-There will be a notification in the slack channel `#dsp-callisto-internal` as well once this job finishes running with a link to the automatically created Leonardo PR. Make sure to also add the JIRA issue number to the title of this PR.
+There will be a notification in the slack channel `#dsp-callisto-internal` as well once this job finishes running with a link to the automatically created Leonardo PR. Make sure to also add the JIRA issue number to the title of this PR. If there is no JIRA issue number, please create a JIRA ticket for tracking purposes. In the ticket description, include any information provided by the contributor and fill out the security impact description as needed. 
 
 ## Merging the terra-docker custom image hash update job PR
 
