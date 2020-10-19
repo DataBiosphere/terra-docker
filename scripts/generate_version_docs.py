@@ -6,6 +6,7 @@ def get_config(path):
 
 config_location = "config/conf.json"
 community_config_location = "config/community_images.json"
+static_config_location = "config/static_images.json"
 config = get_config(config_location)
 
 def main():
@@ -100,35 +101,7 @@ def get_last_updated(image_config):
 # See definitions in https://docs.google.com/document/d/1qAp1wJTEx1UNtZ4vz1aV4PZRfjyYfF7QkwwOjK4LoD8/edit
 def get_other_docs():
   community_docs = utils.read_json_file(community_config_location)
-  static_docs = [
-    {
-      "id": 'leonardo-jupyter-dev',
-      "label": 'Legacy Python/R (default prior to January 14, 2020)',
-      "version": 'FINAL',
-      "updated": '2019-08-26',
-      "packages": 'https://storage.googleapis.com/terra-docker-image-documentation/leonardo-jupyter-dev-versions.json',
-      "image": 'us.gcr.io/broad-dsp-gcr-public/leonardo-jupyter:5c51ce6935da',
-      "requiresSpark": True
-    },
-    {
-      "id": 'terra-jupyter-gatk_legacy',
-      "label": 'Legacy GATK (default prior to June 1, 2020) (GATK 4.1.4.1, Python 3.7.7, R 3.6.3)',
-      "version": '0.0.16',
-      "updated": '2020-05-18',
-      "packages": 'https://storage.googleapis.com/terra-docker-image-documentation/terra-jupyter-gatk-0.0.16-versions.json',
-      "image": 'us.gcr.io/broad-dsp-gcr-public/terra-jupyter-gatk:0.0.16',
-      "requiresSpark": False
-    },
-    {
-      "id": 'terra-jupyter-bioconductor_legacy',
-      "label": 'Legacy R / Bioconductor (R 3.6.3, Bioconductor 3.10, Python 3.7.7)',
-      "version": '0.0.15',
-      "updated": '2020-05-18',
-      "packages": 'https://storage.googleapis.com/terra-docker-image-documentation/terra-jupyter-bioconductor-0.0.15-versions.json',
-      "image": 'us.gcr.io/broad-dsp-gcr-public/terra-jupyter-bioconductor:0.0.15',
-      "requiresSpark": False
-    }
-  ]
+  static_docs = utils.read_json_file(static_config_location)
 
   return community_docs + static_docs
 

@@ -7,4 +7,14 @@
     "image": "cumulusprod/pegasus-terra:1.0",
     "requiresSpark": false,
     "isCommunity": true
+},
+{
+    "id": "RStudio",
+    "label": "RStudio / Bioconductor (Python 2.7.17, BiocVersion 3.11.1, tidyverse 4.0.0)",
+    "version": "0.0.6",
+    "updated": "2020-07-01",
+    "packages": "https://storage.googleapis.com/terra-docker-image-documentation/placeholder.json",
+    "image": "us.gcr.io/anvil-gcr-public/anvil-rstudio-bioconductor:0.0.6",
+    "requiresSpark": false,
+    "isRStudio": true
 }]
