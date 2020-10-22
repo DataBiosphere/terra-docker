@@ -1,3 +1,9 @@
+## 1.0.14 - 2020-10-22
+
+- Don't use gsutil, it creates local credentials files which break downstream CLI usage
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-aou:1.0.14`
+
 ## 1.0.13 - 2020-10-21
 
 - Add [variantstore](https://github.com/broadinstitute/variantstore) extraction tool
