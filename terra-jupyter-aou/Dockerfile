@@ -74,9 +74,8 @@ RUN cd /usr/local/share && \
 ENV VARSTORE_GATK_RELEASE=4.1.8.1-127-g0360115-SNAPSHOT-local
 ENV GATK_LOCAL_JAR=/usr/local/share/gatk.jar
 
-RUN gsutil cp \
-  "gs://broad-dsp-spec-ops-public/gatk-package-${VARSTORE_GATK_RELEASE}.jar" \
-  "${GATK_LOCAL_JAR}"
+RUN curl -L -o "${GATK_LOCAL_JAR}" \
+  "https://storage.googleapis.com/storage/v1/b/broad-dsp-spec-ops-public/o/gatk-package-${VARSTORE_GATK_RELEASE}.jar?alt=media"
 
 ENV VARSTORE_TOOLS_VERSION=bdd7f95
 RUN git clone https://github.com/broadinstitute/variantstore.git /tmp/varstore && \
