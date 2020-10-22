@@ -1,3 +1,10 @@
+## 1.0.13 - 2020-10-21
+
+- Add [variantstore](https://github.com/broadinstitute/variantstore) extraction tool
+- Update gatk custom jar build to latest
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-aou:1.0.13`
+
 ## 1.0.12 - 2020-10-08T18:42:19.744Z
 
 - Update `terra-jupyter-base` to `0.0.15`
