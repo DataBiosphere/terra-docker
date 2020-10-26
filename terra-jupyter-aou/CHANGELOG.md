@@ -1,3 +1,10 @@
+## 1.0.15 - 2020-10-26T20:13:57.770Z
+
+- Update `terra-jupyter-base` to `0.0.16`
+  - add keychain to base image
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-aou:1.0.15`
+
 ## 1.0.14 - 2020-10-22
 
 - Don't use gsutil, it creates local credentials files which break downstream CLI usage

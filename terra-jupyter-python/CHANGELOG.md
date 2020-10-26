@@ -1,3 +1,10 @@
+## 0.0.18 - 2020-10-26T20:13:57.706Z
+
+- Update `terra-jupyter-base` to `0.0.16`
+  - add keychain to base image
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-python:0.0.18`
+
 ## 0.0.17 - 2020-10-08T18:42:19.709Z
 
 - Update `terra-jupyter-base` to `0.0.15`

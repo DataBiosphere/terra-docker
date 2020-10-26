@@ -1,3 +1,9 @@
+## 0.0.16 - 2020-10-26T20:13:57.592Z
+
+- add keychain to base image
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-base:0.0.16`
+
 ## 0.0.15 - 2020-10-08T18:42:19.647Z
 
 - include pip binary installation location in PATH
