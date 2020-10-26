@@ -54,6 +54,9 @@ RUN apt-get update && apt-get install -yq --no-install-recommends \
     git \
     jq \
 
+    # for ssh-agent and ssh-add
+    keychain \
+
     # for jupyterlab extensions
     nodejs-dev \
     node-gyp \
