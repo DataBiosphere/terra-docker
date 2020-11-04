@@ -73,6 +73,11 @@ def main(updatedImage: String, updatedImageReleaseNote: String): Unit = {
       "terra-jupyter-gatk",
       "terra-jupyter-aou"
     )
+    case "terra-jupyter-r" => List(
+      "terra-jupyter-bioconductor",
+      "terra-jupyter-gatk",
+      "terra-jupyter-aou"
+    )
     case updatedImage =>
       throw new Exception(s"${updatedImage} is not supported yet. Please update the script to support the image")
   }

@@ -1,3 +1,10 @@
+## 1.0.16 - 2020-11-04T21:43:54.919Z
+
+- Update `terra-jupyter-r` to `1.0.9`
+  - Version upgrades: Bioconductor version 3.12 and R version 4.0.3
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-aou:1.0.16`
+
 ## 1.0.15 - 2020-10-26T20:13:57.770Z
 
 - Update `terra-jupyter-base` to `0.0.16`
