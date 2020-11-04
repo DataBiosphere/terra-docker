@@ -74,6 +74,7 @@ def main(updatedImage: String, updatedImageReleaseNote: String): Unit = {
       "terra-jupyter-aou"
     )
     case "terra-jupyter-r" => List(
+      "terra-jupyter-r",
       "terra-jupyter-bioconductor",
       "terra-jupyter-gatk",
       "terra-jupyter-aou"
