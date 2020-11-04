@@ -117,7 +117,7 @@ RUN apt-get update \
 
 RUN R -e 'install.packages("BiocManager")' \
     ## check version
-    && R -e 'BiocManager::install(version="3.11", ask=FALSE)' \
+    && R -e 'BiocManager::install(version="3.12", ask=FALSE)' \
     && R -e 'BiocManager::install(c( \
     "boot", \
     "class", \
