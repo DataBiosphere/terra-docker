@@ -1,3 +1,10 @@
+## 0.0.19 - 2020-11-04T21:06:48.542Z
+
+- Update `terra-jupyter-base` to `0.0.17`
+  - Added ability to run `sudo` commands to gain root access within the Terra Jupyter container
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-python:0.0.19`
+
 ## 0.0.18 - 2020-10-26T20:13:57.706Z
 
 - Update `terra-jupyter-base` to `0.0.16`
