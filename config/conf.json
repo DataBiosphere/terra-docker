@@ -26,7 +26,7 @@
                     "tidyverse"
                 ]
             },
-            "version" : "1.0.9",
+            "version" : "1.0.8",
             "automated_flags" : {
                 "generate_docs" : true,
                 "include_in_ui" : true,
@@ -104,7 +104,7 @@
             "packages" : {
                 
             },
-            "version" : "1.0.9",
+            "version" : "1.0.8",
             "automated_flags" : {
                 "include_in_ui" : false,
                 "generate_docs" : true,
