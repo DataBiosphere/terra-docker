@@ -1,3 +1,10 @@
+## 1.0.10 - 2020-11-10T13:26:19.126Z
+
+- Update `terra-jupyter-python` to `0.0.19`
+  - Remove Python package enum34. Fixes https://github.com/DataBiosphere/terra-docker/issues/175
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-gatk:1.0.10`
+
 ## 1.0.9 - 2020-11-04T21:43:54.895Z
 
 - Update `terra-jupyter-r` to `1.0.9`
