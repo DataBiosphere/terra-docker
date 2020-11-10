@@ -56,7 +56,6 @@ RUN pip3 -V \
  && pip3 install matplotlib-venn==0.11.5 \
  && pip3 install bleach==1.5.0 \
  && pip3 install cycler==0.10.0 \
- && pip3 install enum34==1.1.6 \
  && pip3 install h5py==2.7.1 \
  && pip3 install html5lib==0.9999999 \
  && pip3 install joblib==0.11 \
