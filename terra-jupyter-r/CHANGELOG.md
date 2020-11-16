@@ -1,3 +1,10 @@
+## 1.0.10 - 2020-11-16T18:11:40.819538Z
+
+- Update `terra-jupyter-base` to `0.0.17`
+  - remove miniconda
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-r:1.0.10`
+
 ## 1.0.9 - 2020-11-04T21:43:54.848Z
 
 - Version upgrades: Bioconductor version 3.12 and R version 4.0.3

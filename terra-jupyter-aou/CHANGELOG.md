@@ -1,3 +1,10 @@
+## 1.0.18 - 2020-11-16T18:11:40.848741Z
+
+- Update `terra-jupyter-base` to `0.0.17`
+  - remove miniconda
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-aou:1.0.18`
+
 ## 1.0.17 - 2020-11-10T13:26:19.148Z
 
 - Update `terra-jupyter-python` to `0.0.19`

@@ -1,3 +1,10 @@
+## 0.0.26 - 2020-11-16T18:11:40.758876Z
+
+- Update `terra-jupyter-base` to `0.0.17`
+  - remove miniconda
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-hail:0.0.26`
+
 ## 0.0.25 - 2020-11-10T13:26:19.112Z
 
 - Update `terra-jupyter-python` to `0.0.19`

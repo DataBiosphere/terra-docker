@@ -1,6 +1,6 @@
-val workbenchUtil2 = "0.10-c3ef6b80-SNAP"
+// Must be run with scala 2.13 or above.
 
-interp.configureCompiler(_.settings.YpartialUnification.value = true)
+val workbenchUtil2 = "0.10-c3ef6b80-SNAP"
 
 val circeVersion = "0.13.0"
 interp.load.ivy(
