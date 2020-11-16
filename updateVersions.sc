@@ -58,7 +58,7 @@ def modifyImageData(imagesToUpdate: List[String]): Json => Json =
   }
 
 /**
- * In repo root dir, run `amm ./updateVersion.sc terra-jupyter-base 'update notebook to 6.1.1'`
+ * In repo root dir, run `amm ./updateVersions.sc terra-jupyter-base 'update notebook to 6.1.1'`
  * @param updatedImage e.g. "terra-jupyter-base"
  */
 @main
