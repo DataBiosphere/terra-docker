@@ -1,4 +1,5 @@
-// Must be run with scala 2.13 or above.
+// This script is written in Scala 2.13+
+// Run it with `ammonite for Scala 2.13+`
 
 val workbenchUtil2 = "0.10-c3ef6b80-SNAP"
 
