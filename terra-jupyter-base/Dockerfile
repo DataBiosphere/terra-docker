@@ -151,14 +151,6 @@ ENV PIP_USER=true
 ENV PATH="${PATH}:/home/jupyter-user/.local/bin"
 
 #######################
-# Install Conda
-#######################
-RUN wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O /tmp/miniconda.sh \
-  && bash /tmp/miniconda.sh -b -p $HOME/miniconda \
-  && echo 'eval "$(/home/jupyter-user/miniconda/bin/conda shell.bash hook)"' >> /home/jupyter-user/.bashrc \
-  && echo 'cd /home/jupyter-user/notebooks' >> /home/jupyter-user/.bashrc
-
-#######################
 # Utilities
 #######################
 
