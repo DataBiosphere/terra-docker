@@ -1,6 +1,9 @@
-val workbenchUtil2 = "0.10-c3ef6b80-SNAP"
+/**
+* This script is written in Scala 2.13+
+* Run it with `ammonite for Scala 2.13+`
+*/
 
-interp.configureCompiler(_.settings.YpartialUnification.value = true)
+val workbenchUtil2 = "0.10-c3ef6b80-SNAP"
 
 val circeVersion = "0.13.0"
 interp.load.ivy(
@@ -58,7 +61,7 @@ def modifyImageData(imagesToUpdate: List[String]): Json => Json =
   }
 
 /**
- * In repo root dir, run `amm ./updateVersion.sc terra-jupyter-base 'update notebook to 6.1.1'`
+ * In repo root dir, run `amm ./updateVersions.sc terra-jupyter-base 'update notebook to 6.1.1'`
  * @param updatedImage e.g. "terra-jupyter-base"
  */
 @main

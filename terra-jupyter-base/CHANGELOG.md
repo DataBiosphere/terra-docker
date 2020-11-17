@@ -1,3 +1,9 @@
+## 0.0.17 - 2020-11-16T18:11:40.717364Z
+
+- remove miniconda
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-base:0.0.17`
+
 ## 0.0.16 - 2020-10-26T20:13:57.592Z
 
 - add keychain to base image
