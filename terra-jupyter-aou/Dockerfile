@@ -85,8 +85,14 @@ RUN git clone https://github.com/broadinstitute/variantstore.git /tmp/varstore &
   cd $HOME && \
   rm -rf /tmp/varstore
 
-RUN /home/jupyter-user/miniconda/bin/conda install -c bioconda plink && \
-  ln -s /home/jupyter-user/miniconda/bin/plink /bin/plink
+ENV PLINK_VERSION=20201019
+RUN mkdir -p /tmp/plink && \
+  cd /tmp/plink && \
+  curl -L -o plink.zip "http://s3.amazonaws.com/plink1-assets/plink_linux_x86_64_${PLINK_VERSION}.zip" && \
+  unzip plink.zip && \
+  mv plink /bin/plink && \
+  cd $HOME && \
+  rm -rf /tmp/plink
 
 RUN echo "Sys.setenv(RETICULATE_PYTHON = '$(which python3)')" >> ~/.Rprofile
 

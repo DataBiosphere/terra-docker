@@ -1,5 +1,6 @@
 ## 1.0.18 - 2020-11-16T18:11:40.848741Z
 
+- Remove dependency on miniconda
 - Update `terra-jupyter-base` to `0.0.17`
   - remove miniconda
 
