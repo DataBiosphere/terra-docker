@@ -376,9 +376,9 @@ pipeline {
           slackSend(channel: '#dsp-callisto-internal', message: "Jenkins has successfully built images and created a PR with the updated terra-docker hashes.\n" + 
          "\nIf you would like to check the status of the PR, click: $prLink")
       }
-      failure {
-        slackSend(channel: '#dsp-callisto-internal', message: "Jenkins has failed to on a build of the terra-docker repo. Some of the images may have been successfully built. See the log for details: $BUILD_URL")
-      }
+      // failure {
+      //   slackSend(channel: '#dsp-callisto-internal', message: "Jenkins has failed to on a build of the terra-docker repo. Some of the images may have been successfully built. See the log for details: $BUILD_URL")
+      // }
     }
      
 
