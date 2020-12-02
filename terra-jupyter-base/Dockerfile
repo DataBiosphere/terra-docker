@@ -150,6 +150,8 @@ ENV PIP_USER=true
 # pip docs: https://pip.pypa.io/en/stable/reference/pip_install/#cmdoption-user
 ENV PATH="${PATH}:/home/jupyter-user/.local/bin"
 
+RUN echo 'cd /home/jupyter-user/notebooks' >> /home/jupyter-user/.bashrc
+
 #######################
 # Utilities
 #######################
