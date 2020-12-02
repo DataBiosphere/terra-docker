@@ -1,3 +1,10 @@
+## 0.0.21 - 2020-12-02T17:59:36.411Z
+
+- Update `terra-jupyter-base` to `0.0.18`
+  - bump terra-notebook-utils version to 0.7.0 and move it to base image
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-python:0.0.21`
+
 ## 0.0.20 - 2020-11-16T18:11:40.785376Z
 
 - Update `terra-jupyter-base` to `0.0.17`

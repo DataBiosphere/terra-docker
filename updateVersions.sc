@@ -122,8 +122,11 @@ def main(updatedImage: String, updatedImageReleaseNote: String): Unit = {
               if(s.contains("FROM") && !s.contains("AS")) {
                 val firstSplit = s.split(":")
                 val splited = firstSplit(1).split("\\.")
-                s"${firstSplit(0)}:${splited(0)}.${splited(1)}.${splited(2).toInt + 1}\n"
-              } else if(s.contains(" AS ")) {
+                val imageName = firstSplit(0).split("\\/")(2)
+                if(imagesToUpdate.contains(imageName)) {
+                  s"${firstSplit(0)}:${splited(0)}.${splited(1)}.${splited(2).toInt + 1}\n"
+                } else s"${s}\n"
+              } else if(s.contains(" AS ") && imagesToUpdate.contains("terra-jupyter-python")) {
                 val firstSplit = s.split(":")
                 val secondSplit = firstSplit(1).split(" ")
                 val splited = secondSplit(0).split("\\.")
