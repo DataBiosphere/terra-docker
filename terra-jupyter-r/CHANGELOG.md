@@ -1,3 +1,9 @@
+## 1.0.11 - 2020-12-02T16:56:10.085Z
+
+- bump terra-notebook-utils version to 0.7.0
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-r:1.0.11`
+
 ## 1.0.10 - 2020-11-16T18:11:40.819538Z
 
 - Update `terra-jupyter-base` to `0.0.17`

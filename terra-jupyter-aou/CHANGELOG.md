@@ -1,3 +1,10 @@
+## 1.0.19 - 2020-12-02T16:56:10.147Z
+
+- Update `terra-jupyter-r` to `1.0.11`
+  - bump terra-notebook-utils version to 0.7.0
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-aou:1.0.19`
+
 ## 1.0.18 - 2020-11-16T18:11:40.848741Z
 
 - Remove dependency on miniconda
