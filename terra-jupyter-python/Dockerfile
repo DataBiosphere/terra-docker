@@ -1,4 +1,4 @@
-FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-base:0.0.17
+FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-base:0.0.18
 USER root
 #this makes it so pip runs as root, not the user
 ENV PIP_USER=false
@@ -30,7 +30,6 @@ RUN pip3 -V \
  && pip3 install pandas-gbq==0.12.0 \
  && pip3 install pandas-profiling==2.4.0 \
  && pip3 install seaborn==0.9.0 \
- && pip3 install terra-notebook-utils==0.2.1 \
  && pip3 install python-lzo==1.12 \
  && pip3 install google-cloud-bigquery==1.23.1 \
  && pip3 install google-api-core==1.6.0 \

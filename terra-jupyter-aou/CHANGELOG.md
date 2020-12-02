@@ -1,3 +1,10 @@
+## 1.0.19 - 2020-12-02T17:59:36.458Z
+
+- Update `terra-jupyter-base` to `0.0.18`
+  - bump terra-notebook-utils version to 0.7.0 and move it to base image
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-aou:1.0.19`
+
 ## 1.0.18 - 2020-11-16T18:11:40.848741Z
 
 - Remove dependency on miniconda

@@ -127,6 +127,7 @@ RUN pip3 -V \
  && pip3 install notebook==6.1.1 \
  && pip3 install jupyter==1.0.0 \
  && pip3 install python-datauri \
+ && pip3 install terra-notebook-utils==0.7.0 \
  && pip3 install jupyterlab==0.35.4 \
  && pip3 install cookiecutter \
  && pip3 install jupyter_contrib_nbextensions \
