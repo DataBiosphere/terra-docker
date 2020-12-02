@@ -151,6 +151,9 @@ ENV PIP_USER=true
 # pip docs: https://pip.pypa.io/en/stable/reference/pip_install/#cmdoption-user
 ENV PATH="${PATH}:/home/jupyter-user/.local/bin"
 
+# Default terminal directory should be where PD is mounted
+RUN echo 'cd /home/jupyter-user/notebooks' >> /home/jupyter-user/.bashrc
+
 #######################
 # Utilities
 #######################
