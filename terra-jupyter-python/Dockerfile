@@ -1,10 +1,9 @@
-FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-base:0.0.18
+FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-base:gabriela-test
 USER root
 #this makes it so pip runs as root, not the user
 ENV PIP_USER=false
 
 RUN apt-get update && apt-get install -yq --no-install-recommends \
-  python3.7-dev \
   python-tk \
   tk-dev \
   libssl-dev \
@@ -70,7 +69,6 @@ RUN pip3 -V \
  && pip3 install pyvcf==0.6.8 \
  && pip3 install pyyaml==3.12 \
  && pip3 install scipy==1.2 \
- && pip3 install six==1.13.0 \
  && pip3 install tensorflow==2.0.0a0 \
  && pip3 install theano==0.9.0 \
  && pip3 install tqdm==4.19.4 \

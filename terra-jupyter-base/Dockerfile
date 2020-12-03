@@ -115,7 +115,7 @@ ENV PATH ${PATH:+$PATH:}$USER_INSTALL_DIR/bin
 RUN apt update \
    && apt install -yq software-properties-common \
    && add-apt-repository ppa:deadsnakes/ppa \
-   && apt install -yq python3.7 \
+   && apt install -yq python3.7-dev \
    && update-alternatives --install /usr/local/bin/python3 python3 /usr/bin/python3.7 1 \
    && apt-get -yq install python3-pip \
    && /usr/local/bin/python3 -m pip install --upgrade pip
@@ -127,7 +127,6 @@ RUN pip3 -V \
  && pip3 install notebook==6.1.1 \
  && pip3 install jupyter==1.0.0 \
  && pip3 install python-datauri \
- && pip3 install terra-notebook-utils==0.7.0 \
  && pip3 install jupyterlab==0.35.4 \
  && pip3 install cookiecutter \
  && pip3 install jupyter_contrib_nbextensions \
@@ -135,7 +134,9 @@ RUN pip3 -V \
  # for jupyter_delocalize.py and jupyter_notebook_config.py
  && pip3 install tornado==5.1.1 \
  && pip3 install requests \
+ && pip3 install six==1.15.0 \
  && pip3 install firecloud==0.16.25 \
+ && pip3 install terra-notebook-utils==0.7.0 \
  && apt-get clean \
  && rm -rf /var/lib/apt/lists/*
 
