@@ -1,3 +1,8 @@
+## 0.0.28 - 2020-12-03
+
+- Update `hail` to `0.2.61`
+   - See https://hail.is/docs/0.2/change_log.html#version-0-2-61 for details.
+
 ## 0.0.27 - 2020-12-02T17:59:36.390Z
 
 - Update `terra-jupyter-base` to `0.0.18`
