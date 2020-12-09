@@ -108,9 +108,6 @@ RUN pip3 install --upgrade \
   mizani==0.6.0 \
   # Parent image pins tensorflow to an old alpha version. Override here for now.
   tensorflow==2.3.0 \
-  # This version of numpy should already be installed but isn't. See IA-2122.
-  # This line can be removed once that ticket is resolved.
-  numpy==1.19.0 \
   statsmodels==0.10.0rc2 \
   "git+git://github.com/all-of-us/workbench-snippets.git#egg=terra_widgets&subdirectory=py"
 
