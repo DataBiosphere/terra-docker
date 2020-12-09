@@ -60,7 +60,7 @@ RUN pip3 -V \
  && pip3 install keras==2.1.6 \
  && pip3 install patsy==0.4.1 \
  && pip3 install protobuf==3.7.1 \
- && pip3 install pymc3==3.1 \
+ && pip3 install pymc3==3.10.0 \
  && pip3 install pyparsing==2.2.0 \
  && pip3 install Cython \
  && pip3 install pysam==0.15.4 --no-binary pysam \
