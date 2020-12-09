@@ -1,4 +1,4 @@
-FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-python:0.0.21 AS python
+FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-python:0.0.22 AS python
 
 FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-r:1.0.11
 
@@ -42,7 +42,7 @@ RUN mkdir -p /etc/spark/conf.dist && mkdir -p /etc/hadoop/conf.empty && mkdir -p
     && update-alternatives --install /etc/hadoop/conf hadoop-conf /etc/hadoop/conf.empty 100 \
     && update-alternatives --install /etc/hive/conf hive-conf /etc/hive/conf.dist 100
 
-ENV HAIL_VERSION=0.2.57
+ENV HAIL_VERSION=0.2.61
 ENV PIP_USER=false
 
 # For dataproc clusters, this path with will be automatically mounted. Else,
@@ -108,9 +108,7 @@ RUN pip3 install --upgrade \
   mizani==0.6.0 \
   # Parent image pins tensorflow to an old alpha version. Override here for now.
   tensorflow==2.3.0 \
-  # This version of numpy should already be installed but isn't. See IA-2122.
-  # This line can be removed once that ticket is resolved.
-  numpy==1.19.0 \
+  numpy==1.18.5 \
   statsmodels==0.10.0rc2 \
   "git+git://github.com/all-of-us/workbench-snippets.git#egg=terra_widgets&subdirectory=py"
 

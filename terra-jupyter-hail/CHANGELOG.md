@@ -1,3 +1,10 @@
+## 0.0.29 - 2020-12-09T18:50:57.298Z
+
+- Update `terra-jupyter-python` to `0.0.22`
+  - [IA-2420] Update to a newer version of pymc3
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-hail:0.0.29`
+
 ## 0.0.28 - 2020-12-03
 
 - Update `hail` to `0.2.61`

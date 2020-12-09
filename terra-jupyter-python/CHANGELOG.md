@@ -1,3 +1,9 @@
+## 0.0.22 - 2020-12-09T18:50:57.262Z
+
+- [IA-2420] Update to a newer version of pymc3
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-python:0.0.22`
+
 ## 0.0.21 - 2020-12-02T17:59:36.411Z
 
 - Update `terra-jupyter-base` to `0.0.18`
