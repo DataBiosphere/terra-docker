@@ -9,7 +9,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        workdir:
+        context:
         - terra-jupyter-aou
         - terra-jupyter-base
         - terra-jupyter-bioconductor
@@ -23,4 +23,4 @@ jobs:
 
       - uses: broadinstitute/dsp-appsec-trivy-action@v1
         with:
-          context: ${{ matrix.workdir }}
+          context: ${{ matrix.context }}
