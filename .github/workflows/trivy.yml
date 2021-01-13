@@ -21,11 +21,6 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      # Configure GCR
-      - uses: google-github-actions/setup-gcloud@v0.2.0
-      - run: gcloud auth configure-docker
-
-      # Build and scan the image
       - uses: broadinstitute/dsp-appsec-trivy-action@v1
         with:
           context: ${{ matrix.context }}
