@@ -21,6 +21,10 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
+      - name: Cleanup disk space
+        run: |
+          df -h
+
       - uses: broadinstitute/dsp-appsec-trivy-action@v1
         with:
           context: ${{ matrix.context }}
