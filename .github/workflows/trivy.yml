@@ -24,6 +24,13 @@ jobs:
       - name: Cleanup disk space
         run: |
           df -h
+          swapoff -a
+          rm -f /swapfile
+          df -h
+          apt clean
+          df -h
+          docker rmi $(docker image ls -aq)
+          df -h
 
       - uses: broadinstitute/dsp-appsec-trivy-action@v1
         with:
