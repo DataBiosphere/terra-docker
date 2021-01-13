@@ -24,10 +24,10 @@ jobs:
       - name: Cleanup disk space
         run: |
           df -h
-          swapoff -a
-          rm -f /swapfile
+          sudo swapoff -a
+          sudo rm -f /swapfile
           df -h
-          apt clean
+          sudo apt clean
           df -h
           docker rmi $(docker image ls -aq)
           df -h
