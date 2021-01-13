@@ -21,7 +21,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Cleanup disk space
+      - name: Clean up disk space
         run: docker rmi $(docker image ls -aq)
 
       - uses: broadinstitute/dsp-appsec-trivy-action@v1
