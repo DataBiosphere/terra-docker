@@ -1,3 +1,9 @@
+## 1.0.19 - 2021-01-20T18:57:08.202Z
+
+- use appsec blessed image instead of google maintained image
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-base:1.0.19`
+
 ## 0.0.19 - 2021-01-20T16:00:48.255Z
 
 - [IA-2472] Turn on debug-level logging when JUPYTER_DEBUG_LOGGING env var is true

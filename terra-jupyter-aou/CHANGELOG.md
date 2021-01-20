@@ -1,3 +1,10 @@
+## 2.0.21 - 2021-01-20T18:57:08.311Z
+
+- Update `terra-jupyter-base` to `1.0.19`
+  - use appsec blessed image instead of google maintained image
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-aou:2.0.21`
+
 ## 1.0.21 - 2021-01-20T16:00:48.370Z
 
 - Update `terra-jupyter-base` to `0.0.19`
