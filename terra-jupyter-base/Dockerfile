@@ -1,6 +1,6 @@
 # adapted from https://hub.docker.com/r/jupyter/base-notebook/ AKA https://github.com/jupyter/docker-stacks/tree/master/base-notebook
 
-FROM marketplace.gcr.io/google/ubuntu1804:latest
+FROM us.gcr.io/broad-dsp-gcr-public/base/python:debian
 USER root
 
 #######################
