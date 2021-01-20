@@ -37,25 +37,28 @@ implicit val cs = IO.contextShift(global)
 val blocker = Blocker.liftExecutionContext(global)
 
 // Example: oldVersion 1.0.4, newVersion 1.0.5
-private def newVersion(oldVersion: String): String = {
+private def newVersion(oldVersion: String, bumpMajorVersion: Boolean): String = {
   val splited = oldVersion.split("\\.")
-  s"${splited(0)}.${splited(1)}.${splited(2).toInt + 1}"
+  if(bumpMajorVersion)
+    s"${splited(0).toInt + 1}.${splited(1)}.${splited(2)}"
+  else
+    s"${splited(0)}.${splited(1)}.${splited(2).toInt + 1}"
 }
 
-val modifyVersion: Json => Json =
+def modifyVersion(bumpMajorVersion: Boolean): Json => Json =
   root.version.string.modify {
     s =>
-      newVersion(s)
+      newVersion(s, bumpMajorVersion)
   }
 
-def modifyImageData(imagesToUpdate: List[String]): Json => Json =
+def modifyImageData(imagesToUpdate: List[String], bumpMajorVersion: Boolean): Json => Json =
   root.image_data.arr.modify {
     listOfImageData =>
       listOfImageData.map {
         image =>
           val imageName = image.hcursor.downField("name").as[String].fold(e => throw e, identity)
           if(imagesToUpdate.contains(imageName))
-            modifyVersion(image)
+            modifyVersion(bumpMajorVersion)(image)
           else image
       }
   }
@@ -65,7 +68,7 @@ def modifyImageData(imagesToUpdate: List[String]): Json => Json =
  * @param updatedImage e.g. "terra-jupyter-base"
  */
 @main
-def main(updatedImage: String, updatedImageReleaseNote: String): Unit = {
+def main(updatedImage: String, updatedImageReleaseNote: String, bumpMajorVersion: Boolean = false): Unit = {
   val imagesToUpdate: List[String] = updatedImage match {
     case "terra-jupyter-base" => List(
       "terra-jupyter-bioconductor",
@@ -95,7 +98,7 @@ def main(updatedImage: String, updatedImageReleaseNote: String): Unit = {
   val res = for {
     configFileRawJson <- (io.file.readAll[IO](Paths.get("./config/conf.json"), blocker, 4096).through(text.utf8Decode)).compile.string
     config <- IO.fromEither(parse(configFileRawJson))
-    newConfig = modifyImageData(imagesToUpdate)(config)
+    newConfig = modifyImageData(imagesToUpdate, bumpMajorVersion)(config)
     _ <- (fs2.Stream.emit(newConfig.asJson.printWith(Printer.spaces4)).covary[IO]
       .through(text.utf8Encode)
       .through(io.file.writeAll(Paths.get("./config/conf.json"), blocker))).compile.drain
@@ -105,7 +108,8 @@ def main(updatedImage: String, updatedImageReleaseNote: String): Unit = {
     updatedImageNewVersion <- updateChangeLogFile(
       updatedImage,
       s"""- ${updatedImageReleaseNote}""".stripMargin,
-      updatedImageChangeLogFile
+      updatedImageChangeLogFile,
+      bumpMajorVersion
     )
     // Update `Dockerfile` and `CHANGELOG.md`
     _ <- imagesToUpdate.filterNot(_.contains(updatedImage)).traverse {
@@ -121,16 +125,14 @@ def main(updatedImage: String, updatedImageReleaseNote: String): Unit = {
               val s = lineWithIndex._1
               if(s.contains("FROM") && !s.contains("AS")) {
                 val firstSplit = s.split(":")
-                val splited = firstSplit(1).split("\\.")
                 val imageName = firstSplit(0).split("\\/")(2)
                 if(imagesToUpdate.contains(imageName)) {
-                  s"${firstSplit(0)}:${splited(0)}.${splited(1)}.${splited(2).toInt + 1}\n"
+                  s"${firstSplit(0)}:${newVersion(firstSplit(1), bumpMajorVersion)}\n"
                 } else s"${s}\n"
               } else if(s.contains(" AS ") && imagesToUpdate.contains("terra-jupyter-python")) {
                 val firstSplit = s.split(":")
                 val secondSplit = firstSplit(1).split(" ")
-                val splited = secondSplit(0).split("\\.")
-                s"${firstSplit(0)}:${splited(0)}.${splited(1)}.${splited(2).toInt + 1} AS python\n"
+                s"${firstSplit(0)}:${newVersion(secondSplit(0), bumpMajorVersion)} AS python\n"
               } else if(lineWithIndex._2 == lines.length - 1)
                 s
               else s"${s}\n"
@@ -138,7 +140,7 @@ def main(updatedImage: String, updatedImageReleaseNote: String): Unit = {
           _ <- (fs2.Stream.emits(newLines).covary[IO].through(text.utf8Encode)
             .through(io.file.writeAll(dockerFileToUpdate, blocker))).compile.drain
 
-          _ <- updateChangeLogFile(image, s"- Update `${updatedImage}` to `${updatedImageNewVersion}`\n  - ${updatedImageReleaseNote}", changelogFile)
+          _ <- updateChangeLogFile(image, s"- Update `${updatedImage}` to `${updatedImageNewVersion}`\n  - ${updatedImageReleaseNote}", changelogFile, bumpMajorVersion)
         } yield ()
     }
   } yield ()
@@ -147,11 +149,11 @@ def main(updatedImage: String, updatedImageReleaseNote: String): Unit = {
 }
 
 // returns the new version String of this file
-def updateChangeLogFile(image: String, msg: String, path: Path): IO[String] = for {
+def updateChangeLogFile(image: String, msg: String, path: Path, bumpMajorVersion: Boolean): IO[String] = for {
   originalFileContent <- (io.file.readAll[IO] (path, blocker, 4096)
                                 .through(text.utf8Decode)).compile.string
   firstLine = originalFileContent.split("\n")(0)
-  newV = newVersion(firstLine.split(" ")(1))
+  newV = newVersion(firstLine.split(" ")(1), bumpMajorVersion)
   newFileContent =
   s"""## ${newV} - ${Instant.now()}
      |
