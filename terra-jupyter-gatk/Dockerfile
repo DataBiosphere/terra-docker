@@ -1,9 +1,9 @@
-FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-python:0.1.2 AS python
+FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-python:qi-gpu AS python
 
-FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-r:1.0.15
+FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-r:qi-gpu
 
 # copy everything pip installed from the python image
-COPY --from=python /usr/local/lib/python3.7/dist-packages /usr/local/lib/python3.7/dist-packages
+COPY --from=python /opt/conda/lib/python3.7/site-packages /opt/conda/lib/python3.7/site-packages
 
 USER root
 
@@ -35,7 +35,7 @@ RUN curl -L -o $GATK_ZIP_PATH https://github.com/broadinstitute/gatk/releases/do
  && ln -s /etc/gatk-$GATK_VERSION/gatk /bin/gatk
 
 
-ENV USER jupyter-user
+ENV USER jupyter
 USER $USER
 
 

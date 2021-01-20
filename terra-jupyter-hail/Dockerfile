@@ -1,4 +1,4 @@
-FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-python:0.1.2
+FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-python:qi-gpu
 USER root
 
 COPY scripts $JUPYTER_HOME/scripts

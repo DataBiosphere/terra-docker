@@ -126,7 +126,7 @@ RUN echo "Sys.setenv(RETICULATE_PYTHON = '$(which python3)')" >> ~/.Rprofile
 
 # Install Notebook libraries as the user.
 
-ENV USER jupyter-user
+ENV USER jupyter
 USER $USER
 
 RUN R -e 'BiocManager::install(c( \
