@@ -1,3 +1,9 @@
+## 0.0.19 - 2021-01-20T16:00:48.255Z
+
+- [IA-2472] Turn on debug-level logging when JUPYTER_DEBUG_LOGGING env var is true
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-base:0.0.19`
+
 ## 0.0.18 - 2020-12-02T17:59:36.345Z
 
 - bump terra-notebook-utils version to 0.7.0 and move it to base image

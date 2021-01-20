@@ -1,3 +1,10 @@
+## 1.0.12 - 2021-01-20T16:00:48.341Z
+
+- Update `terra-jupyter-base` to `0.0.19`
+  - [IA-2472] Turn on debug-level logging when JUPYTER_DEBUG_LOGGING env var is true
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-r:1.0.12`
+
 ## 1.0.11 - 2020-12-02T17:59:36.434Z
 
 - Update `terra-jupyter-base` to `0.0.18`
