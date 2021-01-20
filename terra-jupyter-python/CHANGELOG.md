@@ -1,3 +1,10 @@
+## 0.0.23 - 2021-01-20T16:00:48.318Z
+
+- Update `terra-jupyter-base` to `0.0.19`
+  - [IA-2472] Turn on debug-level logging when JUPYTER_DEBUG_LOGGING env var is true
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-python:0.0.23`
+
 ## 0.0.22 - 2020-12-09T18:50:57.262Z
 
 - [IA-2420] Update to a newer version of pymc3
