@@ -67,7 +67,7 @@ RUN pip3 -V \
  && pip3 install python-dateutil==2.6.1 \
  && pip3 install pytz==2017.3 \
  && pip3 install pyvcf==0.6.8 \
- && pip3 install pyyaml==3.12 \
+ && pip3 install pyyaml==5.3.1 \
  && pip3 install scipy==1.2 \
  && pip3 install tensorflow==2.0.0a0 \
  && pip3 install theano==0.9.0 \
