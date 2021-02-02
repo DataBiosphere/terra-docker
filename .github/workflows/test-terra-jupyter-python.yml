@@ -5,9 +5,9 @@ name: Test terra-jupyter-python
 # To configure the minimal auth needed for these tests to be able to read public data from Google Cloud Platform:
 # Step 1: Create a service account per these instructions:
 #         https://github.com/google-github-actions/setup-gcloud/blob/master/setup-gcloud/README.md
-#         https://docs.github.com/en/free-pro-team@latest/actions/reference/encrypted-secrets#creating-encrypted-secrets-for-a-repository
 # Step 2: Give the service account the following permissions within the project: BigQuery User
 # Step 3: Store its key and project id as GitHub repository secrets GCP_SA_KEY and GCP_PROJECT_ID.
+#         https://docs.github.com/en/free-pro-team@latest/actions/reference/encrypted-secrets#creating-encrypted-secrets-for-a-repository
 
 on:
   pull_request:
@@ -22,7 +22,7 @@ on:
     # GitHub blog demo: https://github.blog/changelog/2020-07-06-github-actions-manual-triggers-with-workflow_dispatch/.
     
   push:
-    # TODO(deflaux) remove this 'push' trigger after testing is complete.
+    # TODO(deflaux) remove these 'push' triggers after testing is complete.
     branches: [ add-smoke-tests, bump-aou-versions ]
 
 env:
@@ -45,7 +45,7 @@ jobs:
     - name: Build Docker image
       run: |
         cd terra-jupyter-python
-#        docker build . --file Dockerfile --tag terra-jupyter-python:smoke-test
+        docker build . --file Dockerfile --tag terra-jupyter-python:smoke-test
 
     - name: Set up Cloud SDK
       uses: google-github-actions/setup-gcloud@master
@@ -53,21 +53,6 @@ jobs:
         project_id: ${{ secrets.GCP_PROJECT_ID }}
         service_account_key: ${{ secrets.GCP_SA_KEY }}
         export_default_credentials: true
-
-    - name: gcloud auth list
-      run: |
-        docker run \
-          --env GOOGLE_PROJECT \
-          --volume "${{ env.GOOGLE_APPLICATION_CREDENTIALS }}:/tmp/credentials.json:ro" \
-          --env GOOGLE_APPLICATION_CREDENTIALS="/tmp/credentials.json" \
-          --volume $GITHUB_WORKSPACE/terra-jupyter-python:/tests \
-          --workdir=/tests \
-          --entrypoint="" \
-          us.gcr.io/broad-dsp-gcr-public/terra-jupyter-python:0.0.23 \
-          /bin/sh -c "gcloud auth list"
-          
-        #          terra-jupyter-python:smoke-test \
-
 
     - name: Test Python code with pytest
       run: |
@@ -78,7 +63,7 @@ jobs:
           --volume $GITHUB_WORKSPACE/terra-jupyter-python:/tests \
           --workdir=/tests \
           --entrypoint="" \
-          us.gcr.io/broad-dsp-gcr-public/terra-jupyter-python:0.0.23 \
+          terra-jupyter-python:smoke-test \
           /bin/sh -c "pip3 install pytest; pytest"
 
     - name: Test Python code specific to notebooks with nbconvert
@@ -86,6 +71,7 @@ jobs:
       # See also https://github.com/marketplace/actions/run-notebook if a more complicated
       # workflow for notebooks is needed in the future.
       run: |
+        chmod a+w $GITHUB_WORKSPACE/terra-jupyter-python
         docker run \
           --env GOOGLE_PROJECT \
           --volume "${{ env.GOOGLE_APPLICATION_CREDENTIALS }}:/tmp/credentials.json:ro" \
@@ -93,8 +79,8 @@ jobs:
           --volume $GITHUB_WORKSPACE/terra-jupyter-python:/tests \
           --workdir=/tests \
           --entrypoint="" \
-          us.gcr.io/broad-dsp-gcr-public/terra-jupyter-python:0.0.23 \
-          /bin/sh -c 'for nb in *ipynb ; do jupyter nbconvert --to notebook --execute "${nb}" ; done'
+          terra-jupyter-python:smoke-test \
+          /bin/sh -c 'for nb in *ipynb ; do jupyter nbconvert --to html --execute "${nb}" ; done'
 
     - name: Upload workflow artifacts
       uses: actions/upload-artifact@v2
