@@ -60,7 +60,7 @@ jobs:
           --env GOOGLE_PROJECT \
           --volume "${{ env.GOOGLE_APPLICATION_CREDENTIALS }}:/tmp/credentials.json:ro" \
           --env GOOGLE_APPLICATION_CREDENTIALS="/tmp/credentials.json" \
-          --volume "${{ env.GITHUB_WORKSPACE }}/terra-jupyter-python:/tests" \
+          --volume $GITHUB_WORKSPACE/terra-jupyter-python:/tests \
           --workdir=/tests \
           --entrypoint="" \
           us.gcr.io/broad-dsp-gcr-public/terra-jupyter-python:0.0.23 \
@@ -75,7 +75,7 @@ jobs:
           --env GOOGLE_PROJECT \
           --volume "${{ env.GOOGLE_APPLICATION_CREDENTIALS }}:/tmp/credentials.json:ro" \
           --env GOOGLE_APPLICATION_CREDENTIALS="/tmp/credentials.json" \
-          --volume "${{ env.GITHUB_WORKSPACE }}/terra-jupyter-python:/tests" \
+          --volume $GITHUB_WORKSPACE/terra-jupyter-python:/tests \
           --workdir=/tests \
           --entrypoint="" \
           us.gcr.io/broad-dsp-gcr-public/terra-jupyter-python:0.0.23 \
@@ -90,7 +90,7 @@ jobs:
           --env GOOGLE_PROJECT \
           --volume "${{ env.GOOGLE_APPLICATION_CREDENTIALS }}:/tmp/credentials.json:ro" \
           --env GOOGLE_APPLICATION_CREDENTIALS="/tmp/credentials.json" \
-          --volume "${{ env.GITHUB_WORKSPACE }}/terra-jupyter-python:/tests" \
+          --volume $GITHUB_WORKSPACE/terra-jupyter-python:/tests \
           --workdir=/tests \
           --entrypoint="" \
           us.gcr.io/broad-dsp-gcr-public/terra-jupyter-python:0.0.23 \
