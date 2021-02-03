@@ -1,3 +1,9 @@
+## 1.0.23 - 2021-02-22
+
+- Remove varstore scripts / GATK jar
+- Upgrade Hail
+- Remove some Python package / R lib overrides which are no longer needed
+
 ## 1.0.22 - 2021-02-10T00:36:57.205Z
 
 - Update `terra-jupyter-r` to `1.0.13`
