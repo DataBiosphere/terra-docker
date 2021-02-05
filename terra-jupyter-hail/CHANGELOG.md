@@ -1,3 +1,9 @@
+## 0.0.31 - 2021-02-05
+
+- Update `hail` to `0.2.62`
+  - See https://hail.is/docs/0.2/change_log.html#version-0-2-61 for details.
+- Update `pandas` to `1.1.x`
+
 ## 0.0.30 - 2021-01-20T16:00:48.299Z
 
 - Update `terra-jupyter-base` to `0.0.19`

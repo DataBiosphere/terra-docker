@@ -5,7 +5,7 @@ COPY scripts $JUPYTER_HOME/scripts
 
 ENV PIP_USER=false
 ENV PYTHONPATH $PYTHONPATH:/usr/lib/spark/python
-ENV HAIL_VERSION=0.2.61
+ENV HAIL_VERSION=0.2.62
 
 RUN find $JUPYTER_HOME/scripts -name '*.sh' -type f | xargs chmod +x \
     && $JUPYTER_HOME/scripts/kernel/kernelspec.sh $JUPYTER_HOME/scripts/kernel /usr/local/share/jupyter/kernels \
