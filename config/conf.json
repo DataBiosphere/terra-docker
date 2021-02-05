@@ -47,7 +47,7 @@
                     "hail"
                 ]
             },
-            "version" : "0.0.30",
+            "version" : "0.0.31",
             "automated_flags" : {
                 "generate_docs" : true,
                 "include_in_ui" : true,
