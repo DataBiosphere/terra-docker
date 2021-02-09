@@ -1,5 +1,5 @@
-name: Test terra-jupyter-python
-# Perform smoke tests on the terra-jupyter-python Docker image to have some amount of confidence that
+name: Test terra-jupyter-aou
+# Perform smoke tests on the terra-jupyter-aou Docker image to have some amount of confidence that
 # Python package versions are compatible.
 #
 # To configure the minimal auth needed for these tests to be able to read public data from Google Cloud Platform:
@@ -13,7 +13,7 @@ on:
   pull_request:
     branches: [ master ]
     paths:
-    - 'terra-jupyter-python/**'
+    - 'terra-jupyter-aou/**'
     # Note: secrets are not passed to pull requests from forks, so the dev team will need to use the manual workflow
     # dispatch trigger when receiving community contributions.
 
@@ -23,10 +23,10 @@ on:
     
   push:
     # TODO(deflaux) remove these 'push' triggers after testing is complete.
-    branches: [ add-smoke-tests, bump-aou-versions ]
+    branches: [ add-smoke-tests, add-aou-smoke-tests, bump-aou-versions ]
     paths:
-    - 'terra-jupyter-python/**'
-    - '.github/workflows/test-terra-jupyter-python.yml'
+    - 'terra-jupyter-aou/**'
+    - '.github/workflows/test-terra-jupyter-aou.yml'
 
 env:
   GOOGLE_PROJECT: ${{ secrets.GCP_PROJECT_ID }}
@@ -47,8 +47,8 @@ jobs:
 
     - name: Build Docker image
       run: |
-        cd terra-jupyter-python
-        docker build . --file Dockerfile --tag terra-jupyter-python:smoke-test
+        cd terra-jupyter-aou
+        docker build . --file Dockerfile --tag terra-jupyter-aou:smoke-test
 
     - name: Set up Cloud SDK
       uses: google-github-actions/setup-gcloud@master
@@ -63,22 +63,24 @@ jobs:
       # See also https://github.com/marketplace/actions/run-notebook if a more complicated
       # workflow for notebooks is needed in the future.
       run: |
-        chmod a+w $GITHUB_WORKSPACE/terra-jupyter-python
+        chmod a+w -R $GITHUB_WORKSPACE
         docker run \
           --env GOOGLE_PROJECT \
           --volume "${{ env.GOOGLE_APPLICATION_CREDENTIALS }}:/tmp/credentials.json:ro" \
           --env GOOGLE_APPLICATION_CREDENTIALS="/tmp/credentials.json" \
-          --volume $GITHUB_WORKSPACE/terra-jupyter-python:/tests \
+          --volume $GITHUB_WORKSPACE:/tests \
           --workdir=/tests \
           --entrypoint="" \
-          terra-jupyter-python:smoke-test \
-          /bin/sh -c 'for nb in *ipynb ; do jupyter nbconvert --to html --ExecutePreprocessor.allow_errors=True --execute "${nb}" ; done'
+          terra-jupyter-aou:smoke-test \
+          /bin/bash -c 'for nb in {terra-jupyter-python,terra-jupyter-aou}/*ipynb ; do jupyter nbconvert --to html --ExecutePreprocessor.allow_errors=True --execute "${nb}" ; done'
 
     - name: Upload workflow artifacts
       uses: actions/upload-artifact@v2
       with:
         name: notebook-execution-results
-        path: terra-jupyter-python/*.html
+        path: |
+          terra-jupyter-python/*.html
+          terra-jupyter-aou/*.html
         retention-days: 30
 
     - name: Test Python code with pytest
@@ -87,24 +89,24 @@ jobs:
           --env GOOGLE_PROJECT \
           --volume "${{ env.GOOGLE_APPLICATION_CREDENTIALS }}:/tmp/credentials.json:ro" \
           --env GOOGLE_APPLICATION_CREDENTIALS="/tmp/credentials.json" \
-          --volume $GITHUB_WORKSPACE/terra-jupyter-python:/tests \
+          --volume $GITHUB_WORKSPACE:/tests \
           --workdir=/tests \
           --entrypoint="" \
-          terra-jupyter-python:smoke-test \
-          /bin/sh -c "pip3 install pytest; pytest"
+          terra-jupyter-aou:smoke-test \
+          /bin/bash -c 'pip3 install pytest ; pytest terra-jupyter-python/ terra-jupyter-aou/'
 
     - name: Test Python code specific to notebooks with nbconvert
       # Simply 'Cell -> Run All` these notebooks and expect no errors in the case of a successful run of the test suite.
       # If the tests throw any exceptions, execution of the notebooks will halt at that point. Look at the workflow
       # artifacts to understand if there are more failures than just the one that caused this task to halt.
       run: |
-        chmod a+w $GITHUB_WORKSPACE/terra-jupyter-python
         docker run \
           --env GOOGLE_PROJECT \
           --volume "${{ env.GOOGLE_APPLICATION_CREDENTIALS }}:/tmp/credentials.json:ro" \
           --env GOOGLE_APPLICATION_CREDENTIALS="/tmp/credentials.json" \
-          --volume $GITHUB_WORKSPACE/terra-jupyter-python:/tests \
+          --volume $GITHUB_WORKSPACE:/tests \
           --workdir=/tests \
           --entrypoint="" \
-          terra-jupyter-python:smoke-test \
-          /bin/sh -c 'for nb in *ipynb ; do jupyter nbconvert --to html --execute "${nb}" ; done'
+          terra-jupyter-aou:smoke-test \
+          /bin/bash -c 'for nb in {terra-jupyter-python,terra-jupyter-aou}/*ipynb ; do jupyter nbconvert --to html --execute "${nb}" ; done'
+          
