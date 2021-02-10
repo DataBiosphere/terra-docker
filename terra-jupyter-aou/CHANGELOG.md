@@ -1,3 +1,10 @@
+## 1.0.22 - 2021-02-10T00:36:57.205Z
+
+- Update `terra-jupyter-r` to `1.0.13`
+  - [IA-2511] Install Seurat R package in terra-jupyter-r image
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-aou:1.0.22`
+
 ## 1.0.21 - 2021-01-20T16:00:48.370Z
 
 - Update `terra-jupyter-base` to `0.0.19`
