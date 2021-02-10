@@ -23,7 +23,7 @@ on:
     
   push:
     # TODO(deflaux) remove these 'push' triggers after testing is complete.
-    branches: [ add-smoke-tests, bump-aou-versions ]
+    branches: [ add-smoke-tests, build-base-images, bump-aou-versions ]
     paths:
     - 'terra-jupyter-python/**'
     - '.github/workflows/test-terra-jupyter-python.yml'
@@ -45,11 +45,6 @@ jobs:
       with:
         python-version: 3.7
 
-    - name: Build Docker image
-      run: |
-        cd terra-jupyter-python
-        docker build . --file Dockerfile --tag terra-jupyter-python:smoke-test
-
     - name: Set up Cloud SDK
       uses: google-github-actions/setup-gcloud@master
       with:
@@ -57,18 +52,23 @@ jobs:
         service_account_key: ${{ secrets.GCP_SA_KEY }}
         export_default_credentials: true
 
+    - name: Build Docker image and base images too, if needed
+      run: |
+        gcloud auth configure-docker
+        ./build_smoke_test_image.sh terra-jupyter-python
+
     - name: Run Python code specific to notebooks with nbconvert
       # Run all notebooks from start to finish, regardles of error, so that we can capture the 
       # result as a workflow artifact.
       # See also https://github.com/marketplace/actions/run-notebook if a more complicated
       # workflow for notebooks is needed in the future.
       run: |
-        chmod a+w $GITHUB_WORKSPACE/terra-jupyter-python
+        chmod a+w $GITHUB_WORKSPACE/terra-jupyter-python/tests
         docker run \
           --env GOOGLE_PROJECT \
           --volume "${{ env.GOOGLE_APPLICATION_CREDENTIALS }}:/tmp/credentials.json:ro" \
           --env GOOGLE_APPLICATION_CREDENTIALS="/tmp/credentials.json" \
-          --volume $GITHUB_WORKSPACE/terra-jupyter-python:/tests \
+          --volume $GITHUB_WORKSPACE/terra-jupyter-python/tests:/tests \
           --workdir=/tests \
           --entrypoint="" \
           terra-jupyter-python:smoke-test \
@@ -78,7 +78,7 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: notebook-execution-results
-        path: terra-jupyter-python/*.html
+        path: terra-jupyter-python/tests/*.html
         retention-days: 30
 
     - name: Test Python code with pytest
@@ -87,7 +87,7 @@ jobs:
           --env GOOGLE_PROJECT \
           --volume "${{ env.GOOGLE_APPLICATION_CREDENTIALS }}:/tmp/credentials.json:ro" \
           --env GOOGLE_APPLICATION_CREDENTIALS="/tmp/credentials.json" \
-          --volume $GITHUB_WORKSPACE/terra-jupyter-python:/tests \
+          --volume $GITHUB_WORKSPACE/terra-jupyter-python/tests:/tests \
           --workdir=/tests \
           --entrypoint="" \
           terra-jupyter-python:smoke-test \
@@ -103,7 +103,7 @@ jobs:
           --env GOOGLE_PROJECT \
           --volume "${{ env.GOOGLE_APPLICATION_CREDENTIALS }}:/tmp/credentials.json:ro" \
           --env GOOGLE_APPLICATION_CREDENTIALS="/tmp/credentials.json" \
-          --volume $GITHUB_WORKSPACE/terra-jupyter-python:/tests \
+          --volume $GITHUB_WORKSPACE/terra-jupyter-python/tests:/tests \
           --workdir=/tests \
           --entrypoint="" \
           terra-jupyter-python:smoke-test \
