@@ -7,6 +7,9 @@
 # It walks down each relevant image directory, making changes to the FROM statements,
 # as needed, to refer to locally built base images.
 
+set -o errexit
+set -o pipefail
+set -o nounset
 set -o xtrace 
 
 build_smoke_test_image() {
