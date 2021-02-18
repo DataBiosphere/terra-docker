@@ -14,19 +14,13 @@ on:
     branches: [ master ]
     paths:
     - 'terra-jupyter-python/**'
+    - '.github/workflows/test-terra-jupyter-python.yml'
     # Note: secrets are not passed to pull requests from forks, so the dev team will need to use the manual workflow
     # dispatch trigger when receiving community contributions.
 
   workflow_dispatch:
     # Allows manually triggering of workflow on a selected branch via the GitHub Actions tab.
     # GitHub blog demo: https://github.blog/changelog/2020-07-06-github-actions-manual-triggers-with-workflow_dispatch/.
-    
-  push:
-    # TODO(deflaux) remove these 'push' triggers after testing is complete.
-    branches: [ add-smoke-tests, build-base-images, bump-aou-versions ]
-    paths:
-    - 'terra-jupyter-python/**'
-    - '.github/workflows/test-terra-jupyter-python.yml'
 
 env:
   GOOGLE_PROJECT: ${{ secrets.GCP_PROJECT_ID }}
@@ -58,7 +52,7 @@ jobs:
         ./build_smoke_test_image.sh terra-jupyter-python
 
     - name: Run Python code specific to notebooks with nbconvert
-      # Run all notebooks from start to finish, regardles of error, so that we can capture the 
+      # Run all notebooks from start to finish, regardles of error, so that we can capture the
       # result as a workflow artifact.
       # See also https://github.com/marketplace/actions/run-notebook if a more complicated
       # workflow for notebooks is needed in the future.
