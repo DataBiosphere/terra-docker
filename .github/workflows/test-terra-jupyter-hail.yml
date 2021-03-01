@@ -18,6 +18,10 @@ on:
     # Note: secrets are not passed to pull requests from forks, so the dev team will need to use the manual workflow
     # dispatch trigger when receiving community contributions.
 
+  push:
+    # TODO(deflaux) remove these 'push' triggers after testing is complete.
+    branches: [ add-more-smoke-tests, update-python-versions, bump-aou-versions ]
+
   workflow_dispatch:
     # Allows manually triggering of workflow on a selected branch via the GitHub Actions tab.
     # GitHub blog demo: https://github.blog/changelog/2020-07-06-github-actions-manual-triggers-with-workflow_dispatch/.
