@@ -24,6 +24,7 @@ on:
     # For occasional contributors, the dev team will merge the PR fork branch to a branch in upstream named
     # test-community-contribution-<PR#> to run all the GitHub Action smoke tests.
     branches: [ 'test-community-contribution*' ]
+    paths:
     - 'terra-jupyter-python/**'
     - '.github/workflows/test-terra-jupyter-python.yml'
 
