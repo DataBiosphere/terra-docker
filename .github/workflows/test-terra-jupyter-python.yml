@@ -15,8 +15,17 @@ on:
     paths:
     - 'terra-jupyter-python/**'
     - '.github/workflows/test-terra-jupyter-python.yml'
-    # Note: secrets are not passed to pull requests from forks, so the dev team will need to use the manual workflow
-    # dispatch trigger when receiving community contributions.
+
+  push:
+    # Note: GitHub secrets are not passed to pull requests from forks. For community contributions from
+    # regular contributors, its a good idea for the contributor to configure the GitHub actions to run correctly
+    # in their fork as described above.
+    #
+    # For occasional contributors, the dev team will merge the PR fork branch to a branch in upstream named
+    # test-community-contribution-<PR#> to run all the GitHub Action smoke tests.
+    branches: [ test-community-contribution* ]
+    - 'terra-jupyter-python/**'
+    - '.github/workflows/test-terra-jupyter-python.yml'
 
   workflow_dispatch:
     # Allows manually triggering of workflow on a selected branch via the GitHub Actions tab.
