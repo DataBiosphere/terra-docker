@@ -1,5 +1,5 @@
-name: Test terra-jupyter-aou
-# Perform smoke tests on the terra-jupyter-aou Docker image to have some amount of confidence that
+name: Test terra-jupyter-gatk
+# Perform smoke tests on the terra-jupyter-gatk Docker image to have some amount of confidence that
 # Python package versions are compatible.
 #
 # To configure the minimal auth needed for these tests to be able to read public data from Google Cloud Platform:
@@ -13,8 +13,8 @@ on:
   pull_request:
     branches: [ master ]
     paths:
-    - 'terra-jupyter-aou/**'
-    - '.github/workflows/test-terra-jupyter-aou.yml'
+    - 'terra-jupyter-gatk/**'
+    - '.github/workflows/test-terra-jupyter-gatk.yml'
 
   push:
     # Note: GitHub secrets are not passed to pull requests from forks. For community contributions from
@@ -25,8 +25,8 @@ on:
     # test-community-contribution-<PR#> to run all the GitHub Action smoke tests.
     branches: [ 'test-community-contribution*' ]
     paths:
-    - 'terra-jupyter-aou/**'
-    - '.github/workflows/test-terra-jupyter-aou.yml'
+    - 'terra-jupyter-gatk/**'
+    - '.github/workflows/test-terra-jupyter-gatk.yml'
 
   workflow_dispatch:
     # Allows manually triggering of workflow on a selected branch via the GitHub Actions tab.
@@ -59,7 +59,7 @@ jobs:
     - name: Build Docker image and base images too, if needed
       run: |
         gcloud auth configure-docker
-        ./build_smoke_test_image.sh terra-jupyter-aou
+        ./build_smoke_test_image.sh terra-jupyter-gatk
 
     - name: Run Python code specific to notebooks with nbconvert
       # Run all notebooks from start to finish, regardles of error, so that we can capture the
@@ -75,8 +75,8 @@ jobs:
           --volume $GITHUB_WORKSPACE:/tests \
           --workdir=/tests \
           --entrypoint="" \
-          terra-jupyter-aou:smoke-test \
-          /bin/bash -c 'for nb in {terra-jupyter-python/tests,terra-jupyter-aou/tests}/*ipynb ; do jupyter nbconvert --to html --ExecutePreprocessor.allow_errors=True --execute "${nb}" ; done'
+          terra-jupyter-gatk:smoke-test \
+          /bin/bash -c 'for nb in {terra-jupyter-python/tests,terra-jupyter-gatk/tests}/*ipynb ; do jupyter nbconvert --to html --ExecutePreprocessor.allow_errors=True --execute "${nb}" ; done'
 
     - name: Upload workflow artifacts
       uses: actions/upload-artifact@v2
@@ -84,7 +84,7 @@ jobs:
         name: notebook-execution-results
         path: |
           terra-jupyter-python/tests/*.html
-          terra-jupyter-aou/tests/*.html
+          terra-jupyter-gatk/tests/*.html
         retention-days: 30
 
     - name: Test Python code with pytest
@@ -96,8 +96,8 @@ jobs:
           --volume $GITHUB_WORKSPACE:/tests \
           --workdir=/tests \
           --entrypoint="" \
-          terra-jupyter-aou:smoke-test \
-          /bin/bash -c 'pip3 install pytest ; pytest terra-jupyter-python/tests/ terra-jupyter-aou/tests/'
+          terra-jupyter-gatk:smoke-test \
+          /bin/bash -c 'pip3 install pytest ; pytest terra-jupyter-python/tests/ terra-jupyter-gatk/tests/'
 
     - name: Test Python code specific to notebooks with nbconvert
       # Simply 'Cell -> Run All` these notebooks and expect no errors in the case of a successful run of the test suite.
@@ -111,6 +111,6 @@ jobs:
           --volume $GITHUB_WORKSPACE:/tests \
           --workdir=/tests \
           --entrypoint="" \
-          terra-jupyter-aou:smoke-test \
-          /bin/bash -c 'for nb in {terra-jupyter-python/tests,terra-jupyter-aou/tests}/*ipynb ; do jupyter nbconvert --to html --execute "${nb}" ; done'
+          terra-jupyter-gatk:smoke-test \
+          /bin/bash -c 'for nb in {terra-jupyter-python/tests,terra-jupyter-gatk/tests}/*ipynb ; do jupyter nbconvert --to html --execute "${nb}" ; done'
 
