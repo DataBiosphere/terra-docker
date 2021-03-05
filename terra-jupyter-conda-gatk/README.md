@@ -11,19 +11,19 @@ To see the complete contents of this image please see the [Dockerfile](./Dockerf
 
 ## Build and Run Instructions
 
-- Build the image
+- #### Build the image
 ```
 docker build . -t terra-jupyter-conda-gatk
 ```
 
-- Run the container, Then navigate a browser to http://localhost:8000/notebooks to access the Jupyter UI.
+- #### Run the container, Then navigate a browser to http://localhost:8000/notebooks to access the Jupyter UI.
 ```
 docker run --rm -it -p 8000:8000 terra-jupyter-conda-gatk
 ```
 
-- Test it by running the [ravi-gatk-cnn-tutorial.ipynb notebook](./ravi-gatk-cnn-tutorial.ipynb)
+- #### Select `gatk` kernel in the notebook. Test it by running the [ravi-gatk-cnn-tutorial.ipynb notebook](./ravi-gatk-cnn-tutorial.ipynb)
 
-- You can gain root access and open a bash terminal as follows:
+- #### You can gain root access and open a bash terminal as follows:
 ```
 docker run --rm -it -u root -p 8000:8000 --entrypoint /bin/bash terra-jupyter-conda-gatk
 ```
