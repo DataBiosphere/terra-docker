@@ -1,3 +1,9 @@
+## 1.0.24 - 2021-03-10
+
+- Update `terra-jupyter-python` to `0.0.24`
+- Remove more Python package overrides which are no longer needed due to updates in the base Python image.
+- Add nbstripout and enable it globally so that its in effect for any git repository cloned to the VM.
+
 ## 1.0.23 - 2021-02-22
 
 - Remove varstore scripts / GATK jar
