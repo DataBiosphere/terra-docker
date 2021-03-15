@@ -1,4 +1,4 @@
-## 1.0.24 - 2021-03-10
+## 1.0.24 - 2021-03-15
 
 - Update `terra-jupyter-python` to `0.0.24`
 - Remove more Python package overrides which are no longer needed due to updates in the base Python image.

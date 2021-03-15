@@ -1,4 +1,4 @@
-## 0.0.24 - 2021-03-10
+## 0.0.24 - 2021-03-15
 
 - Update all Python package versions by unpinning them.
 - Add package `plotnine`. Fixes https://github.com/DataBiosphere/terra-docker/issues/126

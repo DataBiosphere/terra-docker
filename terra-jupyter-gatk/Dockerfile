@@ -1,4 +1,4 @@
-FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-python:0.0.23 AS python
+FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-python:0.0.24 AS python
 
 FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-r:1.0.13
 

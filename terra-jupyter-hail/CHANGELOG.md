@@ -1,3 +1,9 @@
+## 0.0.32 - 2021-03-15
+
+- Update `terra-jupyter-python` to `0.0.24`
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-hail:0.0.31`
+
 ## 0.0.31 - 2021-02-05
 
 - Update `hail` to `0.2.62`
