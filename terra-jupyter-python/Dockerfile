@@ -30,61 +30,62 @@ ENV HTSLIB_CONFIGURE_OPTIONS="--enable-gcs"
 #    test coverage for the identified problem.
 RUN pip3 -V \
  && pip3 install --upgrade pip \
- && pip3 install numpy \
- && pip3 install py4j \
- && python3 -mpip install matplotlib \
- && pip3 install pandas \
- && pip3 install pandas-gbq \
- && pip3 install pandas-profiling \
- && pip3 install seaborn \
- && pip3 install python-lzo \
- && pip3 install google-cloud-bigquery \
- && pip3 install google-api-core \
- && pip3 install google-cloud-bigquery-datatransfer \
- && pip3 install google-cloud-datastore \
- && pip3 install google-cloud-resource-manager \
- && pip3 install google-cloud-storage \
- && pip3 install scikit-learn \
- && pip3 install statsmodels \
- && pip3 install ggplot \
- && pip3 install bokeh \
- && pip3 install pyfasta \
- && pip3 install markdown \
- && pip3 install pdoc3 \
- && pip3 install biopython \
- && pip3 install bx-python \
- && pip3 install fastinterval \
- && pip3 install matplotlib-venn \
- && pip3 install bleach \
- && pip3 install cycler \
- && pip3 install h5py \
- && pip3 install html5lib \
- && pip3 install joblib \
- && pip3 install keras \
- && pip3 install patsy \
- && pip3 install protobuf \
- && pip3 install pymc3 \
- && pip3 install pyparsing \
- && pip3 install Cython \
- && pip3 install pysam --no-binary pysam \
- && pip3 install python-dateutil \
- && pip3 install pytz \
- && pip3 install pyvcf \
- && pip3 install pyyaml \
- && pip3 install scipy \
- # Use the cpu version of Tensorflow to eliminate the warnings about absent gpus on the Cloud Runtime.
- && pip3 install tensorflow_cpu \
- && pip3 install theano \
- && pip3 install tqdm \
- && pip3 install werkzeug \
- && pip3 install certifi \
- && pip3 install intel-openmp \
- && pip3 install mkl \
- && pip3 install readline \
- && pip3 install setuptools \
- && pip3 install wheel \
- && pip3 install plotnine \
- && pip3 install google-resumable-media \
+ && pip3 install --upgrade \
+   numpy \
+   py4j \
+   matplotlib \
+   pandas \
+   pandas-gbq \
+   pandas-profiling \
+   seaborn \
+   python-lzo \
+   google-cloud-bigquery \
+   google-api-core \
+   google-cloud-bigquery-datatransfer \
+   google-cloud-datastore \
+   google-cloud-resource-manager \
+   google-cloud-storage \
+   scikit-learn \
+   statsmodels \
+   ggplot \
+   bokeh \
+   pyfasta \
+   markdown \
+   pdoc3 \
+   biopython \
+   bx-python \
+   fastinterval \
+   matplotlib-venn \
+   bleach \
+   cycler \
+   h5py \
+   html5lib \
+   joblib \
+   keras \
+   patsy \
+   protobuf \
+   pymc3 \
+   pyparsing \
+   Cython \
+   pysam --no-binary pysam \
+   python-dateutil \
+   pytz \
+   pyvcf \
+   pyyaml \
+   scipy \
+   # Use the cpu version of Tensorflow to eliminate the warnings about absent GPUs on the Cloud Runtime.
+   tensorflow_cpu \
+   theano \
+   tqdm \
+   werkzeug \
+   certifi \
+   intel-openmp \
+   mkl \
+   readline \
+   setuptools \
+   wheel \
+   plotnine \
+   google-resumable-media \
  # Remove this after https://broadworkbench.atlassian.net/browse/CA-1179
  # As of release [google-cloud-bigquery 1.26.0 (2020-07-20)](https://github.com/googleapis/python-bigquery/blob/master/CHANGELOG.md#1260-2020-07-20)
  # the BigQuery Python client uses the BigQuery Storage client by default.
