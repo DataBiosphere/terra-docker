@@ -1,8 +1,8 @@
-## 1.0.16 - 2021-03-15
+## 1.1.0 - 2021-03-20
 
-- Update `terra-jupyter-python` to `0.0.24`
+- Update `terra-jupyter-python` to `0.1.0`
 
-Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-gatk:1.0.16`
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-gatk:1.1.0`
 
 ## 1.0.15 - 2021-02-10T00:36:57.172Z
 

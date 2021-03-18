@@ -1,8 +1,10 @@
-## 1.0.24 - 2021-03-15
+## 1.1.0 - 2021-03-20
 
-- Update `terra-jupyter-python` to `0.0.24`
+- Update `terra-jupyter-python` to `0.1.0`
 - Remove more Python package overrides which are no longer needed due to updates in the base Python image.
 - Add nbstripout and enable it globally so that its in effect for any git repository cloned to the VM.
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-aou:1.1.0`
 
 ## 1.0.23 - 2021-02-22
 

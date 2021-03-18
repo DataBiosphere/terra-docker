@@ -1,4 +1,4 @@
-## 0.0.24 - 2021-03-15
+## 0.1.0 - 2021-03-20
 
 - Update all Python package versions by unpinning them.
 - Add package `plotnine`. Fixes https://github.com/DataBiosphere/terra-docker/issues/126
@@ -6,7 +6,7 @@
 - Add package `google-resumable-media` as an explicit dependency to ensure a more recent version of it is used. `pandas-gbq` depends on it for table uploads.
 - Work around lack of 'bigquery.readsessions.create' permission [CA-1179] by uninstalling the dependency `google-cloud-bigquery-storage` so that flag `--use_rest_api` can be used with `%%bigquery` to use the older mechanism for data transfer.
 
-Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-python:0.0.24`
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-python:0.1.0`
 
 ## 0.0.23 - 2021-01-20T16:00:48.318Z
 

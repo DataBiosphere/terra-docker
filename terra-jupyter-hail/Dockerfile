@@ -1,4 +1,4 @@
-FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-python:0.0.24
+FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-python:0.1.0
 USER root
 
 COPY scripts $JUPYTER_HOME/scripts
