@@ -1,4 +1,4 @@
-FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-python:0.0.23 AS python
+FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-python:0.1.0 AS python
 
 FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-r:1.0.13
 
@@ -85,9 +85,7 @@ ENV USER jupyter-user
 USER $USER
 
 RUN pip3 install --upgrade \
-  pandas-profiling==2.10.1 \
-  plotnine==0.7.1 \
-  # Parent image pins tensorflow to an old alpha version. Override here for now.
-  tensorflow==2.3.0 \
-  numpy==1.18.5 \
-  "git+git://github.com/all-of-us/workbench-snippets.git#egg=terra_widgets&subdirectory=py"
+  nbstripout \
+  "git+git://github.com/all-of-us/workbench-snippets.git#egg=terra_widgets&subdirectory=py" \
+  && mkdir -p /home/$USER/.config/git \
+  && nbstripout --install --global
