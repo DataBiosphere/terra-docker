@@ -92,7 +92,12 @@ RUN pip3 -V \
  # This currently causes an error on Terra Cloud Runtimes `the user does not have 'bigquery.readsessions.create' permission
  # for '<Terra billing project id>'`. To work-around this uninstall the dependency so that flag `--use_rest_api` can be used
  # with `%%bigquery` to use the older, slower mechanism for data transfer.
- && pip3 uninstall -y google-cloud-bigquery-storage
+ && pip3 uninstall -y google-cloud-bigquery-storage \
+ && sed -i 's/pandas.lib/pandas/g' /usr/local/lib/python3.7/dist-packages/ggplot/stats/smoothers.py \
+ # the next few `sed` lines are workaround for a ggplot bug. See https://github.com/yhat/ggpy/issues/662
+ && sed -i 's/pandas.tslib.Timestamp/pandas.Timestamp/g' /usr/local/lib/python3.7/dist-packages/ggplot/stats/smoothers.py \
+ && sed -i 's/pd.tslib.Timestamp/pd.Timestamp/g' /usr/local/lib/python3.7/dist-packages/ggplot/stats/smoothers.py \
+ && sed -i 's/pd.tslib.Timestamp/pd.Timestamp/g' /usr/local/lib/python3.7/dist-packages/ggplot/utils.py
 
 ENV USER jupyter-user
 USER $USER
