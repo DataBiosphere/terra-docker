@@ -1,3 +1,10 @@
+## 1.1.1 - 2021-04-05T17:29:05.428Z
+
+- Update `terra-jupyter-python` to `0.1.1`
+  - fix ggplot import bug
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-gatk:1.1.1`
+
 ## 1.1.0 - 2021-03-20
 
 - Update `terra-jupyter-python` to `0.1.0`

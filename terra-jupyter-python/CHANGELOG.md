@@ -1,3 +1,9 @@
+## 0.1.1 - 2021-04-5
+
+- Add bug fix back in for python package ggplot (see https://github.com/yhat/ggpy/issues/662)
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-python:0.1.1`
+
 ## 0.1.0 - 2021-03-20
 
 - Update all Python package versions by unpinning them.

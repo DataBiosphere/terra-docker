@@ -47,7 +47,7 @@
                     "hail"
                 ]
             },
-            "version" : "0.1.0",
+            "version" : "0.1.1",
             "automated_flags" : {
                 "generate_docs" : true,
                 "include_in_ui" : true,
@@ -68,7 +68,7 @@
                     "scikit-learn"
                 ]
             },
-            "version" : "0.1.0",
+            "version" : "0.1.1",
             "automated_flags" : {
                 "generate_docs" : true,
                 "include_in_ui" : true,
@@ -84,7 +84,7 @@
                 "python"
             ],
             "packages" : {
-
+                
             },
             "version" : "0.0.19",
             "automated_flags" : {
@@ -102,7 +102,7 @@
                 "r"
             ],
             "packages" : {
-
+                
             },
             "version" : "1.0.13",
             "automated_flags" : {
@@ -122,9 +122,9 @@
                 "r"
             ],
             "packages" : {
-
+                
             },
-            "version" : "1.1.0",
+            "version" : "1.1.1",
             "automated_flags" : {
                 "include_in_ui" : true,
                 "generate_docs" : true,
@@ -141,9 +141,9 @@
                 "r"
             ],
             "packages" : {
-
+                
             },
-            "version" : "1.1.0",
+            "version" : "1.1.1",
             "automated_flags" : {
                 "include_in_ui" : false,
                 "generate_docs" : false,
