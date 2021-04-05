@@ -1,9 +1,3 @@
-## 0.1.2 - 2021-04-05T17:29:05.374Z
-
-- fix ggplot import bug
-
-Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-python:0.1.2`
-
 ## 0.1.1 - 2021-04-5
 
 - Add bug fix back in for python package ggplot (see https://github.com/yhat/ggpy/issues/662)
