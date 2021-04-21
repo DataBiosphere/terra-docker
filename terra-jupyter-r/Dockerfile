@@ -82,23 +82,18 @@ RUN apt-get update \
 	## Additional resources
 	xfonts-100dpi \
 	xfonts-75dpi \
-	biber \
+        biber \
+        libsbml5-dev \
     && ln -s /usr/lib/gcc/x86_64-linux-gnu/7/libgfortran.so /usr/lib/x86_64-linux-gnu/libgfortran.so \
     && ln -s /usr/lib/gcc/x86_64-linux-gnu/7/libstdc++.so /usr/lib/x86_64-linux-gnu/libstdc++.so \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
 # Install libsbml
-RUN cd /tmp \
-    && curl -O https://s3.amazonaws.com/linux-provisioning/libSBML-5.10.2-core-src.tar.gz \
-    && tar zxf libSBML-5.10.2-core-src.tar.gz \
-    && cd libsbml-5.10.2 \
-    && ./configure --enable-layout \
-    && make \
-    && make install \
-    && ldconfig \
-    && rm -rf /tmp/libsbml-5.10.2 \
-    && rm -rf /tmp/libSBML-5.10.2-core-src.tar.gz
+ENV LIBSBML_CFLAGS="-I/usr/include"
+ENV LIBSBML_LIBS="-lsbml"
+RUN echo 'export LIBSBML_CFLAGS="-I/usr/include"' >> /etc/profile \
+    && echo 'export LIBSBML_LIBS="-lsbml"' >> /etc/profile
 
 ## set pip3 to run as root, not as jupyter-user
 ENV PIP_USER=false
