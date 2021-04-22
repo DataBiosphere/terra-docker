@@ -26,6 +26,16 @@ RUN apt-get update && apt-get install -yq --no-install-recommends \
   libz-dev \
   libmagick++-dev \
   iproute2 \
+  # Nirvana/.NET Core dependencies \
+  ca-certificates \
+  libc6 \
+  libgcc1 \
+  libgssapi-krb5-2 \
+  libicu60 \
+  liblttng-ust0 \
+  libssl1.0.0 \
+  libstdc++6 \
+  zlib1g \
   # specify Java 8
   && update-alternatives --set java /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java \
   && apt-get clean \
@@ -68,7 +78,8 @@ RUN cd /usr/local/share && \
   make install && \
   cd $HOME
 
-ENV PLINK_VERSION=20201019
+# Plink install
+ENV PLINK_VERSION 20210416
 RUN mkdir -p /tmp/plink && \
   cd /tmp/plink && \
   curl -L -o plink.zip "http://s3.amazonaws.com/plink1-assets/plink_linux_x86_64_${PLINK_VERSION}.zip" && \
@@ -77,12 +88,63 @@ RUN mkdir -p /tmp/plink && \
   cd $HOME && \
   rm -rf /tmp/plink
 
+# GATK install
+ENV GATK_VERSION 4.1.4.1
+ENV GATK_ZIP_PATH "/tmp/gatk-${GATK_VERSION}.zip"
+
+RUN curl -L -o $GATK_ZIP_PATH "https://github.com/broadinstitute/gatk/releases/download/${GATK_VERSION}/gatk-${GATK_VERSION}.zip" \
+ && unzip -o $GATK_ZIP_PATH -d /etc/ \
+ && ln -s "/etc/gatk-${GATK_VERSION}/gatk" /bin/gatk
+
+# BOLT-LMM install
+ENV BOLT_LMM_VERSION v2.3.5
+RUN mkdir -p /tmp/bolt-lmm && \
+  cd /tmp/bolt-lmm && \
+  curl -L -o bolt-lmm.tar.gz "https://storage.googleapis.com/broad-alkesgroup-public/BOLT-LMM/downloads/BOLT-LMM_${BOLT_LMM_VERSION}.tar.gz" && \
+  tar -xvzf bolt-lmm.tar.gz && \
+  mv "BOLT-LMM_${BOLT_LMM_VERSION}" /opt/bolt-lmm && \
+  ln -s "/opt/bolt-lmm/bolt" /bin/bolt && \
+  cd $HOME && \
+  rm -rf /tmp/bolt-lmm
+
+# REGENIE install
+ENV REGENIE_VERSION v2.0.2
+RUN mkdir -p /tmp/regenie && \
+  cd /tmp/regenie && \
+  curl -L -o regenie.zip "https://github.com/rgcgithub/regenie/releases/download/${REGENIE_VERSION}/regenie_${REGENIE_VERSION}.gz_x86_64_Linux.zip" && \
+  unzip regenie.zip && \
+  mv regenie_${REGENIE_VERSION}.gz_x86_64_Linux /bin/regenie && \
+  cd $HOME && \
+  rm -rf /tmp/regenie
+
+# Install .NET Core + Nirvana
+ENV DOTNET_VERSION=2.1.26
+ENV NIRVANA_VERSION 3.14.0
+ENV NIRVANA_ZIP_URL="https://github.com/Illumina/Nirvana/releases/download/v${NIRVANA_VERSION}/Nirvana-${NIRVANA_VERSION}-dotnet-2.1.0.zip"
+
+# Based on https://github.com/MichaelStromberg-Illumina/DotNetMisc/blob/master/Dockerfiles/Nirvana/Dockerfile#L13
+RUN curl -SL --output dotnet.tar.gz "https://dotnetcli.azureedge.net/dotnet/Runtime/${DOTNET_VERSION}/dotnet-runtime-${DOTNET_VERSION}-linux-x64.tar.gz" \
+    && dotnet_sha512='41cc13f14dd7721a079bdd0ab489de40e9d4f32787239a26e7d10fcb0020a8e78d446c3b430b4bf80a557a925b3ca87d7981bfda4bbf9495cc44b1d42d877c40' \
+    && echo "${dotnet_sha512} dotnet.tar.gz" | sha512sum -c - \
+    && mkdir -p /usr/share/dotnet \
+    && tar -zxf dotnet.tar.gz -C /usr/share/dotnet \
+    && rm dotnet.tar.gz \
+    && ln -s /usr/share/dotnet/dotnet /usr/bin/dotnet \
+    && mkdir -p /opt/nirvana \
+    && curl -SL --output nirvana.zip $NIRVANA_ZIP_URL \
+    && unzip -d /opt/nirvana nirvana.zip \
+    && rm nirvana.zip
+
 RUN echo "Sys.setenv(RETICULATE_PYTHON = '$(which python3)')" >> ~/.Rprofile
 
 # Install Notebook libraries as the user.
 
 ENV USER jupyter-user
 USER $USER
+
+RUN R -e 'BiocManager::install(c( \
+  "SAIGEgds", \
+  "GENESIS"))'
 
 RUN pip3 install --upgrade \
   nbstripout \
