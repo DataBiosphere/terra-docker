@@ -1,3 +1,16 @@
+## 1.1.2 - 2021-04-21
+
+- Refactor to terra-jupyter-gatk:1.1.1 as the base image
+  - GATK now included
+  - samtools now included
+- Install bolt-lmm
+- Install regenie
+- Install Nirvana
+- Install R packages: SAIGE, GENESIS
+- Update Plink version
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-aou:1.1.2`
+
 ## 1.1.1 - 2021-04-05T17:29:05.447Z
 
 - Update `terra-jupyter-python` to `0.1.1`
