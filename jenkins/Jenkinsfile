@@ -212,7 +212,7 @@ def abortBuild(reason) {
 
 pipeline {
     //fixes this job to a specific node since some slaves have older versions of docker that cause problems
-   agent { label 'node211' }
+   agent { label 'node212' }
 
   options { 
     //we don't want to be building more than one PR's changes at once, we will queue them instead
@@ -324,7 +324,7 @@ pipeline {
           sshagent(['jenkins-ssh-github']) {
             sh """
               git config --global user.name "Jenkins Role account"
-              git config --global user.email jenkins@dsp-fc-jenkins-slave-prod211.c.broad-dsp-techops.internal
+              git config --global user.email jenkins@dsp-fc-jenkins-slave-prod212.c.broad-dsp-techops.internal
 
               git checkout -b $branchName${BUILD_NUMBER}
               git commit -am "automated config hash updates"
