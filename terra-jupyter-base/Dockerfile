@@ -137,6 +137,7 @@ RUN pip3 -V \
  && pip3 install six==1.15.0 \
  && pip3 install firecloud==0.16.25 \
  && pip3 install terra-notebook-utils==0.7.0 \
+ && pip3 install crcmod \
  && apt-get clean \
  && rm -rf /var/lib/apt/lists/*
 
