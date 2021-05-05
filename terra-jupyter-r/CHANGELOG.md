@@ -2,6 +2,7 @@
 
 - Update `terra-jupyter-base` to `0.0.20`
   - [IA-1644] Install crcmod in base image to support GCS composite objects
+- Fix `libsbml5` installation
 
 Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-r:1.0.14`
 
