@@ -1,10 +1,3 @@
-## 0.1.2 - 2021-05-05T16:19:57.509127Z
-
-- Update `terra-jupyter-base` to `0.0.20`
-  - [IA-1644] Install crcmod in base image to support GCS composite objects
-
-Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-python:0.1.2`
-
 ## 0.1.1 - 2021-04-5
 
 - Add bug fix back in for python package ggplot (see https://github.com/yhat/ggpy/issues/662)

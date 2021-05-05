@@ -1,4 +1,4 @@
-FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-base:0.0.20
+FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-base:0.0.19
 USER root
 # This makes it so pip runs as root, not the user.
 ENV PIP_USER=false

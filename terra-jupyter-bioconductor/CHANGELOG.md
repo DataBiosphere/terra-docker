@@ -1,10 +1,3 @@
-## 1.0.14 - 2021-05-05T16:19:57.470153Z
-
-- Update `terra-jupyter-base` to `0.0.20`
-  - [IA-1644] Install crcmod in base image to support GCS composite objects
-
-Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-bioconductor:1.0.14`
-
 ## 1.0.13 - 2021-02-10T00:36:57.149Z
 
 - Update `terra-jupyter-r` to `1.0.13`

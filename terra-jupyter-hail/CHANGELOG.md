@@ -1,10 +1,3 @@
-## 0.1.2 - 2021-05-05T16:19:57.485458Z
-
-- Update `terra-jupyter-base` to `0.0.20`
-  - [IA-1644] Install crcmod in base image to support GCS composite objects
-
-Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-hail:0.1.2`
-
 ## 0.1.1 - 2021-04-05T17:29:05.415Z
 
 - Update `terra-jupyter-python` to `0.1.1`
