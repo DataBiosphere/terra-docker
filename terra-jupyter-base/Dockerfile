@@ -137,6 +137,7 @@ RUN pip3 -V \
  && pip3 install six==1.15.0 \
  && pip3 install firecloud==0.16.25 \
  && pip3 install terra-notebook-utils==0.7.0 \
+ && pip3 install crcmod \
  && apt-get clean \
  && rm -rf /var/lib/apt/lists/*
 
@@ -174,7 +175,6 @@ RUN chown -R $USER:users $JUPYTER_HOME \
  && cp $JUPYTER_HOME/custom/extension_entry_jupyter.js $HOME/.jupyter/custom/custom.js \
  && cp $JUPYTER_HOME/custom/safe-mode.js $HOME/.jupyter/custom/ \
  && cp $JUPYTER_HOME/custom/edit-mode.js $HOME/.jupyter/custom/ \
- && $JUPYTER_HOME/scripts/extension/jupyter_install_lab_extension.sh $JUPYTER_HOME/custom/extension_entry_jupyterlab.js \
  && mkdir $JUPYTER_HOME/nbconfig \
  && $JUPYTER_HOME/scripts/kernel/kernelspec.sh $JUPYTER_HOME/scripts/kernel /usr/local/share/jupyter/kernels
 

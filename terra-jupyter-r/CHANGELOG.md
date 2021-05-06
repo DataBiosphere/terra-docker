@@ -1,3 +1,11 @@
+## 1.0.14 - 2021-05-05T16:19:57.531117Z
+
+- Update `terra-jupyter-base` to `0.0.20`
+  - [IA-1644] Install crcmod in base image to support GCS composite objects
+- Fix `libsbml5` installation
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-r:1.0.14`
+
 ## 1.0.13 - 2021-02-10T00:36:57.099Z
 
 - [IA-2511] Install Seurat R package in terra-jupyter-r image
