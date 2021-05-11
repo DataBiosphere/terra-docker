@@ -6,3 +6,8 @@ package-lock.json
 .dotty-ide-disabled
 .ipynb_checkpoints
 *html
+.cache/
+.ipython/
+.jupyter/
+.local/
+.vscode/
