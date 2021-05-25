@@ -138,3 +138,5 @@ RUN pip3 install \
   "git+git://github.com/all-of-us/workbench-snippets.git#egg=terra_widgets&subdirectory=py" \
   && mkdir -p /home/$USER/.config/git \
   && nbstripout --install --global
+
+RUN echo "hi"
