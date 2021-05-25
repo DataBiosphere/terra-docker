@@ -108,16 +108,21 @@ RUN curl -SL --output dotnet.tar.gz "https://dotnetcli.azureedge.net/dotnet/Runt
     && unzip -d /opt/nirvana nirvana.zip \
     && rm nirvana.zip
 
-RUN echo "Sys.setenv(RETICULATE_PYTHON = '$(which python3)')" >> ~/.Rprofile
-
-RUN wget https://github.com/samtools/bcftools/releases/download/1.12/bcftools-1.12.tar.bz2 && \
+# Install bcftools
+RUN mkdir -p /tmp/bcftools && \
+    cd /tmp/bcftools && \
+    wget https://github.com/samtools/bcftools/releases/download/1.12/bcftools-1.12.tar.bz2 && \
     bzip2 -d bcftools-1.12.tar.bz2 && \
     tar xvf bcftools-1.12.tar && \
     cd bcftools-1.12 && \
     make && \
     make install && \
-    cd .. && \
-    rm -r bcftools-1.12*
+    cd $HOME && \
+    rm -rf /tmp/bcftools
+
+## Environment Configuration
+
+RUN echo "Sys.setenv(RETICULATE_PYTHON = '$(which python3)')" >> ~/.Rprofile
 
 # Install Notebook libraries as the user.
 
