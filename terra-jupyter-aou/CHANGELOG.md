@@ -1,3 +1,9 @@
+## 1.1.4 - 2021-05-24
+
+- Add bcftools
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-aou:1.1.4`
+
 ## 1.1.3 - 2021-05-05T16:19:57.558388Z
 
 - Update `terra-jupyter-base` to `0.0.20`
