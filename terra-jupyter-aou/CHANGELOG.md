@@ -1,3 +1,9 @@
+## 1.1.5 - 2021-05-24
+
+- Reduce unnecessary package upgrades.
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-aou:1.1.5`
+
 ## 1.1.4 - 2021-05-24
 
 - Add bcftools

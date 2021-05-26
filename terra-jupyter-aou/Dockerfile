@@ -133,7 +133,7 @@ RUN R -e 'BiocManager::install(c( \
   "SAIGEgds", \
   "GENESIS"))'
 
-RUN pip3 install --upgrade \
+RUN pip3 install \
   nbstripout \
   "git+git://github.com/all-of-us/workbench-snippets.git#egg=terra_widgets&subdirectory=py" \
   && mkdir -p /home/$USER/.config/git \
