@@ -1,3 +1,10 @@
+## 1.0.15 - 2021-06-07
+
+- Update R to 4.1.0 and Bioconductor version to 3.13.
+- Update terra-jupyter-r image to `1.0.15`
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-r:1.0.15`
+
 ## 1.0.14 - 2021-05-05T16:19:57.531117Z
 
 - Update `terra-jupyter-base` to `0.0.20`
