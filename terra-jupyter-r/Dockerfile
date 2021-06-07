@@ -5,7 +5,7 @@ COPY scripts $JUPYTER_HOME/scripts
 
 # Add env vars to identify binary package installation
 ENV TERRA_R_PLATFORM="terra-jupyter-r"
-ENV TERRA_R_PLATFORM_BINARY_VERSION=0.99.1
+ENV TERRA_R_PLATFORM_BINARY_VERSION=3.13.0
 
 
 RUN find $JUPYTER_HOME/scripts -name '*.sh' -type f | xargs chmod +x \
@@ -83,7 +83,8 @@ RUN apt-get update \
 	xfonts-100dpi \
 	xfonts-75dpi \
 	biber \
-	libsbml5-dev \
+        libsbml5-dev \
+        libzmq3-dev \
     && ln -s /usr/lib/gcc/x86_64-linux-gnu/7/libgfortran.so /usr/lib/x86_64-linux-gnu/libgfortran.so \
     && ln -s /usr/lib/gcc/x86_64-linux-gnu/7/libstdc++.so /usr/lib/x86_64-linux-gnu/libstdc++.so \
     && apt-get clean \
@@ -111,7 +112,7 @@ RUN apt-get update \
 
 RUN R -e 'install.packages("BiocManager")' \
     ## check version
-    && R -e 'BiocManager::install(version="3.12", ask=FALSE)' \
+    && R -e 'BiocManager::install(version="3.13", ask=FALSE)' \
     && R -e 'BiocManager::install(c( \
     "boot", \
     "class", \
