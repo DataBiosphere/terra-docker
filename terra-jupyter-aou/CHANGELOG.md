@@ -1,3 +1,10 @@
+## 1.1.6 - 2021-06-07T19:39:56.024375Z
+
+- Update `terra-jupyter-r` to `1.0.16`
+  - Update R to 4.1.0 and Bioconductor version to 3.13.
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-aou:1.1.6`
+
 ## 1.1.5 - 2021-05-24
 
 - Reduce unnecessary package upgrades.
