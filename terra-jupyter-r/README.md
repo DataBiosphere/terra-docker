@@ -6,9 +6,9 @@ This repo contains the terra-jupyter-r image that is compatible with notebook se
 
 The terra-jupyter-r extends the [terra-jupyter-base](../terra-jupyter-base/README.md) by including the following:
 
-- R 3.6
+- R 4.1.0
 
-- CRAN and Bioc 3.10 package system dependencies
+- CRAN and Bioc 3.13 package system dependencies
 
 To see the complete contents of this image please see the [Dockerfile](./Dockerfile).
 
