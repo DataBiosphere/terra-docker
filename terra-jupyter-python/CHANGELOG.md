@@ -1,3 +1,10 @@
+## 1.1.2 - 2021-06-09T16:18:53.809656Z
+
+- Update `terra-jupyter-base` to `1.0.20`
+  - use deep learning images as base
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-python:1.1.2`
+
 ## 0.1.2 - 2021-05-05T16:19:57.509127Z
 
 - Update `terra-jupyter-base` to `0.0.20`

@@ -1,3 +1,10 @@
+## 2.0.15 - 2021-06-09T16:18:53.763986Z
+
+- Update `terra-jupyter-base` to `1.0.20`
+  - use deep learning images as base
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-bioconductor:2.0.15`
+
 ## 1.0.15 - 2021-06-07T19:39:55.978624Z
 
 - Update `terra-jupyter-r` to `1.0.16`

@@ -1,4 +1,4 @@
-FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-r:1.0.15
+FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-r:2.0.15
 
 USER root
 
