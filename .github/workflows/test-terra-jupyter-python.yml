@@ -49,9 +49,9 @@ jobs:
       with:
         python-version: 3.7
 
-    - name: Free up 24GB of disk space
+    - name: Free up some disk space
       run: sudo rm -rf /usr/share/dotnet    
-      
+
     - name: Set up Cloud SDK
       uses: google-github-actions/setup-gcloud@master
       with:
