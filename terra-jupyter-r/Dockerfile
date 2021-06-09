@@ -82,24 +82,17 @@ RUN apt-get update \
 	xfonts-100dpi \
 	xfonts-75dpi \
 	biber \
-<<<<<<< HEAD
-        libsbml5-dev \
-        libzmq3-dev \
-=======
+	libzmq3-dev \
 	libsbml5-dev \
 	biber \
->>>>>>> 5738cad (use blessed image)
     && ln -s /usr/lib/gcc/x86_64-linux-gnu/7/libgfortran.so /usr/lib/x86_64-linux-gnu/libgfortran.so \
     && ln -s /usr/lib/gcc/x86_64-linux-gnu/7/libstdc++.so /usr/lib/x86_64-linux-gnu/libstdc++.so \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
-<<<<<<< HEAD
-=======
 # DEVEL: Add sys env variables to DEVEL image
 # Variables in Renviron.site are made available inside of R.
 # Add libsbml CFLAGS
->>>>>>> 5738cad (use blessed image)
 ENV LIBSBML_CFLAGS="-I/usr/include"
 ENV LIBSBML_LIBS="-lsbml"
 RUN echo 'export LIBSBML_CFLAGS="-I/usr/include"' >> /etc/profile \
