@@ -150,7 +150,8 @@ RUN chown -R $USER:users $JUPYTER_HOME \
 #  && $JUPYTER_HOME/scripts/extension/jupyter_install_lab_extension.sh $JUPYTER_HOME/custom/extension_entry_jupyterlab.js \
  && mkdir $JUPYTER_HOME/nbconfig \
 #  You can get kernel directory by running `jupyter kernelspec list`
- && $JUPYTER_HOME/scripts/kernel/kernelspec.sh $JUPYTER_HOME/scripts/kernel /opt/conda/share/jupyter/kernels
+ && $JUPYTER_HOME/scripts/kernel/kernelspec.sh $JUPYTER_HOME/scripts/kernel /opt/conda/share/jupyter/kernels \
+ && ls -la /home/jupyter/.local
 
 USER $USER
 WORKDIR $HOME
