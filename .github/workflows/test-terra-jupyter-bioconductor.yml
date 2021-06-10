@@ -114,4 +114,4 @@ jobs:
           --workdir=/tests \
           --entrypoint="" \
           terra-jupyter-bioconductor:smoke-test \
-          /bin/sh -c 'for nb in *ipynb ; do jupyter nbconvert --ExecutePreprocessor.timeout=300 --to html --execute "${nb}" ; done'
+          /bin/sh -c 'for nb in *ipynb ; do jupyter nbconvert --ExecutePreprocessor.timeout=600 --to html --execute "${nb}" ; done'
