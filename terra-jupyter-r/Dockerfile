@@ -8,7 +8,7 @@ ENV TERRA_R_PLATFORM="terra-jupyter-r"
 ENV TERRA_R_PLATFORM_BINARY_VERSION=3.13.0
 
 # Add R kernel
-RUN ls -la /home/jupyter/.local && find $JUPYTER_HOME/scripts -name '*.sh' -type f | xargs chmod +x \
+RUN find $JUPYTER_HOME/scripts -name '*.sh' -type f | xargs chmod +x \
  && $JUPYTER_HOME/scripts/kernel/kernelspec.sh $JUPYTER_HOME/scripts/kernel /opt/conda/share/jupyter/kernels
 
 # https://cran.r-project.org/bin/linux/ubuntu/README.html
@@ -146,8 +146,7 @@ RUN R -e 'install.packages("BiocManager")' \
     "tidyverse", \
     "pbdZMQ", \
     "uuid"))' \
-		&& R -e 'BiocManager::install("DataBiosphere/Ronaldo")' \
-    && chown -R $USER:users /home/jupyter/.local
+		&& R -e 'BiocManager::install("DataBiosphere/Ronaldo")'
 
 ## pip runs as jupyter-user
 ENV PIP_USER=true
