@@ -8,7 +8,7 @@ ENV TERRA_R_PLATFORM="terra-jupyter-r"
 ENV TERRA_R_PLATFORM_BINARY_VERSION=3.13.0
 
 # Add R kernel
-RUN find $JUPYTER_HOME/scripts -name '*.sh' -type f | xargs chmod +x \
+RUN ls -la /home/jupyter/.local && find $JUPYTER_HOME/scripts -name '*.sh' -type f | xargs chmod +x \
  && $JUPYTER_HOME/scripts/kernel/kernelspec.sh $JUPYTER_HOME/scripts/kernel /opt/conda/share/jupyter/kernels
 
 # https://cran.r-project.org/bin/linux/ubuntu/README.html
