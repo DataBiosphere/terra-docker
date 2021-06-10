@@ -1,4 +1,4 @@
 #!/bin/bash
 
 
-docker build . -t terra-jupyter-gatk-ovtf
+docker build . -t iotgedge/terra-jupyter-gatk-ovtf

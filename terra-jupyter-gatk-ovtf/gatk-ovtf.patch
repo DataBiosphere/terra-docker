@@ -1,32 +1,30 @@
-From 4e1620a9166c1df784093763d8d979deca23d4fd Mon Sep 17 00:00:00 2001
+From a22f79681d517ba2c6a7677638aab96c09a5aace Mon Sep 17 00:00:00 2001
 From: Mustafa Cavus <cavusmustafa@intel.com>
-Date: Tue, 18 May 2021 01:42:36 -0700
-Subject: [PATCH] OV-TF Enabled
+Date: Thu, 10 Jun 2021 13:53:57 -0700
+Subject: [PATCH] OVTF enabled for CNNScoreVariants
 
 ---
- .../hellbender/vqsr_cnn/vqsr_cnn/inference.py | 36 +++++++++++++++++--
+ .../hellbender/vqsr_cnn/vqsr_cnn/inference.py | 34 +++++++++++++++++--
  .../hellbender/vqsr_cnn/vqsr_cnn/models.py    | 10 +++---
- 2 files changed, 39 insertions(+), 7 deletions(-)
+ 2 files changed, 37 insertions(+), 7 deletions(-)
 
 diff --git a/src/main/python/org/broadinstitute/hellbender/vqsr_cnn/vqsr_cnn/inference.py b/src/main/python/org/broadinstitute/hellbender/vqsr_cnn/vqsr_cnn/inference.py
-index 0adf9af9e..c187143dc 100644
+index 0adf9af9e..bb6b9f07d 100644
 --- a/src/main/python/org/broadinstitute/hellbender/vqsr_cnn/vqsr_cnn/inference.py
 +++ b/src/main/python/org/broadinstitute/hellbender/vqsr_cnn/vqsr_cnn/inference.py
-@@ -11,6 +11,13 @@ from gatktool import tool
+@@ -11,6 +11,11 @@ from gatktool import tool
  # Keras Imports
  import keras
  import keras.backend as K
 +import tensorflow as tf
 +from tensorflow.python.framework.convert_to_constants import convert_variables_to_constants_v2
 +
-+INF_METHOD = os.getenv('ENABLE_OVTF')
-+if (INF_METHOD=="1"):
-+  import openvino_tensorflow
-+  openvino_tensorflow.set_backend('CPU')
++import openvino_tensorflow
++openvino_tensorflow.set_backend('CPU')
  
  # Package Imports
  from . import defines
-@@ -38,7 +45,9 @@ ANNOTATION_FIFO_INDEX = 5
+@@ -38,7 +43,9 @@ ANNOTATION_FIFO_INDEX = 5
  VARIANT_TYPE_FIFO_INDEX = 6
  VARIANT_FIFO_FIELDS = 7
  
@@ -37,7 +35,7 @@ index 0adf9af9e..c187143dc 100644
  
  CIGAR_CODES_TO_COUNT = [
      defines.CIGAR_CODE['M'], defines.CIGAR_CODE['I'], defines.CIGAR_CODE['S'], defines.CIGAR_CODE['D']
-@@ -86,6 +95,11 @@ def score_and_write_batch(model: keras.Model,
+@@ -86,6 +93,11 @@ def score_and_write_batch(model: keras.Model,
      variant_types = []
      variant_data = []
      read_batch = []
@@ -49,7 +47,7 @@ index 0adf9af9e..c187143dc 100644
      for _ in range(batch_size):
          fifo_line = tool.readDataFIFO()
          fifo_data = fifo_line.split(defines.DATA_TYPE_SEPARATOR)
-@@ -126,8 +140,24 @@ def score_and_write_batch(model: keras.Model,
+@@ -126,8 +138,24 @@ def score_and_write_batch(model: keras.Model,
          predictions = model.predict([np.array(reference_batch), np.array(annotation_batch)],
                                      batch_size=python_batch_size)
      elif tensor_type in defines.TENSOR_MAPS_2D:

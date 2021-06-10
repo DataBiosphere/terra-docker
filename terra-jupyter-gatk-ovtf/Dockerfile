@@ -66,5 +66,4 @@ RUN python -m pip install --upgrade pip \
     && pip install keras matplotlib sklearn \
     && pip install /etc/gatk-tfov/gatkPythonPackageArchive.zip
 
-ENV TF_DISABLE_MKL=1
 
