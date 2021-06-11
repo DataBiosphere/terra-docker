@@ -102,9 +102,7 @@ RUN echo 'export LIBSBML_CFLAGS="-I/usr/include"' >> /etc/profile \
 ENV PIP_USER=false
 
 ## Install python packages needed for a few Bioc packages
-RUN apt-get update \
-    && apt-get install -yq --no-install-recommends \
-    && pip3 -V \
+RUN pip3 -V \
     && pip3 install --upgrade pip \
     && pip3 install cwltool==1.0.20190228155703 \
     && pip3 install pandas==0.25.3 \
