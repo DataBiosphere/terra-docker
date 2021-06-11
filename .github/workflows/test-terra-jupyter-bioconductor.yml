@@ -79,7 +79,7 @@ jobs:
           --workdir=/tests \
           --entrypoint="" \
           terra-jupyter-bioconductor:smoke-test \
-          /bin/sh -c 'for nb in *ipynb ; do jupyter nbconvert --to html --ExecutePreprocessor.allow_errors=True --execute "${nb}" ; done'
+          /bin/sh -c 'for nb in *ipynb ; do jupyter nbconvert --to html --ExecutePreprocessor.timeout=300 --ExecutePreprocessor.allow_errors=True --execute "${nb}" ; done'
 
     - name: Upload workflow artifacts
       uses: actions/upload-artifact@v2
@@ -87,18 +87,6 @@ jobs:
         name: notebook-execution-results
         path: terra-jupyter-bioconductor/tests/*.html
         retention-days: 30
-
-    - name: Test Python code with pytest
-      run: |
-        docker run \
-          --env GOOGLE_PROJECT \
-          --volume "${{ env.GOOGLE_APPLICATION_CREDENTIALS }}:/tmp/credentials.json:ro" \
-          --env GOOGLE_APPLICATION_CREDENTIALS="/tmp/credentials.json" \
-          --volume $GITHUB_WORKSPACE/terra-jupyter-bioconductor/tests:/tests \
-          --workdir=/tests \
-          --entrypoint="" \
-          terra-jupyter-bioconductor:smoke-test \
-          /bin/sh -c "pip3 install pytest; pytest"
 
     - name: Test Python code specific to notebooks with nbconvert
       # Simply 'Cell -> Run All` these notebooks and expect no errors in the case of a successful run of the test suite.
@@ -114,4 +102,4 @@ jobs:
           --workdir=/tests \
           --entrypoint="" \
           terra-jupyter-bioconductor:smoke-test \
-          /bin/sh -c 'for nb in *ipynb ; do jupyter nbconvert --ExecutePreprocessor.timeout=600 --to html --execute "${nb}" ; done'
+          /bin/sh -c 'for nb in *ipynb ; do jupyter nbconvert --ExecutePreprocessor.timeout=300 --to html --execute "${nb}" ; done'
