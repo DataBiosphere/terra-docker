@@ -53,7 +53,7 @@ RUN apt-get update \
 	libmodule-build-perl \
 	libapparmor-dev \
 	libgeos-dev \
-	libprotoc-dev \
+	# libprotoc-dev \
 	librdf0-dev \
 	libmagick++-dev \
 	libsasl2-dev \
