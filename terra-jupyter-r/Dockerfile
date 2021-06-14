@@ -19,6 +19,7 @@ RUN apt-get update \
     && apt update \
     && apt install -yq --no-install-recommends \
 	apt-utils \
+	libeigen3-dev \
 	libssh2-1-dev \
 	libssl-dev \
 	libcurl4-gnutls-dev \
