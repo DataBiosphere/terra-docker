@@ -10,7 +10,7 @@
   },
   {
     "id": "terra-jupyter-bioconductor_legacy",
-    "label": "Legacy R / Bioconductor (R 4.0.3, Bioconductor 3.12, Python 3.8.5)",
+    "label": "Legacy R / Bioconductor (R 4.0.5, Bioconductor 3.12, Python 3.8.5)",
     "version": "1.0.14",
     "updated": "2020-05-18",
     "packages": "https://storage.googleapis.com/terra-docker-image-documentation/terra-jupyter-bioconductor-1.0.14-versions.json",
