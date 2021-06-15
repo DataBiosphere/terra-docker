@@ -9,7 +9,9 @@ ENV TERRA_R_PLATFORM_BINARY_VERSION=3.13.0
 
 # Add R kernel
 RUN find $JUPYTER_HOME/scripts -name '*.sh' -type f | xargs chmod +x \
- && $JUPYTER_HOME/scripts/kernel/kernelspec.sh $JUPYTER_HOME/scripts/kernel /opt/conda/share/jupyter/kernels
+ && $JUPYTER_HOME/scripts/kernel/kernelspec.sh $JUPYTER_HOME/scripts/kernel /opt/conda/share/jupyter/kernels \
+ # deep learning image comes with higher version of libprotobuf 3.16, which isn't compatible
+ && conda uninstall libprotobuf --force
 
 # https://cran.r-project.org/bin/linux/ubuntu/README.html
 RUN apt-get update \
@@ -53,11 +55,11 @@ RUN apt-get update \
 	libmodule-build-perl \
 	libapparmor-dev \
 	libgeos-dev \
-	# libprotoc-dev \
 	librdf0-dev \
 	libmagick++-dev \
 	libsasl2-dev \
 	libpoppler-cpp-dev \
+	libprotoc-dev \
 	libprotobuf-dev \
 	libpq-dev \
 	libperl-dev \
@@ -77,7 +79,6 @@ RUN apt-get update \
 	tabix \
 	ggobi \
 	graphviz \
-	protobuf-compiler \
 	jags \
 	## Additional resources
 	xfonts-100dpi \
@@ -147,7 +148,7 @@ RUN R -e 'install.packages("BiocManager")' \
     "uuid"))' \
 		&& R -e 'BiocManager::install("DataBiosphere/Ronaldo")'
 
-## pip runs as jupyter-user
+## pip runs as jupyter user
 ENV PIP_USER=true
 
 RUN R -e 'IRkernel::installspec(user=FALSE)' \
