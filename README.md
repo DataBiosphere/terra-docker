@@ -41,6 +41,14 @@ cp -r hooks/ .git/hooks/
 chmod 755 .git/hooks/apply-git-secrets.sh
 ```
 
+## Run/developing smoke_test.ipynb file locally
+Run your image locally with the repo directory mounted into the container. For example
+```
+docker run -d -p <port_number>:8000 -v <your_local_path_to_the_repo>/terra-docker:/home/jupyter -it us.gcr.io/broad-dsp-gcr-public/terra-jupyter-r:test
+```
+
+Once you have the container running, you should be able to access jupyter at http://localhost:<port_number>/notebooks. You should be able to navigate to the smoke test ipynb file you're interested in, and run a cell. After you modify a smoke test `.ipynb` file, go to `Cell` -> `All Ouput` -> `Clear` to clear all outputs to keep the `.ipynb` files smaller.
+
 ## Generate New Image
 If you are adding a new image:
 - Create a new directory with the Dockerfile and a CHANGELOG.md. 
