@@ -11,8 +11,8 @@ ENV TERRA_R_PLATFORM_BINARY_VERSION=3.13.0
 RUN find $JUPYTER_HOME/scripts -name '*.sh' -type f | xargs chmod +x \
  && $JUPYTER_HOME/scripts/kernel/kernelspec.sh $JUPYTER_HOME/scripts/kernel /opt/conda/share/jupyter/kernels \
  # deep learning image comes with higher version of libprotobuf 3.16, which isn't compatible
- && conda uninstall libprotobuf --force \
- && conda install --no-deps libprotobuf=3.0.0
+ && conda uninstall libprotobuf --force
+#  && conda install --no-deps libprotobuf==3.4.1
 
 # https://cran.r-project.org/bin/linux/ubuntu/README.html
 RUN apt-get update \
@@ -108,7 +108,6 @@ ENV PIP_USER=false
 RUN pip3 -V \
     && pip3 install --upgrade pip \
     && pip3 install cwltool==1.0.20190228155703 \
-    && pip3 install pandas==0.25.3 \
     && pip3 install pyyaml==5.3.1 \
     && pip3 install scikit-learn==0.21.3 \
     && apt-get clean \
