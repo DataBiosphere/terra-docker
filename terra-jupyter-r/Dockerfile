@@ -11,7 +11,8 @@ ENV TERRA_R_PLATFORM_BINARY_VERSION=3.13.0
 RUN find $JUPYTER_HOME/scripts -name '*.sh' -type f | xargs chmod +x \
  && $JUPYTER_HOME/scripts/kernel/kernelspec.sh $JUPYTER_HOME/scripts/kernel /opt/conda/share/jupyter/kernels \
  # deep learning image comes with higher version of libprotobuf 3.16, which isn't compatible
- && conda uninstall libprotobuf --force
+ && conda uninstall libprotobuf --force \
+ && conda install --no-deps libprotobuf=3.0.0
 
 # https://cran.r-project.org/bin/linux/ubuntu/README.html
 RUN apt-get update \
