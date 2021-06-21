@@ -1,6 +1,6 @@
-FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-python:test AS python
+FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-python:1.1.2 AS python
 
-FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-r:test
+FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-r:2.0.15
 
 # copy everything pip installed from the python image
 COPY --from=python /opt/conda/lib/python3.7/site-packages /opt/conda/lib/python3.7/site-packages
