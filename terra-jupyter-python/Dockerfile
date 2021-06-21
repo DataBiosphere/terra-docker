@@ -32,6 +32,7 @@ RUN pip3 -V \
  && pip3 install --upgrade pip \
  && pip3 install --upgrade \
    py4j \
+   pandas-gbq \
    seaborn \
    python-lzo \
    google-cloud-bigquery-datatransfer \
