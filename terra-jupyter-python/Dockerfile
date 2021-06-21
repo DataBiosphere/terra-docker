@@ -32,12 +32,10 @@ RUN pip3 -V \
  && pip3 install --upgrade pip \
  && pip3 install --upgrade \
    py4j \
-   pandas-gbq \
    seaborn \
    python-lzo \
    google-cloud-bigquery-datatransfer \
    google-cloud-resource-manager \
-   scikit-learn \
    statsmodels \
    ggplot \
    bokeh \
@@ -54,7 +52,6 @@ RUN pip3 -V \
    joblib \
    keras \
    patsy \
-   protobuf \
    pymc3 \
    pyparsing \
    Cython \
@@ -62,7 +59,6 @@ RUN pip3 -V \
    python-dateutil \
    pytz \
    pyvcf \
-   pyyaml \
    # Use the cpu version of Tensorflow to eliminate the warnings about absent GPUs on the Cloud Runtime.
    tensorflow \
    theano \
