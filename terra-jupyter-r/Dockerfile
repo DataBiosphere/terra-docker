@@ -13,7 +13,7 @@ RUN find $JUPYTER_HOME/scripts -name '*.sh' -type f | xargs chmod +x \
  # deep learning image comes with higher version of libprotobuf 3.16, which isn't compatible
  && conda uninstall libprotobuf --force \
  # After unstalling libprotobuf, this is needed to not break pandas_gbq
- && conda install pyarrow --freeze-installed
+ && conda install --no-deps pyarrow
 
 # https://cran.r-project.org/bin/linux/ubuntu/README.html
 RUN apt-get update \
