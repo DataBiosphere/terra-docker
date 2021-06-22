@@ -7,6 +7,18 @@ COPY scripts $JUPYTER_HOME/scripts
 ENV TERRA_R_PLATFORM="terra-jupyter-r"
 ENV TERRA_R_PLATFORM_BINARY_VERSION=3.13.0
 
+# Install protobuf 3.16. Note this version comes from base deep learning image. Use `conda list` to see what's installed
+RUN cd /tmp \
+  && wget https://github.com/protocolbuffers/protobuf/releases/download/v3.16.0/protobuf-all-3.16.0.tar.gz \
+	&& tar -xvzf protobuf-all-3.16.0.tar.gz \
+	&& cd protobuf-3.16.0/ \
+	&& ./configure \
+	&& make \
+	&& make check \
+	&& sudo make install \
+	&& sudo ldconfig \
+	&& cd ~
+
 # Add R kernel
 RUN find $JUPYTER_HOME/scripts -name '*.sh' -type f | xargs chmod +x \
  && $JUPYTER_HOME/scripts/kernel/kernelspec.sh $JUPYTER_HOME/scripts/kernel /opt/conda/share/jupyter/kernels 
@@ -57,8 +69,6 @@ RUN apt-get update \
 	libmagick++-dev \
 	libsasl2-dev \
 	libpoppler-cpp-dev \
-	libprotoc-dev \
-	libprotobuf-dev \
 	libpq-dev \
 	libperl-dev \
 	## software - perl extentions and modules
