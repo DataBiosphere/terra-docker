@@ -136,7 +136,7 @@ Each time you update or add an image, you will need to update the appropriate en
 ## Scripts
 
 The scripts folder has scripts used for building.
-- `generate_package_docs.py` This script is run once by build.sh each time an image is built. It is used to generate a .json with the versions for the packages in the image
+- `generate_package_docs.py` This script is run once by build.sh each time an image is built. It is used to generate a .json with the versions for the packages in the image.
 - `generate_version_docs.py` This script is run each time an image is built. It builds a new file master version file for the UI to look up the current versions to reference. 
 
 ## Image dependencies
