@@ -91,6 +91,9 @@ def main(updatedImage: String, updatedImageReleaseNote: String, bumpMajorVersion
       "terra-jupyter-gatk",
       "terra-jupyter-aou"
     )
+    case "terra-jupyter-hail" => List(
+      "terra-jupyter-hail"
+    )
     case updatedImage =>
       throw new Exception(s"${updatedImage} is not supported yet. Please update the script to support the image")
   }

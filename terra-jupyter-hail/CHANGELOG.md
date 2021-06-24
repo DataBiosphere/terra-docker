@@ -1,3 +1,9 @@
+## 0.1.3 - 2021-06-24T15:47:51.244166Z
+
+- Add gnomad python package to Hail environment
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-hail:0.1.3`
+
 ## 0.1.2 - 2021-05-05T16:19:57.485458Z
 
 - Update `terra-jupyter-base` to `0.0.20`
