@@ -126,7 +126,7 @@ RUN echo "Sys.setenv(RETICULATE_PYTHON = '$(which python3)')" >> ~/.Rprofile
 
 # Install Notebook libraries as the user.
 
-ENV USER jupyter
+ENV USER jupyter-user
 USER $USER
 
 RUN R -e 'BiocManager::install(c( \
@@ -137,5 +137,4 @@ RUN pip3 install \
   nbstripout \
   "git+git://github.com/all-of-us/workbench-snippets.git#egg=terra_widgets&subdirectory=py" \
   && mkdir -p /home/$USER/.config/git \
-  && nbstripout --install --global \
-  && pip3 list
+  && nbstripout --install --global

@@ -1,8 +1,8 @@
-## 1.0.20 - 2021-06-09T16:18:53.734840Z
+## 1.0.0 - 2021-06-09T16:18:53.734840Z
 
-- use deep learning images as base
+- use `gcr.io/deeplearning-platform-release/base-cu110:latest` as base
 
-Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-base:1.0.20`
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-base:1.0.0`
 
 ## 0.0.20 - 2021-05-05T16:19:57.444846Z
 

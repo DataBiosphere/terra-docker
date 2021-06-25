@@ -17,6 +17,7 @@ RUN cd /tmp \
 	&& make check \
 	&& sudo make install \
 	&& sudo ldconfig \
+	%% rm -rf /tmp/protobuf-* \
 	&& cd ~
 
 # Add R kernel
@@ -31,7 +32,6 @@ RUN apt-get update \
     && apt update \
     && apt install -yq --no-install-recommends \
 	apt-utils \
-	# libeigen3-dev \
 	libssh2-1-dev \
 	libssl-dev \
 	libcurl4-gnutls-dev \

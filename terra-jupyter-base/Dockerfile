@@ -50,12 +50,6 @@ RUN apt-get update && apt-get install -yq --no-install-recommends \
     # for ssh-agent and ssh-add
     keychain \
 
-   # for jupyterlab extensions
-   #  Comment these out for now because we don't officially support jupyter lab yet
-   #  nodejs-dev \
-   #  node-gyp \
-   #  npm \
-
     # openjdk 11
     default-jre \
     default-jdk \
@@ -122,10 +116,10 @@ ENV PIP_USER=true
 # When using PIP_USER=true packages are installed into Python site.USER_BASE, which is '/home/jupyter' for this system.
 # Append '/home/jupyter/.local/bin' to PATH
 # pip docs: https://pip.pypa.io/en/stable/reference/pip_install/#cmdoption-user
-ENV PATH="${PATH}:/home/jupyter/.local/bin"
+ENV PATH="${PATH}:${HOME}/.local/bin"
 
 # Default terminal directory should be where PD is mounted
-RUN echo 'cd /home/jupyter/notebooks' >> /home/jupyter/.bashrc
+RUN echo "cd ${HOME}/notebooks" >> ${HOME}/.bashrc
 
 #######################
 # Utilities
@@ -150,7 +144,7 @@ RUN chown -R $USER:users $JUPYTER_HOME \
  && mkdir $JUPYTER_HOME/nbconfig \
 #  You can get kernel directory by running `jupyter kernelspec list`
  && $JUPYTER_HOME/scripts/kernel/kernelspec.sh $JUPYTER_HOME/scripts/kernel /opt/conda/share/jupyter/kernels \
- && ls -la /home/jupyter/.local
+ && ls -la ${HOME}/.local
 
 USER $USER
 WORKDIR $HOME
