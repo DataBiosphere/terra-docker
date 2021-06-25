@@ -64,23 +64,6 @@ jobs:
         gcloud auth configure-docker
         ./build_smoke_test_image.sh terra-jupyter-base
 
-    - name: Run Python code specific to notebooks with nbconvert
-      # Run all notebooks from start to finish, regardles of error, so that we can capture the
-      # result as a workflow artifact.
-      # See also https://github.com/marketplace/actions/run-notebook if a more complicated
-      # workflow for notebooks is needed in the future.
-      run: |
-        chmod a+w $GITHUB_WORKSPACE/terra-jupyter-base/tests
-        docker run \
-          --env GOOGLE_PROJECT \
-          --volume "${{ env.GOOGLE_APPLICATION_CREDENTIALS }}:/tmp/credentials.json:ro" \
-          --env GOOGLE_APPLICATION_CREDENTIALS="/tmp/credentials.json" \
-          --volume $GITHUB_WORKSPACE/terra-jupyter-base/tests:/tests \
-          --workdir=/tests \
-          --entrypoint="" \
-          terra-jupyter-base:smoke-test \
-          /bin/sh -c 'for nb in *ipynb ; do jupyter nbconvert --to html --ExecutePreprocessor.allow_errors=True --execute "${nb}" ; done'
-
     - name: Upload workflow artifacts
       uses: actions/upload-artifact@v2
       with:
@@ -99,19 +82,3 @@ jobs:
           --entrypoint="" \
           terra-jupyter-base:smoke-test \
           /bin/sh -c "pip3 install pytest; pytest"
-
-    - name: Test Python code specific to notebooks with nbconvert
-      # Simply 'Cell -> Run All` these notebooks and expect no errors in the case of a successful run of the test suite.
-      # If the tests throw any exceptions, execution of the notebooks will halt at that point. Look at the workflow
-      # artifacts to understand if there are more failures than just the one that caused this task to halt.
-      run: |
-        chmod a+w $GITHUB_WORKSPACE/terra-jupyter-base
-        docker run \
-          --env GOOGLE_PROJECT \
-          --volume "${{ env.GOOGLE_APPLICATION_CREDENTIALS }}:/tmp/credentials.json:ro" \
-          --env GOOGLE_APPLICATION_CREDENTIALS="/tmp/credentials.json" \
-          --volume $GITHUB_WORKSPACE/terra-jupyter-base/tests:/tests \
-          --workdir=/tests \
-          --entrypoint="" \
-          terra-jupyter-base:smoke-test \
-          /bin/sh -c 'for nb in *ipynb ; do jupyter nbconvert --to html --execute "${nb}" ; done'
