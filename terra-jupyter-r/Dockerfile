@@ -17,7 +17,7 @@ RUN cd /tmp \
 	&& make check \
 	&& sudo make install \
 	&& sudo ldconfig \
-	%% rm -rf /tmp/protobuf-* \
+	&& rm -rf /tmp/protobuf-* \
 	&& cd ~
 
 # Add R kernel
