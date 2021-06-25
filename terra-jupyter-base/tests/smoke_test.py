@@ -13,6 +13,5 @@ import pytest
 def test_firecloud():
   import firecloud
 
-def test_terra-notebook-utils():
+def test_terra_notebook_utils():
   import terra-notebook-utils
-  
