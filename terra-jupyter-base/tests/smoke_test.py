@@ -14,4 +14,5 @@ def test_firecloud():
   import firecloud
 
 def test_terra_notebook_utils():
-  import terra-notebook-utils
+  os.system("gcloud auth application-default login")
+  import terra_notebook_utils
