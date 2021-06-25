@@ -69,7 +69,7 @@ ENV LC_ALL en_US.UTF-8
 #######################
 
 ENV USER jupyter
-RUN adduser jupyter sudo && usermod -g users jupyter
+RUN usermod -g users jupyter
 ENV HOME /home/$USER
 
 # The welder uid is consistent with the Welder docker definition here:
