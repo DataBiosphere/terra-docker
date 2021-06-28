@@ -1,4 +1,4 @@
-FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-base:1.0.0
+FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-base:test-628-0
 USER root
 # This makes it so pip runs as root, not the user.
 ENV PIP_USER=false
@@ -61,7 +61,8 @@ RUN pip3 -V \
    pytz \
    pyvcf \
    # Use the cpu version of Tensorflow to eliminate the warnings about absent GPUs on the Cloud Runtime.
-   tensorflow \
+   # We can't use higher version of tensorflow because it'll require higher version of CUDA to work with GPUs.
+   tensorflow==2.4.2 \
    theano \
    tqdm \
    werkzeug \
