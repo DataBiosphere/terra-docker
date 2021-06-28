@@ -1,9 +1,9 @@
-FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-python:0.1.2 AS python
+FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-python:1.0.0 AS python
 
-FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-r:1.0.15
+FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-r:2.0.0
 
 # copy everything pip installed from the python image
-COPY --from=python /usr/local/lib/python3.7/dist-packages /usr/local/lib/python3.7/dist-packages
+COPY --from=python /opt/conda/lib/python3.7/site-packages /opt/conda/lib/python3.7/site-packages
 
 USER root
 
@@ -25,7 +25,7 @@ RUN apt-get update && apt-get install -yq --no-install-recommends \
   # specify Java 8
   && update-alternatives --set java /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java \
   && apt-get clean \
-  && rm -rf /var/lib/apt/lists/*
+  && rm -rf /var/lib/apt/lists/* 
 
 ENV GATK_VERSION 4.1.4.1
 ENV GATK_ZIP_PATH /tmp/gatk-${GATK_VERSION}.zip
@@ -35,7 +35,7 @@ RUN curl -L -o $GATK_ZIP_PATH https://github.com/broadinstitute/gatk/releases/do
  && ln -s /etc/gatk-$GATK_VERSION/gatk /bin/gatk
 
 
-ENV USER jupyter-user
+ENV USER jupyter
 USER $USER
 
 

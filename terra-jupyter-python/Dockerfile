@@ -1,4 +1,4 @@
-FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-base:0.0.20
+FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-base:1.0.0
 USER root
 # This makes it so pip runs as root, not the user.
 ENV PIP_USER=false
@@ -31,26 +31,16 @@ ENV HTSLIB_CONFIGURE_OPTIONS="--enable-gcs"
 RUN pip3 -V \
  && pip3 install --upgrade pip \
  && pip3 install --upgrade \
-   numpy \
    py4j \
-   matplotlib \
-   pandas \
    pandas-gbq \
-   pandas-profiling \
    seaborn \
    python-lzo \
-   google-cloud-bigquery \
-   google-api-core \
    google-cloud-bigquery-datatransfer \
-   google-cloud-datastore \
    google-cloud-resource-manager \
-   google-cloud-storage \
-   scikit-learn \
    statsmodels \
    ggplot \
    bokeh \
    pyfasta \
-   markdown \
    pdoc3 \
    biopython \
    bx-python \
@@ -63,7 +53,6 @@ RUN pip3 -V \
    joblib \
    keras \
    patsy \
-   protobuf \
    pymc3 \
    pyparsing \
    Cython \
@@ -71,17 +60,15 @@ RUN pip3 -V \
    python-dateutil \
    pytz \
    pyvcf \
-   pyyaml \
-   scipy \
    # Use the cpu version of Tensorflow to eliminate the warnings about absent GPUs on the Cloud Runtime.
-   tensorflow_cpu \
+   # We can't use higher version of tensorflow because it'll require higher version of CUDA to work with GPUs.
+   tensorflow==2.4.2 \
    theano \
    tqdm \
    werkzeug \
    certifi \
    intel-openmp \
    mkl \
-   readline \
    setuptools \
    wheel \
    plotnine \
@@ -93,13 +80,13 @@ RUN pip3 -V \
  # for '<Terra billing project id>'`. To work-around this uninstall the dependency so that flag `--use_rest_api` can be used
  # with `%%bigquery` to use the older, slower mechanism for data transfer.
  && pip3 uninstall -y google-cloud-bigquery-storage \
- && sed -i 's/pandas.lib/pandas/g' /usr/local/lib/python3.7/dist-packages/ggplot/stats/smoothers.py \
+ && sed -i 's/pandas.lib/pandas/g' /opt/conda/lib/python3.7/site-packages/ggplot/stats/smoothers.py \
  # the next few `sed` lines are workaround for a ggplot bug. See https://github.com/yhat/ggpy/issues/662
- && sed -i 's/pandas.tslib.Timestamp/pandas.Timestamp/g' /usr/local/lib/python3.7/dist-packages/ggplot/stats/smoothers.py \
- && sed -i 's/pd.tslib.Timestamp/pd.Timestamp/g' /usr/local/lib/python3.7/dist-packages/ggplot/stats/smoothers.py \
- && sed -i 's/pd.tslib.Timestamp/pd.Timestamp/g' /usr/local/lib/python3.7/dist-packages/ggplot/utils.py
+ && sed -i 's/pandas.tslib.Timestamp/pandas.Timestamp/g' /opt/conda/lib/python3.7/site-packages/ggplot/stats/smoothers.py \
+ && sed -i 's/pd.tslib.Timestamp/pd.Timestamp/g' /opt/conda/lib/python3.7/site-packages/ggplot/stats/smoothers.py \
+ && sed -i 's/pd.tslib.Timestamp/pd.Timestamp/g' /opt/conda/lib/python3.7/site-packages/ggplot/utils.py
 
-ENV USER jupyter-user
+ENV USER jupyter
 USER $USER
 # We want pip to install into the user's dir when the notebook is running.
 ENV PIP_USER=true
@@ -108,4 +95,4 @@ ENV PIP_USER=true
 # When Leonardo deploys this image onto a cluster, the entrypoint is overwritten to enable
 # additional setup inside the container before execution.  Jupyter execution occurs when the
 # init-actions.sh script uses 'docker exec' to call run-jupyter.sh.
-ENTRYPOINT ["/usr/local/bin/jupyter", "notebook"]
+ENTRYPOINT ["/opt/conda/bin/jupyter", "notebook"]

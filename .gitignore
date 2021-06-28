@@ -1,3 +1,4 @@
+.vscode/
 *.pyc
 .idea
 .DS_Store
@@ -10,4 +11,7 @@ package-lock.json
 .ipython/
 .jupyter/
 .local/
-.vscode/
+.config/
+.bash_history
+.conda/
+.python_history

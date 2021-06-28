@@ -1,4 +1,4 @@
-"""Brief smoke tests for terra-jupyter-python.
+"""Brief smoke tests for terra-jupyter-base.
 
 Minimal tests simply import packages and run 'hello world' code to determine whether any exceptions
 are thrown.
@@ -10,7 +10,9 @@ incompatibilities not currently detected by these tests.
 import os
 import pytest
 
-def test_terra_widgets():
-  import os
-  os.system("pip3 list")
-  from terra_widgets.html_snapshots import display_html_snapshots_widget
+def test_firecloud():
+  import firecloud
+
+def test_terra_notebook_utils():
+  os.system("gcloud auth application-default login")
+  import terra_notebook_utils
