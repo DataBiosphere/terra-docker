@@ -64,56 +64,56 @@ jobs:
         gcloud auth configure-docker
         ./build_smoke_test_image.sh terra-jupyter-aou
 
-    - name: Run Python code specific to notebooks with nbconvert
-      # Run all notebooks from start to finish, regardles of error, so that we can capture the
-      # result as a workflow artifact.
-      # See also https://github.com/marketplace/actions/run-notebook if a more complicated
-      # workflow for notebooks is needed in the future.
-      run: |
-        chmod a+w -R $GITHUB_WORKSPACE
-        docker run \
-          --env GOOGLE_PROJECT \
-          --volume "${{ env.GOOGLE_APPLICATION_CREDENTIALS }}:/tmp/credentials.json:ro" \
-          --env GOOGLE_APPLICATION_CREDENTIALS="/tmp/credentials.json" \
-          --volume $GITHUB_WORKSPACE:/tests \
-          --workdir=/tests \
-          --entrypoint="" \
-          terra-jupyter-aou:smoke-test \
-          /bin/bash -c 'for nb in {terra-jupyter-python/tests,terra-jupyter-aou/tests}/*ipynb ; do jupyter nbconvert --to html --ExecutePreprocessor.allow_errors=True --execute "${nb}" ; done'
+    # - name: Run Python code specific to notebooks with nbconvert
+    #   # Run all notebooks from start to finish, regardles of error, so that we can capture the
+    #   # result as a workflow artifact.
+    #   # See also https://github.com/marketplace/actions/run-notebook if a more complicated
+    #   # workflow for notebooks is needed in the future.
+    #   run: |
+    #     chmod a+w -R $GITHUB_WORKSPACE
+    #     docker run \
+    #       --env GOOGLE_PROJECT \
+    #       --volume "${{ env.GOOGLE_APPLICATION_CREDENTIALS }}:/tmp/credentials.json:ro" \
+    #       --env GOOGLE_APPLICATION_CREDENTIALS="/tmp/credentials.json" \
+    #       --volume $GITHUB_WORKSPACE:/tests \
+    #       --workdir=/tests \
+    #       --entrypoint="" \
+    #       terra-jupyter-aou:smoke-test \
+    #       /bin/bash -c 'for nb in {terra-jupyter-python/tests,terra-jupyter-aou/tests}/*ipynb ; do jupyter nbconvert --to html --ExecutePreprocessor.allow_errors=True --execute "${nb}" ; done'
 
-    - name: Upload workflow artifacts
-      uses: actions/upload-artifact@v2
-      with:
-        name: notebook-execution-results
-        path: |
-          terra-jupyter-python/tests/*.html
-          terra-jupyter-aou/tests/*.html
-        retention-days: 30
+    # - name: Upload workflow artifacts
+    #   uses: actions/upload-artifact@v2
+    #   with:
+    #     name: notebook-execution-results
+    #     path: |
+    #       terra-jupyter-python/tests/*.html
+    #       terra-jupyter-aou/tests/*.html
+    #     retention-days: 30
 
-    - name: Test Python code with pytest
-      run: |
-        docker run \
-          --env GOOGLE_PROJECT \
-          --volume "${{ env.GOOGLE_APPLICATION_CREDENTIALS }}:/tmp/credentials.json:ro" \
-          --env GOOGLE_APPLICATION_CREDENTIALS="/tmp/credentials.json" \
-          --volume $GITHUB_WORKSPACE:/tests \
-          --workdir=/tests \
-          --entrypoint="" \
-          terra-jupyter-aou:smoke-test \
-          /bin/bash -c 'pip3 install pytest ; pytest terra-jupyter-python/tests/ terra-jupyter-aou/tests/'
+    # - name: Test Python code with pytest
+    #   run: |
+    #     docker run \
+    #       --env GOOGLE_PROJECT \
+    #       --volume "${{ env.GOOGLE_APPLICATION_CREDENTIALS }}:/tmp/credentials.json:ro" \
+    #       --env GOOGLE_APPLICATION_CREDENTIALS="/tmp/credentials.json" \
+    #       --volume $GITHUB_WORKSPACE:/tests \
+    #       --workdir=/tests \
+    #       --entrypoint="" \
+    #       terra-jupyter-aou:smoke-test \
+    #       /bin/bash -c 'pip3 install pytest ; pytest terra-jupyter-python/tests/ terra-jupyter-aou/tests/'
 
-    - name: Test Python code specific to notebooks with nbconvert
-      # Simply 'Cell -> Run All` these notebooks and expect no errors in the case of a successful run of the test suite.
-      # If the tests throw any exceptions, execution of the notebooks will halt at that point. Look at the workflow
-      # artifacts to understand if there are more failures than just the one that caused this task to halt.
-      run: |
-        docker run \
-          --env GOOGLE_PROJECT \
-          --volume "${{ env.GOOGLE_APPLICATION_CREDENTIALS }}:/tmp/credentials.json:ro" \
-          --env GOOGLE_APPLICATION_CREDENTIALS="/tmp/credentials.json" \
-          --volume $GITHUB_WORKSPACE:/tests \
-          --workdir=/tests \
-          --entrypoint="" \
-          terra-jupyter-aou:smoke-test \
-          /bin/bash -c 'for nb in {terra-jupyter-python/tests,terra-jupyter-aou/tests}/*ipynb ; do jupyter nbconvert --to html --execute "${nb}" ; done'
+    # - name: Test Python code specific to notebooks with nbconvert
+    #   # Simply 'Cell -> Run All` these notebooks and expect no errors in the case of a successful run of the test suite.
+    #   # If the tests throw any exceptions, execution of the notebooks will halt at that point. Look at the workflow
+    #   # artifacts to understand if there are more failures than just the one that caused this task to halt.
+    #   run: |
+    #     docker run \
+    #       --env GOOGLE_PROJECT \
+    #       --volume "${{ env.GOOGLE_APPLICATION_CREDENTIALS }}:/tmp/credentials.json:ro" \
+    #       --env GOOGLE_APPLICATION_CREDENTIALS="/tmp/credentials.json" \
+    #       --volume $GITHUB_WORKSPACE:/tests \
+    #       --workdir=/tests \
+    #       --entrypoint="" \
+    #       terra-jupyter-aou:smoke-test \
+    #       /bin/bash -c 'for nb in {terra-jupyter-python/tests,terra-jupyter-aou/tests}/*ipynb ; do jupyter nbconvert --to html --execute "${nb}" ; done'
 
