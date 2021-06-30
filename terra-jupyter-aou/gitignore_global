@@ -12,6 +12,4 @@
 !*.md
 !*.rst
 !LICENSE*
-# Also allow some particular source control metadata files.
-!.git*
-!.github/workflows/*.*
+
