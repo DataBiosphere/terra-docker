@@ -137,7 +137,7 @@ RUN R -e 'BiocManager::install(c( \
 # Install a global gitignore file that denies all by default and then specifcally allows
 # code and documentation files.
 # https://docs.github.com/en/get-started/getting-started-with-git/ignoring-files#configuring-ignored-files-for-all-repositories-on-your-computer
-COPY --chown=jupyter-user gitignore_global /home/jupyter-user/gitignore_global
+COPY --chown=jupyter-user:users gitignore_global /home/jupyter-user/gitignore_global
 
 RUN pip3 install \
   nbstripout \
