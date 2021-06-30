@@ -6,6 +6,7 @@ USER root
 RUN apt-get update && apt-get install -yq --no-install-recommends \
   jq \
   g++ \
+  less \
   liblz4-dev \
   libmagick++-dev \
   iproute2 \
@@ -133,8 +134,15 @@ RUN R -e 'BiocManager::install(c( \
   "SAIGEgds", \
   "GENESIS"))'
 
+# Install a global gitignore file that denies all by default and then specifcally allows
+# code and documentation files.
+# https://docs.github.com/en/get-started/getting-started-with-git/ignoring-files#configuring-ignored-files-for-all-repositories-on-your-computer
+COPY gitignore_global /home/jupyter-user/gitignore_global
+
 RUN pip3 install \
   nbstripout \
+  papermill \
   "git+git://github.com/all-of-us/workbench-snippets.git#egg=terra_widgets&subdirectory=py" \
   && mkdir -p /home/$USER/.config/git \
-  && nbstripout --install --global
+  && nbstripout --install --global \
+  && git config --global core.excludesfile /home/jupyter-user/gitignore_global
