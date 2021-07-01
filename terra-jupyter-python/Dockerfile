@@ -60,7 +60,6 @@ RUN pip3 -V \
    python-dateutil \
    pytz \
    pyvcf \
-   # Use the cpu version of Tensorflow to eliminate the warnings about absent GPUs on the Cloud Runtime.
    # We can't use higher version of tensorflow because it'll require higher version of CUDA to work with GPUs.
    tensorflow==2.4.2 \
    theano \
