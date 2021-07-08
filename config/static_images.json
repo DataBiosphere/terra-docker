@@ -1,14 +1,5 @@
 [
   {
-    "id": "terra-jupyter-gatk_legacy",
-    "label": "Legacy GATK (default prior to June 1, 2020) (GATK 4.1.4.1, Python 3.7.7, R 3.6.3)",
-    "version": "0.0.16",
-    "updated": "2020-05-18",
-    "packages": "https://storage.googleapis.com/terra-docker-image-documentation/terra-jupyter-gatk-0.0.16-versions.json",
-    "image": "us.gcr.io/broad-dsp-gcr-public/terra-jupyter-gatk:0.0.16",
-    "requiresSpark": false
-  },
-  {
     "id": "terra-jupyter-bioconductor_legacy",
     "label": "Legacy R / Bioconductor (R 4.0.5, Bioconductor 3.12, Python 3.8.5)",
     "version": "1.0.14",
