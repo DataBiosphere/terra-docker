@@ -71,6 +71,7 @@ RUN apt-get update \
 	libpoppler-cpp-dev \
 	libpq-dev \
 	libperl-dev \
+	libgfortran5 \
 	## software - perl extentions and modules
 	libarchive-extract-perl \
 	libfile-copy-recursive-perl \

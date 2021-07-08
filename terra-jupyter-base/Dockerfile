@@ -135,20 +135,10 @@ RUN chown -R $USER:users $JUPYTER_HOME \
  && find $JUPYTER_HOME/scripts -name '*.sh' -type f | xargs chmod +x \
  && update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-6 200 \
  && update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-8 100 \
- && $JUPYTER_HOME/scripts/extension/install_jupyter_contrib_nbextensions.sh \
- && mkdir $HOME/.jupyter/custom/ \
- && cp $JUPYTER_HOME/custom/google_sign_in.js $HOME/.jupyter/custom/ \
- && cp $JUPYTER_HOME/custom/extension_entry_jupyter.js $HOME/.jupyter/custom/custom.js \
- && cp $JUPYTER_HOME/custom/safe-mode.js $HOME/.jupyter/custom/ \
- && cp $JUPYTER_HOME/custom/edit-mode.js $HOME/.jupyter/custom/ \
- && mkdir $JUPYTER_HOME/nbconfig \
 #  You can get kernel directory by running `jupyter kernelspec list`
- && $JUPYTER_HOME/scripts/kernel/kernelspec.sh $JUPYTER_HOME/scripts/kernel /opt/conda/share/jupyter/kernels \
- && ls -la ${HOME}/.local
+ && $JUPYTER_HOME/scripts/kernel/kernelspec.sh $JUPYTER_HOME/scripts/kernel /opt/conda/share/jupyter/kernels
 
 USER $USER
-WORKDIR $HOME
-
 EXPOSE $JUPYTER_PORT
 
 # Note: this entrypoint is provided for running Jupyter independently of Leonardo.
