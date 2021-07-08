@@ -18,13 +18,14 @@ def test_terra_notebook_utils():
   os.system("gcloud auth application-default login")
   import terra_notebook_utils
 
-def test_extensions():
-  output = subprocess.check_output("jupyter nbextension list", shell=True)
-  if not "toc2/main" in str(output):
-    pytest.fail("toc not enabled") 
+# Re-add this test if one day base image no longer declares `/home/jupyter` as a VOLUME
+# def test_extensions():
+#   output = subprocess.check_output("jupyter nbextension list", shell=True)
+#   if not "toc2/main" in str(output):
+#     pytest.fail("toc not enabled") 
     
-  if not "codefolding/main" in str(output):
-    pytest.fail("codefolding not enabled")  
+#   if not "codefolding/main" in str(output):
+#     pytest.fail("codefolding not enabled")  
 
-  if not "collapsible_headings/main" in str(output):
-    pytest.fail("collapsible_headings not enabled")
+#   if not "collapsible_headings/main" in str(output):
+#     pytest.fail("collapsible_headings not enabled")
