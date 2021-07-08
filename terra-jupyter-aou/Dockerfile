@@ -124,9 +124,6 @@ RUN mkdir -p /tmp/bcftools && \
     cd $HOME && \
     rm -rf /tmp/bcftools
 
-## Environment Configuration
-
-RUN echo "Sys.setenv(RETICULATE_PYTHON = '$(which python3)')" >> ~/.Rprofile
 
 ENV USER jupyter
 USER $USER
@@ -135,11 +132,4 @@ RUN R -e 'BiocManager::install(c( \
   "SAIGEgds", \
   "GENESIS"))'
 
-# Install a global gitignore file that denies all by default and then specifcally allows
-# code and documentation files.
-# https://docs.github.com/en/get-started/getting-started-with-git/ignoring-files#configuring-ignored-files-for-all-repositories-on-your-computer
-COPY --chown=$USER:users gitignore_global /home/$USER/gitignore_global
-
-RUN mkdir -p /home/$USER/.config/git \
-  && nbstripout --install --global \
-  && git config --global core.excludesfile /home/$USER/gitignore_global
+RUN nbstripout --install --global 
