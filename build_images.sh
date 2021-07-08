@@ -26,7 +26,7 @@ build_images() {
     else
       echo "${BASE_IMAGE} does not exist, building it locally"
       local BASE_IMAGE_TYPE=$( echo ${BASE_IMAGE} | cut -d '/' -f 3 | cut -d ':' -f 1)
-      local TAG=$(cat config/conf.json | jq -r ".image_data | .[] | select(.name == \"$BASE_IMAGE_TYPE\") | .version")
+      local TAG=$(cat ../config/conf.json | jq -r ".image_data | .[] | select(.name == \"$BASE_IMAGE_TYPE\") | .version")
       local LOCAL_BASE_IMAGE=${BASE_IMAGE_TYPE}:$TAG
       # docker push this
 
@@ -37,7 +37,7 @@ build_images() {
     fi
   done
 
-  docker build . --file Dockerfile --tag ${IMAGE_TYPE}:$(cat config/conf.json | jq -r ".image_data | .[] | select(.name == \"${IMAGE_TYPE}\") | .version")
+  docker build . --file Dockerfile --tag ${IMAGE_TYPE}:$(cat ../config/conf.json | jq -r ".image_data | .[] | select(.name == \"${IMAGE_TYPE}\") | .version")
   popd
 }
 
