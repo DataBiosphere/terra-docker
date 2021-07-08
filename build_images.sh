@@ -37,7 +37,7 @@ build_images() {
     fi
   done
 
-  docker build . --file Dockerfile --tag ${IMAGE_TYPE}:smoke-test
+  docker build . --file Dockerfile --tag ${IMAGE_TYPE}:$(cat config/conf.json | jq -r ".image_data | .[] | select(.name == \"${IMAGE_TYPE}\") | .version")
   popd
 }
 
