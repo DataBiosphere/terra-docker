@@ -124,7 +124,6 @@ RUN mkdir -p /tmp/bcftools && \
     cd $HOME && \
     rm -rf /tmp/bcftools
 
-
 ENV USER jupyter
 USER $USER
 
@@ -132,4 +131,4 @@ RUN R -e 'BiocManager::install(c( \
   "SAIGEgds", \
   "GENESIS"))'
 
-RUN nbstripout --install --global 
+RUN nbstripout --install --global
