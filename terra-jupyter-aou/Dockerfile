@@ -130,5 +130,3 @@ USER $USER
 RUN R -e 'BiocManager::install(c( \
   "SAIGEgds", \
   "GENESIS"))'
-
-RUN nbstripout --install --global
