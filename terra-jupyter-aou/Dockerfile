@@ -1,4 +1,4 @@
-FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-gatk:1.1.3
+FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-gatk:2.0.0
 
 USER root
 
@@ -43,6 +43,9 @@ ENV PIP_USER=false
 ENV PYTHONPATH $PYTHONPATH:/usr/lib/spark/python
 
 RUN pip3 install pypandoc \
+      nbstripout \
+      papermill \
+      "git+git://github.com/all-of-us/workbench-snippets.git#egg=terra_widgets&subdirectory=py" \
     && pip3 install --no-dependencies hail==$HAIL_VERSION \
     && X=$(mktemp -d) \
     && mkdir -p $X \
@@ -121,28 +124,9 @@ RUN mkdir -p /tmp/bcftools && \
     cd $HOME && \
     rm -rf /tmp/bcftools
 
-## Environment Configuration
-
-RUN echo "Sys.setenv(RETICULATE_PYTHON = '$(which python3)')" >> ~/.Rprofile
-
-# Install Notebook libraries as the user.
-
-ENV USER jupyter-user
+ENV USER jupyter
 USER $USER
 
 RUN R -e 'BiocManager::install(c( \
   "SAIGEgds", \
   "GENESIS"))'
-
-# Install a global gitignore file that denies all by default and then specifcally allows
-# code and documentation files.
-# https://docs.github.com/en/get-started/getting-started-with-git/ignoring-files#configuring-ignored-files-for-all-repositories-on-your-computer
-COPY --chown=$USER:users gitignore_global /home/$USER/gitignore_global
-
-RUN pip3 install \
-  nbstripout \
-  papermill \
-  "git+git://github.com/all-of-us/workbench-snippets.git#egg=terra_widgets&subdirectory=py" \
-  && mkdir -p /home/$USER/.config/git \
-  && nbstripout --install --global \
-  && git config --global core.excludesfile /home/$USER/gitignore_global
