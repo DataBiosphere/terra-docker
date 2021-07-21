@@ -27,7 +27,7 @@ RUN apt-get update && apt-get install -yq --no-install-recommends \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/* 
 
-ENV GATK_VERSION 4.1.4.1
+ENV GATK_VERSION 4.2.0.0
 ENV GATK_ZIP_PATH /tmp/gatk-${GATK_VERSION}.zip
 
 RUN curl -L -o $GATK_ZIP_PATH https://github.com/broadinstitute/gatk/releases/download/$GATK_VERSION/gatk-$GATK_VERSION.zip \
