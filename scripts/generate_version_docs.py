@@ -6,7 +6,7 @@ def get_config(path):
 
 config_location = "config/conf.json"
 community_config_location = "config/community_images.json"
-static_config_location = "config/static_images.json"
+static_config_location = "config/legacy_static_images.json"
 config = get_config(config_location)
 
 def main():
