@@ -1,10 +1,10 @@
 [{
     "id": "Pegasus",
-    "label": "Pegasus (Pegasuspy 1.4.0, Python 3.7.10, harmony-pytorch 0.1.6, nmf-torch 0.1.1)",
-    "version": "1.4.0",
-    "updated": "2021-06-25",
-    "packages": "https://raw.githubusercontent.com/klarman-cell-observatory/cumulus/master/docker/pegasus-terra/1.4.0/pegasus-terra-1_4_0-versions.json",
-    "image": "cumulusprod/pegasus-terra:1.4.0",
+    "label": "Pegasus (Pegasuspy 1.4.3, Python 3.7.10, harmony-pytorch 0.1.6, nmf-torch 0.1.1)",
+    "version": "1.4.3",
+    "updated": "2021-07-25",
+    "packages": "https://raw.githubusercontent.com/klarman-cell-observatory/cumulus/master/docker/pegasus-terra/1.4.3/pegasus-terra-1_4_3-versions.json",
+    "image": "cumulusprod/pegasus-terra:1.4.3",
     "requiresSpark": false,
     "isCommunity": true
 },
