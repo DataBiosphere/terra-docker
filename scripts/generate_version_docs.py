@@ -34,6 +34,8 @@ def generate_docs():
       # Here we check first if the remote documentation exists, then if the local version is the same as the remote. 
       # If the remote documentation exists and the version matches the local, we re-use the old documentation
       remote_doc = list(filter(lambda image_doc: image_doc["id"] == image_config["name"], remote_docs))[0]
+      legacy_gatk_doc = {}
+      legacy_bioconductor_doc = {}
       if image_config["name"] in remote_versions and image_config["version"] == remote_versions[image_config["name"]]:
         print "using remote doc: {}".format(remote_doc)
         doc = remote_doc
@@ -44,16 +46,63 @@ def generate_docs():
         # if it is a major or minor version bump then we use the remote image as the legacy image
 
         doc = generate_doc_for_image(image_config)
-        if image_config["name"] == "terra-jupyter-gatk" or image_config["name"] == "terra-jupyter-bioconductor":
-          new_version = image_config["version"] # new_version is a string - need to convert to integer to do some math
+        if image_config["name"] == "terra-jupyter-gatk":
+          new_version = image_config["version"].split(".") # new_version is a string - need to convert to integer to do some math
+          new_version_patch = int(new_version[2])
+          new_version_minor = int(new_version[1])
+          new_version_major = int(new_version[0])
           current_version = remote_doc["version"] # current_version is a string - need to convert to integer to do some math
-          # if major or minor version bump
-            # legacy_image = remote_doc
+          current_version_patch = int(current_version[2])
+          current_version_minor = int(current_version[1])
+          current_version_major = int(current_version[0])
+          # major version bump
+          if new_version_major > current_version_major and (new_version_minor == 0 and new_version_patch == 0):
+            # we have a major version bump!!
+            # legacy image = remote_doc
+          # minor version bump
+          elif new_version_minor > current_version_minor and (new_version_patch == 0 and current_version_major == new_version_major):
+            # we have a minor version bump!!
+            # legacy image = remote_doc
+        if image_config["name"] == "terra-jupyter-bioconductor":
+          new_version = image_config["version"].split(".") # new_version is a string - need to convert to integer to do some math
+          new_version_patch = int(new_version[2])
+          new_version_minor = int(new_version[1])
+          new_version_major = int(new_version[0])
+          current_version = remote_doc["version"] # current_version is a string - need to convert to integer to do some math
+          current_version_patch = int(current_version[2])
+          current_version_minor = int(current_version[1])
+          current_version_major = int(current_version[0])
+          # major version bump
+          if new_version_major > current_version_major and (new_version_minor == 0 and new_version_patch == 0):
+            # we have a major version bump!!
+            # legacy image = remote_doc
+          # minor version bump
+          elif new_version_minor > current_version_minor and (new_version_patch == 0 and current_version_major == new_version_major):
+            # we have a minor version bump!!
+            # legacy image = remote_doc
             
       docs.append(doc)
 
   docs.extend(get_other_docs())
   return docs
+
+def get_legacy_image(new_version, remote_doc):
+  new_version = new_version.split(".") # new_version is a string - need to convert to integer to do some math
+  new_version_patch = int(new_version[2])
+  new_version_minor = int(new_version[1])
+  new_version_major = int(new_version[0])
+  current_version = remote_doc["version"] # current_version is a string - need to convert to integer to do some math
+  current_version_patch = int(current_version[2])
+  current_version_minor = int(current_version[1])
+  current_version_major = int(current_version[0])
+  # major version bump
+  if new_version_major > current_version_major and (new_version_minor == 0 and new_version_patch == 0):
+    return remote_doc
+  # minor version bump
+  elif new_version_minor > current_version_minor and (new_version_patch == 0 and current_version_major == new_version_major):
+    return remote_doc
+  else:
+
 
 def generate_doc_for_image(image_config):
   version = image_config["version"]
