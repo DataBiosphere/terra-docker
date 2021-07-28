@@ -14,8 +14,7 @@ def main():
 
   utils.write_json_to_file(docs, config["version_master_file"])
   print("copying to remote bucket")
-  # comment out line 18 so that we do not touch the google bucket
-  # utils.gsutil_cp(config["version_master_file"], config["doc_bucket"])
+  utils.gsutil_cp(config["version_master_file"], config["doc_bucket"])
 
 def generate_docs():
   docs = []
