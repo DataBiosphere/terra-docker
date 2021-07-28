@@ -76,7 +76,7 @@ def get_legacy_image(new_version, remote_doc):
     return remote_doc
   else: # TODO: remove this code after gatk and bioconductor images have a major or minor version bump
     #if no  major or minor version bump, hardcode legacy  images
-    if remote_doc["name"] == "terra-jupyter-bioconductor":
+    if "terra-jupyter-bioconductor" in remote_doc["image"]:
       return utils.read_json_file(static_config_location)[0]
     else:
       return utils.read_json_file(static_config_location)[1]
