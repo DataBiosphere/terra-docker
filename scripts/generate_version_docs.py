@@ -59,6 +59,7 @@ def generate_docs():
   return docs
 
 def get_legacy_image(new_version, remote_doc):
+  #this is a test
   new_version = new_version.split(".") 
   new_version_patch = int(new_version[2])
   new_version_minor = int(new_version[1])
