@@ -37,11 +37,12 @@ RUN conda update -y conda
 ENV GATK_VERSION 4.2.0.0
 ENV GATK_ZIP_PATH /tmp/gatk-${GATK_VERSION}.zip
 
-# Install GATK Python
+
 RUN curl -L -o $GATK_ZIP_PATH https://github.com/broadinstitute/gatk/releases/download/$GATK_VERSION/gatk-$GATK_VERSION.zip \
  && unzip -o $GATK_ZIP_PATH -d /etc/ \
  && ln -s /etc/gatk-$GATK_VERSION/gatk /bin/gatk
 
+# Install GATK Python
 RUN cd /etc/gatk-$GATK_VERSION/  \
  && conda env create -f gatkcondaenv.yml
 RUN conda install -y -n gatk -c anaconda ipykernel \
