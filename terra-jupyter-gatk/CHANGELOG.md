@@ -2,7 +2,7 @@
 
 - Upgrade `gatk` version to `4.2.0.0`
 
-Image URL: `us.gcr.io/broad-dsp-grc-public/terra-jupyter-gatk:2.0.1`
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-gatk:2.0.1`
 
 ## 2.0.0 - 2021-06-09T16:18:53.850703Z
 
