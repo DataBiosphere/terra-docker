@@ -17,6 +17,25 @@ To see the complete contents of this image please see the [Dockerfile](./Dockerf
 
 This repo provides a sample notebook [GATK-OVTF-Notebook.ipynb](./GATK-OVTF-Notebook.ipynb) which showcases the performance benefits obtained by using OpenVINO™ integration with TensorFlow.
 
+## Build and Run Instructions - Locally
+
+- #### Clone the repository.
+- #### Build the docker image
+  ```
+  cd terra-docker/terra-jupyter-gatk-ovtf 
+  docker build . -t terra-jupyter-conda-gatk
+  ```
+
+- #### Run the container, Then navigate a browser to http://localhost:8000/notebooks to access the Jupyter UI.
+```
+docker run --rm -it -p 8000:8000 terra-jupyter-gatk-ovtf 
+```
+
+- #### You can gain root access and open a bash terminal as follows:
+```
+docker run --rm -it -u root -p 8000:8000 --entrypoint /bin/bash terra-jupyter-gatk-ovtf
+```
+
 ## Selecting prior versions of this image
 
 To select an older version this image, you can search the [CHANGELOG.md](./CHANGELOG.md) for a specific package version you need.
