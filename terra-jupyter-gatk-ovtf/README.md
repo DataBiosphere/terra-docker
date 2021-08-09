@@ -1,6 +1,6 @@
-# terra-jupyter-gatk image
+# terra-jupyter-gatk-ovtf image
 
-This repo contains the terra-jupyter-gatk image that is compatible with notebook service in [Terra]("https://app.terra.bio/") called Leonardo. For example, use `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-gatk:{version}` in terra.
+This repo contains the terra-jupyter-gatk-ovtf image that is compatible with notebook service in [Terra]("https://app.terra.bio/") called Leonardo. For example, use `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-gatk-ovtf:{version}` in terra.
 
 ## Image contents
 
@@ -9,8 +9,13 @@ The terra-jupyter-gatk extends the [terra-jupyter-python](../terra-jupyter-pytho
 - Open JDK 
 - GATK
 - Samtools
+- [OpenVINO integration with TensorFlow](https://github.com/openvinotoolkit/openvino_tensorflow)
 
 To see the complete contents of this image please see the [Dockerfile](./Dockerfile).
+
+## Sample Notebook
+
+This repo provides a sample notebook [GATK-OVTF-Notebook.ipynb](./GATK-OVTF-Notebook.ipynb) which showcases the performance benefits obtained by using OpenVINO™ integration with TensorFlow.
 
 ## Selecting prior versions of this image
 
