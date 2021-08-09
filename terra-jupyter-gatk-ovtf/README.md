@@ -9,7 +9,7 @@ The terra-jupyter-gatk extends the [terra-jupyter-python](../terra-jupyter-pytho
 - Open JDK 
 - GATK
 - Samtools
-- [OpenVINO integration with TensorFlow](https://github.com/openvinotoolkit/openvino_tensorflow)
+- [OpenVINO integration with TensorFlow](https://github.com/openvinotoolkit/openvino_tensorflow) (OVTF)
 
 To see the complete contents of this image please see the [Dockerfile](./Dockerfile).
 
