@@ -27,14 +27,14 @@ This repo provides a sample notebook [GATK-OVTF-Notebook.ipynb](./GATK-OVTF-Note
   ```
 
 - #### Run the container, Then navigate a browser to http://localhost:8000/notebooks to access the Jupyter UI.
-```
-docker run --rm -it -p 8000:8000 terra-jupyter-gatk-ovtf 
-```
+  ```
+  docker run --rm -it -p 8000:8000 terra-jupyter-gatk-ovtf 
+  ```
 
 - #### You can gain root access and open a bash terminal as follows:
-```
-docker run --rm -it -u root -p 8000:8000 --entrypoint /bin/bash terra-jupyter-gatk-ovtf
-```
+  ```
+  docker run --rm -it -u root -p 8000:8000 --entrypoint /bin/bash terra-jupyter-gatk-ovtf
+  ```
 
 ## Selecting prior versions of this image
 
