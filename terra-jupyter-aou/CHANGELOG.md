@@ -1,3 +1,78 @@
+## 2.0.1 - 2021-07-20
+
+- Upgrade `terra-jupyter-gatk` to `2.0.1`
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-aou:2.0.1`
+
+## 2.0.0 - 2021-06-28T19:39:56.024375Z
+
+- Update `terra-jupyter-base` to `1.0.0`
+  - use `gcr.io/deeplearning-platform-release/base-cu110:latest` as base
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-r:2.0.0`
+
+## 1.1.7 - 2021-06-30
+
+- Add less
+- Add papermill
+- Install a global gitignore to ensure that by default only code files and documentation are commited to source control.
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-aou:1.1.7`
+
+## 1.1.6 - 2021-06-07T19:39:56.024375Z
+
+- Update `terra-jupyter-r` to `1.0.16`
+  - Update R to 4.1.0 and Bioconductor version to 3.13.
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-aou:1.1.6`
+
+## 1.1.5 - 2021-05-24
+
+- Reduce unnecessary package upgrades.
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-aou:1.1.5`
+
+## 1.1.4 - 2021-05-24
+
+- Add bcftools
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-aou:1.1.4`
+
+## 1.1.3 - 2021-05-05T16:19:57.558388Z
+
+- Update `terra-jupyter-base` to `0.0.20`
+  - [IA-1644] Install crcmod in base image to support GCS composite objects
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-aou:1.1.3`
+
+## 1.1.2 - 2021-04-21
+
+- Refactor to terra-jupyter-gatk:1.1.1 as the base image
+  - GATK now included
+  - samtools now included
+- Install bolt-lmm
+- Install regenie
+- Install Nirvana
+- Install R packages: SAIGE, GENESIS
+- Update Plink version
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-aou:1.1.2`
+
+## 1.1.1 - 2021-04-05T17:29:05.447Z
+
+- Update `terra-jupyter-python` to `0.1.1`
+  - fix ggplot import bug
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-aou:1.1.1`
+
+## 1.1.0 - 2021-03-20
+
+- Update `terra-jupyter-python` to `0.1.0`
+- Remove more Python package overrides which are no longer needed due to updates in the base Python image.
+- Add nbstripout and enable it globally so that its in effect for any git repository cloned to the VM.
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-aou:1.1.0`
+
 ## 1.0.23 - 2021-02-22
 
 - Remove varstore scripts / GATK jar

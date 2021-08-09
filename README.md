@@ -41,6 +41,14 @@ cp -r hooks/ .git/hooks/
 chmod 755 .git/hooks/apply-git-secrets.sh
 ```
 
+## Run/developing smoke_test.ipynb file locally
+Run your image locally with the repo directory mounted into the container. For example
+```
+docker run -d -p <port_number>:8000 -v <your_local_path_to_the_repo>/terra-docker:/home/jupyter -it us.gcr.io/broad-dsp-gcr-public/terra-jupyter-r:test
+```
+
+Once you have the container running, you should be able to access jupyter at http://localhost:<port_number>/notebooks. You should be able to navigate to the smoke test ipynb file you're interested in, and run a cell. After you modify a smoke test `.ipynb` file, go to `Cell` -> `All Ouput` -> `Clear` to clear all outputs to keep the `.ipynb` files smaller.
+
 ## Generate New Image
 If you are adding a new image:
 - Create a new directory with the Dockerfile and a CHANGELOG.md. 
@@ -128,7 +136,7 @@ Each time you update or add an image, you will need to update the appropriate en
 ## Scripts
 
 The scripts folder has scripts used for building.
-- `generate_package_docs.py` This script is run once by build.sh each time an image is built. It is used to generate a .json with the versions for the packages in the image
+- `generate_package_docs.py` This script is run once by build.sh each time an image is built. It is used to generate a .json with the versions for the packages in the image.
 - `generate_version_docs.py` This script is run each time an image is built. It builds a new file master version file for the UI to look up the current versions to reference. 
 
 ## Image dependencies

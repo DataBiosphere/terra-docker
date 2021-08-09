@@ -38,8 +38,6 @@ docker image build ./$IMAGE_DIR --tag $GCR_IMAGE_REPO/$IMAGE_DIR:$TAG_NAME --tag
 docker push $GCR_IMAGE_REPO/$IMAGE_DIR:$TAG_NAME
 docker push $GCR_IMAGE_REPO/$IMAGE_DIR:$VERSION
 
-rm -f /home/jenkins/.docker/config.json
-
 if [[ $IMAGE_DIR = "terra-jupyter-aou" ]]; then
   docker tag $GCR_IMAGE_REPO/$IMAGE_DIR:$TAG_NAME broadinstitute/$IMAGE_DIR:$TAG_NAME
   docker tag $GCR_IMAGE_REPO/$IMAGE_DIR:$VERSION broadinstitute/$IMAGE_DIR:$VERSION

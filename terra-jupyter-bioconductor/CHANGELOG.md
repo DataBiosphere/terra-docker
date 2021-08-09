@@ -1,3 +1,24 @@
+## 2.0.0 - 2021-06-09T16:18:53.763986Z
+
+- Update `terra-jupyter-base` to `1.0.0`
+  - use `gcr.io/deeplearning-platform-release/base-cu110:latest` as base
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-bioconductor:2.0.0`
+
+## 1.0.15 - 2021-06-07T19:39:55.978624Z
+
+- Update `terra-jupyter-r` to `1.0.16`
+  - Update R to 4.1.0 and Bioconductor version to 3.13.
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-bioconductor:1.0.15`
+
+## 1.0.14 - 2021-05-05T16:19:57.470153Z
+
+- Update `terra-jupyter-base` to `0.0.20`
+  - [IA-1644] Install crcmod in base image to support GCS composite objects
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-bioconductor:1.0.14`
+
 ## 1.0.13 - 2021-02-10T00:36:57.149Z
 
 - Update `terra-jupyter-r` to `1.0.13`
