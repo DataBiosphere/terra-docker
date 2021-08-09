@@ -1,6 +1,10 @@
 # terra-jupyter-gatk-ovtf image
 
-This repo contains the terra-jupyter-gatk-ovtf image that is compatible with notebook service in [Terra]("https://app.terra.bio/") called Leonardo. For example, use `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-gatk-ovtf:{version}` in terra.
+This repo contains the terra-jupyter-gatk-ovtf image that is compatible with notebook service in [Terra]("https://app.terra.bio/") called Leonardo. For example, use `iotgedge/terra-jupyter-gatk-ovtf:latest` in terra.
+
+## Docker Container
+
+https://hub.docker.com/r/iotgedge/terra-jupyter-gatk-ovtf
 
 ## Image contents
 
