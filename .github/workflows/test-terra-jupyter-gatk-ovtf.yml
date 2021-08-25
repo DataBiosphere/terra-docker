@@ -1,0 +1,119 @@
+name: Test terra-jupyter-gatk-ovtf
+# Perform smoke tests on the terra-jupyter-gatk-ovtf Docker image to have some amount of confidence that
+# Python package versions are compatible.
+#
+# To configure the minimal auth needed for these tests to be able to read public data from Google Cloud Platform:
+# Step 1: Create a service account per these instructions:
+#         https://github.com/google-github-actions/setup-gcloud/blob/master/setup-gcloud/README.md
+# Step 2: Give the service account the following permissions within the project: BigQuery User
+# Step 3: Store its key and project id as GitHub repository secrets GCP_SA_KEY and GCP_PROJECT_ID.
+#         https://docs.github.com/en/free-pro-team@latest/actions/reference/encrypted-secrets#creating-encrypted-secrets-for-a-repository
+
+on:
+  pull_request:
+    branches: [ master ]
+    paths:
+    - 'terra-jupyter-gatk-ovtf/**'
+    - '.github/workflows/test-terra-jupyter-gatk-ovtf.yml'
+
+  push:
+    # Note: GitHub secrets are not passed to pull requests from forks. For community contributions from
+    # regular contributors, its a good idea for the contributor to configure the GitHub actions to run correctly
+    # in their fork as described above.
+    #
+    # For occasional contributors, the dev team will merge the PR fork branch to a branch in upstream named
+    # test-community-contribution-<PR#> to run all the GitHub Action smoke tests.
+    branches: [ 'test-community-contribution*' ]
+    paths:
+    - 'terra-jupyter-gatk-ovtf/**'
+    - '.github/workflows/test-terra-jupyter-gatk-ovtf.yml'
+
+  workflow_dispatch:
+    # Allows manually triggering of workflow on a selected branch via the GitHub Actions tab.
+    # GitHub blog demo: https://github.blog/changelog/2020-07-06-github-actions-manual-triggers-with-workflow_dispatch/.
+
+env:
+  GOOGLE_PROJECT: ${{ secrets.GCP_PROJECT_ID }}
+
+jobs:
+
+  test_docker_image:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.7
+
+    - name: Free up some disk space
+      run: sudo rm -rf /usr/share/dotnet    
+
+    - name: Set up Cloud SDK
+      uses: google-github-actions/setup-gcloud@master
+      with:
+        project_id: ${{ secrets.GCP_PROJECT_ID }}
+        service_account_key: ${{ secrets.GCP_SA_KEY }}
+        export_default_credentials: true
+
+    - name: Build Docker image and base images too, if needed
+      run: |
+        gcloud auth configure-docker
+        ./build_smoke_test_image.sh terra-jupyter-gatk-ovtf
+
+    - name: Run Python code specific to notebooks with nbconvert
+      # Run all notebooks from start to finish, regardles of error, so that we can capture the
+      # result as a workflow artifact.
+      # See also https://github.com/marketplace/actions/run-notebook if a more complicated
+      # workflow for notebooks is needed in the future.
+      run: |
+        chmod a+w -R $GITHUB_WORKSPACE
+        docker run \
+          --env GOOGLE_PROJECT \
+          --volume "${{ env.GOOGLE_APPLICATION_CREDENTIALS }}:/tmp/credentials.json:ro" \
+          --env GOOGLE_APPLICATION_CREDENTIALS="/tmp/credentials.json" \
+          --volume $GITHUB_WORKSPACE:/tests \
+          --workdir=/tests \
+          --entrypoint="" \
+          terra-jupyter-gatk-ovtf:smoke-test \
+          /bin/bash -c 'for nb in {terra-jupyter-python/tests,terra-jupyter-gatk-ovtf/tests}/*ipynb ; do jupyter nbconvert --to html --ExecutePreprocessor.allow_errors=True --execute "${nb}" ; done'
+
+    - name: Upload workflow artifacts
+      uses: actions/upload-artifact@v2
+      with:
+        name: notebook-execution-results
+        path: |
+          terra-jupyter-python/tests/*.html
+          terra-jupyter-gatk-ovtf/tests/*.html
+        retention-days: 30
+
+    - name: Test Python code with pytest
+      run: |
+        docker run \
+          --env GOOGLE_PROJECT \
+          --volume "${{ env.GOOGLE_APPLICATION_CREDENTIALS }}:/tmp/credentials.json:ro" \
+          --env GOOGLE_APPLICATION_CREDENTIALS="/tmp/credentials.json" \
+          --volume $GITHUB_WORKSPACE:/tests \
+          --workdir=/tests \
+          --entrypoint="" \
+          terra-jupyter-gatk-ovtf:smoke-test \
+          /bin/bash -c 'pip3 install pytest ; pytest terra-jupyter-python/tests/ terra-jupyter-gatk-ovtf/tests/'
+
+    - name: Test Python code specific to notebooks with nbconvert
+      # Simply 'Cell -> Run All` these notebooks and expect no errors in the case of a successful run of the test suite.
+      # If the tests throw any exceptions, execution of the notebooks will halt at that point. Look at the workflow
+      # artifacts to understand if there are more failures than just the one that caused this task to halt.
+      run: |
+        docker run \
+          --env GOOGLE_PROJECT \
+          --volume "${{ env.GOOGLE_APPLICATION_CREDENTIALS }}:/tmp/credentials.json:ro" \
+          --env GOOGLE_APPLICATION_CREDENTIALS="/tmp/credentials.json" \
+          --volume $GITHUB_WORKSPACE:/tests \
+          --workdir=/tests \
+          --entrypoint="" \
+          terra-jupyter-gatk-ovtf:smoke-test \
+          /bin/bash -c 'for nb in {terra-jupyter-python/tests,terra-jupyter-gatk-ovtf/tests}/*ipynb ; do jupyter nbconvert --to html --execute "${nb}" ; done'
+

@@ -151,6 +151,28 @@
                 "include_in_custom_dataproc" : true,
                 "include_in_custom_gce" : true
             }
+        },
+        {
+            "name" : "terra-jupyter-gatk-ovtf",
+            "base_label" : "OpenVINO",
+            "tools" : [
+                "openvino",
+                "tensorflow",
+                "gatk",
+                "python",
+                "r"
+            ],
+            "packages" : {
+                
+            },
+            "version" : "0.1.0",
+            "automated_flags" : {
+                "include_in_ui" : false,
+                "generate_docs" : true,
+                "build" : true,
+                "include_in_custom_dataproc" : false,
+                "include_in_custom_gce" : false
+            }
         }
     ]
 }
