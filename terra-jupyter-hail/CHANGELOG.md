@@ -1,3 +1,36 @@
+## 1.0.0 - 2021-06-09T16:18:53.782701Z
+
+- Update `terra-jupyter-base` to `1.0.0`
+  - use deep learning images as base
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-hail:1.0.0`
+
+## 0.1.3 - 2021-06-24T15:47:51.244166Z
+
+- Add gnomad python package to Hail environment
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-hail:0.1.3`
+
+## 0.1.2 - 2021-05-05T16:19:57.485458Z
+
+- Update `terra-jupyter-base` to `0.0.20`
+  - [IA-1644] Install crcmod in base image to support GCS composite objects
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-hail:0.1.2`
+
+## 0.1.1 - 2021-04-05T17:29:05.415Z
+
+- Update `terra-jupyter-python` to `0.1.1`
+  - fix ggplot import bug
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-hail:0.1.1`
+
+## 0.1.0 - 2021-03-20
+
+- Update `terra-jupyter-python` to `0.1.0`
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-hail:0.1.0`
+
 ## 0.0.31 - 2021-02-05
 
 - Update `hail` to `0.2.62`

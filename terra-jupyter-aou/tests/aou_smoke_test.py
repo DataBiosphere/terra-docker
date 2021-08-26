@@ -11,4 +11,6 @@ import os
 import pytest
 
 def test_terra_widgets():
+  import os
+  os.system("pip3 list")
   from terra_widgets.html_snapshots import display_html_snapshots_widget

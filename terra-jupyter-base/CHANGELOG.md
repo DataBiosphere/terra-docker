@@ -1,3 +1,15 @@
+## 1.0.0 - 2021-06-09T16:18:53.734840Z
+
+- use `gcr.io/deeplearning-platform-release/base-cu110:latest` as base
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-base:1.0.0`
+
+## 0.0.20 - 2021-05-05T16:19:57.444846Z
+
+- [IA-1644] Install crcmod in base image to support GCS composite objects
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-base:0.0.20`
+
 ## 0.0.19 - 2021-01-20T16:00:48.255Z
 
 - [IA-2472] Turn on debug-level logging when JUPYTER_DEBUG_LOGGING env var is true

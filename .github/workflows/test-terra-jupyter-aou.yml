@@ -49,6 +49,9 @@ jobs:
       with:
         python-version: 3.7
 
+    - name: Free up some disk space
+      run: sudo rm -rf /usr/share/dotnet    
+
     - name: Set up Cloud SDK
       uses: google-github-actions/setup-gcloud@master
       with:
@@ -113,4 +116,3 @@ jobs:
           --entrypoint="" \
           terra-jupyter-aou:smoke-test \
           /bin/bash -c 'for nb in {terra-jupyter-python/tests,terra-jupyter-aou/tests}/*ipynb ; do jupyter nbconvert --to html --execute "${nb}" ; done'
-

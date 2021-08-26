@@ -1,4 +1,4 @@
-FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-python:0.0.23
+FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-python:1.0.0
 USER root
 
 COPY scripts $JUPYTER_HOME/scripts
@@ -8,7 +8,7 @@ ENV PYTHONPATH $PYTHONPATH:/usr/lib/spark/python
 ENV HAIL_VERSION=0.2.62
 
 RUN find $JUPYTER_HOME/scripts -name '*.sh' -type f | xargs chmod +x \
-    && $JUPYTER_HOME/scripts/kernel/kernelspec.sh $JUPYTER_HOME/scripts/kernel /usr/local/share/jupyter/kernels \
+    && $JUPYTER_HOME/scripts/kernel/kernelspec.sh $JUPYTER_HOME/scripts/kernel /opt/conda/share/jupyter/kernels \
     # Note Spark and Hadoop are mounted from the outside Dataproc VM.
     # Make empty conf dirs for the update-alternatives commands.
     && mkdir -p /etc/spark/conf.dist && mkdir -p /etc/hadoop/conf.empty && mkdir -p /etc/hive/conf.dist \
@@ -21,7 +21,7 @@ RUN find $JUPYTER_HOME/scripts -name '*.sh' -type f | xargs chmod +x \
         liblz4-dev \
     # specify Java 8
     && update-alternatives --set java /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java \
-    && pip3 install pypandoc \
+    && pip3 install pypandoc gnomad \
     && pip3 install --no-dependencies hail==$HAIL_VERSION \
     && X=$(mktemp -d) \
     && mkdir -p $X \

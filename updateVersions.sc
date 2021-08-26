@@ -40,7 +40,7 @@ val blocker = Blocker.liftExecutionContext(global)
 private def newVersion(oldVersion: String, bumpMajorVersion: Boolean): String = {
   val splited = oldVersion.split("\\.")
   if(bumpMajorVersion)
-    s"${splited(0).toInt + 1}.${splited(1)}.${splited(2)}"
+    s"${splited(0).toInt + 1}.0.0"
   else
     s"${splited(0)}.${splited(1)}.${splited(2).toInt + 1}"
 }
@@ -90,6 +90,9 @@ def main(updatedImage: String, updatedImageReleaseNote: String, bumpMajorVersion
       "terra-jupyter-hail",
       "terra-jupyter-gatk",
       "terra-jupyter-aou"
+    )
+    case "terra-jupyter-hail" => List(
+      "terra-jupyter-hail"
     )
     case updatedImage =>
       throw new Exception(s"${updatedImage} is not supported yet. Please update the script to support the image")
