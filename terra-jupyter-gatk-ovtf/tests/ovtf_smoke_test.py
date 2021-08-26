@@ -15,7 +15,7 @@ import tensorflow as tf
 import openvino_tensorflow
 
 def test_ovtf():
-  print("TensorFlow version: ", tf.version.GIT_VERSION, tf.version.VERSION)
+  print("TensorFlow version : ", tf.version.GIT_VERSION, tf.version.VERSION)
 
   openvino_tensorflow.enable()
   assert openvino_tensorflow.is_enabled() == 1
