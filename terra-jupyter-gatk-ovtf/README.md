@@ -10,7 +10,7 @@ https://hub.docker.com/r/iotgedge/terra-jupyter-gatk-ovtf
 
 The terra-jupyter-gatk extends the [terra-jupyter-python](../terra-jupyter-python/README.md) and [terra-jupyter-r](../terra-jupyter-r/README.md) by including the following:
 
-- Open JDK 
+- Open JDK
 - GATK
 - Samtools
 - [OpenVINO integration with TensorFlow](https://github.com/openvinotoolkit/openvino_tensorflow) (OVTF)
@@ -21,22 +21,31 @@ To see the complete contents of this image please see the [Dockerfile](./Dockerf
 
 This repo provides a sample notebook [GATK-OVTF-Notebook.ipynb](./GATK-OVTF-Notebook.ipynb) which showcases the performance benefits obtained by using OpenVINO™ integration with TensorFlow.
 
-## Build and Run Instructions - Locally
+## Build and Run Instructions - **Locally**
 
-- #### Clone the repository.
-- #### Build the docker image
-  ```
-  cd terra-docker/terra-jupyter-gatk-ovtf 
-  docker build . -t terra-jupyter-conda-gatk
-  ```
+- ### Clone the repository
 
-- #### Run the container, Then navigate a browser to http://localhost:8000/notebooks to access the Jupyter UI.
-  ```
-  docker run --rm -it -p 8000:8000 terra-jupyter-gatk-ovtf 
+  ```bash
+  git clone https://github.com/DataBiosphere/terra-docker
+
   ```
 
-- #### You can gain root access and open a bash terminal as follows:
+- ### Build the docker image
+
+  ```bash
+  cd terra-docker/terra-jupyter-gatk-ovtf
+  docker build . -t terra-jupyter-gatk-ovtf
   ```
+
+- ### Run the container, Then navigate a browser to http://localhost:8000/notebooks to access the Jupyter UI
+
+  ```bash
+  docker run --rm -it -p 8000:8000 terra-jupyter-gatk-ovtf
+  ```
+
+- ### You can gain root access and open a bash terminal as follows:
+
+  ```bash
   docker run --rm -it -u root -p 8000:8000 --entrypoint /bin/bash terra-jupyter-gatk-ovtf
   ```
 
@@ -44,4 +53,4 @@ This repo provides a sample notebook [GATK-OVTF-Notebook.ipynb](./GATK-OVTF-Note
 
 To select an older version this image, you can search the [CHANGELOG.md](./CHANGELOG.md) for a specific package version you need.
 
-Once you find an image version that you want, simply copy and paste the image url from the changelog into the corresponding custom docker field in the Terra notebook runtime widget. 
+Once you find an image version that you want, simply copy and paste the image url from the changelog into the corresponding custom docker field in the Terra notebook runtime widget.
