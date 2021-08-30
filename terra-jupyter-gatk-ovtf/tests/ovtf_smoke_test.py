@@ -7,8 +7,16 @@ TODO(all): Add additional tests and/or tests with particular assertions, as we e
 incompatibilities not currently detected by these tests.
 """
 
+from __future__ import print_function
 import os
 import pytest
 
+import tensorflow as tf
+import openvino_tensorflow
+
+
 def test_ovtf():
-  print("TODO")
+    print("TensorFlow version : ", tf.version.GIT_VERSION, tf.version.VERSION)
+
+    openvino_tensorflow.enable()
+    assert openvino_tensorflow.is_enabled() == 1
