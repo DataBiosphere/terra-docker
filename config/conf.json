@@ -156,14 +156,12 @@
             "name" : "terra-jupyter-gatk-ovtf",
             "base_label" : "OpenVINO",
             "tools" : [
-                "openvino",
-                "tensorflow",
                 "gatk",
                 "python",
                 "r"
             ],
             "packages" : {
-                
+
             },
             "version" : "0.1.0",
             "automated_flags" : {

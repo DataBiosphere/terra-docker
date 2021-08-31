@@ -3,7 +3,7 @@ import subprocess
 
 def write_json_to_file(data, output_name):
   with open(output_name, 'w') as outfile:
-    json.dump(data, outfile, indent=4)
+    json.dump(data, outfile, indent=4, sort_keys=True)
 
 def read_json_file(file_name):
   with open(file_name) as json_file:
