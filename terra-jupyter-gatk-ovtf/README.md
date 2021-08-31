@@ -1,14 +1,13 @@
 # terra-jupyter-gatk-ovtf image
 
-This repo contains the terra-jupyter-gatk-ovtf image that is compatible with notebook service in [Terra]("https://app.terra.bio/") called Leonardo. For example, use `iotgedge/terra-jupyter-gatk-ovtf:latest` in terra.
+This repo contains the `terra-jupyter-gatk-ovtf` image that is compatible with notebook service in [Terra](https://app.terra.bio/) called Leonardo. 
 
-## Docker Container
+To use this in [Terra](https://app.terra.bio/), use `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-gatk-ovtf:0.1.0` as image identifier.
 
-https://hub.docker.com/r/iotgedge/terra-jupyter-gatk-ovtf
 
 ## Image contents
 
-The terra-jupyter-gatk extends the [terra-jupyter-python](../terra-jupyter-python/README.md) and [terra-jupyter-r](../terra-jupyter-r/README.md) by including the following:
+The `terra-jupyter-gatk-ovtf` docker image extends the [terra-jupyter-python](../terra-jupyter-python/README.md) and [terra-jupyter-r](../terra-jupyter-r/README.md) by including the following:
 
 - Open JDK
 - GATK
