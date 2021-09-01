@@ -27,7 +27,7 @@ Custom docker images need to use a Terra base image (see above) in order to work
 * Dockerhub image example: [image name]:[tag]
 * GCR image example: us.gcr.io/repository/[image name]:[tag]
 * Since 6/28/2021, we introduced a few changes that might impact building custom images
-    - `home` directory of new images will be `/home/jupyter`. This means if your dockerfile is referencing `/home/jupyter-user` directory, you need to update it to `/home/jupyter`
+    - Home directory of new images will be `/home/jupyter`. This means if your dockerfile is referencing `/home/jupyter-user` directory, you need to update it to $HOME (recommended) or `/home/jupyter`.
     - Creating VMs with custom images will take much longer than `terra-jupyter-*` images because `docker pull` will take a few min. If the custom image ends up being too large, VM creation may time out. New base images are much larger in size than previous versions.
 
 # Development
