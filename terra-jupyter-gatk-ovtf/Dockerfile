@@ -1,6 +1,6 @@
-FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-python:1.0.0 AS python
+FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-python:1.0.1 AS python
 
-FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-r:2.0.0
+FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-r:2.0.1
 
 # copy everything pip installed from the python image
 COPY --from=python /opt/conda/lib/python3.7/site-packages /opt/conda/lib/python3.7/site-packages
@@ -44,8 +44,7 @@ RUN cd /gatk-build \
     && cd .. && rm -rf gatk
 
 ENV PIP_USER=false
-RUN pip install --force-reinstall tensorflow==2.4.1 \
-    && pip install openvino_tensorflow \
+RUN pip install openvino_tensorflow \
     && pip install keras matplotlib sklearn \
     && pip install /etc/gatk-tfov/gatkPythonPackageArchive.zip
 ENV PIP_USER=true

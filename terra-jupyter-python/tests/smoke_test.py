@@ -41,3 +41,10 @@ def test_tensorflow_gfile():
   tf.io.gfile.copy(src='gs://genomics-public-data/1000-genomes/other/sample_info/sample_info.csv',
                    dst='/tmp/genomics-public-data-1000-genomes-sample_info.csv',
                    overwrite=True)
+
+def test_tensorflow_hello_world():
+  import tensorflow as tf
+  print("TensorFlow version : ", tf.version.GIT_VERSION, tf.version.VERSION)
+  hello = tf.constant('Hello, TensorFlow!')
+  sess = tf.Session()
+  print(sess.run(hello))

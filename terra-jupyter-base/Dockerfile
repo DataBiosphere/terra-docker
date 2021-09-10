@@ -1,6 +1,6 @@
 # adapted from https://hub.docker.com/r/jupyter/base-notebook/ AKA https://github.com/jupyter/docker-stacks/tree/master/base-notebook
 
-FROM gcr.io/deeplearning-platform-release/base-cu110:latest
+FROM gcr.io/deeplearning-platform-release/tf2-gpu.2-6 
 USER root
 
 #######################
