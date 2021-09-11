@@ -46,8 +46,7 @@ def test_tensorflow_hello_world():
   import tensorflow as tf
   print("TensorFlow version : ", tf.version.GIT_VERSION, tf.version.VERSION)
   hello = tf.constant('Hello, TensorFlow!')
-  sess = tf.Session()
-  print(sess.run(hello))
+  tf.print(hello)
 
 def test_pysam():
   import pysam
