@@ -56,6 +56,10 @@ RUN pip3 -V \
    pymc3 \
    pyparsing \
    Cython \
+   # Downgrade setuptools from the base image due to incompatibilies with pysam.
+   # As of 2021-09-10, this is the latest version of setuptools that works with pysam.
+   # See https://pypi.org/project/setuptools/#history
+   setuptools==58.0.1 --force-reinstall \
    pysam --no-binary pysam \
    python-dateutil \
    pytz \
@@ -66,7 +70,6 @@ RUN pip3 -V \
    certifi \
    intel-openmp \
    mkl \
-   setuptools \
    wheel \
    plotnine \
    google-resumable-media \
