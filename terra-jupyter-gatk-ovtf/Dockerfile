@@ -44,7 +44,8 @@ RUN cd /gatk-build \
     && cd .. && rm -rf gatk
 
 ENV PIP_USER=false
-RUN pip install openvino_tensorflow \
+RUN pip install --force-reinstall tensorflow==2.5.0 \
+    && pip install openvino_tensorflow \
     && pip install keras matplotlib sklearn \
     && pip install /etc/gatk-tfov/gatkPythonPackageArchive.zip
 ENV PIP_USER=true
