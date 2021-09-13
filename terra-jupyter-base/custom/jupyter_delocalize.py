@@ -5,7 +5,7 @@ import re
 import requests
 import subprocess
 import tornado
-from notebook.services.contents.filemanager import FileContentsManager
+from notebook.services.contents.largefilemanager import LargeFileManager
 
 METADATA_TTL = timedelta(minutes=5)
 
@@ -161,7 +161,7 @@ class DelocalizingContentsManager(FileContentsManager):
     ])
 
 
-class WelderContentsManager(FileContentsManager):
+class WelderContentsManager(LargeFileManager):
   """
   A contents manager which integrates with the Leo Welder service.
 
@@ -230,6 +230,11 @@ class WelderContentsManager(FileContentsManager):
       raise IOError("welder action '{}' failed: '{}'".format(action, self._extract_welder_error(resp)))
 
   def save(self, model, path=''):
+    # Don't intefere with intermediate chunks during multipart upload:
+    # https://jupyter-notebook.readthedocs.io/en/stable/extending/contents.html#chunked-saving
+    if model.get("chunk", -1) >= 0:
+      return super(WelderContentsManager, self).save(model, path)
+
     # Capture the pre-save file so we can revert if Welder fails.
     orig_model = None
     try:
