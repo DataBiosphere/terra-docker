@@ -1,6 +1,6 @@
 # adapted from https://hub.docker.com/r/jupyter/base-notebook/ AKA https://github.com/jupyter/docker-stacks/tree/master/base-notebook
 
-FROM gcr.io/deeplearning-platform-release/base-cu110:latest
+FROM gcr.io/deeplearning-platform-release/tf2-gpu.2-6 
 USER root
 
 #######################
@@ -94,8 +94,6 @@ RUN pip3 -V \
  # Hence, make sure to manually test out "launch terminal" button (the button in the green bar next to start and stop buttons)
  # to make sure we don't accidentally break it every time we upgrade notebook version until we figure out an automation test for this
  && pip3 install python-datauri \
- # This is to avoid incompatibility issue, see https://github.com/ipython-contrib/jupyter_contrib_nbextensions/issues/1529
- && conda install "nbconvert<6" \
  && pip3 install jupyter_contrib_nbextensions \
  && pip3 install jupyter_nbextensions_configurator \
  # for jupyter_delocalize.py and jupyter_notebook_config.py
@@ -140,6 +138,7 @@ RUN chown -R $USER:users $JUPYTER_HOME \
 
 USER $USER
 EXPOSE $JUPYTER_PORT
+WORKDIR $HOME
 
 # Note: this entrypoint is provided for running Jupyter independently of Leonardo.
 # When Leonardo deploys this image onto a cluster, the entrypoint is overwritten to enable

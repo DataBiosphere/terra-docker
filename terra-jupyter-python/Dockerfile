@@ -1,4 +1,4 @@
-FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-base:1.0.0
+FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-base:1.0.1
 USER root
 # This makes it so pip runs as root, not the user.
 ENV PIP_USER=false
@@ -56,19 +56,20 @@ RUN pip3 -V \
    pymc3 \
    pyparsing \
    Cython \
+   # Downgrade setuptools from the base image due to incompatibilies with pysam.
+   # As of 2021-09-10, this is the latest version of setuptools that works with pysam.
+   # See https://pypi.org/project/setuptools/#history
+   setuptools==58.0.1 --force-reinstall \
    pysam --no-binary pysam \
    python-dateutil \
    pytz \
    pyvcf \
-   # We can't use higher version of tensorflow because it'll require higher version of CUDA to work with GPUs.
-   tensorflow==2.4.2 \
    theano \
    tqdm \
    werkzeug \
    certifi \
    intel-openmp \
    mkl \
-   setuptools \
    wheel \
    plotnine \
    google-resumable-media \

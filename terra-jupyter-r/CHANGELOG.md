@@ -1,3 +1,11 @@
+## 2.0.1 - 2021-09-10T15:10:44.133967Z
+
+- Update `terra-jupyter-base` to `1.0.1`
+  - Update base image to gcr.io/deeplearning-platform-release/tf2-gpu.2-6 to support TensorFlow 2.6.0
+  - Fix multipart Jupyter uploads
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-r:2.0.1`
+
 ## 2.0.0 - 2021-06-09T16:18:53.836988Z
 
 - Update `terra-jupyter-base` to `1.0.0`
