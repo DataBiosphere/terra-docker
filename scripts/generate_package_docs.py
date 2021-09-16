@@ -48,7 +48,13 @@ def get_r_doc(params):
   except AttributeError as e:
     raise ValueError("the R has produced output with an improperly formatted version. Something has likely gone wrong with this script, ensure that the output has a version properly parsed by the regex in the function write_r_doc.\n\tOutput: " + r_version_output)
 
-  package_json = [{"r": r_version}]
+  bioconductor_version_output = utils.docker_exec(image_dir, "R --vanilla -s -e 'cat(as.character(BiocManager::version()))'")
+  try:
+    bioconductor_version = re.search("(\d+\.)(\d+)", bioconductor_version_output).group(0)
+  except AttributeError as e:
+    raise ValueError("Biocoductor has produced output with an improperly formatted version. Something has likely gone wrong with this script, ensure that the output has a version properly parsed by the regex in the function write_r_doc.\n\tOutput: " + bioconductor_version_output)
+
+  package_json = [{"r": r_version, "Bioconductor": bioconductor_version}]
   for package in packages[1:]:
     processed_tuple = re.sub(' +', ' ',package.strip()).split(' ')
 

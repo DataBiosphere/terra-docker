@@ -22,7 +22,7 @@
             ],
             "packages" : {
                 "r" : [
-                    "BiocVersion",
+                    "Bioconductor",
                     "tidyverse"
                 ]
             },
