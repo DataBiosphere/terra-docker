@@ -10,7 +10,7 @@
 },
 {
     "id": "RStudio",
-    "label": "RStudio (R 4.1.0, Bioconductor 3.13.2, Python 3.8.5)",
+    "label": "RStudio (R 4.1.0, Bioconductor 3.13, Python 3.8.5)",
     "version": "3.13.2",
     "updated": "2021-06-24",
     "packages": "https://storage.googleapis.com/terra-docker-image-documentation/placeholder.json",

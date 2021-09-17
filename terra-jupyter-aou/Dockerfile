@@ -41,6 +41,7 @@ ENV PIP_USER=false
 # this is effectively ignored. On GCE VMs, this will result in failures to
 # import the pyspark package.
 ENV PYTHONPATH $PYTHONPATH:/usr/lib/spark/python
+ENV PYSPARK_PYTHON=python3
 
 RUN pip3 install pypandoc \
       nbstripout \

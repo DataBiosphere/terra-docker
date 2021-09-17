@@ -1,10 +1,9 @@
 FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-python:1.0.1
 USER root
 
-COPY scripts $JUPYTER_HOME/scripts
-
 ENV PIP_USER=false
 ENV PYTHONPATH $PYTHONPATH:/usr/lib/spark/python
+ENV PYSPARK_PYTHON=python3
 ENV HAIL_VERSION=0.2.62
 
 RUN find $JUPYTER_HOME/scripts -name '*.sh' -type f | xargs chmod +x \
