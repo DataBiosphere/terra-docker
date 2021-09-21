@@ -57,5 +57,3 @@ COPY --chown=jupyter:users GATK-OVTF-Notebook.ipynb /home/jupyter/GATK-OVTF-Note
 
 ENV USER jupyter
 USER $USER
-
-
