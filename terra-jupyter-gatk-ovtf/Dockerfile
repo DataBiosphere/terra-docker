@@ -45,16 +45,15 @@ RUN cd /gatk-build \
 
 ENV PIP_USER=false
 RUN pip install --force-reinstall tensorflow==2.5.0 \
+    pip install --force-reinstall keras==2.5.0rc0 \
     && conda install six \
     && pip install openvino_tensorflow \
-    && pip install --force-reinstall keras==2.5.0rc0 \
     && pip install matplotlib sklearn \
     && pip install /etc/gatk-tfov/gatkPythonPackageArchive.zip
 ENV PIP_USER=true
 
 COPY --chown=jupyter:users run_gatk.sh /home/jupyter/run_gatk.sh
+COPY --chown=jupyter:users GATK-OVTF-Notebook.ipynb /home/jupyter/GATK-OVTF-Notebook.ipynb
 
 ENV USER jupyter
 USER $USER
-
-
