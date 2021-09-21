@@ -47,7 +47,8 @@ ENV PIP_USER=false
 RUN pip install --force-reinstall tensorflow==2.5.0 \
     && conda install six \
     && pip install openvino_tensorflow \
-    && pip install keras matplotlib sklearn \
+    && pip install --force-reinstall keras==2.5.0rc0 \
+    && pip install matplotlib sklearn \
     && pip install /etc/gatk-tfov/gatkPythonPackageArchive.zip
 ENV PIP_USER=true
 
