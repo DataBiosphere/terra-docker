@@ -44,6 +44,7 @@ RUN cd /gatk-build \
     && ln -s /etc/gatk/gatk /bin/gatk \
     && cd .. && rm -rf gatk
 
+ENV PIP_USER=false
 
 RUN pip install /etc/gatk/gatkPythonPackageArchive.zip
 

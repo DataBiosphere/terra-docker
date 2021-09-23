@@ -1,3 +1,11 @@
+## 2.0.3 - 2021-09-23
+
+- [SUP-465] Terra base gatk notebook image needs Python dependencies
+  - Added GATK Python Package install
+  - Apply Patch for CNNScoreVariant bug
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-gatk:2.0.3`
+
 ## 2.0.2 - 2021-09-10T15:10:44.143280Z
 
 - Update `terra-jupyter-base` to `1.0.1`
