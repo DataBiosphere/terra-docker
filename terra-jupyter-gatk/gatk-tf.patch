@@ -1,0 +1,31 @@
+--- /opt/conda/lib/python3.7/site-packages/vqsr_cnn/vqsr_cnn/models.py  2021-09-23 22:44:09.000000000 +0000
++++ models.py   2021-09-23 22:48:06.197472317 +0000
+@@ -5,7 +5,7 @@
+ from keras import layers
+ from keras import metrics
+ import keras.backend as K
+-from keras.optimizers import Adam
++from keras.optimizers import adam_v2 as Adam
+ from keras.models import Model, load_model
+ from keras.layers.convolutional import Conv1D, Conv2D,  MaxPooling1D, MaxPooling2D
+ from keras.callbacks import ModelCheckpoint, EarlyStopping, TensorBoard, ReduceLROnPlateau
+@@ -20,9 +20,9 @@
+ def start_session_get_args_and_model(intra_ops, inter_ops, semantics_json, weights_hd5=None, tensor_type=None):
+     K.clear_session()
+     K.get_session().close()
+-    cfg = K.tf.ConfigProto(intra_op_parallelism_threads=intra_ops, inter_op_parallelism_threads=inter_ops)
++    cfg = K.tf.compat.v1.ConfigProto(intra_op_parallelism_threads=intra_ops, inter_op_parallelism_threads=inter_ops)
+     cfg.gpu_options.allow_growth = True
+-    K.set_session(K.tf.Session(config=cfg))
++    K.set_session(K.tf.compat.v1.Session(config=cfg))
+     return args_and_model_from_semantics(semantics_json, weights_hd5, tensor_type)
+ 
+ 
+@@ -609,4 +609,4 @@
+     with open(json_file_name, 'w') as outfile:
+         json.dump(semantics, outfile)
+ 
+-    print('Saved model semantics at:', json_file_name)
+\ No newline at end of file
++    print('Saved model semantics at:', json_file_name)
+

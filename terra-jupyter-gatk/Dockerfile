@@ -34,6 +34,12 @@ RUN curl -L -o $GATK_ZIP_PATH https://github.com/broadinstitute/gatk/releases/do
  && unzip -o $GATK_ZIP_PATH -d /etc/ \
  && ln -s /etc/gatk-$GATK_VERSION/gatk /bin/gatk
 
+ENV PIP_USER=false
+RUN pip install /etc/gatk-4.2.0.0/gatkPythonPackageArchive.zip
+ENV PIP_USER=true
+
+COPY gatk-tf.patch /etc/gatk-4.2.0.0/gatk-tf.patch
+RUN patch -u /opt/conda/lib/python3.7/site-packages/vqsr_cnn/vqsr_cnn/models.py -i /etc/gatk-4.2.0.0/gatk-tf.patch
 
 ENV USER jupyter
 USER $USER
