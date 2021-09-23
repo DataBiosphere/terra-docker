@@ -1,0 +1,25 @@
+diff --git a/src/main/python/org/broadinstitute/hellbender/vqsr_cnn/vqsr_cnn/models.py b/src/main/python/org/broadinstitute/hellbender/vqsr_cnn/vqsr_cnn/models.py
+index 074e84833..00ad1b32c 100644
+--- a/src/main/python/org/broadinstitute/hellbender/vqsr_cnn/vqsr_cnn/models.py
++++ b/src/main/python/org/broadinstitute/hellbender/vqsr_cnn/vqsr_cnn/models.py
+@@ -5,7 +5,7 @@ import json
+ from keras import layers
+ from keras import metrics
+ import keras.backend as K
+-from keras.optimizers import Adam
++from keras.optimizers import adam_v2 as Adam
+ from keras.models import Model, load_model
+ from keras.layers.convolutional import Conv1D, Conv2D,  MaxPooling1D, MaxPooling2D
+ from keras.callbacks import ModelCheckpoint, EarlyStopping, TensorBoard, ReduceLROnPlateau
+@@ -20,9 +20,9 @@ from . import tensor_maps
+ def start_session_get_args_and_model(intra_ops, inter_ops, semantics_json, weights_hd5=None, tensor_type=None):
+     K.clear_session()
+     K.get_session().close()
+-    cfg = K.tf.ConfigProto(intra_op_parallelism_threads=intra_ops, inter_op_parallelism_threads=inter_ops)
++    cfg = K.tf.compat.v1.ConfigProto(intra_op_parallelism_threads=intra_ops, inter_op_parallelism_threads=inter_ops)
+     cfg.gpu_options.allow_growth = True
+-    K.set_session(K.tf.Session(config=cfg))
++    K.set_session(K.tf.compat.v1.Session(config=cfg))
+     return args_and_model_from_semantics(semantics_json, weights_hd5, tensor_type)
+ 
+ 
