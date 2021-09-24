@@ -22,11 +22,13 @@ RUN apt-get update && apt-get install -yq --no-install-recommends \
   zlib1g-dev \
   libz-dev \
   samtools \
+  git-lfs \
   # specify Java 8
   && update-alternatives --set java /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java \
   && apt-get clean \
-  && rm -rf /var/lib/apt/lists/* 
+  && rm -rf /var/lib/apt/lists/*
 
+# Install GATK
 ENV GATK_VERSION 4.2.0.0
 ENV GATK_ZIP_PATH /tmp/gatk-${GATK_VERSION}.zip
 
@@ -34,8 +36,17 @@ RUN curl -L -o $GATK_ZIP_PATH https://github.com/broadinstitute/gatk/releases/do
  && unzip -o $GATK_ZIP_PATH -d /etc/ \
  && ln -s /etc/gatk-$GATK_VERSION/gatk /bin/gatk
 
+ENV PIP_USER=false
+
+RUN pip install /etc/gatk-$GATK_VERSION/gatkPythonPackageArchive.zip
+
+ENV PIP_USER=true
+
+COPY cnn-models.patch /etc/gatk-$GATK_VERSION/cnn-models.patch
+
+RUN patch -u /opt/conda/lib/python3.7/site-packages/vqsr_cnn/vqsr_cnn/models.py -i /etc/gatk-$GATK_VERSION/cnn-models.patch
+
 
 ENV USER jupyter
 USER $USER
-
 
