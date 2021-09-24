@@ -29,25 +29,24 @@ RUN apt-get update && apt-get install -yq --no-install-recommends \
   && rm -rf /var/lib/apt/lists/*
 
 # Install GATK
-RUN mkdir /gatk-build
-COPY cnn-models.patch /gatk-build/cnn-models.patch
+ENV GATK_VERSION 4.2.0.0
+ENV GATK_ZIP_PATH /tmp/gatk-${GATK_VERSION}.zip
 
-RUN cd /gatk-build \
-    && git config --global user.email "you@example.com" \
-    && git config --global user.name "Your Name" \
-    && git clone https://github.com/broadinstitute/gatk.git \
-    && cd gatk \
-    && git checkout 4.2.0.0 \
-    && git apply ../cnn-models.patch \
-    && ./gradlew bundle \
-    && cp -r /gatk-build/gatk/build/bundle-files-collected /etc/gatk \
-    && ln -s /etc/gatk/gatk /bin/gatk \
-    && cd .. && rm -rf gatk
+RUN curl -L -o $GATK_ZIP_PATH https://github.com/broadinstitute/gatk/releases/download/$GATK_VERSION/gatk-$GATK_VERSION.zip \
+ && unzip -o $GATK_ZIP_PATH -d /etc/ \
+ && ln -s /etc/gatk-$GATK_VERSION/gatk /bin/gatk
 
 ENV PIP_USER=false
 
-RUN pip install /etc/gatk/gatkPythonPackageArchive.zip
+RUN pip install /etc/gatk-$GATK_VERSION/gatkPythonPackageArchive.zip
+
+ENV PIP_USER=true
+
+COPY cnn-models.patch /etc/gatk-$GATK_VERSION/cnn-models.patch
+
+RUN patch -u /opt/conda/lib/python3.7/site-packages/vqsr_cnn/vqsr_cnn/models.py -i /etc/gatk-$GATK_VERSION/cnn-models.patch
+
 
 ENV USER jupyter
 USER $USER
-ENV PIP_USER=true
+
