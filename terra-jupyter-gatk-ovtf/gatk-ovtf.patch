@@ -1,9 +1,8 @@
-From 3294c6c5342e4994e7b3207af2bd85be6616bb59 Mon Sep 17 00:00:00 2001
+From a22f79681d517ba2c6a7677638aab96c09a5aace Mon Sep 17 00:00:00 2001
 From: Mustafa Cavus <cavusmustafa@intel.com>
 Date: Thu, 10 Jun 2021 13:53:57 -0700
-Subject: [PATCH 1/2] OVTF enabled for CNNScoreVariants
+Subject: [PATCH] OVTF enabled for CNNScoreVariants
 
-Signed-off-by: Cavus Mustafa <mustafa.cavus@intel.com>
 ---
  .../hellbender/vqsr_cnn/vqsr_cnn/inference.py | 34 +++++++++++++++++--
  .../hellbender/vqsr_cnn/vqsr_cnn/models.py    | 10 +++---
@@ -115,31 +114,5 @@ index 074e84833..a42281584 100644
 +    print('Saved model semantics at:', json_file_name)
 +
 -- 
-2.30.0
-
-
-From 44e1618db8faccd789e3ade445ec9ac8a0c29542 Mon Sep 17 00:00:00 2001
-From: Cavus Mustafa <mustafa.cavus@intel.com>
-Date: Tue, 21 Sep 2021 12:07:54 -0700
-Subject: [PATCH 2/2] TF 2.5.0/2.6.0 compatibility for CNNScoreVariants
-
----
- .../org/broadinstitute/hellbender/vqsr_cnn/vqsr_cnn/models.py   | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/src/main/python/org/broadinstitute/hellbender/vqsr_cnn/vqsr_cnn/models.py b/src/main/python/org/broadinstitute/hellbender/vqsr_cnn/vqsr_cnn/models.py
-index a42281584..1ae214955 100644
---- a/src/main/python/org/broadinstitute/hellbender/vqsr_cnn/vqsr_cnn/models.py
-+++ b/src/main/python/org/broadinstitute/hellbender/vqsr_cnn/vqsr_cnn/models.py
-@@ -5,7 +5,7 @@ import json
- from keras import layers
- from keras import metrics
- import tensorflow.compat.v1.keras.backend as K
--from keras.optimizers import Adam
-+from keras.optimizers import adam_v2 as Adam
- from keras.models import Model, load_model
- from keras.layers.convolutional import Conv1D, Conv2D,  MaxPooling1D, MaxPooling2D
- from keras.callbacks import ModelCheckpoint, EarlyStopping, TensorBoard, ReduceLROnPlateau
--- 
-2.30.0
+2.17.1
 

@@ -1,9 +1,3 @@
-## 0.1.2 - 2021-09-22T15:25:34.080267Z
-
-- Intel OVTF patch for updating to TF2.6.0/2.5.0
-
-Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-gatk-ovtf:0.1.2`
-
 ## 0.1.1 - 2021-09-10T15:10:44.164165Z
 
 - Update `terra-jupyter-base` to `1.0.1`

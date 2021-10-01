@@ -33,23 +33,17 @@ docker run --rm  -v $VAULT_LOCATION:/root/.vault-token:ro broadinstitute/dsde-to
 gcloud auth activate-service-account --key-file=image-build-account.json
 gcloud auth configure-docker --quiet
 
-docker image build ./$IMAGE_DIR \
-  --tag $GCR_IMAGE_REPO/$IMAGE_DIR:$TAG_NAME \
-  --tag $GCR_IMAGE_REPO/$IMAGE_DIR:$VERSION \
-  --tag $GCR_IMAGE_REPO/$IMAGE_DIR:latest
+docker image build ./$IMAGE_DIR --tag $GCR_IMAGE_REPO/$IMAGE_DIR:$TAG_NAME --tag $GCR_IMAGE_REPO/$IMAGE_DIR:$VERSION
 
 docker push $GCR_IMAGE_REPO/$IMAGE_DIR:$TAG_NAME
 docker push $GCR_IMAGE_REPO/$IMAGE_DIR:$VERSION
-docker push $GCR_IMAGE_REPO/$IMAGE_DIR:latest
 
 if [[ $IMAGE_DIR = "terra-jupyter-aou" ]]; then
   docker tag $GCR_IMAGE_REPO/$IMAGE_DIR:$TAG_NAME broadinstitute/$IMAGE_DIR:$TAG_NAME
   docker tag $GCR_IMAGE_REPO/$IMAGE_DIR:$VERSION broadinstitute/$IMAGE_DIR:$VERSION
-  docker tag $GCR_IMAGE_REPO/$IMAGE_DIR:$VERSION broadinstitute/$IMAGE_DIR:latest
 
   docker push broadinstitute/$IMAGE_DIR:$VERSION
   docker push broadinstitute/$IMAGE_DIR:$TAG_NAME
-  docker push broadinstitute/$IMAGE_DIR:latest
 fi
 
 docker kill $IMAGE_DIR || true

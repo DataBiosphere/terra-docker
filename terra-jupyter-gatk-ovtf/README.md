@@ -2,12 +2,7 @@
 
 This repo contains the `terra-jupyter-gatk-ovtf` image that is compatible with notebook service in [Terra](https://app.terra.bio/) called Leonardo. 
 
-To use this in [Terra](https://app.terra.bio/), use `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-gatk-ovtf:<tag>` as image identifier. See [CHANGELOG.md](CHANGELOG.md) for the most recent tag.
-
-In Terra, this image is available in the drop-down menu under **COMMUNITY-MAINTAINED JUPYTER ENVIRONMENTS**
-<img src="terra-ovtf-gatk.png" width="400">
-
-
+To use this in [Terra](https://app.terra.bio/), use `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-gatk-ovtf:0.1.0` as image identifier.
 
 
 ## Image contents
