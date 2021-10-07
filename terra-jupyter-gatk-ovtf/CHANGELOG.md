@@ -1,3 +1,10 @@
+## 0.1.3 - 2021-10-07T14:47:43.454585Z
+
+- Update `terra-jupyter-base` to `1.0.2`
+  - fixing nbconvert incompatibiity issue by pinning lower versions
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-gatk-ovtf:0.1.3`
+
 ## 0.1.2 - 2021-09-22T15:25:34.080267Z
 
 - Intel OVTF patch for updating to TF2.6.0/2.5.0

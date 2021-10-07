@@ -1,3 +1,10 @@
+## 2.0.2 - 2021-10-07T14:47:43.422197Z
+
+- Update `terra-jupyter-base` to `1.0.2`
+  - fixing nbconvert incompatibiity issue by pinning lower versions
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-r:2.0.2`
+
 ## 2.0.1 - 2021-09-10T15:10:44.133967Z
 
 - Update `terra-jupyter-base` to `1.0.1`
