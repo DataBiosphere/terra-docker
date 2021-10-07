@@ -94,6 +94,8 @@ RUN pip3 -V \
  # Hence, make sure to manually test out "launch terminal" button (the button in the green bar next to start and stop buttons)
  # to make sure we don't accidentally break it every time we upgrade notebook version until we figure out an automation test for this
  && pip3 install python-datauri \
+ # This is to avoid incompatibility issue, see https://github.com/ipython-contrib/jupyter_contrib_nbextensions/issues/1529
+ && conda install "nbconvert<6" \
  && pip3 install jupyter_contrib_nbextensions \
  && pip3 install jupyter_nbextensions_configurator \
  # for jupyter_delocalize.py and jupyter_notebook_config.py
