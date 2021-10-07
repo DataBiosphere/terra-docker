@@ -96,6 +96,7 @@ RUN pip3 -V \
  && pip3 install python-datauri \
  # This is to avoid incompatibility issue, see https://github.com/ipython-contrib/jupyter_contrib_nbextensions/issues/1529
  && conda install "nbconvert<6" \
+ && conda install "jupyter_client==6.1.12" \
  && pip3 install jupyter_contrib_nbextensions \
  && pip3 install jupyter_nbextensions_configurator \
  # for jupyter_delocalize.py and jupyter_notebook_config.py
