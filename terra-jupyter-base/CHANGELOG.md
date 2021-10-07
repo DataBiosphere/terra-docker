@@ -1,6 +1,6 @@
 ## 1.0.2 - 2021-10-07
 
-- Fix nbconvert version issue by explicitly downloading a version less than nbconvert6
+- Fix nbconvert incompatibility issue by explicitly downloading a version less than nbconvert6
 
 Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-base:1.0.2`
 

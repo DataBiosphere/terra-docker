@@ -49,3 +49,4 @@ RUN patch -u /opt/conda/lib/python3.7/site-packages/vqsr_cnn/vqsr_cnn/models.py 
 
 ENV USER jupyter
 USER $USER
+
