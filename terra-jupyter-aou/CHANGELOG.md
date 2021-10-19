@@ -1,7 +1,7 @@
 ## 2.0.3 - 2021-10-07T14:47:43.445699Z
 
 - Update `terra-jupyter-base` to `1.0.2`
-  - fixing nbconvert incompatibiity issue by pinning lower versions
+  - Update AsyncMappingKernelManager https://github.com/jupyter/notebook/issues/6164
 
 Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-aou:2.0.3`
 
