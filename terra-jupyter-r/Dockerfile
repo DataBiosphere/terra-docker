@@ -115,7 +115,7 @@ ENV PIP_USER=false
 ## Install python packages needed for a few Bioc packages
 RUN pip3 -V \
     && pip3 install --upgrade pip \
-    && pip3 install cwltool==1.0.20190228155703 \
+    && pip3 install cwltool \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
