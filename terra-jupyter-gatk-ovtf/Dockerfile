@@ -46,6 +46,7 @@ RUN cd /gatk-build \
 ENV PIP_USER=false
 RUN pip install --force-reinstall tensorflow==2.5.0 \
     pip install --force-reinstall keras==2.5.0rc0 \
+    pip install --force-reinstall typing-extensions \
     && conda install six \
     && pip install openvino_tensorflow \
     && pip install matplotlib sklearn \
