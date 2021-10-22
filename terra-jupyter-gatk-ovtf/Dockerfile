@@ -1,6 +1,6 @@
 FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-python:1.0.2 AS python
 
-FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-r:2.0.2
+FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-r:2.0.3
 
 # copy everything pip installed from the python image
 COPY --from=python /opt/conda/lib/python3.7/site-packages /opt/conda/lib/python3.7/site-packages
@@ -46,7 +46,6 @@ RUN cd /gatk-build \
 ENV PIP_USER=false
 RUN pip install --force-reinstall tensorflow==2.5.0 \
     pip install --force-reinstall keras==2.5.0rc0 \
-    pip install --force-reinstall typing-extensions \
     && conda install six \
     && pip install openvino_tensorflow \
     && pip install matplotlib sklearn \
