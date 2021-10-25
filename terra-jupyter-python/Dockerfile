@@ -54,7 +54,8 @@ RUN pip3 -V \
    keras \
    patsy \
    pymc3 \
-   pyparsing \
+   # fix to 2.4.7 so that tensorflow still works
+   pyparsing==2.4.7 \
    Cython \
    # Downgrade setuptools from the base image due to incompatibilies with pysam.
    # As of 2021-09-10, this is the latest version of setuptools that works with pysam.
