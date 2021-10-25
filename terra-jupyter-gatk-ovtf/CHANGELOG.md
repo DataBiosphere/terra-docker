@@ -1,14 +1,8 @@
-## 0.1.4 - 2021-10-22T19:36:23.200853Z
-
-- Update `terra-jupyter-r` to `2.0.3`
-  - Unpinning cwltool version and updating protobuf version to 3.18
-
-Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-gatk-ovtf:0.1.4`
-
 ## 0.1.3 - 2021-10-07T14:47:43.454585Z
 
 - Update `terra-jupyter-base` to `1.0.2`
   - Update AsyncMappingKernelManager https://github.com/jupyter/notebook/issues/6164
+- Unpinning cwltool version and updating protobuf version to 3.18
 
 Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-gatk-ovtf:0.1.3`
 
