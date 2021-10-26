@@ -1,6 +1,6 @@
-FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-python:1.0.1 AS python
+FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-python:1.0.2 AS python
 
-FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-r:2.0.1
+FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-r:2.0.2
 
 # copy everything pip installed from the python image
 COPY --from=python /opt/conda/lib/python3.7/site-packages /opt/conda/lib/python3.7/site-packages
@@ -28,29 +28,28 @@ RUN apt-get update && apt-get install -yq --no-install-recommends \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/* 
 
-RUN mkdir /gatk-build
-COPY gatk-ovtf.patch /gatk-build/gatk-ovtf.patch
+# Install GATK
+ENV GATK_VERSION 4.2.0.0
+ENV GATK_ZIP_PATH /tmp/gatk-${GATK_VERSION}.zip
 
-RUN cd /gatk-build \
-    && git config --global user.email "you@example.com" \
-    && git config --global user.name "Your Name" \
-    && git clone https://github.com/broadinstitute/gatk.git \
-    && cd gatk \
-    && git checkout 4.2.0.0 \
-    && git am --signoff ../gatk-ovtf.patch \
-    && ./gradlew bundle \
-    && cp -r /gatk-build/gatk/build/bundle-files-collected /etc/gatk-tfov \
-    && ln -s /etc/gatk-tfov/gatk /bin/gatk \
-    && cd .. && rm -rf gatk
+RUN curl -L -o $GATK_ZIP_PATH https://github.com/broadinstitute/gatk/releases/download/$GATK_VERSION/gatk-$GATK_VERSION.zip \
+ && unzip -o $GATK_ZIP_PATH -d /etc/ \
+ && ln -s /etc/gatk-$GATK_VERSION/gatk /bin/gatk
 
 ENV PIP_USER=false
-RUN pip install --force-reinstall tensorflow==2.5.0 \
-    pip install --force-reinstall keras==2.5.0rc0 \
-    && conda install six \
-    && pip install openvino_tensorflow \
+
+# Force reinstalling TF-2.5.1, Keras-2.5.0 to satisfy OVTF compatibility.
+RUN pip install --force-reinstall tensorflow==2.5.1 keras==2.5.0rc0
+RUN conda install six typing_extensions --force-reinstall \
+    && pip install openvino_tensorflow==1.0.0 \
     && pip install matplotlib sklearn \
-    && pip install /etc/gatk-tfov/gatkPythonPackageArchive.zip
+    && pip install /etc/gatk-$GATK_VERSION/gatkPythonPackageArchive.zip
 ENV PIP_USER=true
+
+COPY gatk-ovtf.patch /etc/gatk-$GATK_VERSION/gatk-ovtf.patch
+
+RUN cd /opt/conda/lib/python3.7/site-packages/vqsr_cnn/vqsr_cnn/ \
+    && patch -p1 < /etc/gatk-$GATK_VERSION/gatk-ovtf.patch
 
 COPY --chown=jupyter:users run_gatk.sh /home/jupyter/run_gatk.sh
 COPY --chown=jupyter:users GATK-OVTF-Notebook.ipynb /home/jupyter/GATK-OVTF-Notebook.ipynb

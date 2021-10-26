@@ -1,19 +1,7 @@
-From 3294c6c5342e4994e7b3207af2bd85be6616bb59 Mon Sep 17 00:00:00 2001
-From: Mustafa Cavus <cavusmustafa@intel.com>
-Date: Thu, 10 Jun 2021 13:53:57 -0700
-Subject: [PATCH 1/2] OVTF enabled for CNNScoreVariants
-
-Signed-off-by: Cavus Mustafa <mustafa.cavus@intel.com>
----
- .../hellbender/vqsr_cnn/vqsr_cnn/inference.py | 34 +++++++++++++++++--
- .../hellbender/vqsr_cnn/vqsr_cnn/models.py    | 10 +++---
- 2 files changed, 37 insertions(+), 7 deletions(-)
-
-diff --git a/src/main/python/org/broadinstitute/hellbender/vqsr_cnn/vqsr_cnn/inference.py b/src/main/python/org/broadinstitute/hellbender/vqsr_cnn/vqsr_cnn/inference.py
-index 0adf9af9e..bb6b9f07d 100644
---- a/src/main/python/org/broadinstitute/hellbender/vqsr_cnn/vqsr_cnn/inference.py
-+++ b/src/main/python/org/broadinstitute/hellbender/vqsr_cnn/vqsr_cnn/inference.py
-@@ -11,6 +11,11 @@ from gatktool import tool
+diff -ru vqsr_cnn/inference.py /opt/conda/lib/python3.7/site-packages/vqsr_cnn/vqsr_cnn/inference.py
+--- vqsr_cnn/inference.py	2019-01-29 15:50:10.000000000 +0000
++++ /opt/conda/lib/python3.7/site-packages/vqsr_cnn/vqsr_cnn/inference.py	2021-09-22 19:47:00.000000000 +0000
+@@ -11,6 +11,11 @@
  # Keras Imports
  import keras
  import keras.backend as K
@@ -25,7 +13,7 @@ index 0adf9af9e..bb6b9f07d 100644
  
  # Package Imports
  from . import defines
-@@ -38,7 +43,9 @@ ANNOTATION_FIFO_INDEX = 5
+@@ -38,7 +43,9 @@
  VARIANT_TYPE_FIFO_INDEX = 6
  VARIANT_FIFO_FIELDS = 7
  
@@ -36,7 +24,7 @@ index 0adf9af9e..bb6b9f07d 100644
  
  CIGAR_CODES_TO_COUNT = [
      defines.CIGAR_CODE['M'], defines.CIGAR_CODE['I'], defines.CIGAR_CODE['S'], defines.CIGAR_CODE['D']
-@@ -86,6 +93,11 @@ def score_and_write_batch(model: keras.Model,
+@@ -86,6 +93,11 @@
      variant_types = []
      variant_data = []
      read_batch = []
@@ -48,7 +36,7 @@ index 0adf9af9e..bb6b9f07d 100644
      for _ in range(batch_size):
          fifo_line = tool.readDataFIFO()
          fifo_data = fifo_line.split(defines.DATA_TYPE_SEPARATOR)
-@@ -126,8 +138,24 @@ def score_and_write_batch(model: keras.Model,
+@@ -126,8 +138,24 @@
          predictions = model.predict([np.array(reference_batch), np.array(annotation_batch)],
                                      batch_size=python_batch_size)
      elif tensor_type in defines.TENSOR_MAPS_2D:
@@ -75,17 +63,17 @@ index 0adf9af9e..bb6b9f07d 100644
      else:
          raise ValueError('Unknown tensor mapping.  Check architecture file.', tensor_type)
  
-diff --git a/src/main/python/org/broadinstitute/hellbender/vqsr_cnn/vqsr_cnn/models.py b/src/main/python/org/broadinstitute/hellbender/vqsr_cnn/vqsr_cnn/models.py
-index 074e84833..a42281584 100644
---- a/src/main/python/org/broadinstitute/hellbender/vqsr_cnn/vqsr_cnn/models.py
-+++ b/src/main/python/org/broadinstitute/hellbender/vqsr_cnn/vqsr_cnn/models.py
-@@ -4,12 +4,13 @@ import json
+diff -ru vqsr_cnn/models.py /opt/conda/lib/python3.7/site-packages/vqsr_cnn/vqsr_cnn/models.py
+--- vqsr_cnn/models.py	2019-01-29 15:50:10.000000000 +0000
++++ /opt/conda/lib/python3.7/site-packages/vqsr_cnn/vqsr_cnn/models.py	2021-09-22 19:47:00.000000000 +0000
+@@ -4,12 +4,13 @@
  # Keras Imports
  from keras import layers
  from keras import metrics
 -import keras.backend as K
+-from keras.optimizers import Adam
 +import tensorflow.compat.v1.keras.backend as K
- from keras.optimizers import Adam
++from keras.optimizers import adam_v2 as Adam
  from keras.models import Model, load_model
  from keras.layers.convolutional import Conv1D, Conv2D,  MaxPooling1D, MaxPooling2D
  from keras.callbacks import ModelCheckpoint, EarlyStopping, TensorBoard, ReduceLROnPlateau
@@ -94,7 +82,7 @@ index 074e84833..a42281584 100644
  
  from . import plots
  from . import defines
-@@ -20,9 +21,9 @@ from . import tensor_maps
+@@ -20,9 +21,9 @@
  def start_session_get_args_and_model(intra_ops, inter_ops, semantics_json, weights_hd5=None, tensor_type=None):
      K.clear_session()
      K.get_session().close()
@@ -106,7 +94,7 @@ index 074e84833..a42281584 100644
      return args_and_model_from_semantics(semantics_json, weights_hd5, tensor_type)
  
  
-@@ -609,4 +610,5 @@ def serialize_model_semantics(args, architecture_hd5):
+@@ -609,4 +610,5 @@
      with open(json_file_name, 'w') as outfile:
          json.dump(semantics, outfile)
  
@@ -114,32 +102,3 @@ index 074e84833..a42281584 100644
 \ No newline at end of file
 +    print('Saved model semantics at:', json_file_name)
 +
--- 
-2.30.0
-
-
-From 44e1618db8faccd789e3ade445ec9ac8a0c29542 Mon Sep 17 00:00:00 2001
-From: Cavus Mustafa <mustafa.cavus@intel.com>
-Date: Tue, 21 Sep 2021 12:07:54 -0700
-Subject: [PATCH 2/2] TF 2.5.0/2.6.0 compatibility for CNNScoreVariants
-
----
- .../org/broadinstitute/hellbender/vqsr_cnn/vqsr_cnn/models.py   | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/src/main/python/org/broadinstitute/hellbender/vqsr_cnn/vqsr_cnn/models.py b/src/main/python/org/broadinstitute/hellbender/vqsr_cnn/vqsr_cnn/models.py
-index a42281584..1ae214955 100644
---- a/src/main/python/org/broadinstitute/hellbender/vqsr_cnn/vqsr_cnn/models.py
-+++ b/src/main/python/org/broadinstitute/hellbender/vqsr_cnn/vqsr_cnn/models.py
-@@ -5,7 +5,7 @@ import json
- from keras import layers
- from keras import metrics
- import tensorflow.compat.v1.keras.backend as K
--from keras.optimizers import Adam
-+from keras.optimizers import adam_v2 as Adam
- from keras.models import Model, load_model
- from keras.layers.convolutional import Conv1D, Conv2D,  MaxPooling1D, MaxPooling2D
- from keras.callbacks import ModelCheckpoint, EarlyStopping, TensorBoard, ReduceLROnPlateau
--- 
-2.30.0
-
