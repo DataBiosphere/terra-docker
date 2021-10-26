@@ -1,4 +1,4 @@
-FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-base:1.0.1
+FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-base:1.0.2
 USER root
 
 COPY scripts $JUPYTER_HOME/scripts
@@ -7,11 +7,11 @@ COPY scripts $JUPYTER_HOME/scripts
 ENV TERRA_R_PLATFORM="terra-jupyter-r"
 ENV TERRA_R_PLATFORM_BINARY_VERSION=3.13.0
 
-# Install protobuf 3.16. Note this version comes from base deep learning image. Use `conda list` to see what's installed
+# Install protobuf 3.18. Note this version comes from base deep learning image. Use `conda list` to see what's installed
 RUN cd /tmp \
-  && wget https://github.com/protocolbuffers/protobuf/releases/download/v3.16.0/protobuf-all-3.16.0.tar.gz \
-	&& tar -xvzf protobuf-all-3.16.0.tar.gz \
-	&& cd protobuf-3.16.0/ \
+  && wget https://github.com/protocolbuffers/protobuf/releases/download/v3.18.0/protobuf-all-3.18.0.tar.gz \
+	&& tar -xvzf protobuf-all-3.18.0.tar.gz \
+	&& cd protobuf-3.18.0/ \
 	&& ./configure \
 	&& make \
 	&& make check \
@@ -115,7 +115,7 @@ ENV PIP_USER=false
 ## Install python packages needed for a few Bioc packages
 RUN pip3 -V \
     && pip3 install --upgrade pip \
-    && pip3 install cwltool==1.0.20190228155703 \
+    && pip3 install cwltool \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 

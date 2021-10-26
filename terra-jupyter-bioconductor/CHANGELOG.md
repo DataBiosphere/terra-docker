@@ -1,3 +1,11 @@
+## 2.0.2 - 2021-10-07T14:47:43.359733Z
+
+- Update `terra-jupyter-base` to `1.0.2`
+  - Update AsyncMappingKernelManager https://github.com/jupyter/notebook/issues/6164
+- Unpinning cwltool version and updating protobuf version to 3.18
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-bioconductor:2.0.2`
+
 ## 2.0.1 - 2021-09-10T15:10:44.079307Z
 
 - Update `terra-jupyter-base` to `1.0.1`
