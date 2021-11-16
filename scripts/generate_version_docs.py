@@ -35,21 +35,20 @@ def generate_docs():
   for image_config in image_configs:
       # Here we check first if the remote documentation exists, then if the local version is the same as the remote. 
       # If the remote documentation exists and the version matches the local, we re-use the old documentation
-      remote_doc = list(filter(lambda image_doc: image_doc["id"] == image_config["name"], remote_docs))[0]
 
       if image_config["name"] in remote_versions and image_config["version"] == remote_versions[image_config["name"]]:
+        remote_doc = list(filter(lambda image_doc: image_doc["id"] == image_config["name"], remote_docs))[0]
         print "using remote doc: {}".format(remote_doc)
         doc = remote_doc
-
       else:
         doc = generate_doc_for_image(image_config)
 
       #Computing legacy  images for gatk and bioconductor
       if image_config["name"] == "terra-jupyter-gatk":
-        legacy_gatk_doc = get_legacy_image(image_config["version"], remote_doc)
+        legacy_gatk_doc = get_legacy_image(image_config["version"], doc)
 
       if image_config["name"] == "terra-jupyter-bioconductor":
-        legacy_bioconductor_doc = get_legacy_image(image_config["version"], remote_doc)
+        legacy_bioconductor_doc = get_legacy_image(image_config["version"], doc)
             
       docs.append(doc)
 
@@ -58,6 +57,7 @@ def generate_docs():
   return docs
 
 def get_legacy_image(new_version, remote_doc):
+  print "generating legacy image"
   new_version = new_version.split(".") 
   new_version_patch = int(new_version[2])
   new_version_minor = int(new_version[1])
