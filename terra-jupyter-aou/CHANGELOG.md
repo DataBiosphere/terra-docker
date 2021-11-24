@@ -1,7 +1,7 @@
 ## 2.0.4 - 2021-11-24T05:51:34.197137
 
 - Install nextflow
-
+- Update  bolt lmm to 2.3.6
 Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-aou:2.0.4`
 
 ## 2.0.3 - 2021-10-07T14:47:43.445699Z
