@@ -125,6 +125,11 @@ RUN mkdir -p /tmp/bcftools && \
     cd $HOME && \
     rm -rf /tmp/bcftools
 
+# Install Nextflow
+ENV NXF_MODE google
+RUN curl -s https://get.nextflow.io | bash && \
+    mv nextflow /usr/local/bin
+
 ENV USER jupyter
 USER $USER
 
