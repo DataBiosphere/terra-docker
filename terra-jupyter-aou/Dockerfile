@@ -75,7 +75,7 @@ RUN mkdir -p /tmp/plink && \
   rm -rf /tmp/plink
 
 # BOLT-LMM install
-ENV BOLT_LMM_VERSION v2.3.5
+ENV BOLT_LMM_VERSION v2.3.6
 RUN mkdir -p /tmp/bolt-lmm && \
   cd /tmp/bolt-lmm && \
   curl -L -o bolt-lmm.tar.gz "https://storage.googleapis.com/broad-alkesgroup-public/BOLT-LMM/downloads/BOLT-LMM_${BOLT_LMM_VERSION}.tar.gz" && \
@@ -124,6 +124,11 @@ RUN mkdir -p /tmp/bcftools && \
     make install && \
     cd $HOME && \
     rm -rf /tmp/bcftools
+
+# Install Nextflow
+ENV NXF_MODE google
+RUN curl -s https://get.nextflow.io | bash && \
+    mv nextflow /usr/local/bin
 
 ENV USER jupyter
 USER $USER
