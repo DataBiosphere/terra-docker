@@ -1,8 +1,9 @@
 ## 2.0.5 - 2021-12-02T21:50:37.297833
 
 - Fix nextflow install path.
-  Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-aou:2.0.5`
-- 
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-aou:2.0.5`
+
 ## 2.0.4 - 2021-11-24T05:51:34.197137
 
 - Install nextflow
