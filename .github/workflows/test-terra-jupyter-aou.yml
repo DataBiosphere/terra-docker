@@ -50,10 +50,10 @@ jobs:
         python-version: 3.7
 
     - name: Free up some disk space
-      run: sudo rm -rf /usr/share/dotnet    
+      run: sudo rm -rf /usr/share/dotnet
 
     - name: Set up Cloud SDK
-      uses: google-github-actions/setup-gcloud@master
+      uses: google-github-actions/setup-gcloud@1021f43415bff191e4694da31bc052b3aada3243
       with:
         project_id: ${{ secrets.GCP_PROJECT_ID }}
         service_account_key: ${{ secrets.GCP_SA_KEY }}
