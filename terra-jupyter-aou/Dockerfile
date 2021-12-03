@@ -132,6 +132,7 @@ RUN mkdir -p /tmp/nextflow && \
   curl -s https://get.nextflow.io | bash && \
   mv nextflow /bin/nextflow && \
   cd $HOME && \
+  chmod u=rwx,g=rwx,o=rx /bin/nextflow && \
   rm -rf /tmp/nextflow
 
 ENV USER jupyter
