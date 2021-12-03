@@ -133,6 +133,7 @@ RUN mkdir -p /tmp/nextflow && \
   mv nextflow /bin/nextflow && \
   cd $HOME && \
   chmod 777 /bin/nextflow && \
+  chown -R $USER:users $HOME/.nextflow && \
   rm -rf /tmp/nextflow
 
 ENV USER jupyter
