@@ -1,0 +1,12 @@
+--- /opt/conda/lib/python3.7/site-packages/openvino_tensorflow/__init__.py      2021-12-09 22:39:36.000000000 +0000
++++ __init__.py 2021-12-10 00:20:28.433852578 +0000
+@@ -30,6 +30,9 @@
+
+ import ctypes
+
++if (os.environ.get("OPENVINO_TF_DISABLE") != "1"):
++    os.environ["CUDA_VISIBLE_DEVICES"] = "-1"
++
+ __all__ = [
+     'enable', 'disable', 'is_enabled', 'list_backends',
+     'set_backend', 'get_backend',

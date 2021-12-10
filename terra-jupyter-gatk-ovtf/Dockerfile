@@ -53,10 +53,15 @@ RUN conda install six typing_extensions --force-reinstall \
 ENV PIP_USER=true
 
 COPY gatk-ovtf.patch /etc/gatk-$GATK_VERSION/gatk-ovtf.patch
+COPY ovtf-cuda-disabling.patch /etc/gatk-$GATK_VERSION/ovtf-cuda-disabling.patch
 
 # Apply patch to GATK to fix TFv2 compatibility. 
 RUN cd /opt/conda/lib/python3.7/site-packages/vqsr_cnn/vqsr_cnn/ \
     && patch -p1 < /etc/gatk-$GATK_VERSION/gatk-ovtf.patch
+
+# Apply patch to GATK to fix TFv2 compatibility. 
+RUN cd /opt/conda/lib/python3.7/site-packages/openvino_tensorflow/ \
+    && patch __init__.py < /etc/gatk-$GATK_VERSION/ovtf-cuda-disabling.patch
 
 COPY --chown=jupyter:users run_gatk.sh /home/jupyter/run_gatk.sh
 COPY --chown=jupyter:users GATK-OVTF-Notebook.ipynb /home/jupyter/GATK-OVTF-Notebook.ipynb
