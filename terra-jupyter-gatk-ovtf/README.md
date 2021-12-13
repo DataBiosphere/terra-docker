@@ -9,7 +9,6 @@ In Terra, this image is available in the drop-down menu under **COMMUNITY-MAINTA
 
 
 
-
 ## Image contents
 
 The `terra-jupyter-gatk-ovtf` docker image extends the [terra-jupyter-python](../terra-jupyter-python/README.md) and [terra-jupyter-r](../terra-jupyter-r/README.md) by including the following:
@@ -21,13 +20,44 @@ The `terra-jupyter-gatk-ovtf` docker image extends the [terra-jupyter-python](..
 
 To see the complete contents of this image please see the [Dockerfile](./Dockerfile).
 
-Note: Enabling OpenVINO™ integration with TensorFlow disables TensorFlow GPU support for CUDA-enabled devices in this docker image. To be able to enable TensorFlow GPU support, OpenVINO™ integration with TensorFlow should be disabled by setting the environment varible below.
-
-    export OPENVINO_TF_DISABLE=1
-
 ## Sample Notebook
 
 This repo provides a sample notebook [GATK-OVTF-Notebook.ipynb](./GATK-OVTF-Notebook.ipynb) which showcases the performance benefits obtained by using OpenVINO™ integration with TensorFlow.
+
+## Note on CUDA-enabled GPU devices Support
+
+Enabling OpenVINO™ integration with TensorFlow disables TensorFlow GPU support for CUDA-enabled devices in this docker image. 
+If you prefer to use CUDA-enabled GPU devices, DONOT import openvino_tensorflow
+
+#### Scenario #1: Use CUDA-enabled GPU devices with native Tensorflow.
+```
+import tensorflow 
+# CPU and GPU support available. openvino_tensorflow is disabled
+```
+
+#### Scenario #2: Use OpenVINO™ integration with TensorFlow
+```
+import tensorflow 
+import openvino_tensorflow as ovtf
+ovtf.set_backend("CPU")
+
+# By importing openvino_tensorflow, CUDA-enabled GPU devices support is disabled. 
+# To re-enable GPU support, restart the Jupyter kernel, and remove "import openvino_tensorflow as ovtf"
+```
+
+#### Scenario #3: GATK Developers
+In this Docker image, GATK is enabled with OpenVINO™ integration with TensorFlow by default.
+If you prefer to use GATK with with CUDA-enabled GPU devices, then OpenVINO integration with TensorFlow should be disabled before executing GATK CNNScoreVariants. To disable OpenVINO™ integration with TensorFlow, run the command below in the Jupyter notebook.
+```   
+ ! export OPENVINO_TF_DISABLE=1
+ ```
+ 
+#### Scenario #4: Use OpenVINO™ integration with TensorFlow with CUDA-enabled GPU devices
+
+Not Supported. 
+
+---------
+
 
 ## Build and Run Instructions - **Locally**
 
