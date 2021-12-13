@@ -47,7 +47,7 @@ ovtf.set_backend("CPU")
 
 #### Scenario #3: GATK Developers
 In this Docker image, GATK is enabled with OpenVINO™ integration with TensorFlow by default.
-If you prefer to use GATK with with CUDA-enabled GPU devices, then OpenVINO integration with TensorFlow should be disabled before executing GATK CNNScoreVariants. To disable OpenVINO™ integration with TensorFlow, run the command below in the Jupyter notebook.
+If you prefer to use GATK with CUDA-enabled GPU devices, then OpenVINO integration with TensorFlow should be disabled before executing GATK CNNScoreVariants. To disable OpenVINO™ integration with TensorFlow, run the command below in the Jupyter notebook.
 ```   
  ! export OPENVINO_TF_DISABLE=1
  ```
