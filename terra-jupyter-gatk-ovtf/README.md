@@ -21,6 +21,10 @@ The `terra-jupyter-gatk-ovtf` docker image extends the [terra-jupyter-python](..
 
 To see the complete contents of this image please see the [Dockerfile](./Dockerfile).
 
+Note: Enabling OpenVINO™ integration with TensorFlow disables TensorFlow GPU support for CUDA-enabled devices in this docker image. To be able to enable TensorFlow GPU support, OpenVINO™ integration with TensorFlow should be disabled by setting the environment varible below.
+
+    export OPENVINO_TF_DISABLE=1
+
 ## Sample Notebook
 
 This repo provides a sample notebook [GATK-OVTF-Notebook.ipynb](./GATK-OVTF-Notebook.ipynb) which showcases the performance benefits obtained by using OpenVINO™ integration with TensorFlow.
