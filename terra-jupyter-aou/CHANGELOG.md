@@ -1,3 +1,8 @@
+## 2.0.6 - 2021-12-13
+
+- Update `terra-jupyter-gatk` base image to `2.0.4`
+  - Update AsyncMappingKernelManager https://github.com/jupyter/notebook/issues/6164
+
 ## 2.0.5 - 2021-12-02T21:50:37.297833
 
 - Fix nextflow install path.
@@ -12,8 +17,6 @@ Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-aou:2.0.4`
 
 ## 2.0.3 - 2021-10-07T14:47:43.445699Z
 
-- Update `terra-jupyter-base` to `1.0.2`
-  - Update AsyncMappingKernelManager https://github.com/jupyter/notebook/issues/6164
 - Unpinning cwltool version and updating protobuf version to 3.18
 
 Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-aou:2.0.3`
