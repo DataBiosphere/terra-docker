@@ -1,12 +1,20 @@
 # adapted from https://hub.docker.com/r/jupyter/base-notebook/ AKA https://github.com/jupyter/docker-stacks/tree/master/base-notebook
 
-FROM gcr.io/deeplearning-platform-release/tf2-gpu.2-6 
+FROM gcr.io/deeplearning-platform-release/tf-gpu.2-7
 USER root
 
 #######################
 # Prerequisites
 #######################
 ENV DEBIAN_FRONTEND noninteractive
+
+RUN sudo -i \
+    echo "deb http://security.ubuntu.com/ubuntu/ bionic-security main" >> /etc/apt/sources.list \
+    sudo apt update && apt-cache policy libssl1.0.0
+
+#RUN sudo -i \
+#    echo "deb http://archive.ubuntu.com/ubuntu/ bionic universe" >> /etc/apt/sources.list \
+#    sudo apt update && sudo apt install gcc-6
 
 RUN apt-get update && apt-get install -yq --no-install-recommends \
 
@@ -97,6 +105,7 @@ RUN pip3 -V \
  && pip3 install jupyter_contrib_nbextensions \
  && pip3 install jupyter_nbextensions_configurator \
  # for jupyter_delocalize.py and jupyter_notebook_config.py
+ # && pip3 install tornado==5.1.1 \
  && pip3 install requests \
  && pip3 install firecloud \
  && pip3 install terra-notebook-utils \
