@@ -1,3 +1,9 @@
+## 2.0.7 - 2021-12-15T18:29:12.526374Z
+- Update `terra-jupyter-gatk` base image to `2.0.5`
+  - Upgrade gatk image to 4.2.4.0
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-aou:2.0.7`
+
 ## 2.0.6 - 2021-12-13
 
 - Update `terra-jupyter-gatk` base image to `2.0.4`
