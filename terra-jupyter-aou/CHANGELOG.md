@@ -1,3 +1,7 @@
+## 2.0.8 - 2021-12-16
+
+- Bump Hail version to 0.2.74
+
 ## 2.0.7 - 2021-12-15T18:29:12.526374Z
 - Update `terra-jupyter-gatk` base image to `2.0.5`
   - Upgrade gatk image to 4.2.4.0
