@@ -34,7 +34,7 @@ RUN mkdir -p /etc/spark/conf.dist && mkdir -p /etc/hadoop/conf.empty && mkdir -p
     && update-alternatives --install /etc/hadoop/conf hadoop-conf /etc/hadoop/conf.empty 100 \
     && update-alternatives --install /etc/hive/conf hive-conf /etc/hive/conf.dist 100
 
-ENV HAIL_VERSION=0.2.62
+ENV HAIL_VERSION=0.2.74
 ENV PIP_USER=false
 
 # For dataproc clusters, this path with will be automatically mounted. Else,
