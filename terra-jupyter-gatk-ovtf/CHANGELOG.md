@@ -1,3 +1,10 @@
+## 0.1.5 - 2021-12-14T19:48:03.867076Z
+
+- Update `terra-jupyter-r` to `2.0.3`
+  - Update Terra Jupyter image to use latest Bioconductor 3.14
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-gatk-ovtf:0.1.5`
+
 ## 0.1.4 - 2021-12-15T18:30:57.568303Z
 
 - Upgrade gatk image to 4.2.4.0

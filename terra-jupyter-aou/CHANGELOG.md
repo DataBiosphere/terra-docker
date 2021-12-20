@@ -1,3 +1,10 @@
+## 2.0.9 - 2021-12-14T19:48:03.857067Z
+
+- Update `terra-jupyter-r` to `2.0.3`
+  - Update Terra Jupyter image to use latest Bioconductor 3.14
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-aou:2.0.9`
+
 ## 2.0.8 - 2021-12-16
 
 - Bump Hail version to 0.2.74
