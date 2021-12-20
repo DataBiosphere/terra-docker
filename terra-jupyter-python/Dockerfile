@@ -51,7 +51,8 @@ RUN pip3 -V \
    h5py \
    html5lib \
    joblib \
-   keras \
+   # Remove the version pin for keras when tensorflow is updated to 2.7 or higher.
+   keras==2.6.0 \
    patsy \
    pymc3 \
    # fix to 2.4.7 so that tensorflow still works
