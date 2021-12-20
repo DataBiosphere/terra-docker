@@ -1,6 +1,8 @@
 # adapted from https://hub.docker.com/r/jupyter/base-notebook/ AKA https://github.com/jupyter/docker-stacks/tree/master/base-notebook
 
-FROM gcr.io/deeplearning-platform-release/tf2-gpu.2-6 
+FROM gcr.io/deeplearning-platform-release/tf2-gpu.2-6
+# TODO When upgrading to a newer version of Tensorflow, be sure to remove the
+# package version pin on Keras in file terra-jupyter-python/Dockerfile.
 USER root
 
 #######################
