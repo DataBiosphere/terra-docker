@@ -114,7 +114,9 @@ jobs:
           --workdir=/tests \
           --entrypoint="" \
           terra-jupyter-python:smoke-test \
-          /bin/sh -c "pip3 install --user pytest; pytest"
+          /bin/sh -c "pip3 install --no-deps pytest iniconfig pluggy py; pytest"
+          # Use --no-deps to avoid an unneccessary upgrade of pyparsing which then causes tensorflow tests to fail.
+          # TODO: whenever we no longer need to pin pyparsing, simplify the above command to 'pip3 install pytest ; pytest'
 
     - name: Test Python code specific to notebooks with nbconvert
       # Simply 'Cell -> Run All` these notebooks and expect no errors in the case of a successful run of the test suite.
