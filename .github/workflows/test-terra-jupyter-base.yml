@@ -50,14 +50,18 @@ jobs:
         python-version: 3.7
 
     - name: Free up some disk space
-      run: sudo rm -rf /usr/share/dotnet    
+      run: sudo rm -rf /usr/share/dotnet
+
+    - id: auth
+      uses: google-github-actions/auth@v0
+      with:
+        credentials_json: ${{ secrets.GCP_SA_KEY }}
+        create_credentials_file: true
 
     - name: Set up Cloud SDK
-      uses: google-github-actions/setup-gcloud@master
+      uses: google-github-actions/setup-gcloud@v0.3.0
       with:
         project_id: ${{ secrets.GCP_PROJECT_ID }}
-        service_account_key: ${{ secrets.GCP_SA_KEY }}
-        export_default_credentials: true
 
     - name: Build Docker image and base images too, if needed
       run: |
@@ -73,9 +77,10 @@ jobs:
 
     - name: Test Python code with pytest
       run: |
+        chmod a+r "${{ steps.auth.outputs.credentials_file_path }}"
         docker run \
           --env GOOGLE_PROJECT \
-          --volume "${{ env.GOOGLE_APPLICATION_CREDENTIALS }}:/tmp/credentials.json:ro" \
+          --volume "${{ steps.auth.outputs.credentials_file_path }}":/tmp/credentials.json:ro \
           --env GOOGLE_APPLICATION_CREDENTIALS="/tmp/credentials.json" \
           --volume $GITHUB_WORKSPACE/terra-jupyter-base/tests:/tests \
           --workdir=/tests \
