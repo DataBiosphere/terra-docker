@@ -31,7 +31,6 @@ RUN apt-get update && apt-get install -yq --no-install-recommends \
     procps \
 
     lsb-release \
-    gcc-6 \
     gcc-8 \
 
     # python requirements
