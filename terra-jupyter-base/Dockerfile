@@ -141,7 +141,6 @@ RUN chown -R $USER:users $JUPYTER_HOME \
 # Disable nb_conda for now. Consider re-enable in the future
  && jupyter nbextension disable nb_conda --py --sys-prefix \
  && find $JUPYTER_HOME/scripts -name '*.sh' -type f | xargs chmod +x \
- && update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-6 200 \
  && update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-8 100 \
 #  You can get kernel directory by running `jupyter kernelspec list`
  && $JUPYTER_HOME/scripts/kernel/kernelspec.sh $JUPYTER_HOME/scripts/kernel /opt/conda/share/jupyter/kernels
