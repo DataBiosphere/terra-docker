@@ -45,6 +45,7 @@ RUN apt-get update && apt-get install -yq --no-install-recommends \
     tk-dev \
     libffi-dev \
     liblzma-dev \
+    libexempi3 \
     python-openssl \
 
     # install script requirements
