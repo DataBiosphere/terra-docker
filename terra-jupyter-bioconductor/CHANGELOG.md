@@ -1,3 +1,10 @@
+## 2.0.4 - 2022-01-06T18:21:41.155891Z
+
+- Update `terra-jupyter-base` to `1.0.3`
+  - Bumping Google Deeplearning image to 2.7, removing gcc-6 install due to package problems
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-bioconductor:2.0.4`
+
 ## 2.0.3 - 2021-12-14T19:48:03.812081Z
 
 - Update `terra-jupyter-r` to `2.0.3`

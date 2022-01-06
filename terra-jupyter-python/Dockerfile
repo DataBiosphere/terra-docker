@@ -1,4 +1,4 @@
-FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-base:1.0.2
+FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-base:1.0.3
 USER root
 # This makes it so pip runs as root, not the user.
 ENV PIP_USER=false
@@ -52,7 +52,7 @@ RUN pip3 -V \
    html5lib \
    joblib \
    # Remove the version pin for keras when tensorflow is updated to 2.7 or higher.
-   keras==2.6.0 \
+   keras \
    patsy \
    pymc3 \
    # fix to 2.4.7 so that tensorflow still works

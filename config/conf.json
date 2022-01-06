@@ -26,7 +26,7 @@
                     "tidyverse"
                 ]
             },
-            "version" : "2.0.3",
+            "version" : "2.0.4",
             "automated_flags" : {
                 "generate_docs" : true,
                 "include_in_ui" : true,
@@ -47,7 +47,7 @@
                     "hail"
                 ]
             },
-            "version" : "1.0.3",
+            "version" : "1.0.4",
             "automated_flags" : {
                 "generate_docs" : true,
                 "include_in_ui" : true,
@@ -68,7 +68,7 @@
                     "scikit-learn"
                 ]
             },
-            "version" : "1.0.2",
+            "version" : "1.0.3",
             "automated_flags" : {
                 "generate_docs" : true,
                 "include_in_ui" : true,
@@ -86,7 +86,7 @@
             "packages" : {
                 
             },
-            "version" : "1.0.2",
+            "version" : "1.0.3",
             "automated_flags" : {
                 "generate_docs" : true,
                 "include_in_ui" : false,
@@ -104,7 +104,7 @@
             "packages" : {
                 
             },
-            "version" : "2.0.3",
+            "version" : "2.0.4",
             "automated_flags" : {
                 "include_in_ui" : false,
                 "generate_docs" : true,
@@ -124,7 +124,7 @@
             "packages" : {
                 
             },
-            "version" : "2.0.6",
+            "version" : "2.0.7",
             "automated_flags" : {
                 "include_in_ui" : true,
                 "generate_docs" : true,
@@ -143,7 +143,7 @@
             "packages" : {
                 
             },
-            "version" : "2.0.9",
+            "version" : "2.0.10",
             "automated_flags" : {
                 "include_in_ui" : false,
                 "generate_docs" : false,
@@ -163,7 +163,7 @@
             "packages" : {
                 
             },
-            "version" : "0.1.5",
+            "version" : "0.1.6",
             "automated_flags" : {
                 "include_in_ui" : false,
                 "generate_docs" : true,
