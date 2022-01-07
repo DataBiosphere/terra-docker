@@ -1,11 +1,11 @@
 [
   {
-    "updated": "2021-05-05", 
-    "image": "us.gcr.io/broad-dsp-gcr-public/terra-jupyter-bioconductor:1.0.14", 
-    "label": "Legacy R / Bioconductor (R 4.0.5, Bioconductor 3.12, Python 3.8.5)", 
-    "version": "1.0.14", 
+    "updated": "2021-10-07", 
+    "image": "us.gcr.io/broad-dsp-gcr-public/terra-jupyter-bioconductor:2.0.2", 
+    "label": "Legacy R / Bioconductor (R 4.1.1, Bioconductor 3.13, Python 3.7.10)", 
+    "version": "2.0.2", 
     "requiresSpark": false, 
-    "packages": "https://storage.googleapis.com/terra-docker-image-documentation/terra-jupyter-bioconductor-1.0.14-versions.json", 
+    "packages": "https://storage.googleapis.com/terra-docker-image-documentation/terra-jupyter-bioconductor-2.0.2-versions.json", 
     "id": "terra-jupyter-bioconductor_legacy"
   },
   {
