@@ -9,10 +9,6 @@ USER root
 #######################
 ENV DEBIAN_FRONTEND noninteractive
 
-RUN sudo -i \
-    echo "deb http://security.ubuntu.com/ubuntu/ bionic-security main" >> /etc/apt/sources.list \
-    sudo apt update && apt-cache policy libssl1.0.0
-
 RUN apt-get update && apt-get install -yq --no-install-recommends \
 
     # gnupg requirement
@@ -45,7 +41,6 @@ RUN apt-get update && apt-get install -yq --no-install-recommends \
     tk-dev \
     libffi-dev \
     liblzma-dev \
-    libexempi3 \
     python-openssl \
 
     # install script requirements
