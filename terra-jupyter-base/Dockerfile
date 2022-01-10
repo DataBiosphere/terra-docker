@@ -31,7 +31,7 @@ RUN apt-get update && apt-get install -yq --no-install-recommends \
     zlib1g-dev \
 
     # pip requirements
-    libssl1.0-dev \
+    libssl-dev \
     libbz2-dev \
     libreadline-dev \
     libsqlite3-dev \
