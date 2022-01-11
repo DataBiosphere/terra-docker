@@ -9,6 +9,10 @@ USER root
 #######################
 ENV DEBIAN_FRONTEND noninteractive
 
+RUN sudo -i \
+    echo "deb http://security.ubuntu.com/ubuntu/ bionic main" >> /etc/apt/sources.list \
+    sudo apt update libexempi3
+
 RUN apt-get update && apt-get install -yq --no-install-recommends \
 
     # gnupg requirement
@@ -42,7 +46,7 @@ RUN apt-get update && apt-get install -yq --no-install-recommends \
     libffi-dev \
     liblzma-dev \
     python-openssl \
-
+    libexempi3 \
     # install script requirements
     sudo \
     locales \
