@@ -10,6 +10,10 @@ This is also a good opportunity to verify that all the appropriate image version
 
 You can also run `amm ./updateVersions.sc <image name> <release note>` to upgrade derived images. If you're updating `terra-jupyter-aou` image, please make a pull request similar to [this PR](https://github.com/DataBiosphere/leonardo/pull/1612) (less updating `terra_jupyter_aou_old`).
 
+## Legacy Image Versioning
+
+We have two legacy images - `terra-jupyter-gatk_legacy` and `terra-jupyter-bioconductor_legacy`. The version of these legacy images is the version prior to a major or minor version bump. For example, if `terra-jupyter-gatk` is at version `2.1.3` and we release either `3.0.0` (major version bump) or `2.2.0` (minor version bump) then the `terra-jupyter-gatk_legacy` would be `2.1.3`.
+
 ## External Contributions
 
 If you are from outside the Broad, don't worry about adding a JIRA issue number to PRs. More to come on external contributions.
