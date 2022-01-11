@@ -69,20 +69,22 @@ def get_legacy_image(new_version, remote_doc, current_legacy_img):
   current_version_major = int(current_version[0])
   # major version bump
   if new_version_major > current_version_major and (new_version_minor == 0 and new_version_patch == 0):
-    return generate_legacy_label(remote_doc)
+    return generate_new_legacy_doc(remote_doc)
   # minor version bump
   elif new_version_minor > current_version_minor and (new_version_patch == 0 and current_version_major == new_version_major):
-    return generate_legacy_label(remote_doc)
+    return generate_new_legacy_doc(remote_doc)
   # patch version bump or no version bump
   else:
     return current_legacy_img
 
-def generate_legacy_label(doc):
+def generate_new_legacy_doc(doc):
   if "terra-jupyter-bioconductor" in doc["image"]:
     doc["label"] = "Legacy " + doc["label"]
+    doc["id"] = "terra-jupyter-bioconductor_legacy"
     return doc
   else:
     doc["label"] = doc["label"].replace("Default", "Legacy GATK")
+    doc["id"] = "terra-jupyter-gatk_legacy"
     return doc
 
 def generate_doc_for_image(image_config):
