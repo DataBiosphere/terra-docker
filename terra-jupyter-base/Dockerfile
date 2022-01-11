@@ -47,6 +47,7 @@ RUN apt-get update && apt-get install -yq --no-install-recommends \
     liblzma-dev \
     python-openssl \
     libexempi3 \
+    libnode-dev \
     # install script requirements
     sudo \
     locales \
