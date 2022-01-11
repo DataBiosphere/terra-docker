@@ -12,7 +12,10 @@ ENV DEBIAN_FRONTEND noninteractive
 RUN sudo -i \
     echo "deb http://security.ubuntu.com/ubuntu/ bionic main" >> /etc/apt/sources.list \
     sudo apt update libexempi3 \
-    sudo apt update libv8-3.14-dev
+
+RUN sudo -i \
+    echo "deb http://security.ubuntu.com/ubuntu/ bionic universe" >> /etc/apt/sources.list \
+    sudo apt update libv8-3.14-dev \
 
 
 RUN apt-get update && apt-get install -yq --no-install-recommends \
@@ -49,7 +52,7 @@ RUN apt-get update && apt-get install -yq --no-install-recommends \
     liblzma-dev \
     python-openssl \
     libexempi3 \
-    libnode-dev \
+    libv8-3.14-dev \
     # install script requirements
     sudo \
     locales \
