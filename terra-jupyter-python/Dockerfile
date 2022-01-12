@@ -91,8 +91,6 @@ RUN pip3 -V \
  && sed -i 's/pd.tslib.Timestamp/pd.Timestamp/g' /opt/conda/lib/python3.7/site-packages/ggplot/stats/smoothers.py \
  && sed -i 's/pd.tslib.Timestamp/pd.Timestamp/g' /opt/conda/lib/python3.7/site-packages/ggplot/utils.py
 
-#Install intel optimizations, which are available by default on the Anaconda defaults channel, update numpy/scipy if possible with onemkl optimizations
-RUN conda install numpy scipy numba modin --force-reinstall
 
 ENV USER jupyter
 USER $USER
