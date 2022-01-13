@@ -46,7 +46,7 @@ ENV PYSPARK_PYTHON=python3
 RUN pip3 install pypandoc \
       nbstripout \
       papermill \
-      "git+git://github.com/all-of-us/workbench-snippets.git#egg=terra_widgets&subdirectory=py" \
+      "git+https://github.com/all-of-us/workbench-snippets.git#egg=terra_widgets&subdirectory=py" \
     && pip3 install --no-dependencies hail==$HAIL_VERSION \
     && X=$(mktemp -d) \
     && mkdir -p $X \
