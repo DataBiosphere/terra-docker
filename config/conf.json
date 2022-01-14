@@ -26,7 +26,7 @@
                     "tidyverse"
                 ]
             },
-            "version" : "2.0.3",
+            "version" : "2.0.4",
             "automated_flags" : {
                 "generate_docs" : true,
                 "include_in_ui" : true,
