@@ -34,7 +34,6 @@ RUN apt-get update \
 	apt-utils \
 	libssh2-1-dev \
 	libssl-dev \
-	libc++-dev\ 
 	libcurl4-gnutls-dev \
 	libgit2-dev \
 	libxml2-dev \
