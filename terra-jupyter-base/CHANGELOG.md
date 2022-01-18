@@ -1,6 +1,6 @@
 ## 1.0.3 - 2022-01-06T18:21:41.124056Z
 
-- Bumping Google Deeplearning image to 2.7, removing gcc-6 install due to package problems
+- Bumping Google Deeplearning image to 2.7, removing gcc-6 and gcc-8 install due to package problems
 
 Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-base:1.0.3`
 
