@@ -1,14 +1,22 @@
 # adapted from https://hub.docker.com/r/jupyter/base-notebook/ AKA https://github.com/jupyter/docker-stacks/tree/master/base-notebook
 
-FROM gcr.io/deeplearning-platform-release/tf2-gpu.2-6
-# TODO When upgrading to a newer version of Tensorflow, be sure to remove the
-# package version pin on Keras in file terra-jupyter-python/Dockerfile.
+FROM gcr.io/deeplearning-platform-release/tf-gpu.2-7
+
 USER root
 
 #######################
 # Prerequisites
 #######################
 ENV DEBIAN_FRONTEND noninteractive
+
+RUN sudo -i \
+    echo "deb http://security.ubuntu.com/ubuntu/ bionic main" >> /etc/apt/sources.list \
+    sudo apt update libexempi3
+
+RUN sudo -i \
+    echo "deb http://us.archive.ubuntu.com/ubuntu/ bionic universe" >> /etc/apt/sources.list \
+    sudo apt update libv8-3.14-dev
+
 
 RUN apt-get update && apt-get install -yq --no-install-recommends \
 
@@ -24,8 +32,6 @@ RUN apt-get update && apt-get install -yq --no-install-recommends \
     procps \
 
     lsb-release \
-    gcc-6 \
-    gcc-8 \
 
     # python requirements
     checkinstall \
@@ -33,7 +39,7 @@ RUN apt-get update && apt-get install -yq --no-install-recommends \
     zlib1g-dev \
 
     # pip requirements
-    libssl1.0-dev \
+    libssl-dev \
     libbz2-dev \
     libreadline-dev \
     libsqlite3-dev \
@@ -44,7 +50,8 @@ RUN apt-get update && apt-get install -yq --no-install-recommends \
     libffi-dev \
     liblzma-dev \
     python-openssl \
-
+    libexempi3 \
+    libv8-3.14-dev \
     # install script requirements
     sudo \
     locales \
@@ -133,8 +140,6 @@ RUN chown -R $USER:users $JUPYTER_HOME \
 # Disable nb_conda for now. Consider re-enable in the future
  && jupyter nbextension disable nb_conda --py --sys-prefix \
  && find $JUPYTER_HOME/scripts -name '*.sh' -type f | xargs chmod +x \
- && update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-6 200 \
- && update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-8 100 \
 #  You can get kernel directory by running `jupyter kernelspec list`
  && $JUPYTER_HOME/scripts/kernel/kernelspec.sh $JUPYTER_HOME/scripts/kernel /opt/conda/share/jupyter/kernels
 
