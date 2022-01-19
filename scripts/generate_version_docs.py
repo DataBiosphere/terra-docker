@@ -29,15 +29,15 @@ def generate_docs():
 
   print "current versions detected: " + str(remote_versions)
 
-  legacy_gatk_doc = {}
-  legacy_bioconductor_doc = {}
+  legacy_gatk_doc = filter(lambda remote_doc: remote_doc["id"] == "terra-jupyter-gatk_legacy", remote_docs)[0]
+  legacy_bioconductor_doc = utils.read_json_file(static_config_location)[0] # hard coding this until next bioconductor release (~06/2022)
 
   for image_config in image_configs:
-      # Here we check first if the remote documentation exists, then if the local version is the same as the remote. 
+      # Here we check first if the remote documentation exists, then if the local version is the same as the remote.
       # If the remote documentation exists and the version matches the local, we re-use the old documentation
 
+      remote_doc = list(filter(lambda image_doc: image_doc["id"] == image_config["name"], remote_docs))[0]
       if image_config["name"] in remote_versions and image_config["version"] == remote_versions[image_config["name"]]:
-        remote_doc = list(filter(lambda image_doc: image_doc["id"] == image_config["name"], remote_docs))[0]
         print "using remote doc: {}".format(remote_doc)
         doc = remote_doc
       else:
@@ -45,20 +45,21 @@ def generate_docs():
 
       #Computing legacy  images for gatk and bioconductor
       if image_config["name"] == "terra-jupyter-gatk":
-        legacy_gatk_doc = get_legacy_image(image_config["version"], doc)
+        legacy_gatk_doc = get_legacy_image(image_config["version"], remote_doc, legacy_gatk_doc)
 
-      if image_config["name"] == "terra-jupyter-bioconductor":
-        legacy_bioconductor_doc = get_legacy_image(image_config["version"], doc)
-            
+      # TODO: add back in after next bioconductor release (~06/2022)
+      #if image_config["name"] == "terra-jupyter-bioconductor":
+        #legacy_bioconductor_doc = get_legacy_image(image_config["version"], doc)
+
       docs.append(doc)
 
   docs.extend(get_other_docs())
   docs.extend([legacy_gatk_doc, legacy_bioconductor_doc])
   return docs
 
-def get_legacy_image(new_version, remote_doc):
+def get_legacy_image(new_version, remote_doc, current_legacy_img):
   print "generating legacy image"
-  new_version = new_version.split(".") 
+  new_version = new_version.split(".")
   new_version_patch = int(new_version[2])
   new_version_minor = int(new_version[1])
   new_version_major = int(new_version[0])
@@ -68,23 +69,22 @@ def get_legacy_image(new_version, remote_doc):
   current_version_major = int(current_version[0])
   # major version bump
   if new_version_major > current_version_major and (new_version_minor == 0 and new_version_patch == 0):
-    return generate_legacy_label(remote_doc)
+    return generate_new_legacy_doc(remote_doc)
   # minor version bump
   elif new_version_minor > current_version_minor and (new_version_patch == 0 and current_version_major == new_version_major):
-    return generate_legacy_label(remote_doc)
-  else: # TODO: remove this code after gatk and bioconductor images have a major or minor version bump
-    #if no  major or minor version bump, hardcode legacy  images
-    if "terra-jupyter-bioconductor" in remote_doc["image"]:
-      return utils.read_json_file(static_config_location)[0]
-    else:
-      return utils.read_json_file(static_config_location)[1]
+    return generate_new_legacy_doc(remote_doc)
+  # patch version bump or no version bump
+  else:
+    return current_legacy_img
 
-def generate_legacy_label(doc):
+def generate_new_legacy_doc(doc):
   if "terra-jupyter-bioconductor" in doc["image"]:
     doc["label"] = "Legacy " + doc["label"]
+    doc["id"] = "terra-jupyter-bioconductor_legacy"
     return doc
   else:
     doc["label"] = doc["label"].replace("Default", "Legacy GATK")
+    doc["id"] = "terra-jupyter-gatk_legacy"
     return doc
 
 def generate_doc_for_image(image_config):

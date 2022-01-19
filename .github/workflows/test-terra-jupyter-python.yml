@@ -34,6 +34,10 @@ on:
 
 env:
   GOOGLE_PROJECT: ${{ secrets.GCP_PROJECT_ID }}
+  # Set the environment variables that are normally passed at runtime. https://github.com/DataBiosphere/leonardo/search?q=PIP_TARGET
+  PIP_USER: "false"
+  PIP_TARGET: "/home/jupyter/notebooks/packages"
+  R_LIBS: "/home/jupyter/notebooks/packages"
 
 jobs:
 
@@ -52,12 +56,16 @@ jobs:
     - name: Free up some disk space
       run: sudo rm -rf /usr/share/dotnet    
 
+    - id: auth
+      uses: google-github-actions/auth@v0
+      with:
+        credentials_json: ${{ secrets.GCP_SA_KEY }}
+        create_credentials_file: true
+
     - name: Set up Cloud SDK
-      uses: google-github-actions/setup-gcloud@master
+      uses: google-github-actions/setup-gcloud@v0.3.0
       with:
         project_id: ${{ secrets.GCP_PROJECT_ID }}
-        service_account_key: ${{ secrets.GCP_SA_KEY }}
-        export_default_credentials: true
 
     - name: Build Docker image and base images too, if needed
       run: |
@@ -71,9 +79,13 @@ jobs:
       # workflow for notebooks is needed in the future.
       run: |
         chmod a+w $GITHUB_WORKSPACE/terra-jupyter-python/tests
+        chmod a+r "${{ steps.auth.outputs.credentials_file_path }}"
         docker run \
           --env GOOGLE_PROJECT \
-          --volume "${{ env.GOOGLE_APPLICATION_CREDENTIALS }}:/tmp/credentials.json:ro" \
+          --env PIP_USER \
+          --env PIP_TARGET \
+          --env R_LIBS \
+          --volume "${{ steps.auth.outputs.credentials_file_path }}":/tmp/credentials.json:ro \
           --env GOOGLE_APPLICATION_CREDENTIALS="/tmp/credentials.json" \
           --volume $GITHUB_WORKSPACE/terra-jupyter-python/tests:/tests \
           --workdir=/tests \
@@ -90,15 +102,21 @@ jobs:
 
     - name: Test Python code with pytest
       run: |
+        chmod a+r "${{ steps.auth.outputs.credentials_file_path }}"
         docker run \
           --env GOOGLE_PROJECT \
-          --volume "${{ env.GOOGLE_APPLICATION_CREDENTIALS }}:/tmp/credentials.json:ro" \
+          --env PIP_USER \
+          --env PIP_TARGET \
+          --env R_LIBS \
+          --volume "${{ steps.auth.outputs.credentials_file_path }}":/tmp/credentials.json:ro \
           --env GOOGLE_APPLICATION_CREDENTIALS="/tmp/credentials.json" \
           --volume $GITHUB_WORKSPACE/terra-jupyter-python/tests:/tests \
           --workdir=/tests \
           --entrypoint="" \
           terra-jupyter-python:smoke-test \
-          /bin/sh -c "pip3 install pytest; pytest"
+          /bin/sh -c "pip3 install --no-deps pytest iniconfig pluggy py; pytest"
+          # Use --no-deps to avoid an unneccessary upgrade of pyparsing which then causes tensorflow tests to fail.
+          # TODO: whenever we no longer need to pin pyparsing, simplify the above command to 'pip3 install pytest ; pytest'
 
     - name: Test Python code specific to notebooks with nbconvert
       # Simply 'Cell -> Run All` these notebooks and expect no errors in the case of a successful run of the test suite.
@@ -106,9 +124,13 @@ jobs:
       # artifacts to understand if there are more failures than just the one that caused this task to halt.
       run: |
         chmod a+w $GITHUB_WORKSPACE/terra-jupyter-python
+        chmod a+r "${{ steps.auth.outputs.credentials_file_path }}"
         docker run \
           --env GOOGLE_PROJECT \
-          --volume "${{ env.GOOGLE_APPLICATION_CREDENTIALS }}:/tmp/credentials.json:ro" \
+          --env PIP_USER \
+          --env PIP_TARGET \
+          --env R_LIBS \
+          --volume "${{ steps.auth.outputs.credentials_file_path }}":/tmp/credentials.json:ro \
           --env GOOGLE_APPLICATION_CREDENTIALS="/tmp/credentials.json" \
           --volume $GITHUB_WORKSPACE/terra-jupyter-python/tests:/tests \
           --workdir=/tests \

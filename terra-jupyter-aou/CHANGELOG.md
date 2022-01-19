@@ -1,3 +1,32 @@
+## 2.0.10 - 2022-01-06T18:21:41.240337Z
+
+- Update `terra-jupyter-base` to `1.0.3`
+  - Bumping Google Deeplearning image to 2.7, removing gcc-6 and gcc-8 install due to package problems
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-aou:2.0.10`
+
+## 2.0.9 - 2021-12-14T19:48:03.857067Z
+
+- Update `terra-jupyter-r` to `2.0.3`
+  - Update Terra Jupyter image to use latest Bioconductor 3.14
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-aou:2.0.9`
+
+## 2.0.8 - 2021-12-16
+
+- Bump Hail version to 0.2.74
+
+## 2.0.7 - 2021-12-15T18:29:12.526374Z
+- Update `terra-jupyter-gatk` base image to `2.0.5`
+  - Upgrade gatk image to 4.2.4.0
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-aou:2.0.7`
+
+## 2.0.6 - 2021-12-13
+
+- Update `terra-jupyter-gatk` base image to `2.0.4`
+  - Update AsyncMappingKernelManager https://github.com/jupyter/notebook/issues/6164
+
 ## 2.0.5 - 2021-12-02T21:50:37.297833
 
 - Fix nextflow install path.
@@ -12,8 +41,6 @@ Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-aou:2.0.4`
 
 ## 2.0.3 - 2021-10-07T14:47:43.445699Z
 
-- Update `terra-jupyter-base` to `1.0.2`
-  - Update AsyncMappingKernelManager https://github.com/jupyter/notebook/issues/6164
 - Unpinning cwltool version and updating protobuf version to 3.18
 
 Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-aou:2.0.3`
