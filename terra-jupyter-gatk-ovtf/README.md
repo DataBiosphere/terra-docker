@@ -33,6 +33,7 @@ If you prefer to use CUDA-enabled GPU devices, DONOT import openvino_tensorflow
 ```
 import tensorflow 
 # CPU and GPU support available. openvino_tensorflow is disabled
+tf.config.list_physical_devices()
 ```
 
 #### Scenario #2: Use OpenVINO™ integration with TensorFlow
