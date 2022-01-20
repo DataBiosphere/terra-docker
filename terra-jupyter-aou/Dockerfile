@@ -1,4 +1,4 @@
-FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-gatk:2.0.3
+FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-gatk:2.0.6
 
 USER root
 
@@ -34,7 +34,7 @@ RUN mkdir -p /etc/spark/conf.dist && mkdir -p /etc/hadoop/conf.empty && mkdir -p
     && update-alternatives --install /etc/hadoop/conf hadoop-conf /etc/hadoop/conf.empty 100 \
     && update-alternatives --install /etc/hive/conf hive-conf /etc/hive/conf.dist 100
 
-ENV HAIL_VERSION=0.2.62
+ENV HAIL_VERSION=0.2.74
 ENV PIP_USER=false
 
 # For dataproc clusters, this path with will be automatically mounted. Else,
@@ -46,7 +46,7 @@ ENV PYSPARK_PYTHON=python3
 RUN pip3 install pypandoc \
       nbstripout \
       papermill \
-      "git+git://github.com/all-of-us/workbench-snippets.git#egg=terra_widgets&subdirectory=py" \
+      "git+https://github.com/all-of-us/workbench-snippets.git#egg=terra_widgets&subdirectory=py" \
     && pip3 install --no-dependencies hail==$HAIL_VERSION \
     && X=$(mktemp -d) \
     && mkdir -p $X \
@@ -75,7 +75,7 @@ RUN mkdir -p /tmp/plink && \
   rm -rf /tmp/plink
 
 # BOLT-LMM install
-ENV BOLT_LMM_VERSION v2.3.5
+ENV BOLT_LMM_VERSION v2.3.6
 RUN mkdir -p /tmp/bolt-lmm && \
   cd /tmp/bolt-lmm && \
   curl -L -o bolt-lmm.tar.gz "https://storage.googleapis.com/broad-alkesgroup-public/BOLT-LMM/downloads/BOLT-LMM_${BOLT_LMM_VERSION}.tar.gz" && \
@@ -124,6 +124,17 @@ RUN mkdir -p /tmp/bcftools && \
     make install && \
     cd $HOME && \
     rm -rf /tmp/bcftools
+
+# Install Nextflow
+ENV NXF_MODE google
+RUN mkdir -p /tmp/nextflow && \
+  cd /tmp/nextflow && \
+  curl -s https://get.nextflow.io | bash && \
+  mv nextflow /bin/nextflow && \
+  cd $HOME && \
+  chmod 777 /bin/nextflow && \
+  chown -R $USER:users $HOME/.nextflow && \
+  rm -rf /tmp/nextflow
 
 ENV USER jupyter
 USER $USER

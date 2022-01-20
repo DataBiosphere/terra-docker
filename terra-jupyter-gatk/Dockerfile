@@ -1,6 +1,6 @@
-FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-python:1.0.2 AS python
+FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-python:1.0.3 AS python
 
-FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-r:2.0.2
+FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-r:2.0.4
 
 # copy everything pip installed from the python image
 COPY --from=python /opt/conda/lib/python3.7/site-packages /opt/conda/lib/python3.7/site-packages
@@ -29,7 +29,7 @@ RUN apt-get update && apt-get install -yq --no-install-recommends \
   && rm -rf /var/lib/apt/lists/*
 
 # Install GATK
-ENV GATK_VERSION 4.2.0.0
+ENV GATK_VERSION 4.2.4.0
 ENV GATK_ZIP_PATH /tmp/gatk-${GATK_VERSION}.zip
 
 RUN curl -L -o $GATK_ZIP_PATH https://github.com/broadinstitute/gatk/releases/download/$GATK_VERSION/gatk-$GATK_VERSION.zip \

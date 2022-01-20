@@ -1,3 +1,15 @@
+## 1.0.4 - 2022-01-06T18:21:41.170621Z
+
+- Update `terra-jupyter-base` to `1.0.3`
+  - Bumping Google Deeplearning image to 2.7, removing gcc-6 and gcc-8 install due to package problems
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-hail:1.0.4`
+
+## 1.0.3 - 2021-11-18
+
+- Update `hail` to `0.2.74`
+  - See https://hail.is/docs/0.2/change_log.html#version-0-2-74 for details.
+
 ## 1.0.2 - 2021-10-07T14:47:43.375974Z
 
 - Update `terra-jupyter-base` to `1.0.2`
@@ -230,16 +242,16 @@ Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-hail:0.0.5`
 
 Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-hail:0.0.4`
 
-## 0.0.3 - 11/16/2019 
+## 0.0.3 - 11/16/2019
 
 - Update to use python 0.0.4
-- Remove apt-get upgrade for security purposes 
+- Remove apt-get upgrade for security purposes
 
 Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-hail:0.0.3`
 
-## 0.0.2 - 10/10/2019 
+## 0.0.2 - 10/10/2019
 
-Update to use python 0.0.2 
+Update to use python 0.0.2
 
 Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-hail:0.0.2`
 

@@ -10,17 +10,17 @@
 },
 {
     "id": "RStudio",
-    "label": "RStudio (R 4.1.0, Bioconductor 3.13, Python 3.8.5)",
-    "version": "3.13.3",
-    "updated": "2021-09-29",
+    "label": "RStudio (R 4.1.2, Bioconductor 3.14, Python 3.8.5)",
+    "version": "3.14.0",
+    "updated": "2021-11-09",
     "packages": "https://storage.googleapis.com/terra-docker-image-documentation/placeholder.json",
-    "image": "us.gcr.io/anvil-gcr-public/anvil-rstudio-bioconductor:3.13.3",
+    "image": "us.gcr.io/anvil-gcr-public/anvil-rstudio-bioconductor:3.14.0",
     "requiresSpark": false,
     "isRStudio": true
 },
 {
     "id": "OpenVINO integration with Tensorflow",
-    "label": "OpenVINO integration with Tensorflow (openvino-tensorflow 0.5.0, Python 3.7.10, GATK 4.2.0.0)",
+    "label": "OpenVINO integration with Tensorflow (openvino-tensorflow 0.5.0, Python 3.7.10, GATK 4.2.4.0)",
     "version": "0.1.0",
     "updated": "2021-08-31",
     "packages": "https://storage.googleapis.com/terra-docker-image-documentation/terra-jupyter-gatk-ovtf-0.1.0-versions.json",
