@@ -30,15 +30,19 @@ Enabling OpenVINO™ integration with TensorFlow disables TensorFlow GPU support
 If you prefer to use CUDA-enabled GPU devices, DONOT import openvino_tensorflow
 
 #### Scenario #1: Use CUDA-enabled GPU devices with native Tensorflow.
+After installing CUDA drivers in the host machine, you will need to start the docker with `--gpus all` to enable GPU devices inside docker container. 
+
+Example: `docker run --gpus all --rm -it -p 8000:8000 terra-jupyter-gatk-ovtf`, Then navigate a browser to http://localhost:8000/notebooks to access the Jupyter UI. 
+
 ```
-import tensorflow 
+import tensorflow as tf
 # CPU and GPU support available. openvino_tensorflow is disabled
 tf.config.list_physical_devices()
 ```
 
 #### Scenario #2: Use OpenVINO™ integration with TensorFlow
 ```
-import tensorflow 
+import tensorflow as tf
 import openvino_tensorflow as ovtf
 ovtf.set_backend("CPU")
 
