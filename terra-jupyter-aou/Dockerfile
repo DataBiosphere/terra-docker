@@ -74,6 +74,23 @@ RUN mkdir -p /tmp/plink && \
   cd $HOME && \
   rm -rf /tmp/plink
 
+RUN mkdir -p /tmp/plink2 && \
+  cd /tmp/plink2 && \
+  curl -L -o plink2.zip "https://s3.amazonaws.com/plink2-assets/alpha2/plink2_linux_x86_64.zip" && \
+  unzip plink2.zip && \
+  mv plink2 /bin/plink2 && \
+  cd $HOME && \
+  rm -rf /tmp/plink2
+
+RUN mkdir -p /tmp/prsice && \
+  cd /tmp/prsice && \
+  curl -L -o prsice.zip https://github.com/choishingwan/PRSice/releases/download/2.3.5/PRSice_linux.zip && \
+  unzip prsice.zip && \
+  rm prsice.zip && \
+  cd $HOME && \
+  mv /tmp/prsice /opt/prsice && \
+  ln -s "/opt/prsice/PRsice_linux" /bin/prsice
+
 # BOLT-LMM install
 ENV BOLT_LMM_VERSION v2.3.6
 RUN mkdir -p /tmp/bolt-lmm && \
@@ -113,17 +130,38 @@ RUN curl -SL --output dotnet.tar.gz "https://dotnetcli.azureedge.net/dotnet/Runt
     && unzip -d /opt/nirvana nirvana.zip \
     && rm nirvana.zip
 
+ENV GCTA_VERSION=v1.94.0Beta
+RUN mkdir -p /tmp/gcta && \
+    cd /tmp/gcta && \
+    curl -L -o gcta.zip "https://yanglab.westlake.edu.cn/software/gcta/bin/gcta_${GCTA_VERSION}_linux_kernel_4_x86_64.zip" && \
+    unzip gcta.zip && \
+    mv "gcta_${GCTA_VERSION}_linux_kernel_4_x86_64/gcta_${GCTA_VERSION}_linux_kernel_4_x86_64_static" /bin/gcta && \
+    cd $HOME && \
+    rm -rf /tmp/gcta
+
 # Install bcftools
 RUN mkdir -p /tmp/bcftools && \
     cd /tmp/bcftools && \
-    wget https://github.com/samtools/bcftools/releases/download/1.12/bcftools-1.12.tar.bz2 && \
-    bzip2 -d bcftools-1.12.tar.bz2 && \
-    tar xvf bcftools-1.12.tar && \
+    curl -L -o bcftools.tar.bz2 https://github.com/samtools/bcftools/releases/download/1.12/bcftools-1.12.tar.bz2 && \
+    bzip2 -d bcftools.tar.bz2 && \
+    tar xvf bcftools.tar && \
     cd bcftools-1.12 && \
     make && \
     make install && \
     cd $HOME && \
     rm -rf /tmp/bcftools
+
+# Install vcftools
+RUN mkdir -p /tmp/vcftools && \
+    cd /tmp/vcftools && \
+    curl -L -o vcftools.tar.gz https://github.com/vcftools/vcftools/releases/download/v0.1.16/vcftools-0.1.16.tar.gz && \
+    tar xvzf vcftools.tar.gz && \
+    cd vcftools-0.1.16 && \
+    ./configure && \
+    make && \
+    make install && \
+    cd $HOME && \
+    rm -rf /tmp/vcftools
 
 # Install Nextflow
 ENV NXF_MODE google
