@@ -2,7 +2,7 @@
 
 - Add additional genomics tools: gcta, PRsice, vcftools, plink2
 
-Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-aou:2.0.10`
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-aou:2.0.11`
 
 ## 2.0.10 - 2022-01-06T18:21:41.240337Z
 
