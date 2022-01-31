@@ -26,13 +26,13 @@ This repo provides a sample notebook [GATK-OVTF-Notebook.ipynb](./GATK-OVTF-Note
 
 ## Note on CUDA-enabled GPU devices Support
 
-Enabling OpenVINO™ integration with TensorFlow disables TensorFlow GPU support for CUDA-enabled devices in this docker image.
+Enabling OpenVINO™ integration with TensorFlow disables TensorFlow GPU support for CUDA-enabled devices in this docker image. 
 If you prefer to use CUDA-enabled GPU devices, DONOT import openvino_tensorflow
 
 #### Scenario #1: Use CUDA-enabled GPU devices with native Tensorflow.
-After installing CUDA drivers in the host machine, you will need to start the docker with `--gpus all` to enable GPU devices inside docker container.
+After installing CUDA drivers in the host machine, you will need to start the docker with `--gpus all` to enable GPU devices inside docker container. 
 
-Example: `docker run --gpus all --rm -it -p 8000:8000 terra-jupyter-gatk-ovtf`, Then navigate a browser to http://localhost:8000/notebooks to access the Jupyter UI.
+Example: `docker run --gpus all --rm -it -p 8000:8000 terra-jupyter-gatk-ovtf`, Then navigate a browser to http://localhost:8000/notebooks to access the Jupyter UI. 
 
 ```
 import tensorflow as tf
@@ -56,10 +56,10 @@ If you prefer to use GATK with CUDA-enabled GPU devices, then OpenVINO integrati
 ```   
 ! export OPENVINO_TF_DISABLE=1
 ```
-
+ 
 #### Scenario #4: Use OpenVINO™ integration with TensorFlow with CUDA-enabled GPU devices
 
-Not Supported.
+Not Supported. 
 
 ---------
 
