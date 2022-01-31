@@ -59,7 +59,7 @@ COPY ovtf-cuda-disabling.patch /etc/gatk-$GATK_VERSION/ovtf-cuda-disabling.patch
 RUN cd /opt/conda/lib/python3.7/site-packages/vqsr_cnn/vqsr_cnn/ \
     && patch -p1 < /etc/gatk-$GATK_VERSION/gatk-ovtf.patch
 
-# Apply patch to OVTF to disable CUDA devices if OVTF is enabled. 
+# Apply patch to OVTF to disable CUDA devices if OVTF is enabled.
 RUN cd /opt/conda/lib/python3.7/site-packages/openvino_tensorflow/ \
     && patch __init__.py < /etc/gatk-$GATK_VERSION/ovtf-cuda-disabling.patch
 
