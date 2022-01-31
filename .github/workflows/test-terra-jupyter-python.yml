@@ -34,9 +34,7 @@ on:
 
 env:
   GOOGLE_PROJECT: ${{ secrets.GCP_PROJECT_ID }}
-  # Set the environment variables that are normally passed at runtime. https://github.com/DataBiosphere/leonardo/search?q=PIP_TARGET
   PIP_USER: "false"
-  PIP_TARGET: "/home/jupyter/notebooks/packages"
   R_LIBS: "/home/jupyter/notebooks/packages"
 
 jobs:
