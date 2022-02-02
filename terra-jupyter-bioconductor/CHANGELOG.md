@@ -1,3 +1,10 @@
+## 2.0.5 - 2022-02-02T20:47:42.326830Z
+
+- Update `terra-jupyter-base` to `1.0.4`
+  - update notebook_dir to $HOME; install scikit-learn-intelex, xgboost
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-bioconductor:2.0.5`
+
 ## 2.0.4 - 2022-01-06T18:21:41.155891Z
 
 - Update `terra-jupyter-base` to `1.0.3`

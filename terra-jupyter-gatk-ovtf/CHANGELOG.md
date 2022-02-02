@@ -1,3 +1,10 @@
+## 0.1.8 - 2022-02-02T20:47:42.409160Z
+
+- Update `terra-jupyter-base` to `1.0.4`
+  - update notebook_dir to $HOME; install scikit-learn-intelex, xgboost
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-gatk-ovtf:0.1.8`
+
 ## 0.1.7 - 2022-01-26T17:05:04.719540Z
 
 - OVTF1.1.0 released, Updated to GATK 4.2.4.1, TF2.7, GPU support enabled

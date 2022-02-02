@@ -1,3 +1,9 @@
+## 1.0.4 - 2022-02-02T20:47:42.308006Z
+
+- update notebook_dir to $HOME
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-base:1.0.4`
+
 ## 1.0.3 - 2022-01-06T18:21:41.124056Z
 
 - Bumping Google Deeplearning image to 2.7, removing gcc-6 and gcc-8 install due to package problems
