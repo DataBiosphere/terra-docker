@@ -29,27 +29,39 @@ RUN apt-get update && apt-get install -yq --no-install-recommends \
   && rm -rf /var/lib/apt/lists/* 
 
 # Install GATK
-ENV GATK_VERSION 4.2.4.0
+ENV GATK_VERSION 4.2.4.1
 ENV GATK_ZIP_PATH /tmp/gatk-${GATK_VERSION}.zip
 
 RUN curl -L -o $GATK_ZIP_PATH https://github.com/broadinstitute/gatk/releases/download/$GATK_VERSION/gatk-$GATK_VERSION.zip \
  && unzip -o $GATK_ZIP_PATH -d /etc/ \
  && ln -s /etc/gatk-$GATK_VERSION/gatk /bin/gatk
 
+# Install OpenVINO™ integration with TensorFlow (OVTF)
+ENV TF_VER 2.7.0
+ENV KERAS_VER 2.7.0
+ENV OVTF_VER 1.1.0
+ENV TF_ENABLE_ONEDNN_OPTS 1
+
 ENV PIP_USER=false
 
-# Force reinstalling TF-2.5.1, Keras-2.5.0 to satisfy OVTF compatibility.
-RUN pip install --force-reinstall tensorflow==2.5.1 keras==2.5.0rc0
+# Force reinstalling TF and Keras to satisfy OVTF compatibility.
+RUN pip install --force-reinstall tensorflow==$TF_VER keras==$KERAS_VER
 RUN conda install six typing_extensions --force-reinstall \
-    && pip install openvino_tensorflow==1.0.0 \
+    && pip install openvino_tensorflow==$OVTF_VER \
     && pip install matplotlib sklearn \
     && pip install /etc/gatk-$GATK_VERSION/gatkPythonPackageArchive.zip
 ENV PIP_USER=true
 
 COPY gatk-ovtf.patch /etc/gatk-$GATK_VERSION/gatk-ovtf.patch
+COPY ovtf-cuda-disabling.patch /etc/gatk-$GATK_VERSION/ovtf-cuda-disabling.patch
 
+# Apply patch to GATK to fix TFv2 compatibility. 
 RUN cd /opt/conda/lib/python3.7/site-packages/vqsr_cnn/vqsr_cnn/ \
     && patch -p1 < /etc/gatk-$GATK_VERSION/gatk-ovtf.patch
+
+# Apply patch to OVTF to disable CUDA devices if OVTF is enabled. 
+RUN cd /opt/conda/lib/python3.7/site-packages/openvino_tensorflow/ \
+    && patch __init__.py < /etc/gatk-$GATK_VERSION/ovtf-cuda-disabling.patch
 
 COPY --chown=jupyter:users run_gatk.sh /home/jupyter/run_gatk.sh
 COPY --chown=jupyter:users GATK-OVTF-Notebook.ipynb /home/jupyter/GATK-OVTF-Notebook.ipynb
