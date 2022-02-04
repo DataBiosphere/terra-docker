@@ -65,7 +65,7 @@ RUN pip3 -V \
    pysam --no-binary pysam \
    python-dateutil \
    pytz \
-   pyvcf \
+   pyvcf3 \
    theano \
    tqdm \
    werkzeug \
