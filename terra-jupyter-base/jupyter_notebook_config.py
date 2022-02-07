@@ -27,16 +27,6 @@ else:
 
 c.NotebookApp.base_url = '/notebooks' + fragment
 
-# Using an alternate notebooks_dir allows for mounting of a shared volume here.
-# The default notebook root dir is /home/jupyter, which is also the home
-# directory (which contains several other files on the image). We don't want
-# to mount there as it effectively deletes existing files on the image.
-# See https://docs.google.com/document/d/1b8wIydzC4D7Sbb6h2zWe-jCvoNq-bbD02CT1cnKLbGk
-if os.environ.get('WELDER_ENABLED') == 'true':
-  # Only enable this along with Welder, as this change is backwards incompatible
-  # for older localization users.
-  c.NotebookApp.notebook_dir = os.environ.get('NOTEBOOKS_DIR', '/home/jupyter/notebooks')
-
 # This is also specified in run-jupyter.sh
 c.NotebookApp.nbserver_extensions = {
     'jupyter_localize_extension': True

@@ -1,3 +1,10 @@
+## 1.0.4 - 2022-02-02T20:47:42.360741Z
+
+- Update `terra-jupyter-base` to `1.0.4`
+  - update notebook_dir to $HOME; install scikit-learn-intelex, xgboost
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-python:1.0.4`
+
 ## 1.0.3 - 2022-01-06T18:21:41.192855Z
 
 - Update `terra-jupyter-base` to `1.0.3`

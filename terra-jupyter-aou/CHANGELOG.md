@@ -1,3 +1,10 @@
+## 2.0.12 - 2022-02-02T20:47:42.403024Z
+
+- Update `terra-jupyter-base` to `1.0.4`
+  - update notebook_dir to $HOME; install scikit-learn-intelex, xgboost
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-aou:2.0.12`
+
 ## 2.0.11 - 2022-01-25
 
 - Add additional genomics tools: gcta, PRsice, vcftools, plink2

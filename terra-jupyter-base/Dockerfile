@@ -92,11 +92,6 @@ RUN useradd -m -s /bin/bash -N -u $WELDER_UID $WELDER_USER
 # ensure this matches c.NotebookApp.port in jupyter_notebook_config.py
 ENV JUPYTER_PORT 8000
 ENV JUPYTER_HOME /etc/jupyter
-ENV USER_INSTALL_DIR /home/jupyter/notebooks/packages
-
-# Prepend existing PYTHONPATH if it's not empty; otherwise prepend it
-ENV PYTHONPATH ${PYTHONPATH:+$PYTHONPATH:}$JUPYTER_HOME/custom:$USER_INSTALL_DIR
-ENV PATH ${PATH:+$PATH:}$USER_INSTALL_DIR/bin
 
 RUN pip3 -V \
  # When we upgraded from jupyter 5.7.8 to 6.1.1, we broke terminal button on terra-ui.
@@ -123,10 +118,7 @@ ENV PIP_USER=true
 # When using PIP_USER=true packages are installed into Python site.USER_BASE, which is '/home/jupyter' for this system.
 # Append '/home/jupyter/.local/bin' to PATH
 # pip docs: https://pip.pypa.io/en/stable/reference/pip_install/#cmdoption-user
-ENV PATH="${PATH}:${HOME}/.local/bin"
-
-# Default terminal directory should be where PD is mounted
-RUN echo "cd ${HOME}/notebooks" >> ${HOME}/.bashrc
+ENV PATH="${PATH}:${HOME}/.local/bin:${HOME}/packages/bin"
 
 #######################
 # Utilities
