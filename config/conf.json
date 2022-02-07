@@ -47,7 +47,7 @@
                     "hail"
                 ]
             },
-            "version" : "1.0.5",
+            "version" : "1.0.6",
             "automated_flags" : {
                 "generate_docs" : true,
                 "include_in_ui" : true,
@@ -84,7 +84,7 @@
                 "python"
             ],
             "packages" : {
-                
+
             },
             "version" : "1.0.4",
             "automated_flags" : {
@@ -102,7 +102,7 @@
                 "r"
             ],
             "packages" : {
-                
+
             },
             "version" : "2.0.5",
             "automated_flags" : {
@@ -122,7 +122,7 @@
                 "r"
             ],
             "packages" : {
-                
+
             },
             "version" : "2.0.8",
             "automated_flags" : {
@@ -141,7 +141,7 @@
                 "r"
             ],
             "packages" : {
-                
+
             },
             "version" : "2.0.12",
             "automated_flags" : {
@@ -161,7 +161,7 @@
                 "r"
             ],
             "packages" : {
-                
+
             },
             "version" : "0.1.8",
             "automated_flags" : {
