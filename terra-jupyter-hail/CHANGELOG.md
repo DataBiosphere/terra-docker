@@ -1,10 +1,17 @@
-## 1.0.5 - 2022-02-01
+## 1.0.6 - 2022-02-07
 
 - Update `hail` to `0.2.83`
   - See https://hail.is/docs/0.2/change_log.html#version-0-2-83 for details
 
-Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-hail:1.0.5`
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-hail:1.0.6`
 
+
+## 1.0.5 - 2022-02-02T20:47:42.341058Z
+
+- Update `terra-jupyter-base` to `1.0.4`
+  - update notebook_dir to $HOME; install scikit-learn-intelex, xgboost
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-hail:1.0.5`
 
 ## 1.0.4 - 2022-01-06T18:21:41.170621Z
 

@@ -1,4 +1,4 @@
-FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-base:1.0.3
+FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-base:1.0.4
 USER root
 # This makes it so pip runs as root, not the user.
 ENV PIP_USER=false
@@ -52,7 +52,7 @@ RUN pip3 -V \
    html5lib \
    joblib \
    # Remove the version pin for keras when tensorflow is updated to 2.7 or higher.
-   keras \
+   keras==2.7.0 \
    patsy \
    pymc3 \
    # fix to 2.4.7 so that tensorflow still works
@@ -65,7 +65,7 @@ RUN pip3 -V \
    pysam --no-binary pysam \
    python-dateutil \
    pytz \
-   pyvcf \
+   pyvcf3 \
    theano \
    tqdm \
    werkzeug \
@@ -75,6 +75,10 @@ RUN pip3 -V \
    wheel \
    plotnine \
    google-resumable-media \
+   #adding intel optimized xgboost and intel extension for scikit-learn
+   scikit-learn-intelex \
+   xgboost \
+
  # Remove this after https://broadworkbench.atlassian.net/browse/CA-1179
  # As of release [google-cloud-bigquery 1.26.0 (2020-07-20)](https://github.com/googleapis/python-bigquery/blob/master/CHANGELOG.md#1260-2020-07-20)
  # the BigQuery Python client uses the BigQuery Storage client by default.
@@ -87,6 +91,7 @@ RUN pip3 -V \
  && sed -i 's/pandas.tslib.Timestamp/pandas.Timestamp/g' /opt/conda/lib/python3.7/site-packages/ggplot/stats/smoothers.py \
  && sed -i 's/pd.tslib.Timestamp/pd.Timestamp/g' /opt/conda/lib/python3.7/site-packages/ggplot/stats/smoothers.py \
  && sed -i 's/pd.tslib.Timestamp/pd.Timestamp/g' /opt/conda/lib/python3.7/site-packages/ggplot/utils.py
+
 
 ENV USER jupyter
 USER $USER
