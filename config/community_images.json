@@ -14,7 +14,7 @@
     "version": "3.14.1",
     "updated": "2022-02-08",
     "packages": "https://storage.googleapis.com/terra-docker-image-documentation/placeholder.json",
-    "image": "us.gcr.io/broad-dsp-gcr-public/anvil-rstudio-bioconductor:3.14.1-0",
+    "image": "us.gcr.io/broad-dsp-gcr-public/anvil-rstudio-bioconductor:3.14.1",
     "requiresSpark": false,
     "isRStudio": true
 },
