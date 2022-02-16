@@ -1,3 +1,9 @@
+## 1.0.7 - 2022-02-15
+- Update `hail` to `0.2.85`
+  - See https://hail.is/docs/0.2/change_log.html#version-0-2-85 for details
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-hail:1.0.7`
+
 ## 1.0.6 - 2022-02-07
 
 - Update `hail` to `0.2.83`
