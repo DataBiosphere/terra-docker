@@ -1,4 +1,4 @@
-FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-gatk:2.0.7
+FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-gatk:2.0.8
 
 USER root
 
@@ -26,36 +26,38 @@ RUN apt-get update && apt-get install -yq --no-install-recommends \
 
 # Spark setup.
 # Copied from terra-jupyter-hail; keep updated.
-
-# Note Spark and Hadoop are mounted from the outside Dataproc VM.
-# Make empty conf dirs for the update-alternatives commands.
-RUN mkdir -p /etc/spark/conf.dist && mkdir -p /etc/hadoop/conf.empty && mkdir -p /etc/hive/conf.dist \
-    && update-alternatives --install /etc/spark/conf spark-conf /etc/spark/conf.dist 100 \
-    && update-alternatives --install /etc/hadoop/conf hadoop-conf /etc/hadoop/conf.empty 100 \
-    && update-alternatives --install /etc/hive/conf hive-conf /etc/hive/conf.dist 100
-
-ENV HAIL_VERSION=0.2.74
 ENV PIP_USER=false
-
-# For dataproc clusters, this path with will be automatically mounted. Else,
-# this is effectively ignored. On GCE VMs, this will result in failures to
-# import the pyspark package.
 ENV PYTHONPATH $PYTHONPATH:/usr/lib/spark/python
 ENV PYSPARK_PYTHON=python3
+ENV HAIL_VERSION=0.2.85
 
-RUN pip3 install pypandoc \
-      nbstripout \
-      papermill \
-      "git+https://github.com/all-of-us/workbench-snippets.git#egg=terra_widgets&subdirectory=py" \
+RUN find $JUPYTER_HOME/scripts -name '*.sh' -type f | xargs chmod +x \
+    && $JUPYTER_HOME/scripts/kernel/kernelspec.sh $JUPYTER_HOME/scripts/kernel /opt/conda/share/jupyter/kernels \
+    # Note Spark and Hadoop are mounted from the outside Dataproc VM.
+    # Make empty conf dirs for the update-alternatives commands.
+    && mkdir -p /etc/spark/conf.dist && mkdir -p /etc/hadoop/conf.empty && mkdir -p /etc/hive/conf.dist \
+    && update-alternatives --install /etc/spark/conf spark-conf /etc/spark/conf.dist 100 \
+    && update-alternatives --install /etc/hadoop/conf hadoop-conf /etc/hadoop/conf.empty 100 \
+    && update-alternatives --install /etc/hive/conf hive-conf /etc/hive/conf.dist 100 \
+    && apt-get update \
+    && apt install -yq --no-install-recommends openjdk-8-jdk \
+        g++ \
+        liblz4-dev \
+    # specify Java 8
+    && update-alternatives --set java /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java \
+    && pip3 install pypandoc gnomad \
     && pip3 install --no-dependencies hail==$HAIL_VERSION \
     && X=$(mktemp -d) \
     && mkdir -p $X \
     && (cd $X && pip3 download hail==$HAIL_VERSION --no-dependencies && \
         unzip hail*.whl &&  \
         grep 'Requires-Dist: ' hail*dist-info/METADATA | sed 's/Requires-Dist: //' | sed 's/ (//' | sed 's/)//' | grep -v 'pyspark' | xargs pip install) \
-    && rm -rf $X
+    && rm -rf $X \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
 
 ENV PIP_USER=true
+USER $USER
 
 # Install Wondershaper from source, for client-side egress limiting.
 RUN cd /usr/local/share && \
@@ -173,9 +175,6 @@ RUN mkdir -p /tmp/nextflow && \
   chmod 777 /bin/nextflow && \
   chown -R $USER:users $HOME/.nextflow && \
   rm -rf /tmp/nextflow
-
-ENV USER jupyter
-USER $USER
 
 RUN R -e 'BiocManager::install(c( \
   "SAIGEgds", \

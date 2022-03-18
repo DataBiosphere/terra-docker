@@ -1,3 +1,8 @@
+## 2.0.13 - 2022-03-18
+
+- Update `terra-jupyter-gatk` to `2.0.8`
+- Update Hail installation to latest
+
 ## 2.0.12 - 2022-02-02T20:47:42.403024Z
 
 - Update `terra-jupyter-base` to `1.0.4`
