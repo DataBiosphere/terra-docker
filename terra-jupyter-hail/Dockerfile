@@ -4,7 +4,7 @@ USER root
 ENV PIP_USER=false
 ENV PYTHONPATH $PYTHONPATH:/usr/lib/spark/python
 ENV PYSPARK_PYTHON=python3
-ENV HAIL_VERSION=0.2.85
+ENV HAIL_VERSION=0.2.91
 
 RUN find $JUPYTER_HOME/scripts -name '*.sh' -type f | xargs chmod +x \
     && $JUPYTER_HOME/scripts/kernel/kernelspec.sh $JUPYTER_HOME/scripts/kernel /opt/conda/share/jupyter/kernels \
