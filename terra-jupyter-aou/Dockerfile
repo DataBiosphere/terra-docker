@@ -57,7 +57,6 @@ RUN find $JUPYTER_HOME/scripts -name '*.sh' -type f | xargs chmod +x \
     && rm -rf /var/lib/apt/lists/*
 
 ENV PIP_USER=true
-USER $USER
 
 # Install Wondershaper from source, for client-side egress limiting.
 RUN cd /usr/local/share && \
@@ -175,6 +174,8 @@ RUN mkdir -p /tmp/nextflow && \
   chmod 777 /bin/nextflow && \
   chown -R $USER:users $HOME/.nextflow && \
   rm -rf /tmp/nextflow
+
+USER $USER
 
 RUN R -e 'BiocManager::install(c( \
   "SAIGEgds", \
