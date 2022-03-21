@@ -29,10 +29,10 @@ RUN apt-get update && apt-get install -yq --no-install-recommends \
 ENV PIP_USER=false
 ENV PYTHONPATH $PYTHONPATH:/usr/lib/spark/python
 
-RUN pip3 install pypandoc \
+RUN pip3 install
       nbstripout \
       papermill \
-      "git+https://github.com/all-of-us/workbench-snippets.git#egg=terra_widgets&subdirectory=py" \
+      "git+https://github.com/all-of-us/workbench-snippets.git#egg=terra_widgets&subdirectory=py"
 
 ENV PYSPARK_PYTHON=python3
 ENV HAIL_VERSION=0.2.91
