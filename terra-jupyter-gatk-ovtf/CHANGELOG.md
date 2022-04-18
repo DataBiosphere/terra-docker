@@ -1,3 +1,8 @@
+## 0.1.9 - 2022-04-17
+
+- Update `terra-jupyter-base` to `1.0.5`
+  - Install gcloud alpha storage dependency
+
 ## 0.1.8 - 2022-02-02T20:47:42.409160Z
 
 - Update `terra-jupyter-base` to `1.0.4`

@@ -1,3 +1,10 @@
+## 1.0.11 - 2022-04-17
+
+- Update `terra-jupyter-python` to `1.0.5`
+  - Install gcloud alpha storage dependency
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-hail:1.0.11`
+
 ## 1.0.10 - 2022-03-28
 - Update `hail` to `0.2.93`
   - See https://hail.is/docs/0.2/change_log.html#version-0-2-93 for details

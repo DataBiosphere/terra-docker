@@ -1,7 +1,8 @@
-## 2.0.14 - 2022-04-15
+## 2.0.14 - 2022-04-17
 
+- Update `terra-jupyter-gatk` to `2.0.9`
+  - Install gcloud alpha storage dependency
 - Install SAIGE
-- Add deps for gcloud alpha storage
 - Add igv-jupyter extension by default
 
 ## 2.0.13 - 2022-03-18

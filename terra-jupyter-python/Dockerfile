@@ -1,4 +1,4 @@
-FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-base:1.0.4
+FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-base:1.0.5
 USER root
 # This makes it so pip runs as root, not the user.
 ENV PIP_USER=false
@@ -78,6 +78,9 @@ RUN pip3 -V \
    #adding intel optimized xgboost and intel extension for scikit-learn
    scikit-learn-intelex \
    xgboost \
+
+# For gcloud alpha storage support.
+RUN pip3 install google-crc32c --target /usr/lib/google-cloud-sdk/lib/third_party
 
  # Remove this after https://broadworkbench.atlassian.net/browse/CA-1179
  # As of release [google-cloud-bigquery 1.26.0 (2020-07-20)](https://github.com/googleapis/python-bigquery/blob/master/CHANGELOG.md#1260-2020-07-20)
