@@ -100,6 +100,8 @@ RUN pip3 -V \
  && pip3 install python-datauri \
  && pip3 install jupyter_contrib_nbextensions \
  && pip3 install jupyter_nbextensions_configurator \
+ # Avoid broken lower versions: https://github.com/jupyter/nbconvert/pull/1624
+ && pip3 install "nbconvert>=6.4.5" \
  # for jupyter_delocalize.py and jupyter_notebook_config.py
  && pip3 install requests \
  && pip3 install firecloud \
