@@ -106,9 +106,7 @@ RUN pip3 -V \
  && pip3 install terra-notebook-utils \
  && pip3 install crcmod \
  # For gcloud alpha storage support.
- && pip3 install google-crc32c --target /usr/lib/google-cloud-sdk/lib/third_party \
- && apt-get clean \
- && rm -rf /var/lib/apt/lists/*
+ && pip3 install google-crc32c --target /usr/lib/google-cloud-sdk/lib/third_party
 
 # tmp hack min-5
 # I'm not installing jupyterlab and I can't update init-actions.sh to not access it

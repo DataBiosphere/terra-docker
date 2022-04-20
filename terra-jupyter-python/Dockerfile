@@ -35,6 +35,9 @@ RUN pip3 -V \
    pandas-gbq \
    seaborn \
    python-lzo \
+   # Hold back from the 3.0 upgrade, as it requires the BigQuery Storage API. See
+   # further in the Dockerfile for explanation of why BQ Storage is currently uninstalled.
+   "google-cloud-bigquery<3.0.0" \
    google-cloud-bigquery-datatransfer \
    google-cloud-resource-manager \
    statsmodels \
