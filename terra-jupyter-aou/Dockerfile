@@ -37,9 +37,6 @@ RUN pip3 install \
 
 RUN jupyter nbextension enable --py igv
 
-# For gcloud alpha storage support.
-RUN pip3 install google-crc32c --target /usr/lib/google-cloud-sdk/lib/third_party
-
 ENV PYSPARK_PYTHON=python3
 ENV HAIL_VERSION=0.2.91
 
