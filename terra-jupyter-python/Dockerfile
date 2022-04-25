@@ -1,4 +1,4 @@
-FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-base:1.0.4
+FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-base:1.0.5
 USER root
 # This makes it so pip runs as root, not the user.
 ENV PIP_USER=false
@@ -35,6 +35,9 @@ RUN pip3 -V \
    pandas-gbq \
    seaborn \
    python-lzo \
+   # Hold back from the 3.0 upgrade, as it requires the BigQuery Storage API. See
+   # further in the Dockerfile for explanation of why BQ Storage is currently uninstalled.
+   "google-cloud-bigquery<3.0.0" \
    google-cloud-bigquery-datatransfer \
    google-cloud-resource-manager \
    statsmodels \

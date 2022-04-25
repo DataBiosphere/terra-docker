@@ -1,3 +1,9 @@
+## 1.0.5 - 2022-04-17
+
+- Install gcloud alpha storage dependency
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-base:1.0.5`
+
 ## 1.0.4 - 2022-02-02T20:47:42.308006Z
 
 - update notebook_dir to $HOME

@@ -1,4 +1,4 @@
-FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-gatk:2.0.8
+FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-gatk:2.0.9
 
 USER root
 
@@ -30,9 +30,12 @@ ENV PIP_USER=false
 ENV PYTHONPATH $PYTHONPATH:/usr/lib/spark/python
 
 RUN pip3 install \
+      igv-jupyter \
       nbstripout \
       papermill \
       "git+https://github.com/all-of-us/workbench-snippets.git#egg=terra_widgets&subdirectory=py"
+
+RUN jupyter nbextension enable --py igv
 
 ENV PYSPARK_PYTHON=python3
 ENV HAIL_VERSION=0.2.91
@@ -181,8 +184,15 @@ RUN mkdir -p /tmp/nextflow && \
   chown -R $USER:users $HOME/.nextflow && \
   rm -rf /tmp/nextflow
 
+# TODO(IA-3261): Remove this hack, and just conda install normally. R SAIGE
+# unfortunately is difficult to install outside of conda. Conda is also not
+# fully supported on the terra-docker base image. Here we workaround this by
+# installing (as root) via conda, and including the R lib path. Order is
+# important here, as packages.install() will target the first path in this list,
+# and the jupyter user will have readonly access to the conda path.
+ENV R_LIBS /usr/local/lib/R/site-library:/opt/conda/lib/R/library
+RUN conda install -c bioconda r-saige
+
 USER $USER
 
-RUN R -e 'BiocManager::install(c( \
-  "SAIGEgds", \
-  "GENESIS"))'
+RUN R -e 'BiocManager::install(c("GENESIS"))'

@@ -100,13 +100,15 @@ RUN pip3 -V \
  && pip3 install python-datauri \
  && pip3 install jupyter_contrib_nbextensions \
  && pip3 install jupyter_nbextensions_configurator \
+ # Avoid broken lower versions: https://github.com/jupyter/nbconvert/pull/1624
+ && pip3 install "nbconvert>=6.4.5" \
  # for jupyter_delocalize.py and jupyter_notebook_config.py
  && pip3 install requests \
  && pip3 install firecloud \
  && pip3 install terra-notebook-utils \
  && pip3 install crcmod \
- && apt-get clean \
- && rm -rf /var/lib/apt/lists/*
+ # For gcloud alpha storage support.
+ && pip3 install google-crc32c --target /usr/lib/google-cloud-sdk/lib/third_party
 
 # tmp hack min-5
 # I'm not installing jupyterlab and I can't update init-actions.sh to not access it

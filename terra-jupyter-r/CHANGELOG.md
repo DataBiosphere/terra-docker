@@ -1,3 +1,10 @@
+## 2.0.6 - 2022-04-17
+
+- Update `terra-jupyter-base` to `1.0.5`
+  - Install gcloud alpha storage dependency
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-r:2.0.6`
+
 ## 2.0.5 - 2022-02-02T20:47:42.380155Z
 
 - Update `terra-jupyter-base` to `1.0.4`
