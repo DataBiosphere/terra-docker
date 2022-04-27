@@ -36,6 +36,17 @@ RUN curl -L -o $GATK_ZIP_PATH https://github.com/broadinstitute/gatk/releases/do
  && unzip -o $GATK_ZIP_PATH -d /etc/ \
  && ln -s /etc/gatk-$GATK_VERSION/gatk /bin/gatk
 
+# Install Nextflow
+ENV NXF_MODE google
+RUN mkdir -p /tmp/nextflow && \
+  cd /tmp/nextflow && \
+  curl -s https://get.nextflow.io | bash && \
+  mv nextflow /bin/nextflow && \
+  cd $HOME && \
+  chmod 777 /bin/nextflow && \
+  chown -R $USER:users $HOME/.nextflow && \
+  rm -rf /tmp/nextflow
+
 ENV PIP_USER=false
 
 RUN pip install /etc/gatk-$GATK_VERSION/gatkPythonPackageArchive.zip
@@ -45,7 +56,6 @@ ENV PIP_USER=true
 COPY cnn-models.patch /etc/gatk-$GATK_VERSION/cnn-models.patch
 
 RUN patch -u /opt/conda/lib/python3.7/site-packages/vqsr_cnn/vqsr_cnn/models.py -i /etc/gatk-$GATK_VERSION/cnn-models.patch
-
 
 ENV USER jupyter
 USER $USER
