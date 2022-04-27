@@ -1,4 +1,4 @@
-## 2.1.0 - 2022-04-27
+## 2.0.15 - 2022-04-27
 
 - Update `terra-jupyter-gatk` to `2.1.0`
   - Install Nextflow in GATK
