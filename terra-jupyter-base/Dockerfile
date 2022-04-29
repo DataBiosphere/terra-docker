@@ -17,27 +17,26 @@ RUN sudo -i \
     echo "deb http://us.archive.ubuntu.com/ubuntu/ bionic universe" >> /etc/apt/sources.list \
     sudo apt update libv8-3.14-dev
 
+RUN wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/cuda-ubuntu2004.pin \
+    && sudo mv cuda-ubuntu2004.pin /etc/apt/preferences.d/cuda-repository-pin-600 \
+    && sudo apt-key adv --fetch-keys https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/3bf863cc.pub \
+    && sudo add-apt-repository "deb https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/ /" \
+    && sudo apt-get update
 
 RUN apt-get update && apt-get install -yq --no-install-recommends \
-
     # gnupg requirement
     dirmngr \
     gnupg \
-
     # curl requirement
     ca-certificates \
-
     # useful utilities for debugging within the docker
     nano \
     procps \
-
     lsb-release \
-
     # python requirements
     checkinstall \
     build-essential \
     zlib1g-dev \
-
     # pip requirements
     libssl-dev \
     libbz2-dev \
@@ -55,19 +54,15 @@ RUN apt-get update && apt-get install -yq --no-install-recommends \
     # install script requirements
     sudo \
     locales \
-
     # for ssh-agent and ssh-add
     keychain \
-
     # openjdk 11
     default-jre \
     default-jdk \
-
  # Uncomment en_US.UTF-8 for inclusion in generation
  && sed -i 's/^# *\(en_US.UTF-8\)/\1/' /etc/locale.gen \
  # Generate locale
  && locale-gen \
-
  && apt-get clean \
  && rm -rf /var/lib/apt/lists/*
 
