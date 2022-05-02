@@ -2,7 +2,6 @@
 
 - Update `terra-jupyter-base` to `1.0.6`
   - use new nvidia key
-- Update bioconductor to 3.15 and R to 4.2
 
 Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-r:2.0.7`
 
