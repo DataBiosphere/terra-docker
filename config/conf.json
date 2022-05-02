@@ -26,7 +26,7 @@
                     "tidyverse"
                 ]
             },
-            "version" : "2.0.5",
+            "version" : "2.1.0",
             "automated_flags" : {
                 "generate_docs" : true,
                 "include_in_ui" : true,
@@ -100,7 +100,7 @@
                 "r"
             ],
             "packages" : {},
-            "version" : "2.0.6",
+            "version" : "2.1.0",
             "automated_flags" : {
                 "include_in_ui" : false,
                 "generate_docs" : true,
@@ -118,7 +118,7 @@
                 "r"
             ],
             "packages" : {},
-            "version" : "2.0.9",
+            "version" : "2.1.0",
             "automated_flags" : {
                 "include_in_ui" : true,
                 "generate_docs" : true,
@@ -135,7 +135,7 @@
                 "r"
             ],
             "packages" : {},
-            "version" : "2.0.14",
+            "version" : "2.1.0",
             "automated_flags" : {
                 "include_in_ui" : false,
                 "generate_docs" : false,
@@ -153,7 +153,7 @@
                 "r"
             ],
             "packages" : {},
-            "version" : "0.1.9",
+            "version" : "0.2.0",
             "automated_flags" : {
                 "include_in_ui" : false,
                 "generate_docs" : true,

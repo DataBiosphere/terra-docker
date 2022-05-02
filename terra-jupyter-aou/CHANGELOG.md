@@ -1,3 +1,8 @@
+## 2.1.0 - 2022-05-02
+
+- Update `terra-jupyter-r` to `2.1.0`
+  - Update Bioconductor to 3.15.0 and R to 4.2.0
+
 ## 2.0.14 - 2022-04-17
 
 - Update `terra-jupyter-gatk` to `2.0.9`
