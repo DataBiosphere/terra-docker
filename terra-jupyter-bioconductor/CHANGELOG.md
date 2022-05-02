@@ -3,7 +3,7 @@
 - Update `terra-jupyter-r` to `2.1.0`
   - Update Bioconductor to 3.15.0 and R to 4.2.0
 
-Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-gatk:2.1.0`
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-bioconductor:2.1.0`
 
 ## 2.0.5 - 2022-02-02T20:47:42.326830Z
 
