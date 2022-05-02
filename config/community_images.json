@@ -10,11 +10,11 @@
 },
 {
     "id": "RStudio",
-    "label": "RStudio (R 4.1.2, Bioconductor 3.14, Python 3.8.5)",
-    "version": "3.14.2",
-    "updated": "2022-03-08",
+    "label": "RStudio (R 4.2.0, Bioconductor 3.15, Python 3.8.10)",
+    "version": "3.15.0",
+    "updated": "2022-04-28",
     "packages": "https://storage.googleapis.com/terra-docker-image-documentation/placeholder.json",
-    "image": "us.gcr.io/broad-dsp-gcr-public/anvil-rstudio-bioconductor:3.14.2",
+    "image": "us.gcr.io/broad-dsp-gcr-public/anvil-rstudio-bioconductor:3.15.0",
     "requiresSpark": false,
     "isRStudio": true
 },
