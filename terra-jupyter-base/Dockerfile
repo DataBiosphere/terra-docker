@@ -17,11 +17,14 @@ RUN sudo -i \
     echo "deb http://us.archive.ubuntu.com/ubuntu/ bionic universe" >> /etc/apt/sources.list \
     sudo apt update libv8-3.14-dev
 
-RUN wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/cuda-ubuntu2004.pin \
-    && sudo mv cuda-ubuntu2004.pin /etc/apt/preferences.d/cuda-repository-pin-600 \
-    && sudo apt-key adv --fetch-keys https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/3bf863cc.pub \
-    && sudo add-apt-repository "deb https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/ /" \
-    && sudo apt-get update
+# nvidia is updating and rotating the signing keys used by the apt, dnf/yum, and zypper package managers beginning April 27, 2022
+# see article: https://developer.nvidia.com/blog/updating-the-cuda-linux-gpg-repository-key/
+# first we remove the bad keys from base image (https://github.com/NVIDIA/nvidia-docker/issues/1631#issuecomment-1112828208)
+RUN rm /etc/apt/sources.list.d/cuda.list \
+    && rm /etc/apt/sources.list.d/nvidia-ml.list \
+    && sudo apt-key del 7fa2af80 \
+    && curl -L -O https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/cuda-keyring_1.0-1_all.deb \
+    && sudo dpkg -i cuda-keyring_1.0-1_all.deb
 
 RUN apt-get update && apt-get install -yq --no-install-recommends \
     # gnupg requirement

@@ -118,7 +118,7 @@
                 "r"
             ],
             "packages" : {},
-            "version" : "2.1.0",
+            "version" : "2.0.9",
             "automated_flags" : {
                 "include_in_ui" : true,
                 "generate_docs" : true,
@@ -135,7 +135,7 @@
                 "r"
             ],
             "packages" : {},
-            "version" : "2.0.15",
+            "version" : "2.0.14",
             "automated_flags" : {
                 "include_in_ui" : false,
                 "generate_docs" : false,
