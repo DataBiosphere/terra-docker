@@ -1,9 +1,12 @@
-## 2.0.10 - 2022-05-02T14:33:24.006107Z
+## 2.1.0 - 2022-05-02T14:33:24.006107Z
 
 - Update `terra-jupyter-base` to `1.0.6`
   - use new nvidia key
+- Update `terra-jupyter-r` to `2.0.7`
+  - update bioconductor to 3.15 and R to 4.2
+- Install Nextflow
 
-Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-gatk:2.0.10`
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-gatk:2.1.0`
 
 ## 2.0.9 - 2022-04-17
 

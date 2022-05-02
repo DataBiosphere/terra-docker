@@ -1,4 +1,4 @@
-FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-gatk:2.0.10
+FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-gatk:2.1.0
 
 USER root
 
@@ -180,9 +180,8 @@ RUN mkdir -p /tmp/vcftools && \
 # important here, as packages.install() will target the first path in this list,
 # and the jupyter user will have readonly access to the conda path.
 ENV R_LIBS /usr/local/lib/R/site-library:/opt/conda/lib/R/library
-RUN conda update -n base conda && \
-    conda install -c bioconda "r-base>=4.2" r-saige
+RUN conda install -c bioconda r-saige
 
 USER $USER
 
-#RUN R -e 'BiocManager::install(c("GENESIS"))'
+RUN R -e 'BiocManager::install(c("GENESIS"))'
