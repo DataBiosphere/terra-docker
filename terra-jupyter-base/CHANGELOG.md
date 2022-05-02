@@ -1,3 +1,9 @@
+## 1.0.6 - 2022-05-02T14:33:23.893656Z
+
+- use new nvidia key
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-base:1.0.6`
+
 ## 1.0.5 - 2022-04-17
 
 - Install gcloud alpha storage dependency

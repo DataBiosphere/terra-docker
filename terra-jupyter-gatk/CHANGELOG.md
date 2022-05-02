@@ -1,3 +1,10 @@
+## 2.0.10 - 2022-05-02T14:33:24.006107Z
+
+- Update `terra-jupyter-base` to `1.0.6`
+  - use new nvidia key
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-gatk:2.0.10`
+
 ## 2.0.9 - 2022-04-17
 
 - Update `terra-jupyter-base` to `1.0.5`

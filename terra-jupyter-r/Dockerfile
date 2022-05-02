@@ -1,4 +1,4 @@
-FROM gab-test-base:latest
+FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-base:1.0.6
 USER root
 
 COPY scripts $JUPYTER_HOME/scripts
@@ -22,7 +22,7 @@ RUN cd /tmp \
 
 # Add R kernel
 RUN find $JUPYTER_HOME/scripts -name '*.sh' -type f | xargs chmod +x \
- && $JUPYTER_HOME/scripts/kernel/kernelspec.sh $JUPYTER_HOME/scripts/kernel /opt/conda/share/jupyter/kernels 
+ && $JUPYTER_HOME/scripts/kernel/kernelspec.sh $JUPYTER_HOME/scripts/kernel /opt/conda/share/jupyter/kernels
 
 # https://cran.r-project.org/bin/linux/ubuntu/README.html
 RUN apt-get update \
