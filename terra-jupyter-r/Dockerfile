@@ -1,4 +1,4 @@
-FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-base:1.0.5
+FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-base:1.0.6
 USER root
 
 COPY scripts $JUPYTER_HOME/scripts
@@ -22,7 +22,7 @@ RUN cd /tmp \
 
 # Add R kernel
 RUN find $JUPYTER_HOME/scripts -name '*.sh' -type f | xargs chmod +x \
- && $JUPYTER_HOME/scripts/kernel/kernelspec.sh $JUPYTER_HOME/scripts/kernel /opt/conda/share/jupyter/kernels 
+ && $JUPYTER_HOME/scripts/kernel/kernelspec.sh $JUPYTER_HOME/scripts/kernel /opt/conda/share/jupyter/kernels
 
 # https://cran.r-project.org/bin/linux/ubuntu/README.html
 RUN apt-get update \
@@ -38,8 +38,8 @@ RUN apt-get update \
 	libgit2-dev \
 	libxml2-dev \
 	libgfortran-7-dev \
-	r-base-dev \
-	r-base-core \
+	r-base-dev=4.1.3-1.1804.0 \
+	r-base-core=4.1.3-1.1804.0 \
 	## This section installs libraries
 	libnetcdf-dev \
 	libhdf5-serial-dev \

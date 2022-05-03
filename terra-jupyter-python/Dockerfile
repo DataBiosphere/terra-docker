@@ -1,4 +1,4 @@
-FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-base:1.0.5
+FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-base:1.0.6
 USER root
 # This makes it so pip runs as root, not the user.
 ENV PIP_USER=false
@@ -95,6 +95,8 @@ RUN pip3 -V \
  && sed -i 's/pd.tslib.Timestamp/pd.Timestamp/g' /opt/conda/lib/python3.7/site-packages/ggplot/stats/smoothers.py \
  && sed -i 's/pd.tslib.Timestamp/pd.Timestamp/g' /opt/conda/lib/python3.7/site-packages/ggplot/utils.py
 
+
+RUN pip3 install --upgrade markupsafe==2.0.1
 
 ENV USER jupyter
 USER $USER

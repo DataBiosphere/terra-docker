@@ -5,6 +5,13 @@
 
 Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-gatk:2.1.0`
 
+## 2.0.6 - 2022-05-02T14:33:23.928899Z
+
+- Update `terra-jupyter-base` to `1.0.6`
+  - use new nvidia key
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-bioconductor:2.0.6`
+
 ## 2.0.5 - 2022-02-02T20:47:42.326830Z
 
 - Update `terra-jupyter-base` to `1.0.4`
