@@ -29,6 +29,8 @@ RUN apt-get update && apt-get install -yq --no-install-recommends \
 ENV PIP_USER=false
 ENV PYTHONPATH $PYTHONPATH:/usr/lib/spark/python
 
+RUN pip3 install --upgrade markupsafe==2.0.1
+
 RUN pip3 install \
       igv-jupyter \
       nbstripout \

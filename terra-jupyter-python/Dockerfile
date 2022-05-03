@@ -96,6 +96,8 @@ RUN pip3 -V \
  && sed -i 's/pd.tslib.Timestamp/pd.Timestamp/g' /opt/conda/lib/python3.7/site-packages/ggplot/utils.py
 
 
+RUN pip3 install --upgrade markupsafe==2.0.1
+
 ENV USER jupyter
 USER $USER
 # We want pip to install into the user's dir when the notebook is running.

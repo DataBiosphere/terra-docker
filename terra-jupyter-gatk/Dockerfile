@@ -50,6 +50,7 @@ RUN mkdir -p /tmp/nextflow && \
 ENV PIP_USER=false
 
 RUN pip install /etc/gatk-$GATK_VERSION/gatkPythonPackageArchive.zip
+RUN pip3 install --upgrade markupsafe==2.0.1
 
 ENV PIP_USER=true
 
