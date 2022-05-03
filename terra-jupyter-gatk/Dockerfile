@@ -1,6 +1,6 @@
-FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-python:1.0.5 AS python
+FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-python:1.0.6 AS python
 
-FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-r:2.0.6
+FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-r:2.0.7
 
 # copy everything pip installed from the python image
 COPY --from=python /opt/conda/lib/python3.7/site-packages /opt/conda/lib/python3.7/site-packages
@@ -36,16 +36,27 @@ RUN curl -L -o $GATK_ZIP_PATH https://github.com/broadinstitute/gatk/releases/do
  && unzip -o $GATK_ZIP_PATH -d /etc/ \
  && ln -s /etc/gatk-$GATK_VERSION/gatk /bin/gatk
 
+# Install Nextflow
+ENV NXF_MODE google
+RUN mkdir -p /tmp/nextflow && \
+  cd /tmp/nextflow && \
+  curl -s https://get.nextflow.io | bash && \
+  mv nextflow /bin/nextflow && \
+  cd $HOME && \
+  chmod 777 /bin/nextflow && \
+  chown -R $USER:users $HOME/.nextflow && \
+  rm -rf /tmp/nextflow
+
 ENV PIP_USER=false
 
 RUN pip install /etc/gatk-$GATK_VERSION/gatkPythonPackageArchive.zip
+RUN pip3 install --upgrade markupsafe==2.0.1
 
 ENV PIP_USER=true
 
 COPY cnn-models.patch /etc/gatk-$GATK_VERSION/cnn-models.patch
 
 RUN patch -u /opt/conda/lib/python3.7/site-packages/vqsr_cnn/vqsr_cnn/models.py -i /etc/gatk-$GATK_VERSION/cnn-models.patch
-
 
 ENV USER jupyter
 USER $USER

@@ -1,4 +1,4 @@
-FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-gatk:2.0.9
+FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-gatk:2.1.0
 
 USER root
 
@@ -28,6 +28,8 @@ RUN apt-get update && apt-get install -yq --no-install-recommends \
 # Copied from terra-jupyter-hail; keep updated.
 ENV PIP_USER=false
 ENV PYTHONPATH $PYTHONPATH:/usr/lib/spark/python
+
+RUN pip3 install --upgrade markupsafe==2.0.1
 
 RUN pip3 install \
       igv-jupyter \
@@ -172,17 +174,6 @@ RUN mkdir -p /tmp/vcftools && \
     make install && \
     cd $HOME && \
     rm -rf /tmp/vcftools
-
-# Install Nextflow
-ENV NXF_MODE google
-RUN mkdir -p /tmp/nextflow && \
-  cd /tmp/nextflow && \
-  curl -s https://get.nextflow.io | bash && \
-  mv nextflow /bin/nextflow && \
-  cd $HOME && \
-  chmod 777 /bin/nextflow && \
-  chown -R $USER:users $HOME/.nextflow && \
-  rm -rf /tmp/nextflow
 
 # TODO(IA-3261): Remove this hack, and just conda install normally. R SAIGE
 # unfortunately is difficult to install outside of conda. Conda is also not

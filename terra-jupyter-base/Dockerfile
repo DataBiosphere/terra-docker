@@ -17,27 +17,29 @@ RUN sudo -i \
     echo "deb http://us.archive.ubuntu.com/ubuntu/ bionic universe" >> /etc/apt/sources.list \
     sudo apt update libv8-3.14-dev
 
+# nvidia is updating and rotating the signing keys used by the apt, dnf/yum, and zypper package managers beginning April 27, 2022
+# see article: https://developer.nvidia.com/blog/updating-the-cuda-linux-gpg-repository-key/
+# first we remove the bad keys from base image (https://github.com/NVIDIA/nvidia-docker/issues/1631#issuecomment-1112828208)
+RUN rm /etc/apt/sources.list.d/cuda.list \
+    && rm /etc/apt/sources.list.d/nvidia-ml.list \
+    && sudo apt-key del 7fa2af80 \
+    && curl -L -O https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/cuda-keyring_1.0-1_all.deb \
+    && sudo dpkg -i cuda-keyring_1.0-1_all.deb
 
 RUN apt-get update && apt-get install -yq --no-install-recommends \
-
     # gnupg requirement
     dirmngr \
     gnupg \
-
     # curl requirement
     ca-certificates \
-
     # useful utilities for debugging within the docker
     nano \
     procps \
-
     lsb-release \
-
     # python requirements
     checkinstall \
     build-essential \
     zlib1g-dev \
-
     # pip requirements
     libssl-dev \
     libbz2-dev \
@@ -55,19 +57,15 @@ RUN apt-get update && apt-get install -yq --no-install-recommends \
     # install script requirements
     sudo \
     locales \
-
     # for ssh-agent and ssh-add
     keychain \
-
     # openjdk 11
     default-jre \
     default-jdk \
-
  # Uncomment en_US.UTF-8 for inclusion in generation
  && sed -i 's/^# *\(en_US.UTF-8\)/\1/' /etc/locale.gen \
  # Generate locale
  && locale-gen \
-
  && apt-get clean \
  && rm -rf /var/lib/apt/lists/*
 
@@ -100,6 +98,7 @@ RUN pip3 -V \
  && pip3 install python-datauri \
  && pip3 install jupyter_contrib_nbextensions \
  && pip3 install jupyter_nbextensions_configurator \
+ && pip3 install markupsafe==2.0.1 \
  # Avoid broken lower versions: https://github.com/jupyter/nbconvert/pull/1624
  && pip3 install "nbconvert>=6.4.5" \
  # for jupyter_delocalize.py and jupyter_notebook_config.py
