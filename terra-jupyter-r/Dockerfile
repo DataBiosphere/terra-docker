@@ -38,8 +38,8 @@ RUN apt-get update \
 	libgit2-dev \
 	libxml2-dev \
 	libgfortran-7-dev \
-	r-base-dev=4.1.3-1.1804.0 \
-	r-base-core=4.1.3-1.1804.0 \
+	r-base-dev \
+	r-base-core \
 	## This section installs libraries
 	libnetcdf-dev \
 	libhdf5-serial-dev \
