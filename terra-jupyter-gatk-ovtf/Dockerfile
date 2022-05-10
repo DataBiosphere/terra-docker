@@ -1,6 +1,6 @@
 FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-python:1.0.6 AS python
 
-FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-r:2.0.7
+FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-r:2.1.0
 
 # copy everything pip installed from the python image
 COPY --from=python /opt/conda/lib/python3.7/site-packages /opt/conda/lib/python3.7/site-packages
@@ -26,7 +26,7 @@ RUN apt-get update && apt-get install -yq --no-install-recommends \
   # specify Java 8
   && update-alternatives --set java /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java \
   && apt-get clean \
-  && rm -rf /var/lib/apt/lists/* 
+  && rm -rf /var/lib/apt/lists/*
 
 # Install GATK
 ENV GATK_VERSION 4.2.4.1
@@ -55,11 +55,11 @@ ENV PIP_USER=true
 COPY gatk-ovtf.patch /etc/gatk-$GATK_VERSION/gatk-ovtf.patch
 COPY ovtf-cuda-disabling.patch /etc/gatk-$GATK_VERSION/ovtf-cuda-disabling.patch
 
-# Apply patch to GATK to fix TFv2 compatibility. 
+# Apply patch to GATK to fix TFv2 compatibility.
 RUN cd /opt/conda/lib/python3.7/site-packages/vqsr_cnn/vqsr_cnn/ \
     && patch -p1 < /etc/gatk-$GATK_VERSION/gatk-ovtf.patch
 
-# Apply patch to OVTF to disable CUDA devices if OVTF is enabled. 
+# Apply patch to OVTF to disable CUDA devices if OVTF is enabled.
 RUN cd /opt/conda/lib/python3.7/site-packages/openvino_tensorflow/ \
     && patch __init__.py < /etc/gatk-$GATK_VERSION/ovtf-cuda-disabling.patch
 

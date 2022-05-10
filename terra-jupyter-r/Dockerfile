@@ -5,7 +5,7 @@ COPY scripts $JUPYTER_HOME/scripts
 
 # Add env vars to identify binary package installation
 ENV TERRA_R_PLATFORM="terra-jupyter-r"
-ENV TERRA_R_PLATFORM_BINARY_VERSION=3.14.0
+ENV TERRA_R_PLATFORM_BINARY_VERSION=3.15.0
 
 # Install protobuf 3.19.1. Note this version comes from base deep learning image. Use `conda list` to see what's installed
 RUN cd /tmp \
@@ -38,8 +38,8 @@ RUN apt-get update \
 	libgit2-dev \
 	libxml2-dev \
 	libgfortran-7-dev \
-	r-base-dev=4.1.3-1.1804.0 \
-	r-base-core=4.1.3-1.1804.0 \
+	r-base-dev \
+	r-base-core \
 	## This section installs libraries
 	libnetcdf-dev \
 	libhdf5-serial-dev \
@@ -121,7 +121,7 @@ RUN pip3 -V \
 
 RUN R -e 'install.packages("BiocManager")' \
     ## check version
-    && R -e 'BiocManager::install(version="3.14", ask=FALSE)' \
+    && R -e 'BiocManager::install(version="3.15", ask=FALSE)' \
     && R -e 'BiocManager::install(c( \
     "boot", \
     "class", \
@@ -152,7 +152,7 @@ RUN R -e 'install.packages("BiocManager")' \
     "tidyverse", \
     "pbdZMQ", \
     "uuid"))' \
-		&& R -e 'BiocManager::install("DataBiosphere/Ronaldo")'
+    && R -e 'BiocManager::install("DataBiosphere/Ronaldo")'
 
 ## pip runs as jupyter user
 ENV PIP_USER=true

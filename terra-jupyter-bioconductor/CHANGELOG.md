@@ -1,3 +1,10 @@
+## 2.1.0 - 2022-05-02
+
+- Update `terra-jupyter-r` to `2.1.0`
+  - Update Bioconductor to 3.15.0 and R to 4.2.0
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-bioconductor:2.1.0`
+
 ## 2.0.6 - 2022-05-02T14:33:23.928899Z
 
 - Update `terra-jupyter-base` to `1.0.6`
