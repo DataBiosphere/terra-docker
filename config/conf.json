@@ -84,7 +84,7 @@
                 "python"
             ],
             "packages" : {},
-            "version" : "1.0.6",
+            "version" : "1.0.7",
             "automated_flags" : {
                 "generate_docs" : true,
                 "include_in_ui" : false,

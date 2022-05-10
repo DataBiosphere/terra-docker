@@ -1,3 +1,7 @@
+## 1.0.7 - 2022-05-10
+
+- Install Cromshell 2.0 (https://github.com/broadinstitute/cromshell)
+
 ## 1.0.6 - 2022-05-02T14:33:23.893656Z
 
 - use new nvidia key
