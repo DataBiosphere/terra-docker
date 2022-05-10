@@ -112,9 +112,7 @@ RUN pip3 -V \
 RUN git clone https://github.com/broadinstitute/cromshell.git \
  && cd cromshell \
  && git checkout cromshell_2.0 \
- && pip install . \
- # for testing remove this later
- && cromshell-alpha --help
+ && pip install .
 
 # tmp hack min-5
 # I'm not installing jupyterlab and I can't update init-actions.sh to not access it
