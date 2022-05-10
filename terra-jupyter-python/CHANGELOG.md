@@ -1,3 +1,10 @@
+## 1.0.7 - 2022-05-10T22:08:25.979318Z
+
+- Update `terra-jupyter-base` to `1.0.7`
+  - Install Cromshell 2.0 (https://github.com/broadinstitute/cromshell)
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-python:1.0.7`
+
 ## 1.0.6 - 2022-05-02T14:33:23.968430Z
 
 - Update `terra-jupyter-base` to `1.0.6`

@@ -1,3 +1,10 @@
+## 2.1.1 - 2022-05-10T22:08:26.010910Z
+
+- Update `terra-jupyter-base` to `1.0.7`
+  - Install Cromshell 2.0 (https://github.com/broadinstitute/cromshell)
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-r:2.1.1`
+
 ## 2.1.0 - 2022-05-02
 
 - Update Bioconductor to 3.15.0 and R to 4.2.0
