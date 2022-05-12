@@ -109,6 +109,14 @@ RUN pip3 -V \
  # For gcloud alpha storage support.
  && pip3 install google-crc32c --target /usr/lib/google-cloud-sdk/lib/third_party
 
+RUN git clone https://github.com/broadinstitute/cromshell.git \
+ && cd cromshell \
+ && git checkout cromshell_2.0 \
+ && pip install .
+
+# verify cromshell 2.0 is installed
+RUN cromshell-alpha version
+
 # tmp hack min-5
 # I'm not installing jupyterlab and I can't update init-actions.sh to not access it
 RUN mkdir -p /usr/local/share/jupyter/lab

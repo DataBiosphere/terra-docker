@@ -1,4 +1,4 @@
-FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-gatk:2.1.0
+FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-gatk:2.2.1
 
 USER root
 
@@ -175,6 +175,8 @@ RUN mkdir -p /tmp/vcftools && \
     cd $HOME && \
     rm -rf /tmp/vcftools
 
+RUN R -e 'BiocManager::install(c("GENESIS"))'
+
 # TODO(IA-3261): Remove this hack, and just conda install normally. R SAIGE
 # unfortunately is difficult to install outside of conda. Conda is also not
 # fully supported on the terra-docker base image. Here we workaround this by
@@ -185,5 +187,3 @@ ENV R_LIBS /usr/local/lib/R/site-library:/opt/conda/lib/R/library
 RUN conda install -c bioconda r-saige
 
 USER $USER
-
-RUN R -e 'BiocManager::install(c("GENESIS"))'
