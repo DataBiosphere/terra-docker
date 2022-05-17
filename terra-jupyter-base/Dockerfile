@@ -109,6 +109,7 @@ RUN pip3 -V \
  # For gcloud alpha storage support.
  && pip3 install google-crc32c --target /usr/lib/google-cloud-sdk/lib/third_party
 
+# install Cromshell 2.0
 RUN git clone https://github.com/broadinstitute/cromshell.git \
  && cd cromshell \
  && git checkout cromshell_2.0 \
@@ -116,6 +117,11 @@ RUN git clone https://github.com/broadinstitute/cromshell.git \
 
 # verify cromshell 2.0 is installed
 RUN cromshell-alpha version
+
+# copy workspace_cromwell.py script
+RUN git clone https://github.com/broadinstitute/cromwhelm.git \
+ && cd cromwhelm \
+ && cp scripts/workspace_cromwell.py $JUPYTER_HOME
 
 # tmp hack min-5
 # I'm not installing jupyterlab and I can't update init-actions.sh to not access it
