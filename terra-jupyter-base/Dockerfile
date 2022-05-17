@@ -139,11 +139,13 @@ ENV PATH="${PATH}:${HOME}/.local/bin:${HOME}/packages/bin"
 # Utilities
 #######################
 
+RUN echo $(find . -name "workspace_cromwell.py")
+
 COPY scripts $JUPYTER_HOME/scripts
 COPY custom $JUPYTER_HOME/custom
 COPY jupyter_notebook_config.py $JUPYTER_HOME
 
-COPY cromwhelm/scripts/workspace_cromwell.py $JUPYTER_HOME
+COPY ./cromwhelm/scripts/workspace_cromwell.py $JUPYTER_HOME
 
 RUN chown -R $USER:users $JUPYTER_HOME \
 # Disable nb_conda for now. Consider re-enable in the future
