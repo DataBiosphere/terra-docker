@@ -121,7 +121,7 @@ RUN cromshell-alpha version
 # copy workspace_cromwell.py script
 RUN git clone https://github.com/broadinstitute/cromwhelm.git \
  && cd cromwhelm \
- && cp scripts/workspace_cromwell.py $JUPYTER_HOME/scripts
+ && cp scripts/workspace_cromwell.py $JUPYTER_HOME/workspace_cromwell.py
 
 # tmp hack min-5
 # I'm not installing jupyterlab and I can't update init-actions.sh to not access it
