@@ -1,3 +1,10 @@
+## 2.1.2 - 2022-05-17T17:14:41.365718Z
+
+- Update `terra-jupyter-base` to `1.0.8`
+  - Add script that manages Cromwell app
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-aou:2.1.2`
+
 ## 2.1.1 - 2022-05-10T22:08:26.056998Z
 
 - Update `terra-jupyter-base` to `1.0.7`

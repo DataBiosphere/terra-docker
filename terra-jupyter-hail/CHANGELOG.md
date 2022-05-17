@@ -1,3 +1,10 @@
+## 1.0.14 - 2022-05-17T17:14:41.258775Z
+
+- Update `terra-jupyter-base` to `1.0.8`
+  - Add script that manages Cromwell app
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-hail:1.0.14`
+
 ## 1.0.13 - 2022-05-10T22:08:25.952927Z
 
 - Update `terra-jupyter-base` to `1.0.7`
