@@ -36,7 +36,7 @@ build_smoke_test_image() {
     fi
   done
 
-  docker build . --file Dockerfile --progress=plain --tag ${IMAGE_TYPE}:smoke-test
+  docker build . --file Dockerfile --tag ${IMAGE_TYPE}:smoke-test
   popd
 }
 
