@@ -118,9 +118,6 @@ RUN git clone https://github.com/broadinstitute/cromshell.git \
 # verify cromshell 2.0 is installed
 RUN cromshell-alpha version
 
-# copy workspace_cromwell.py script
-RUN wget https://raw.githubusercontent.com/broadinstitute/cromwhelm/main/scripts/workspace_cromwell.py --directory-prefix $HOME
-
 # tmp hack min-5
 # I'm not installing jupyterlab and I can't update init-actions.sh to not access it
 RUN mkdir -p /usr/local/share/jupyter/lab
@@ -140,6 +137,10 @@ ENV PATH="${PATH}:${HOME}/.local/bin:${HOME}/packages/bin"
 COPY scripts $JUPYTER_HOME/scripts
 COPY custom $JUPYTER_HOME/custom
 COPY jupyter_notebook_config.py $JUPYTER_HOME
+
+# copy workspace_cromwell.py script and make it runnable by all users
+RUN curl -o /usr/local/bin/workspace_cromwell.py https://raw.githubusercontent.com/broadinstitute/cromwhelm/main/scripts/workspace_cromwell.py \
+ && chmod +x /usr/local/bin/workspace_cromwell.py
 
 RUN chown -R $USER:users $JUPYTER_HOME \
 # Disable nb_conda for now. Consider re-enable in the future

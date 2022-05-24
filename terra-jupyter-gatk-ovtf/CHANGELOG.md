@@ -1,3 +1,10 @@
+## 0.2.3 - 2022-05-20T18:06:39.600661Z
+
+- Update `terra-jupyter-base` to `1.0.9`
+  - Fix adding workspace_cromwell.py script to manage Cromwell App
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-gatk-ovtf:0.2.3`
+
 ## 0.2.2 - 2022-05-17T17:14:41.382147Z
 
 - Update `terra-jupyter-base` to `1.0.8`
