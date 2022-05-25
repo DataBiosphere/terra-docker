@@ -1,6 +1,21 @@
-## 1.0.14 - 2022-05-16
+## 1.0.16 - 2022-05-25
 - Update `hail` to `0.2.95`
   - See https://hail.is/docs/0.2/change_log.html#version-0-2-95 for details
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-hail:1.0.16`
+
+
+## 1.0.15 - 2022-05-20T18:06:39.466439Z
+
+- Update `terra-jupyter-base` to `1.0.9`
+  - Fix adding workspace_cromwell.py script to manage Cromwell App
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-hail:1.0.15`
+
+## 1.0.14 - 2022-05-17T17:14:41.258775Z
+
+- Update `terra-jupyter-base` to `1.0.8`
+  - Add script that manages Cromwell app
 
 Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-hail:1.0.14`
 

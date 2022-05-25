@@ -109,6 +109,7 @@ RUN pip3 -V \
  # For gcloud alpha storage support.
  && pip3 install google-crc32c --target /usr/lib/google-cloud-sdk/lib/third_party
 
+# install Cromshell 2.0
 RUN git clone https://github.com/broadinstitute/cromshell.git \
  && cd cromshell \
  && git checkout cromshell_2.0 \
@@ -136,6 +137,10 @@ ENV PATH="${PATH}:${HOME}/.local/bin:${HOME}/packages/bin"
 COPY scripts $JUPYTER_HOME/scripts
 COPY custom $JUPYTER_HOME/custom
 COPY jupyter_notebook_config.py $JUPYTER_HOME
+
+# copy workspace_cromwell.py script and make it runnable by all users
+RUN curl -o /usr/local/bin/workspace_cromwell.py https://raw.githubusercontent.com/broadinstitute/cromwhelm/main/scripts/workspace_cromwell.py \
+ && chmod +x /usr/local/bin/workspace_cromwell.py
 
 RUN chown -R $USER:users $JUPYTER_HOME \
 # Disable nb_conda for now. Consider re-enable in the future
