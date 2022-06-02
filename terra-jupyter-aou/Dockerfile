@@ -184,12 +184,9 @@ RUN R -e 'BiocManager::install(c("GENESIS"))'
 # important here, as packages.install() will target the first path in this list,
 # and the jupyter user will have readonly access to the conda path.
 ENV R_LIBS /usr/local/lib/R/site-library:/opt/conda/lib/R/library
-RUN conda install -c bioconda r-saige
-
-RUN conda create --clone base -p /home/jupyter/user-environment
-
-RUN chown -R $USER:users /home/jupyter/userenv
-RUN chown -R $USER:users /opt/conda
 
 USER $USER
 
+WORKDIR $HOME
+
+RUN conda create --clone base -n user-environment -y
