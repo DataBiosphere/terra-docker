@@ -73,6 +73,10 @@ There will be a notification in the slack channel `#dsp-callisto-internal` once 
 
 The terra-docker image hash update [job](https://fc-jenkins.dsp-techops.broadinstitute.org/job/swatomation-pipeline/)  mentioned above determines which images (including derived images) have been changed and builds each image with the appropriate tag.
 
+## Updating terra-docker-versions-*.json Best Practices
+
+As of 6/2/2022, we have added a new process for updating the image versions available across different environments. Once the Leo PR is merged to develop, we will need to bump the `terra-docker-versions-dev.json` file with the new version file with updated entries for each new image. Once the dev candidate is promoted to alpha, we will need to bump the subsequent `terra-docker-versions-alpha.json` file. This process should be repeated for promotions to staging with `terra-docker-versions-staging.json` and then to prod with `terra-docker-versions-prod.json`. This will mainly impact our terra-ui integration tests against alpha and staging, but if we forget, we should be running into errors when creating runtimes in the environment which has an outdated versions file.
+
 ## Merging the terra-docker image hash update job PR
 
 Once all automation tests (including coverage) have passed, you can merge this PR with the approval of one team member.
