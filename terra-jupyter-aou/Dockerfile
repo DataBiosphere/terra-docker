@@ -186,4 +186,10 @@ RUN R -e 'BiocManager::install(c("GENESIS"))'
 ENV R_LIBS /usr/local/lib/R/site-library:/opt/conda/lib/R/library
 RUN conda install -c bioconda r-saige
 
+RUN conda create --clone base -p /home/jupyter/user-environment
+
+RUN chown -R $USER:users /home/jupyter/userenv
+RUN chown -R $USER:users /opt/conda
+
 USER $USER
+

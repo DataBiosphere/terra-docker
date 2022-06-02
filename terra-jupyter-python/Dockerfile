@@ -1,4 +1,5 @@
-FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-base:1.0.9
+# FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-base:1.0.9
+FROM --platform=linux/amd64 terra-jupyter-base:twoenvslol
 USER root
 # This makes it so pip runs as root, not the user.
 ENV PIP_USER=false
@@ -104,6 +105,8 @@ USER $USER
 ENV PIP_USER=true
 # Enable Intel oneDNN optimizatoin by default
 ENV TF_ENABLE_ONEDNN_OPTS=1
+
+RUN conda create --clone base -n user-environment -y
 
 # Note: this entrypoint is provided for running Jupyter independently of Leonardo.
 # When Leonardo deploys this image onto a cluster, the entrypoint is overwritten to enable

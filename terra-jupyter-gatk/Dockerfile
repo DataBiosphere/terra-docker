@@ -61,3 +61,5 @@ RUN patch -u /opt/conda/lib/python3.7/site-packages/vqsr_cnn/vqsr_cnn/models.py 
 ENV USER jupyter
 USER $USER
 
+WORKDIR $HOME
+RUN conda create --clone base -n user-environment -y

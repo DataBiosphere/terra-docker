@@ -1,6 +1,6 @@
 # adapted from https://hub.docker.com/r/jupyter/base-notebook/ AKA https://github.com/jupyter/docker-stacks/tree/master/base-notebook
 
-FROM gcr.io/deeplearning-platform-release/tf-gpu.2-7
+FROM gcr.io/deeplearning-platform-release/tf-gpu.2-9
 
 USER root
 
@@ -21,7 +21,6 @@ RUN sudo -i \
 # see article: https://developer.nvidia.com/blog/updating-the-cuda-linux-gpg-repository-key/
 # first we remove the bad keys from base image (https://github.com/NVIDIA/nvidia-docker/issues/1631#issuecomment-1112828208)
 RUN rm /etc/apt/sources.list.d/cuda.list \
-    && rm /etc/apt/sources.list.d/nvidia-ml.list \
     && sudo apt-key del 7fa2af80 \
     && curl -L -O https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/cuda-keyring_1.0-1_all.deb \
     && sudo dpkg -i cuda-keyring_1.0-1_all.deb
@@ -151,7 +150,10 @@ RUN chown -R $USER:users $JUPYTER_HOME \
 
 USER $USER
 EXPOSE $JUPYTER_PORT
+
 WORKDIR $HOME
+
+RUN conda create --clone base -n user
 
 # Note: this entrypoint is provided for running Jupyter independently of Leonardo.
 # When Leonardo deploys this image onto a cluster, the entrypoint is overwritten to enable

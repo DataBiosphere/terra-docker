@@ -161,3 +161,6 @@ RUN R -e 'IRkernel::installspec(user=FALSE)' \
     && chown -R $USER:users /usr/local/lib/R/site-library
 
 USER $USER
+
+WORKDIR $HOME
+RUN conda create --clone base -n user-environment -y
