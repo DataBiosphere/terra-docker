@@ -106,7 +106,7 @@ ENV PIP_USER=true
 # Enable Intel oneDNN optimizatoin by default
 ENV TF_ENABLE_ONEDNN_OPTS=1
 
-RUN conda create --clone base -n user-environment -y
+RUN conda create --clone base -n user -y
 
 # Note: this entrypoint is provided for running Jupyter independently of Leonardo.
 # When Leonardo deploys this image onto a cluster, the entrypoint is overwritten to enable

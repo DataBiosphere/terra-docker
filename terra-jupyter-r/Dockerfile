@@ -163,4 +163,4 @@ RUN R -e 'IRkernel::installspec(user=FALSE)' \
 USER $USER
 
 WORKDIR $HOME
-RUN conda create --clone base -n user-environment -y
+RUN conda create --clone base -n user -y
