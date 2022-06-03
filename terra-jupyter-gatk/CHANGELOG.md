@@ -1,3 +1,12 @@
+## 2.2.4 - 2022-06-03T13:54:38.840118Z
+
+- Overwrite the Conda 'user' virtual environment to the 'base' Conda environment.
+
+- Update `terra-jupyter-base` to `1.0.10`
+  - Create a Conda virtual environment named 'user.'
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-gatk:2.2.4`
+
 ## 2.2.3 - 2022-05-20T18:06:39.552362Z
 
 - Update `terra-jupyter-base` to `1.0.9`

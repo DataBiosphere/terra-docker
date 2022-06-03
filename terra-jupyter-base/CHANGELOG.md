@@ -1,3 +1,9 @@
+## 1.0.10 - 2022-06-03T13:54:38.597910Z
+
+- Create a Conda virtual environment named 'user.'
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-base:1.0.10`
+
 ## 1.0.9 - 2022-05-20T18:06:39.404395Z
 
 - Fix adding workspace_cromwell.py script to manage Cromwell App
