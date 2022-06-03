@@ -1,3 +1,11 @@
+## 2.1.4 - 2022-06-03T16:36:39.031834Z
+
+- Update `terra-jupyter-base` to `1.0.10`
+  - Updated deeplearning-platform-release from tf-gpu.2-7 to tf-gpu.2-9.
+  - Re-enabled nb_conda.
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-r:2.1.4`
+
 ## 2.1.3 - 2022-05-20T18:06:39.532374Z
 
 - Update `terra-jupyter-base` to `1.0.9`

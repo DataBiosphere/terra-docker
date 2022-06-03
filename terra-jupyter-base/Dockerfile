@@ -1,6 +1,6 @@
 # adapted from https://hub.docker.com/r/jupyter/base-notebook/ AKA https://github.com/jupyter/docker-stacks/tree/master/base-notebook
 
-FROM gcr.io/deeplearning-platform-release/tf-gpu.2-7
+FROM gcr.io/deeplearning-platform-release/tf-gpu.2-9
 
 USER root
 
@@ -21,7 +21,6 @@ RUN sudo -i \
 # see article: https://developer.nvidia.com/blog/updating-the-cuda-linux-gpg-repository-key/
 # first we remove the bad keys from base image (https://github.com/NVIDIA/nvidia-docker/issues/1631#issuecomment-1112828208)
 RUN rm /etc/apt/sources.list.d/cuda.list \
-    && rm /etc/apt/sources.list.d/nvidia-ml.list \
     && sudo apt-key del 7fa2af80 \
     && curl -L -O https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/cuda-keyring_1.0-1_all.deb \
     && sudo dpkg -i cuda-keyring_1.0-1_all.deb
@@ -143,8 +142,6 @@ RUN curl -o /usr/local/bin/workspace_cromwell.py https://raw.githubusercontent.c
  && chmod +x /usr/local/bin/workspace_cromwell.py
 
 RUN chown -R $USER:users $JUPYTER_HOME \
-# Disable nb_conda for now. Consider re-enable in the future
- && jupyter nbextension disable nb_conda --py --sys-prefix \
  && find $JUPYTER_HOME/scripts -name '*.sh' -type f | xargs chmod +x \
 #  You can get kernel directory by running `jupyter kernelspec list`
  && $JUPYTER_HOME/scripts/kernel/kernelspec.sh $JUPYTER_HOME/scripts/kernel /opt/conda/share/jupyter/kernels
