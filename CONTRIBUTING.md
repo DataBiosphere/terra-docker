@@ -75,7 +75,7 @@ The terra-docker image hash update [job](https://fc-jenkins.dsp-techops.broadins
 
 ## Updating terra-docker-versions-*.json Best Practices
 
-As of 6/8/2022, we have added a new process for updating the image versions available across different environments. Once the Leo PR is merged into develop, the user will need to generate the `terra-docker-versions-new.json` with the new images and copy it by doing `gsutil cp xxx/terra-docker-versions-new.json terra-docker-image-documentation/terra-docker-versions-candidate.json`. The remainder of the update process will be covered through Leo deployment. As part of reliability changes, the versions file will live in the corresponding bucket with the following name convention: `terra-docker-image-documentation-{environment}`.
+As of 6/8/2022, we have added a new process for updating the image versions available across different environments. Before the Leo PR is merged into develop, the user will need to generate the `terra-docker-versions-new.json` with the new images and copy it by doing `gsutil cp xxx/terra-docker-versions-new.json terra-docker-image-documentation/terra-docker-versions-candidate.json`. The remainder of the update process will be covered through Leo deployment. As part of reliability changes, the versions file will live in the corresponding bucket with the following name convention: `terra-docker-image-documentation-{environment}`.
 
 ## Merging the terra-docker image hash update job PR
 
