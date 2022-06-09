@@ -73,9 +73,6 @@ There will be a notification in the slack channel `#dsp-callisto-internal` once 
 
 The terra-docker image hash update [job](https://fc-jenkins.dsp-techops.broadinstitute.org/job/swatomation-pipeline/)  mentioned above determines which images (including derived images) have been changed and builds each image with the appropriate tag.
 
-## Updating terra-docker-versions-*.json Best Practices
-
-As of 6/8/2022, we have added a new process for updating the image versions available across different environments. Before the Leo PR is merged into develop, the user will need to generate the `terra-docker-versions-new.json` with the new images and copy it by doing `gsutil cp gs://terra-docker-image-documentation/terra-docker-versions-new.json gs://terra-docker-image-documentation/terra-docker-versions-candidate.json`. The remainder of the update process will be covered through Leo deployment. As part of reliability changes, the versions file will live in the corresponding bucket with the following name convention: `terra-docker-image-documentation-{environment}`.
 
 ## Merging the terra-docker image hash update job PR
 
@@ -91,6 +88,8 @@ Once you have a team member's approval, you can merge this PR. Merging this PR m
 
 ## Terra UI representation
 
-Once all the Leo PRs have been released, we can update Terra UI to display these new image versions.
+Once the Terra-Docker changes have been released, we can update Terra UI to display these new image versions.
 
-The leonardo-build-terra-docker job builds this repo, and after each build it will re-generate a master version file, and upload it under the name specified in the conf. This master version file contains an entry for each image that will appear in the UI. This file is NOT automatically included in the UI. As of now, we wish to control when we change what shows up in the UI via a manual process. Currently, you must go to the google bucket. In this [bucket](https://console.cloud.google.com/storage/browser/terra-docker-image-documentation?authuser=1&project=broad-dsp-gcr-public&rapt=AEjHL4NRGpDcVgK-6J704V1iQh_pDdlrm5lR0OylMI3biUiEAQkOvDuqsN9U7tFS3woVdP0KQrT1mpue7Oyk6slJ1fisoxOVVQ), you will find a file named `terra-docker-versions-new.json`. Make sure this file looks good to you. Copy this file and name it `terra-docker-versions.json` in console or Run `gsutil cp gs://terra-docker-image-documentation/terra-docker-versions-new.json gs://terra-docker-image-documentation/terra-docker-versions.json` with Broad Google account (this will overwrite the existing `terra-docker-versions.json` file) in google cloud console. The newest images will instantly show up in all UIs on refresh.
+The leonardo-build-terra-docker job builds this repo, and after each build it will re-generate a master version file, and upload it under `gs://terra-docker-image-documentation/terra-docker-versions-new.json`. The bucket location is [here](https://console.cloud.google.com/storage/browser/terra-docker-image-documentation?authuser=1&project=broad-dsp-gcr-public&rapt=AEjHL4NRGpDcVgK-6J704V1iQh_pDdlrm5lR0OylMI3biUiEAQkOvDuqsN9U7tFS3woVdP0KQrT1mpue7Oyk6slJ1fisoxOVVQ). This master version file contains an entry for each image that will appear in the UI. Make sure the contents of this file look good. 
+
+Before the Leo PR is merged into develop, the user will need to copy the  `terra-docker-versions-new.json` with the new images by doing `gsutil cp gs://terra-docker-image-documentation/terra-docker-versions-new.json gs://terra-docker-image-documentation/terra-docker-versions-candidate.json` using their Broad account. The remainder of the update process will be covered through Leo deployment and promotion. As part of reliability changes, the versions file will live in the corresponding bucket with the following name convention: `terra-docker-image-documentation-{environment}` under the DSDE {Environment} project. 
