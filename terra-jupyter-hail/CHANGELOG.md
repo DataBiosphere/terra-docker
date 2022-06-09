@@ -1,3 +1,11 @@
+## 1.0.16 - 2022-06-03T18:35:22.393865Z
+
+- Update `terra-jupyter-base` to `1.0.10`
+  - Update deeplearning-platform-release from tf-gpu.2-7 to tf-gpu.2-9. 
+  - Change ownership of /opt/conda to $USER:users.
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-hail:1.0.16`
+
 ## 1.0.15 - 2022-05-20T18:06:39.466439Z
 
 - Update `terra-jupyter-base` to `1.0.9`
