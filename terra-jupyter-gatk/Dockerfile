@@ -1,6 +1,6 @@
-FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-python:1.0.10 AS python
+FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-python:1.0.9 AS python
 
-FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-r:2.1.4
+FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-r:2.1.3
 
 # copy everything pip installed from the python image
 COPY --from=python /opt/conda/lib/python3.7/site-packages /opt/conda/lib/python3.7/site-packages
@@ -59,7 +59,5 @@ COPY cnn-models.patch /etc/gatk-$GATK_VERSION/cnn-models.patch
 RUN patch -u /opt/conda/lib/python3.7/site-packages/vqsr_cnn/vqsr_cnn/models.py -i /etc/gatk-$GATK_VERSION/cnn-models.patch
 
 ENV USER jupyter
-RUN chown -R $USER:users /opt/conda
-
 USER $USER
 

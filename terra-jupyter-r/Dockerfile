@@ -1,4 +1,4 @@
-FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-base:1.0.10
+FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-base:1.0.9
 USER root
 
 COPY scripts $JUPYTER_HOME/scripts
@@ -159,7 +159,5 @@ ENV PIP_USER=true
 
 RUN R -e 'IRkernel::installspec(user=FALSE)' \
     && chown -R $USER:users /usr/local/lib/R/site-library
-
-RUN chown -R $USER:users /opt/conda
 
 USER $USER

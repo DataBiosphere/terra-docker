@@ -1,4 +1,4 @@
-FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-r:2.1.4
+FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-r:2.1.3
 
 USER root
 
@@ -6,7 +6,5 @@ USER root
 RUN curl -O https://raw.githubusercontent.com/Bioconductor/anvil-docker/master/anvil-rstudio-bioconductor/install.R \
 	&& R -f install.R \
 	&& rm -rf install.R
-
-RUN chown -R $USER:users /opt/conda
 
 USER $USER
