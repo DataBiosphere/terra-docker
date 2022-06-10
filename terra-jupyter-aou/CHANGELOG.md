@@ -1,6 +1,6 @@
 ## 2.1.5 - 2022-06-09
 
-- Update `terra-jupyter-gatk` base to `2.2.4`
+- Update `terra-jupyter-gatk` base to `2.2.5`
   - Fix Python sites-packages to avoid issues on uninstall
 - Bump Hail to 0.2.93
 
