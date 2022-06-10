@@ -1,4 +1,4 @@
-FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-gatk:2.2.3
+FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-gatk:2.2.5
 
 USER root
 
@@ -23,9 +23,14 @@ RUN apt-get update && apt-get install -yq --no-install-recommends \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/*
 
+ENV PIP_USER=false
+
+# pandas-profiling 3.1.0 causes conflicts with pyplot
+# pandas-profiling 3.2.0 is incompatible with markupsafe 2.0.1
+# 3.0.0 (lower is untested) avoids both of these issues.
 RUN pip3 install --upgrade \
-  "markupsafe>=2.0.1" \
-  "pandas_profiling>=3.0.2"
+  "pandas_profiling<=3.0.0" \
+  "markupsafe==2.0.1"
 
 RUN pip3 install \
       nbstripout \
@@ -33,7 +38,7 @@ RUN pip3 install \
       dsub \
       "git+https://github.com/all-of-us/workbench-snippets.git#egg=terra_widgets&subdirectory=py"
 
-RUN PIP_USER=false pip3 install igv-jupyter
+RUN pip3 install igv-jupyter
 RUN jupyter nbextension enable --py igv --sys-prefix
 
 # Spark/Hail setup.
@@ -183,4 +188,5 @@ RUN R -e 'BiocManager::install(c("GENESIS"))'
 ENV R_LIBS /usr/local/lib/R/site-library:/opt/conda/lib/R/library
 RUN conda install -c bioconda r-saige
 
+ENV PIP_USER=true
 USER $USER
