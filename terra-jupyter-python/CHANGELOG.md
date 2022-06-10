@@ -1,3 +1,13 @@
+## 1.0.11 - 2022-06-09
+
+- Switch to requirements.txt file
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-python:1.0.11`
+
+## 1.0.10 - 2022-06-03T18:35:22.435328Z
+
+- reverted, do not use
+
 ## 1.0.9 - 2022-05-20T18:06:39.493915Z
 
 - Update `terra-jupyter-base` to `1.0.9`
