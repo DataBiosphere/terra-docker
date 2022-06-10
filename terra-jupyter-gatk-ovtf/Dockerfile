@@ -1,6 +1,6 @@
-FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-python:1.0.10 AS python
+FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-python:1.0.9 AS python
 
-FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-r:2.1.4
+FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-r:2.1.3
 
 # copy everything pip installed from the python image
 COPY --from=python /opt/conda/lib/python3.7/site-packages /opt/conda/lib/python3.7/site-packages
@@ -67,6 +67,4 @@ COPY --chown=jupyter:users run_gatk.sh /home/jupyter/run_gatk.sh
 COPY --chown=jupyter:users GATK-OVTF-Notebook.ipynb /home/jupyter/GATK-OVTF-Notebook.ipynb
 
 ENV USER jupyter
-RUN chown -R $USER:users /opt/conda
-
 USER $USER

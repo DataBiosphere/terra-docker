@@ -1,4 +1,4 @@
-FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-gatk:2.2.4
+FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-gatk:2.2.3
 
 USER root
 
@@ -185,7 +185,5 @@ RUN R -e 'BiocManager::install(c("GENESIS"))'
 # and the jupyter user will have readonly access to the conda path.
 ENV R_LIBS /usr/local/lib/R/site-library:/opt/conda/lib/R/library
 RUN conda install -c bioconda r-saige
-
-RUN chown -R $USER:users /opt/conda
 
 USER $USER
