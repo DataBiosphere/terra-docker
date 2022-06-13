@@ -1,4 +1,4 @@
-## 2.1.4 - 2022-06-03T18:35:22.503157Z
+## 2.1.4 - 2022-06-13T18:35:22.503157Z
 
 - Update `terra-jupyter-base` to `1.0.10`
   - Update deeplearning-platform-release from tf-gpu.2-7 to tf-gpu.2-9. 

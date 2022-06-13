@@ -1,4 +1,4 @@
-## 1.0.10 - 2022-06-03T18:35:22.276580Z
+## 1.0.10 - 2022-06-13T18:35:22.276580Z
 
 - Update deeplearning-platform-release from tf-gpu.2-7 to tf-gpu.2-9. 
   - Change ownership of /opt/conda to $USER:users.

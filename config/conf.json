@@ -68,7 +68,7 @@
                     "scikit-learn"
                 ]
             },
-            "version" : "1.0.11",
+            "version" : "1.0.12",
             "automated_flags" : {
                 "generate_docs" : true,
                 "include_in_ui" : true,
@@ -124,7 +124,7 @@
             "packages" : {
                 
             },
-            "version" : "2.2.5",
+            "version" : "2.2.6",
             "automated_flags" : {
                 "include_in_ui" : true,
                 "generate_docs" : true,
@@ -143,7 +143,7 @@
             "packages" : {
                 
             },
-            "version" : "2.1.5",
+            "version" : "2.1.6",
             "automated_flags" : {
                 "include_in_ui" : false,
                 "generate_docs" : false,
