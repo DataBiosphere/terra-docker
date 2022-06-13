@@ -5,6 +5,7 @@
   - Change ownership of /opt/conda to $USER:users.
 
 Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-aou:2.1.4`
+
 ## 2.1.5 - 2022-06-09
 
 - Update `terra-jupyter-gatk` base to `2.2.5`

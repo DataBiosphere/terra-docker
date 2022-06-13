@@ -33,7 +33,6 @@ COPY requirements.txt /etc/terra-docker/
 RUN pip3 -V \
  && pip3 install --upgrade pip \
  && pip3 install --upgrade -r /etc/terra-docker/requirements.txt \
-
  # Remove this after https://broadworkbench.atlassian.net/browse/CA-1179
  # As of release [google-cloud-bigquery 1.26.0 (2020-07-20)](https://github.com/googleapis/python-bigquery/blob/master/CHANGELOG.md#1260-2020-07-20)
  # the BigQuery Python client uses the BigQuery Storage client by default.
