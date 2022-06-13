@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ## 2.1.4 - 2022-06-03T18:35:22.582705Z
 
 - Update `terra-jupyter-base` to `1.0.10`
@@ -5,6 +6,19 @@
   - Change ownership of /opt/conda to $USER:users.
 
 Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-aou:2.1.4`
+=======
+## 2.1.5 - 2022-06-09
+
+- Update `terra-jupyter-gatk` base to `2.2.5`
+  - Fix Python sites-packages to avoid issues on uninstall
+- Bump Hail to 0.2.93
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-aou:2.1.5`
+
+## 2.1.4 - 2022-06-03T18:35:22.582705Z
+
+- reverted, do not use
+>>>>>>> master
 
 ## 2.1.3 - 2022-05-20T18:06:39.587654Z
 

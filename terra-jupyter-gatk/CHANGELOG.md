@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ## 2.2.4 - 2022-06-03T18:35:22.539434Z
 
 - Update `terra-jupyter-base` to `1.0.10`
@@ -5,6 +6,18 @@
   - Change ownership of /opt/conda to $USER:users.
 
 Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-gatk:2.2.4`
+=======
+## 2.2.5 - 2022-06-09
+
+- Improve Python package matching from -python image. No longer causes downstream
+  issues on package uninstall.
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-gatk:2.2.5`
+
+## 2.2.4 - 2022-06-03T18:35:22.539434Z
+
+- reverted, do not use
+>>>>>>> master
 
 ## 2.2.3 - 2022-05-20T18:06:39.552362Z
 
