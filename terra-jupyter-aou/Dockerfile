@@ -63,10 +63,12 @@ RUN find $JUPYTER_HOME/scripts -name '*.sh' -type f | xargs chmod +x \
     && pip3 install pypandoc gnomad \
     && pip3 install --no-dependencies hail==$HAIL_VERSION \
     && X=$(mktemp -d) \
+    && requirements_file=$(mktemp) \
     && mkdir -p $X \
     && (cd $X && pip3 download hail==$HAIL_VERSION --no-dependencies && \
-        unzip hail*.whl &&  \
-        grep 'Requires-Dist: ' hail*dist-info/METADATA | sed 's/Requires-Dist: //' | sed 's/ (//' | sed 's/)//' | grep -v 'pyspark' | xargs pip install) \
+        unzip hail*.whl && \
+        grep 'Requires-Dist: ' hail*dist-info/METADATA | sed 's/Requires-Dist: //' | sed 's/ (//' | sed 's/)//' | grep -v 'pyspark' >$requirements_file && \
+        pip install -r $requirements_file) \
     && rm -rf $X \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
