@@ -1,7 +1,5 @@
 FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-python:1.0.11 AS python
 
-RUN conda list -n base --explicit > /tmp/conda_packages.txt
-
 FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-r:2.1.3
 
 USER root
