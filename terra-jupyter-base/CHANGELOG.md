@@ -1,6 +1,6 @@
 ## 1.0.10 - 2022-06-23T10:58:12.961300Z
 
-- Fix leo_url variable in workspace_cromwell.py ****script for AoU projects
+- Fix leo_url variable in workspace_cromwell.py script for AoU projects
 
 ## 1.0.9 - 2022-05-20T18:06:39.404395Z
 
