@@ -1,3 +1,10 @@
+## 0.2.4 - 2022-06-23T10:58:12.961300Z
+
+- Update `terra-jupyter-base` to `1.0.10`
+  - Fix leo_url variable in workspace_cromwell.py ****script for AoU projects
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-gatk-ovtf:0.2.4`
+
 ## 0.2.3 - 2022-05-20T18:06:39.600661Z
 
 - Update `terra-jupyter-base` to `1.0.9`
