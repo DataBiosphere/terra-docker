@@ -86,7 +86,7 @@
             "packages" : {
                 
             },
-            "version" : "1.0.10",
+            "version" : "1.0.11",
             "automated_flags" : {
                 "generate_docs" : true,
                 "include_in_ui" : false,
