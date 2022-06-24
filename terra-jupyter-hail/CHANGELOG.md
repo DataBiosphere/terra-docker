@@ -1,7 +1,11 @@
-## 1.0.17 - 2022-06-23T10:58:12.961300Z
+## 1.0.18 - 2022-06-23T10:58:12.961300Z
 
 - Update `terra-jupyter-base` to `1.0.10`
   - Fix leo_url variable in workspace_cromwell.py script for AoU projects
+
+## 1.0.17 - 2022-06-23T10:58:12.961300Z
+
+- reverted, do not use
   
 ## 1.0.16 - 2022-05-25
 - Update `hail` to `0.2.95`
