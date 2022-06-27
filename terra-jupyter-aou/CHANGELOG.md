@@ -1,3 +1,8 @@
+## 2.1.6 - 2022-06-23T10:58:12.961300Z
+
+- Update `terra-jupyter-base` to `1.0.10`
+  - Fix leo_url variable in workspace_cromwell.py script for AoU projects
+
 ## 2.1.5 - 2022-06-09
 
 - Update `terra-jupyter-gatk` base to `2.2.5`

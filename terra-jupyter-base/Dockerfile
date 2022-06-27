@@ -139,7 +139,7 @@ COPY custom $JUPYTER_HOME/custom
 COPY jupyter_notebook_config.py $JUPYTER_HOME
 
 # copy workspace_cromwell.py script and make it runnable by all users
-RUN curl -o /usr/local/bin/workspace_cromwell.py https://raw.githubusercontent.com/broadinstitute/cromwhelm/main/scripts/workspace_cromwell.py \
+RUN curl -o /usr/local/bin/workspace_cromwell.py https://raw.githubusercontent.com/broadinstitute/cromwhelm/1ceedf89587cffd355f37401b179001f029f77ed/scripts/workspace_cromwell.py \
  && chmod +x /usr/local/bin/workspace_cromwell.py
 
 RUN chown -R $USER:users $JUPYTER_HOME \
