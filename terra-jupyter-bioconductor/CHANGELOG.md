@@ -1,3 +1,10 @@
+## 2.1.6 - 2022-07-05T14:07:52.807933Z
+
+- Update `terra-jupyter-base` to `1.0.12`
+  - Change ownership of the Conda install to $USER:users.
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-bioconductor:2.1.6`
+
 ## 2.1.5 - 2022-05-20T18:06:39.449113Z
 
 - Update `terra-jupyter-base` to `1.0.10`

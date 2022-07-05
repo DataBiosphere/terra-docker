@@ -1,3 +1,10 @@
+## 2.2.8 - 2022-07-05T14:07:52.984966Z
+
+- Update `terra-jupyter-base` to `1.0.12`
+  - Change ownership of the Conda install to $USER:users.
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-gatk:2.2.8`
+
 ## 2.2.7 - 2022-06-23T10:58:12.961300Z
 
 - Update `terra-jupyter-base` to `1.0.10`
