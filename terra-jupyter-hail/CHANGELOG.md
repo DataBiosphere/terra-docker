@@ -1,3 +1,10 @@
+## 1.0.19 - 2022-07-05T14:07:52.844052Z
+
+- Update `terra-jupyter-base` to `1.0.12`
+  - Change ownership of the Conda install to NLANDOLTsers.
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-hail:1.0.19`
+
 ## 1.0.18 - 2022-06-23T10:58:12.961300Z
 
 - Update `terra-jupyter-base` to `1.0.10`

@@ -1,6 +1,6 @@
-FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-python:1.0.13 AS python
+FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-python:1.0.15 AS python
 
-FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-r:2.1.5
+FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-r:2.1.6
 
 USER root
 
@@ -63,4 +63,6 @@ RUN patch -u /opt/conda/lib/python3.7/site-packages/vqsr_cnn/vqsr_cnn/models.py 
 ENV PIP_USER=true
 
 ENV USER jupyter
+RUN chown -R $USER:users /opt/conda
+
 USER $USER

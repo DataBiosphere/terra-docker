@@ -1,3 +1,10 @@
+## 2.1.6 - 2022-07-05T14:07:52.958166Z
+
+- Update `terra-jupyter-base` to `1.0.12`
+  - Change ownership of the Conda install to NLANDOLTsers.
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-r:2.1.6`
+
 ## 2.1.5 - 2022-06-23T10:58:12.961300Z
 
 - Update `terra-jupyter-base` to `1.0.10`

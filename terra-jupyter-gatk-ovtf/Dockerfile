@@ -1,6 +1,6 @@
-FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-python:1.0.11 AS python
+FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-python:1.0.13 AS python
 
-FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-r:2.1.5
+FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-r:2.1.7
 
 # copy everything pip installed from the python image
 COPY --from=python /opt/conda/lib/python3.7/site-packages /opt/conda/lib/python3.7/site-packages
@@ -65,6 +65,8 @@ RUN cd /opt/conda/lib/python3.7/site-packages/openvino_tensorflow/ \
 
 COPY --chown=jupyter:users run_gatk.sh /home/jupyter/run_gatk.sh
 COPY --chown=jupyter:users GATK-OVTF-Notebook.ipynb /home/jupyter/GATK-OVTF-Notebook.ipynb
+
+RUN chown -R $USER:users /opt/conda
 
 ENV USER jupyter
 USER $USER

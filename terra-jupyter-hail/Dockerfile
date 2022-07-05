@@ -1,4 +1,4 @@
-FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-python:1.0.11
+FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-python:1.0.13
 USER root
 
 ENV PIP_USER=false
@@ -34,4 +34,7 @@ RUN find $JUPYTER_HOME/scripts -name '*.sh' -type f | xargs chmod +x \
     && rm -rf /var/lib/apt/lists/*
 
 ENV PIP_USER=true
+
+RUN chown -R $USER:users /opt/conda
+
 USER $USER
