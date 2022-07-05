@@ -1,3 +1,18 @@
+## 0.2.6 - 2022-07-05T14:07:53.046089Z
+
+- Update `terra-jupyter-base` to `1.0.12`
+<<<<<<< HEAD
+<<<<<<< HEAD
+  - Change ownership of the Conda install to $USER:users.
+=======
+  - Change ownership of the Conda install to NLANDOLTsers.
+>>>>>>> 4d5c1cf (Updated dockerfiles for changing ownership of conda install, and updated the README files with updateVersion.sc.)
+=======
+  - Change ownership of the Conda install to $USER:users.
+>>>>>>> c843968 (Fixed NLANDOLT to nlandolt)
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-gatk-ovtf:0.2.6`
+
 ## 0.2.5 - 2022-06-23T10:58:12.961300Z
 
 - Update `terra-jupyter-base` to `1.0.10`

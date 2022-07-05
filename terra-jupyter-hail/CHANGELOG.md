@@ -1,8 +1,22 @@
+<<<<<<< HEAD
+## 1.0.20 - 2022-07-05T14:07:52.844052Z
+
+- Update `terra-jupyter-base` to `1.0.12`
+  - Change ownership of the Conda install to $USER:users.
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-hail:1.0.20`
+
 ## 1.0.19 - 2022-06-30
 - Update `hail` to `0.2.96`
   - See https://hail.is/docs/0.2/change_log.html#version-0-2-96) for details
+=======
+## 1.0.19 - 2022-07-05T14:07:52.844052Z
+
+- Update `terra-jupyter-base` to `1.0.12`
+  - Change ownership of the Conda install to $USER:users.
 
 Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-hail:1.0.19`
+>>>>>>> 4d5c1cf (Updated dockerfiles for changing ownership of conda install, and updated the README files with updateVersion.sc.)
 
 ## 1.0.18 - 2022-06-23T10:58:12.961300Z
 

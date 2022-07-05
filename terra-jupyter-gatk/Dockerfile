@@ -1,6 +1,6 @@
-FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-python:1.0.13 AS python
+FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-python:1.0.15 AS python
 
-FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-r:2.1.5
+FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-r:2.1.6
 
 USER root
 
@@ -63,4 +63,14 @@ RUN patch -u /opt/conda/lib/python3.7/site-packages/vqsr_cnn/vqsr_cnn/models.py 
 ENV PIP_USER=true
 
 ENV USER jupyter
+<<<<<<< HEAD
+<<<<<<< HEAD
+RUN conda create --clone base -n user-gatk -y
+=======
+RUN chown -R $USER:users /opt/conda
+>>>>>>> 4d5c1cf (Updated dockerfiles for changing ownership of conda install, and updated the README files with updateVersion.sc.)
+=======
+RUN conda create --clone base -n user-gatk -y
+>>>>>>> 1bc0385 (Updates to images. WIP.)
+
 USER $USER

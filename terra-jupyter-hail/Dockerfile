@@ -1,4 +1,4 @@
-FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-python:1.0.11
+FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-python:1.0.13
 USER root
 
 ENV PIP_USER=false
@@ -34,4 +34,13 @@ RUN find $JUPYTER_HOME/scripts -name '*.sh' -type f | xargs chmod +x \
     && rm -rf /var/lib/apt/lists/*
 
 ENV PIP_USER=true
+
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+RUN chown -R $USER:users /opt/conda
+
+>>>>>>> 4d5c1cf (Updated dockerfiles for changing ownership of conda install, and updated the README files with updateVersion.sc.)
+=======
+>>>>>>> 1bc0385 (Updates to images. WIP.)
 USER $USER
