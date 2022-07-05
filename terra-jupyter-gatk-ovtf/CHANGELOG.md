@@ -1,7 +1,7 @@
 ## 0.2.6 - 2022-07-05T14:07:53.046089Z
 
 - Update `terra-jupyter-base` to `1.0.12`
-  - Change ownership of the Conda install to NLANDOLTsers.
+  - Change ownership of the Conda install to $USER:users.
 
 Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-gatk-ovtf:0.2.6`
 

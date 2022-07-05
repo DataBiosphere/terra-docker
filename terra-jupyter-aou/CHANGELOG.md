@@ -1,7 +1,7 @@
 ## 2.1.7 - 2022-07-05T14:07:53.025073Z
 
 - Update `terra-jupyter-base` to `1.0.12`
-  - Change ownership of the Conda install to NLANDOLTsers.
+  - Change ownership of the Conda install to $USER:users.
 
 Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-aou:2.1.7`
 
