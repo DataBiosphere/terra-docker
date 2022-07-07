@@ -3,6 +3,10 @@
 - Update `terra-jupyter-base` to `1.0.12`
   - Change ownership of the Conda install to $USER:users.
 
+## 1.0.19 - 2022-06-30
+- Update `hail` to `0.2.96`
+  - See https://hail.is/docs/0.2/change_log.html#version-0-2-96) for details
+
 Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-hail:1.0.19`
 
 ## 1.0.18 - 2022-06-23T10:58:12.961300Z
