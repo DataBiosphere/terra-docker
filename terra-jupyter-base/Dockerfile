@@ -150,6 +150,7 @@ RUN chown -R $USER:users $JUPYTER_HOME \
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 RUN conda create --clone base -n user-base -y
 =======
 RUN chown -R $USER:users /opt/conda
@@ -157,6 +158,9 @@ RUN chown -R $USER:users /opt/conda
 =======
 RUN conda create --clone base -n user-base -y
 >>>>>>> 1bc0385 (Updates to images. WIP.)
+=======
+RUN conda create --clone base -n user-base -y
+>>>>>>> f674eed999b1f0f4a03935b27c6df4787b811817
 
 USER $USER
 EXPOSE $JUPYTER_PORT

@@ -65,6 +65,7 @@ ENV PIP_USER=true
 ENV USER jupyter
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 RUN conda create --clone base -n user-gatk -y
 =======
 RUN chown -R $USER:users /opt/conda
@@ -72,5 +73,8 @@ RUN chown -R $USER:users /opt/conda
 =======
 RUN conda create --clone base -n user-gatk -y
 >>>>>>> 1bc0385 (Updates to images. WIP.)
+=======
+RUN conda create --clone base -n user-gatk -y
+>>>>>>> f674eed999b1f0f4a03935b27c6df4787b811817
 
 USER $USER

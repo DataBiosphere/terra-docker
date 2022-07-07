@@ -3,6 +3,7 @@
 - Update `terra-jupyter-base` to `1.0.12`
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   - Change ownership of the Conda install to $USER:users.
 =======
   - Change ownership of the Conda install to NLANDOLTsers.
@@ -10,6 +11,9 @@
 =======
   - Change ownership of the Conda install to $USER:users.
 >>>>>>> c843968 (Fixed NLANDOLT to nlandolt)
+=======
+  - Change ownership of the Conda install to $USER:users.
+>>>>>>> f674eed999b1f0f4a03935b27c6df4787b811817
 
 Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-gatk:2.2.8`
 
