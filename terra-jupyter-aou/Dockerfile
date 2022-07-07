@@ -1,16 +1,4 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 FROM  us.gcr.io/broad-dsp-gcr-public/terra-jupyter-gatk:2.2.8
-=======
-FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-gatk:2.2.8
->>>>>>> 4d5c1cf (Updated dockerfiles for changing ownership of conda install, and updated the README files with updateVersion.sc.)
-=======
-FROM  us.gcr.io/broad-dsp-gcr-public/terra-jupyter-gatk:2.2.8
->>>>>>> 1bc0385 (Updates to images. WIP.)
-=======
-FROM  us.gcr.io/broad-dsp-gcr-public/terra-jupyter-gatk:2.2.8
->>>>>>> f674eed999b1f0f4a03935b27c6df4787b811817
 
 USER root
 
@@ -203,19 +191,7 @@ RUN R -e 'BiocManager::install(c("GENESIS"))'
 ENV R_LIBS /usr/local/lib/R/site-library:/opt/conda/lib/R/library
 RUN conda install -c bioconda r-saige
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 RUN conda create --clone base -n user-aou -y
-=======
-RUN chown -R $USER:users /opt/conda
->>>>>>> 4d5c1cf (Updated dockerfiles for changing ownership of conda install, and updated the README files with updateVersion.sc.)
-=======
-RUN conda create --clone base -n user-aou -y
->>>>>>> 1bc0385 (Updates to images. WIP.)
-=======
-RUN conda create --clone base -n user-aou -y
->>>>>>> f674eed999b1f0f4a03935b27c6df4787b811817
 
 ENV PIP_USER=true
 USER $USER

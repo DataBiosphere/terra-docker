@@ -1,19 +1,7 @@
 ## 2.1.6 - 2022-07-05T14:07:52.807933Z
 
 - Update `terra-jupyter-base` to `1.0.12`
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
   - Change ownership of the Conda install to $USER:users.
-=======
-  - Change ownership of the Conda install to NLANDOLTsers.
->>>>>>> 4d5c1cf (Updated dockerfiles for changing ownership of conda install, and updated the README files with updateVersion.sc.)
-=======
-  - Change ownership of the Conda install to $USER:users.
->>>>>>> c843968 (Fixed NLANDOLT to nlandolt)
-=======
-  - Change ownership of the Conda install to $USER:users.
->>>>>>> f674eed999b1f0f4a03935b27c6df4787b811817
 
 Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-bioconductor:2.1.6`
 

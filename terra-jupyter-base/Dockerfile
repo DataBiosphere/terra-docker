@@ -148,19 +148,7 @@ RUN chown -R $USER:users $JUPYTER_HOME \
 #  You can get kernel directory by running `jupyter kernelspec list`
  && $JUPYTER_HOME/scripts/kernel/kernelspec.sh $JUPYTER_HOME/scripts/kernel /opt/conda/share/jupyter/kernels
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 RUN conda create --clone base -n user-base -y
-=======
-RUN chown -R $USER:users /opt/conda
->>>>>>> 4d5c1cf (Updated dockerfiles for changing ownership of conda install, and updated the README files with updateVersion.sc.)
-=======
-RUN conda create --clone base -n user-base -y
->>>>>>> 1bc0385 (Updates to images. WIP.)
-=======
-RUN conda create --clone base -n user-base -y
->>>>>>> f674eed999b1f0f4a03935b27c6df4787b811817
 
 USER $USER
 EXPOSE $JUPYTER_PORT

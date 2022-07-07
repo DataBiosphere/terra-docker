@@ -35,15 +35,4 @@ RUN find $JUPYTER_HOME/scripts -name '*.sh' -type f | xargs chmod +x \
 
 ENV PIP_USER=true
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-RUN chown -R $USER:users /opt/conda
-
->>>>>>> 4d5c1cf (Updated dockerfiles for changing ownership of conda install, and updated the README files with updateVersion.sc.)
-=======
->>>>>>> 1bc0385 (Updates to images. WIP.)
-=======
->>>>>>> f674eed999b1f0f4a03935b27c6df4787b811817
 USER $USER
