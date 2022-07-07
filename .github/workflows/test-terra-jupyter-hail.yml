@@ -41,6 +41,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    - name: Print disk usage
+      run: df -h
+
     - name: Checkout
       uses: actions/checkout@v2
 
@@ -51,6 +54,9 @@ jobs:
 
     - name: Free up some disk space
       run: sudo rm -rf /usr/share/dotnet
+      run: sudo rm -rf /opt/ghc
+      run: sudo rm -rf "/usr/local/share/boost"
+      run: sudo rm -rf "$AGENT_TOOLSDIRECTORY"
 
     - id: auth
       uses: google-github-actions/auth@v0
@@ -62,11 +68,17 @@ jobs:
       uses: google-github-actions/setup-gcloud@v0.3.0
       with:
         project_id: ${{ secrets.GCP_PROJECT_ID }}
+    
+    - name: Print disk usage 2
+      run: df -h
 
     - name: Build Docker image and base images too, if needed
       run: |
         gcloud auth configure-docker
         ./build_smoke_test_image.sh terra-jupyter-hail
+    
+    - name: Print disk usage 3
+      run: df -h
 
     - name: Run Python code specific to notebooks with nbconvert
       # Run all notebooks from start to finish, regardles of error, so that we can capture the
