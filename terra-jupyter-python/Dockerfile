@@ -1,4 +1,6 @@
-FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-base:1.0.13
+# FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-base:1.0.13
+FROM --platform=linux/amd64 us.gcr.io/broad-dsp-gcr-public/terra-jupyter-base:nlandolt-0.0.69
+
 USER root
 # This makes it so pip runs as root, not the user.
 ENV PIP_USER=false
@@ -51,7 +53,6 @@ RUN pip3 -V \
 RUN pip3 install --upgrade markupsafe==2.0.1
 
 ENV USER jupyter
-RUN chown -R $USER:users /opt/conda
 
 USER $USER
 # We want pip to install into the user's dir when the notebook is running.

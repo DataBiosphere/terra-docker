@@ -35,6 +35,4 @@ RUN find $JUPYTER_HOME/scripts -name '*.sh' -type f | xargs chmod +x \
 
 ENV PIP_USER=true
 
-RUN chown -R $USER:users /opt/conda
-
 USER $USER

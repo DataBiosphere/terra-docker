@@ -63,6 +63,6 @@ RUN patch -u /opt/conda/lib/python3.7/site-packages/vqsr_cnn/vqsr_cnn/models.py 
 ENV PIP_USER=true
 
 ENV USER jupyter
-RUN chown -R $USER:users /opt/conda
+RUN conda create --clone base -n user-gatk -y
 
 USER $USER

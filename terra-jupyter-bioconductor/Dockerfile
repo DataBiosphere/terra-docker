@@ -7,6 +7,4 @@ RUN curl -O https://raw.githubusercontent.com/Bioconductor/anvil-docker/master/a
 	&& R -f install.R \
 	&& rm -rf install.R
 
-RUN chown -R $USER:users /opt/conda
-
 USER $USER

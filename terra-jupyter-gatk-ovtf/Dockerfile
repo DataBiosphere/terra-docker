@@ -66,7 +66,5 @@ RUN cd /opt/conda/lib/python3.7/site-packages/openvino_tensorflow/ \
 COPY --chown=jupyter:users run_gatk.sh /home/jupyter/run_gatk.sh
 COPY --chown=jupyter:users GATK-OVTF-Notebook.ipynb /home/jupyter/GATK-OVTF-Notebook.ipynb
 
-RUN chown -R $USER:users /opt/conda
-
 ENV USER jupyter
 USER $USER

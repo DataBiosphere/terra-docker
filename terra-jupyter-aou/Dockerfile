@@ -1,4 +1,4 @@
-FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-gatk:2.2.8
+FROM  us.gcr.io/broad-dsp-gcr-public/terra-jupyter-gatk:2.2.8
 
 USER root
 
@@ -189,7 +189,7 @@ RUN R -e 'BiocManager::install(c("GENESIS"))'
 ENV R_LIBS /usr/local/lib/R/site-library:/opt/conda/lib/R/library
 RUN conda install -c bioconda r-saige
 
-RUN chown -R $USER:users /opt/conda
+RUN conda create --clone base -n user-aou -y
 
 ENV PIP_USER=true
 USER $USER

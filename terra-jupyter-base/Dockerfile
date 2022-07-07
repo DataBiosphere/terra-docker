@@ -148,7 +148,7 @@ RUN chown -R $USER:users $JUPYTER_HOME \
 #  You can get kernel directory by running `jupyter kernelspec list`
  && $JUPYTER_HOME/scripts/kernel/kernelspec.sh $JUPYTER_HOME/scripts/kernel /opt/conda/share/jupyter/kernels
 
-RUN chown -R $USER:users /opt/conda
+RUN conda create --clone base -n user-base -y
 
 USER $USER
 EXPOSE $JUPYTER_PORT
