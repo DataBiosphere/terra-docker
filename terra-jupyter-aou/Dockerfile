@@ -194,4 +194,4 @@ RUN conda install -c bioconda r-saige
 ENV PIP_USER=true
 USER $USER
 
-RUN conda create --clone base -p $HOME/.jupyter/env/base -y
+RUN conda create --clone base -p $HOME/.jupyter/env/user-aou -y
