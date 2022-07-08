@@ -1,4 +1,4 @@
-FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-gatk:2.2.7
+FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-gatk:2.2.8
 
 USER root
 
@@ -193,3 +193,5 @@ RUN conda install -c bioconda r-saige
 
 ENV PIP_USER=true
 USER $USER
+
+RUN conda create --clone base -p $HOME/.jupyter/env/base -y

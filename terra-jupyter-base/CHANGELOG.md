@@ -1,3 +1,9 @@
+## 1.0.12 - 2022-07-08T13:38:49.941847Z
+
+- Add conda environment so the user has an environment with permissions to run conda install.
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-base:1.0.12`
+
 ## 1.0.11 - 2022-06-23T10:58:12.961300Z
 
 - Fix leo_url variable in workspace_cromwell.py script for AoU projects

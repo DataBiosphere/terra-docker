@@ -1,3 +1,10 @@
+## 2.1.6 - 2022-07-08T13:38:50.115637Z
+
+- Update `terra-jupyter-base` to `1.0.12`
+  - Add conda environment so the user has an environment with permissions to run conda install.
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-r:2.1.6`
+
 ## 2.1.5 - 2022-06-23T10:58:12.961300Z
 
 - Update `terra-jupyter-base` to `1.0.10`

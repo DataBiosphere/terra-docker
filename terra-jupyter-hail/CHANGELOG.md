@@ -1,3 +1,10 @@
+## 1.0.20 - 2022-07-08T13:38:50.031615Z
+
+- Update `terra-jupyter-base` to `1.0.12`
+  - Add conda environment so the user has an environment with permissions to run conda install.
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-hail:1.0.20`
+
 ## 1.0.19 - 2022-06-30
 - Update `hail` to `0.2.96`
   - See https://hail.is/docs/0.2/change_log.html#version-0-2-96) for details

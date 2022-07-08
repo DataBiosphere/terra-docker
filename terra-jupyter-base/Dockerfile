@@ -153,6 +153,8 @@ USER $USER
 EXPOSE $JUPYTER_PORT
 WORKDIR $HOME
 
+RUN conda create --clone base -p $HOME/.jupyter/env/base -y
+
 # Note: this entrypoint is provided for running Jupyter independently of Leonardo.
 # When Leonardo deploys this image onto a cluster, the entrypoint is overwritten to enable
 # additional setup inside the container before execution.  Jupyter execution occurs when the
