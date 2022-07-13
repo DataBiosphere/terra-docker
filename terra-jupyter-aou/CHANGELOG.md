@@ -1,3 +1,9 @@
+## 2.1.8 - 2022-07-12
+
+- Revert attempted Java11 upgrade back to Java8
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-aou:2.1.8`
+
 ## 2.1.7 - 2022-06-30
 - Update `hail` to `0.2.96`
   - See https://hail.is/docs/0.2/change_log.html#version-0-2-96) for details
