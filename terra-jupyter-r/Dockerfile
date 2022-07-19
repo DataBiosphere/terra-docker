@@ -152,7 +152,7 @@ RUN R -e 'install.packages("BiocManager")' \
     "tidyverse", \
     "pbdZMQ", \
     "uuid"))' \
-    && R -e 'BiocManager::install("DataBiosphere/Ronaldo")'
+    && R -e 'BiocManager::install("DataBiosphere/Ronaldo", "AnVIL")'
 
 ## pip runs as jupyter user
 ENV PIP_USER=true
