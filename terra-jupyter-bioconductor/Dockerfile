@@ -3,7 +3,7 @@ FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-r:2.1.5
 USER root
 
 ## Install Bioconductor Core packages
-RUN curl -O https://raw.githubusercontent.com/Bioconductor/anvil-docker/master/anvil-rstudio-bioconductor/install.R \
+RUN curl -O https://raw.githubusercontent.com/anvilproject/anvil-docker/master/anvil-rstudio-bioconductor/install.R \
 	&& R -f install.R \
 	&& rm -rf install.R
 
