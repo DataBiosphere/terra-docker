@@ -152,7 +152,22 @@ RUN R -e 'install.packages("BiocManager")' \
     "tidyverse", \
     "pbdZMQ", \
     "uuid"))' \
-    && R -e 'BiocManager::install("DataBiosphere/Ronaldo", "AnVIL")'
+    && R -e 'BiocManager::install("DataBiosphere/Ronaldo")' \
+    # Install Bioconductor packages found at:
+    # https://raw.githubusercontent.com/anvilproject/anvil-docker/master/anvil-rstudio-bioconductor/install.R
+    && R -e 'BiocManager::install(c( \
+    "AnVIL", \
+    "SingleCellExperiment", \ 
+    "GenomicFeatures", \
+    "GenomicAlignments", \ 
+    "ShortRead", \
+    "DESeq2", \
+    "AnnotationHub", \
+    "ExperimentHub", \
+    "ensembldb", \
+    "scRNAseq", \
+    "scran", \
+    "Rtsne"))'
 
 ## pip runs as jupyter user
 ENV PIP_USER=true
