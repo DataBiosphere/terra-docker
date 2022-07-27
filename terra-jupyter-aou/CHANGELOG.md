@@ -1,3 +1,10 @@
+## 2.1.9 - 2022-07-27T13:32:20.021704Z
+
+- Update `terra-jupyter-r` to `2.1.6`
+  - Installs AnVIL and supporting packages.
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-aou:2.1.9`
+
 ## 2.1.8 - 2022-07-12
 
 - Revert attempted Java11 upgrade back to Java8
