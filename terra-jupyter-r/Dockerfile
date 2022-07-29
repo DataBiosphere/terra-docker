@@ -174,6 +174,6 @@ RUN R -e 'BiocManager::install(c( \
 ENV PIP_USER=true
 
 RUN R -e 'IRkernel::installspec(user=FALSE)' \
-    && chown -R $USER:users /usr/local/lib/R/site-library
+    && chown -R $USER:users /usr/local/lib/R/site-library /home/jupyter
 
 USER $USER
