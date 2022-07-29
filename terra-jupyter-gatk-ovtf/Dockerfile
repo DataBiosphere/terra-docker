@@ -45,7 +45,7 @@ ENV TF_ENABLE_ONEDNN_OPTS 1
 ENV PIP_USER=false
 
 # Force reinstalling TF and Keras to satisfy OVTF compatibility.
-RUN pip install --force-reinstall tensorflow==$TF_VER keras==$KERAS_VER
+RUN pip install --force-reinstall tensorflow==$TF_VER keras==$KERAS_VER markupsafe==2.0.1
 RUN conda install six typing_extensions --force-reinstall \
     && pip install openvino_tensorflow==$OVTF_VER \
     && pip install matplotlib sklearn \
