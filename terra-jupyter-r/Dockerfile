@@ -152,10 +152,11 @@ RUN R -e 'install.packages("BiocManager")' \
     "tidyverse", \
     "pbdZMQ", \
     "uuid"))' \
-    && R -e 'BiocManager::install("DataBiosphere/Ronaldo")' \
-    # Install Bioconductor packages found at:
-    # https://raw.githubusercontent.com/anvilproject/anvil-docker/master/anvil-rstudio-bioconductor/install.R
-    && R -e 'BiocManager::install(c( \
+    && R -e 'BiocManager::install("DataBiosphere/Ronaldo")'
+    
+# Install Bioconductor packages found at:
+# https://raw.githubusercontent.com/anvilproject/anvil-docker/master/anvil-rstudio-bioconductor/install.R
+RUN R -e 'BiocManager::install(c( \
     "AnVIL", \
     "SingleCellExperiment", \ 
     "GenomicFeatures", \
