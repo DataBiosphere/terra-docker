@@ -19,39 +19,41 @@ RUN apt-get update && apt-get install -yq --no-install-recommends \
     # gnupg requirement
     dirmngr \
     gnupg \
-    # curl requirement
+#    # curl requirement
     curl \
     ca-certificates \
     # useful utilities for debugging within the docker
     nano \
     procps \
-    lsb-release \
-    # python requirements
-    checkinstall \
-    build-essential \
-    zlib1g-dev \
-    # pip requirements
-    libssl-dev \
-    libbz2-dev \
-    libreadline-dev \
-    libsqlite3-dev \
-    llvm \
-    libncurses5-dev \
-    libncursesw5-dev \
-    tk-dev \
-    libffi-dev \
-    liblzma-dev \
-    python-openssl \
-    libexempi3 \
-    libv8-3.14-dev \
+#    lsb-release \
+#    # python requirements
+#    checkinstall \
+#    build-essential \
+#    zlib1g-dev \
+#    # pip requirements
+#    libssl-dev \
+#    libbz2-dev \
+#    libreadline-dev \
+#    libsqlite3-dev \
+#    llvm \
+#    libncurses5-dev \
+#    libncursesw5-dev \
+#    tk-dev \
+#    libffi-dev \
+#    liblzma-dev \
+#    python-openssl \
+#    libexempi3 \
+#    libv8-3.14-dev \
+    # extras \
+    wget \
+    bzip2 \
     # install script requirements
-    sudo \
     locales \
     # for ssh-agent and ssh-add
     keychain \
-    # openjdk 11
-    default-jre \
-    default-jdk \
+##    # openjdk 11
+##    default-jre \
+##    default-jdk \
     # git
     git \
 # Uncomment en_US.UTF-8 for inclusion in generation
@@ -86,16 +88,58 @@ ENV JUPYTER_HOME /etc/jupyter
 
 # install miniconda to /opt/conda
 ENV CONDA_AUTO_UPDATE_CONDA=false
-ENV PATH="${PATH}:/opt/conda/bin:${HOME}/.local/bin:${HOME}/packages/bin"
+ENV CONDA_DIR /opt/conda
+ENV PATH="${PATH}:${CONDA_DIR}/bin:${HOME}/.local/bin:${HOME}/packages/bin"
 RUN curl -so $HOME/miniconda.sh https://repo.anaconda.com/miniconda/Miniconda3-py37_4.12.0-Linux-x86_64.sh \
  && chmod +x $HOME/miniconda.sh \
- && $HOME/miniconda.sh -b -p /opt/conda \
+ && $HOME/miniconda.sh -b -p $CONDA_DIR \
  && rm $HOME/miniconda.sh
+
+# slim install of things that have a gcc dependency
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    checkinstall \
+    build-essential \
+    zlib1g-dev \
+    # pip requirements
+    libssl-dev \
+    libbz2-dev \
+    libreadline-dev \
+    libsqlite3-dev \
+    llvm \
+    libncurses5-dev \
+    libncursesw5-dev \
+    tk-dev \
+    libffi-dev \
+    liblzma-dev \
+    python-openssl \
+    libexempi3 \
+    libv8-3.14-dev \
+ && rm -rf /var/lib/apt/lists/* \
+ && pip3 install firecloud  \
+ && pip3 install terra-notebook-utils \
+ && apt-get purge -y --auto-remove \
+    checkinstall \
+    build-essential \
+    zlib1g-dev \
+    # pip requirements
+    libssl-dev \
+    libbz2-dev \
+    libreadline-dev \
+    libsqlite3-dev \
+    llvm \
+    libncurses5-dev \
+    libncursesw5-dev \
+    tk-dev \
+    libffi-dev \
+    liblzma-dev \
+    python-openssl \
+    libexempi3 \
+    libv8-3.14-dev
 
 RUN pip3 -V \
  # For gcloud alpha storage support.
  && pip3 install google-crc32c --target /usr/lib/google-cloud-sdk/lib/third_party \
- && git clone --branch sf_missing_requirement --single-branch \
+ && git clone --branch cromshell_2.0 --single-branch \
     https://github.com/broadinstitute/cromshell.git $HOME/cromshell \
  # tmp hack min-5
  # I'm not installing jupyterlab and I can't update init-actions.sh to not access it
@@ -104,7 +148,10 @@ RUN pip3 -V \
  # Hence, make sure to manually test out "launch terminal" button (the button in the green bar next to start and stop buttons)
  # to make sure we don't accidentally break it every time we upgrade notebook version until we figure out an automation test for this
  && pip3 install notebook \
- && pip3 install ipykernel \
+ && pip3 install jupyter \
+# && pip3 install jupyterlab \
+ && pip3 install cookiecutter \
+ && pip3 install tornado \
  && pip3 install python-datauri \
  && pip3 install jupyter_contrib_nbextensions \
  && pip3 install jupyter_nbextensions_configurator \
@@ -113,8 +160,8 @@ RUN pip3 -V \
  && pip3 install "nbconvert>=6.4.5" \
  # for jupyter_delocalize.py and jupyter_notebook_config.py
  && pip3 install requests \
- && pip3 install firecloud \
- && pip3 install terra-notebook-utils \
+# && pip3 install firecloud \
+# && pip3 install terra-notebook-utils \
  && pip3 install crcmod \
  # install Cromshell 2.0, using repo cloned above
  && pip install $HOME/cromshell
@@ -144,7 +191,7 @@ RUN chown -R $USER:users $JUPYTER_HOME \
 # && jupyter nbextension disable nb_conda --py --sys-prefix \
  && find $JUPYTER_HOME/scripts -name '*.sh' -type f | xargs chmod +x \
 #  You can get kernel directory by running `jupyter kernelspec list`
- && $JUPYTER_HOME/scripts/kernel/kernelspec.sh $JUPYTER_HOME/scripts/kernel /opt/conda/share/jupyter/kernels
+ && $JUPYTER_HOME/scripts/kernel/kernelspec.sh $JUPYTER_HOME/scripts/kernel $CONDA_DIR/share/jupyter/kernels
 
 USER $USER
 EXPOSE $JUPYTER_PORT
@@ -154,4 +201,4 @@ WORKDIR $HOME
 # When Leonardo deploys this image onto a cluster, the entrypoint is overwritten to enable
 # additional setup inside the container before execution.  Jupyter execution occurs when the
 # init-actions.sh script uses 'docker exec' to call run-jupyter.sh.
-ENTRYPOINT ["/opt/conda/bin/jupyter", "notebook"]
+ENTRYPOINT ["jupyter", "notebook"]
