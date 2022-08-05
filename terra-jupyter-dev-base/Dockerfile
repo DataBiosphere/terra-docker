@@ -143,7 +143,9 @@ COPY custom $JUPYTER_HOME/custom
 COPY jupyter_notebook_config.py $JUPYTER_HOME
 
 RUN chown -R $USER:users $JUPYTER_HOME \
- # Disable nb_conda for now. Consider re-enable in the future
+ && chown -R $USER:users $HOME/.conda \
+ && chown -R $USER:users $CONDA_DIR \
+# Disable nb_conda for now. Consider re-enable in the future
 # && jupyter nbextension disable nb_conda --py --sys-prefix \
  && find $JUPYTER_HOME/scripts -name '*.sh' -type f | xargs chmod +x \
  # You can get kernel directory by running `jupyter kernelspec list`
