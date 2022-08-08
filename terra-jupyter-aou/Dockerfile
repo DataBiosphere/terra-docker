@@ -1,4 +1,4 @@
-FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-gatk:2.2.7
+FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-gatk:2.2.8
 
 USER root
 
@@ -111,7 +111,7 @@ RUN mkdir -p /tmp/prsice && \
   ln -s "/opt/prsice/PRsice_linux" /bin/prsice
 
 # BOLT-LMM install
-ENV BOLT_LMM_VERSION v2.3.6
+ENV BOLT_LMM_VERSION v2.4
 RUN mkdir -p /tmp/bolt-lmm && \
   cd /tmp/bolt-lmm && \
   curl -L -o bolt-lmm.tar.gz "https://storage.googleapis.com/broad-alkesgroup-public/BOLT-LMM/downloads/BOLT-LMM_${BOLT_LMM_VERSION}.tar.gz" && \

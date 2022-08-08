@@ -1,3 +1,9 @@
+## 2.1.6 - 2022-07-27T13:32:19.838903Z
+
+- Installs AnVIL and supporting packages.
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-r:2.1.6`
+
 ## 2.1.5 - 2022-06-23T10:58:12.961300Z
 
 - Update `terra-jupyter-base` to `1.0.10`

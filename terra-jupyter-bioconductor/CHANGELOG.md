@@ -1,3 +1,11 @@
+## 2.1.7 - 2022-07-27T13:32:19.884050Z
+
+- Moved AnVIL and supporting packages to be installed in parent image.
+- Update `terra-jupyter-r` to `2.1.6`
+  - Installs AnVIL and supporting packages.
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-bioconductor:2.1.7`
+
 ## 2.1.6 - 2022-07-22
 
 - Fix anvil package install
