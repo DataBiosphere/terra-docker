@@ -1,5 +1,6 @@
 ## 2.1.9 - 2022-07-27T13:32:20.021704Z
 
+- Update BOLT-LMM version to v2.4.
 - Update `terra-jupyter-r` to `2.1.6`
   - Installs AnVIL and supporting packages.
 
