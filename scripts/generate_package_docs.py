@@ -48,7 +48,7 @@ def get_r_doc(params):
   except AttributeError as e:
     raise ValueError("the R has produced output with an improperly formatted version. Something has likely gone wrong with this script, ensure that the output has a version properly parsed by the regex in the function write_r_doc.\n\tOutput: " + r_version_output)
 
-  bioconductor_version_output = utils.docker_exec(image_dir, "R --vanilla -s -e 'cat(as.character(BiocManager::version()))'")
+  bioconductor_version_output = utils.docker_exec(image_dir, "sh -c \"echo 'library(BiocManager) \n BiocManager::version()' > temp2.r; Rscript temp2.r; rm temp2.r\"")
   try:
     bioconductor_version = re.search("(\d+\.)(\d+)", bioconductor_version_output).group(0)
   except AttributeError as e:
@@ -68,15 +68,18 @@ def get_r_doc(params):
 def get_python_doc(params):
   image_dir = params.image_dir
   python_version_output = utils.docker_exec(image_dir, "python3 --version")
-  raw_python_doc = utils.docker_exec(image_dir, "pip list --format=json")
+  raw_python_doc = utils.docker_exec(image_dir, "pip list --format=json --disable-pip-version-check")
 
   try:
     python_version = re.search("(\d+\.)(\d+\.)(\*|\d+)", python_version_output).group(0)
   except AttributeError as e:
     raise ValueError("the python command has produced output with an improperly formatted version. Something has likely gone wrong with this script, ensure that the output has a version properly parsed by the regex in the function write_python_doc. \n\tOutput: " + python_version_output)
 
+
   json_python_doc = json.loads(raw_python_doc)
+
   json_python_doc = list(map(lambda package: { package["name"]: package["version"] }, json_python_doc))
+
   json_python_doc.append({"python": python_version})
 
   return json_python_doc
