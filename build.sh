@@ -12,13 +12,13 @@ GCR_IMAGE_REPO=$(cat config/conf.json | jq -r .gcr_image_repo)
 #below is a regex to match strictly on $VERSION, not any tags which have a substring of $VERSION
 IMAGE_EXISTS=$(gcloud container images list-tags  --filter="TAGS~^$VERSION$" $GCR_IMAGE_REPO/$IMAGE_DIR)
 
-if [ -z "$IMAGE_EXISTS" ]; then
-    echo "An image for this version does not exist. Proceeding with build"
-else
-    echo "An image for the version you are trying to build already exists. Ensure you have updated the VERSION file."
-    #unreserved exit code for checking in jenkins
-    exit 14
-fi
+#if [ -z "$IMAGE_EXISTS" ]; then
+#    echo "An image for this version does not exist. Proceeding with build"
+#else
+#    echo "An image for the version you are trying to build already exists. Ensure you have updated the VERSION file."
+#    #unreserved exit code for checking in jenkins
+#    exit 14
+#fi
 
 VAULT_LOCATION=~/.vault-token
 if [[ $VAULT_LOCATION == *"jenkins"* ]]; then
