@@ -6,7 +6,7 @@
         "gatk",
         "spark"
     ],
-    "version_master_file" : "terra-docker-versions-candidate.json",
+    "version_master_file" : "terra-docker-versions-new.json",
     "doc_suffix" : "versions.json",
     "gcr_image_repo" : "us.gcr.io/broad-dsp-gcr-public",
     "doc_bucket" : "gs://terra-docker-image-documentation",
