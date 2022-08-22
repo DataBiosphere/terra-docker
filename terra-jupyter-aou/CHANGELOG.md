@@ -1,3 +1,9 @@
+## 2.1.10 - 2022-08-22
+- Update `hail` to `0.2.98`
+  - See https://hail.is/docs/0.2/change_log.html#version-0-2-98) for details
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-aou:2.1.10`
+
 ## 2.1.9 - 2022-07-27T13:32:20.021704Z
 
 - Update BOLT-LMM version to v2.4.
