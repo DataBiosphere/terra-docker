@@ -1,4 +1,6 @@
-FROM ubuntu:20.04
+ARG BASE_IMAGE="ubuntu:20.04"
+
+FROM ${BASE_IMAGE}
 
 USER root
 
@@ -8,6 +10,7 @@ USER root
 # files display nicer when viewed in a terminal.
 ENV DEBIAN_FRONTEND=noninteractive \
     LC_ALL=en_US.UTF-8 \
+    GOOGLE_CLOUD_CLI_VERSION="397.0.0" \
     USER=jupyter \
     WELDER_USER=welder-user \
     WELDER_UID=1001 \
@@ -20,7 +23,11 @@ ENV HOME=/home/$USER
     # When using PIP_USER=true packages are installed into Python site.USER_BASE, which is '/home/jupyter' for this system.
     # Append '/home/jupyter/.local/bin' to PATH
     # pip docs: https://pip.pypa.io/en/stable/reference/pip_install/#cmdoption-user
-ENV PATH="${PATH}:${CONDA_DIR}/bin:${HOME}/.local/bin:${HOME}/packages/bin"
+ENV PATH="${PATH}:${CONDA_DIR}/bin:${HOME}/.local/bin:${HOME}/packages/bin:${HOME}/google-cloud-sdk/bin:"
+
+COPY requirements.txt /opt/
+COPY requirements_gcc.txt /opt/
+COPY gcc_pkgs.txt /opt/
 
 # Users
 RUN useradd -m -s /bin/bash $USER \
@@ -60,82 +67,44 @@ RUN useradd -m -s /bin/bash $USER \
  && locale-gen \
  && apt-get clean \
  && rm -rf /var/lib/apt/lists/* \
-# install miniconda to $CONDA_DIR
+# Install miniconda to $CONDA_DIR
  && curl -so $HOME/miniconda.sh https://repo.anaconda.com/miniconda/Miniconda3-py37_4.12.0-Linux-x86_64.sh \
  && chmod +x $HOME/miniconda.sh \
  && $HOME/miniconda.sh -b -p $CONDA_DIR \
  && rm $HOME/miniconda.sh \
-# slim install of python packages that have a gcc dependency (cleanup included)
- && apt-get update && apt-get install -y --no-install-recommends \
-    checkinstall \
-    build-essential \
-    zlib1g-dev \
-    # pip requirements
-    libssl-dev \
-    libbz2-dev \
-    libreadline-dev \
-    libsqlite3-dev \
-    llvm \
-    libncurses5-dev \
-    libncursesw5-dev \
-    tk-dev \
-    libffi-dev \
-    liblzma-dev \
-    python-openssl \
-    libexempi3 \
-    libv8-3.14-dev \
- && rm -rf /var/lib/apt/lists/* \
- && pip3 install firecloud  \
- && pip3 install terra-notebook-utils \
+# Install gsutil with compiled crcmod
+ && curl -so $HOME/google-cloud-cli.tar.gz \
+    https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-cli-${GOOGLE_CLOUD_CLI_VERSION}-linux-x86_64.tar.gz \
+ && tar -xzf $HOME/google-cloud-cli.tar.gz -C $HOME \
+ && .$HOME/google-cloud-sdk/install.sh \
+ && rm $HOME/google-cloud-cli.tar.gz \
+ && rm -rf ~/.cache/pip \
+# Slim install of python packages that have a gcc dependency (cleanup included)
+ && apt-get update && apt-get install -yq --no-install-recommends \
+    $(cat /opt/gcc_pkgs.txt) \
+ && pip3 install -r /opt/requirements_gcc.txt \
  && apt-get purge -y --auto-remove \
-    checkinstall \
-    build-essential \
-    zlib1g-dev \
-    # pip requirements
-    libssl-dev \
-    libbz2-dev \
-    libreadline-dev \
-    libsqlite3-dev \
-    llvm \
-    libncurses5-dev \
-    libncursesw5-dev \
-    tk-dev \
-    libffi-dev \
-    liblzma-dev \
-    python-openssl \
-    libexempi3 \
-    libv8-3.14-dev \
+    $(cat /opt/gcc_pkgs.txt) \
+ && apt-get clean \
+ && rm -rf /var/lib/apt/lists/* \
 # Install jupyter and some necessary python packages
- && pip3 -V \
- # For gcloud alpha storage support.
- && pip3 install google-crc32c --target /usr/lib/google-cloud-sdk/lib/third_party \
- && git clone --branch cromshell_2.0 --single-branch \
-    https://github.com/broadinstitute/cromshell.git $HOME/cromshell \
  # tmp hack min-5
  # I'm not installing jupyterlab and I can't update init-actions.sh to not access it
  && mkdir -p /usr/local/share/jupyter/lab \
  # When we upgraded from jupyter 5.7.8 to 6.1.1, we broke terminal button on terra-ui.
  # Hence, make sure to manually test out "launch terminal" button (the button in the green bar next to start and stop buttons)
  # to make sure we don't accidentally break it every time we upgrade notebook version until we figure out an automation test for this
- && pip3 install notebook \
- && pip3 install jupyter \
-# && pip3 install jupyterlab \
- && pip3 install cookiecutter \
- && pip3 install tornado \
- && pip3 install python-datauri \
- && pip3 install jupyter_contrib_nbextensions \
- && pip3 install jupyter_nbextensions_configurator \
- && pip3 install markupsafe==2.0.1 \
- # Avoid broken lower versions: https://github.com/jupyter/nbconvert/pull/1624
- && pip3 install "nbconvert>=6.4.5" \
- # for jupyter_delocalize.py and jupyter_notebook_config.py
- && pip3 install requests \
- && pip3 install crcmod \
- # install Cromshell 2.0, using repo cloned above
- && pip install $HOME/cromshell \
-# copy workspace_cromwell.py script and make it runnable by all users
- && curl -o /usr/local/bin/workspace_cromwell.py https://raw.githubusercontent.com/broadinstitute/cromwhelm/1ceedf89587cffd355f37401b179001f029f77ed/scripts/workspace_cromwell.py \
- && chmod +x /usr/local/bin/workspace_cromwell.py
+ && pip3 install -r /opt/requirements.txt \
+# Copy workspace_cromwell.py script and make it runnable by all users
+ && curl -o /usr/local/bin/workspace_cromwell.py \
+    https://raw.githubusercontent.com/broadinstitute/cromwhelm/1ceedf89587cffd355f37401b179001f029f77ed/scripts/workspace_cromwell.py \
+ && chmod +x /usr/local/bin/workspace_cromwell.py \
+# Cromshell 2.0
+ && git clone --branch cromshell_2.0 --single-branch \
+    https://github.com/broadinstitute/cromshell.git $HOME/cromshell \
+ && pip3 install $HOME/cromshell \
+ && rm -rf ~/.cache/pip \
+ && conda clean -ya
 
 # Utilities
 COPY scripts $JUPYTER_HOME/scripts
@@ -145,8 +114,7 @@ COPY jupyter_notebook_config.py $JUPYTER_HOME
 RUN chown -R $USER:users $JUPYTER_HOME \
  && chown -R $USER:users $HOME/.conda \
  && chown -R $USER:users $CONDA_DIR \
-# Disable nb_conda for now. Consider re-enable in the future
-# && jupyter nbextension disable nb_conda --py --sys-prefix \
+ && chown -R $USER:users $HOME/.config/gcloud \
  && find $JUPYTER_HOME/scripts -name '*.sh' -type f | xargs chmod +x \
  # You can get kernel directory by running `jupyter kernelspec list`
  && $JUPYTER_HOME/scripts/kernel/kernelspec.sh $JUPYTER_HOME/scripts/kernel $CONDA_DIR/share/jupyter/kernels

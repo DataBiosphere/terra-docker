@@ -1,0 +1,11 @@
+notebook==6.4.12
+jupyter==1.0.0
+cookiecutter==2.1.1
+tornado==6.2
+python-datauri==1.1.0
+jupyter_contrib_nbextensions==0.5.1
+jupyter_nbextensions_configurator==0.5.0
+markupsafe==2.0.1
+nbconvert>=6.4.5
+requests==2.27.1
+crcmod==1.7
