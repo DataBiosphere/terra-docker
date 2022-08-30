@@ -17,6 +17,11 @@ Make sure to go through the [contributing guide](https://github.com/DataBiospher
 
 [terra-jupyter-bioconductor](terra-jupyter-bioconductor/README.md)
 
+## (Small base images for developers)
+[terra-jupyter-minimal-base](terra-jupyter-minimal-base/README.md)
+
+[terra-jupyter-minimal-gpu-base](terra-jupyter-minimal-gpu-base/README.md)
+
 # How to create your own Custom image to use with notebooks on Terra
 Custom docker images need to use a Terra base image (see above) in order to work with the service that runs notebooks on Terra.
 * You can use any of the base images above
@@ -29,6 +34,7 @@ Custom docker images need to use a Terra base image (see above) in order to work
 * Since 6/28/2021, we introduced a few changes that might impact building custom images
     - Home directory of new images will be `/home/jupyter`. This means if your dockerfile is referencing `/home/jupyter-user` directory, you need to update it to $HOME (recommended) or `/home/jupyter`.
     - Creating VMs with custom images will take much longer than terra supported images because `docker pull` will take a few min. If the custom image ends up being too large, VM creation may time out. New base images are much larger in size than previous versions.
+      - Consider using the "minimal" base images
 
 # Development
 ## Using git secrets
