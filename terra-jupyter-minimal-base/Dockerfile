@@ -18,12 +18,13 @@ ENV DEBIAN_FRONTEND=noninteractive \
     JUPYTER_PORT=8000 \
     JUPYTER_HOME=/etc/jupyter \
     CONDA_AUTO_UPDATE_CONDA=false \
-    CONDA_DIR=/opt/conda
+    CONDA_DIR=/opt/conda \
+    GCLOUD_DIR=/opt/gcloud
 ENV HOME=/home/$USER
     # When using PIP_USER=true packages are installed into Python site.USER_BASE, which is '/home/jupyter' for this system.
     # Append '/home/jupyter/.local/bin' to PATH
     # pip docs: https://pip.pypa.io/en/stable/reference/pip_install/#cmdoption-user
-ENV PATH="${PATH}:${CONDA_DIR}/bin:${HOME}/.local/bin:${HOME}/packages/bin:${HOME}/google-cloud-sdk/bin:"
+ENV PATH="${GCLOUD_DIR}/google-cloud-sdk/bin:${CONDA_DIR}/bin:${HOME}/.local/bin:${HOME}/packages/bin:${PATH}"
 
 COPY requirements.txt /opt/
 COPY requirements_gcc.txt /opt/
@@ -64,23 +65,33 @@ RUN useradd -m -s /bin/bash $USER \
  # Uncomment en_US.UTF-8 for inclusion in generation
  && sed -i 's/^# *\(en_US.UTF-8\)/\1/' /etc/locale.gen \
  # Generate locale
- && locale-gen \
+ && sudo locale-gen \
  && apt-get clean \
- && rm -rf /var/lib/apt/lists/* \
+ && rm -rf /var/lib/apt/lists/*
+
 # Install miniconda to $CONDA_DIR
- && curl -so $HOME/miniconda.sh https://repo.anaconda.com/miniconda/Miniconda3-py37_4.12.0-Linux-x86_64.sh \
+RUN curl -so $HOME/miniconda.sh https://repo.anaconda.com/miniconda/Miniconda3-py37_4.12.0-Linux-x86_64.sh \
  && chmod +x $HOME/miniconda.sh \
  && $HOME/miniconda.sh -b -p $CONDA_DIR \
- && rm $HOME/miniconda.sh \
+ && rm $HOME/miniconda.sh
+
 # Install gsutil with compiled crcmod
- && curl -so $HOME/google-cloud-cli.tar.gz \
+RUN mkdir -p $GCLOUD_DIR \
+ && curl -so $GCLOUD_DIR/google-cloud-cli.tar.gz \
     https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-cli-${GOOGLE_CLOUD_CLI_VERSION}-linux-x86_64.tar.gz \
- && tar -xzf $HOME/google-cloud-cli.tar.gz -C $HOME \
- && .$HOME/google-cloud-sdk/install.sh \
- && rm $HOME/google-cloud-cli.tar.gz \
- && rm -rf ~/.cache/pip \
+ && tar -xzf $GCLOUD_DIR/google-cloud-cli.tar.gz -C $GCLOUD_DIR \
+ && .$GCLOUD_DIR/google-cloud-sdk/install.sh --usage-reporting false --rc-path $HOME/.bashrc \
+ # manual symlinks since .bashrc is not getting sourced and PATH is getting overwritten in Terra Cloud Environment
+ && ln -s $GCLOUD_DIR/google-cloud-sdk/bin/gsutil /usr/bin/gsutil \
+ && ln -s $GCLOUD_DIR/google-cloud-sdk/bin/anthoscli /usr/bin/anthoscli \
+ && ln -s $GCLOUD_DIR/google-cloud-sdk/bin/bq /usr/bin/bq \
+ && ln -s $GCLOUD_DIR/google-cloud-sdk/bin/docker-credential-gcloud /usr/bin/docker-credential-gcloud \
+ && ln -s $GCLOUD_DIR/google-cloud-sdk/bin/gcloud /usr/bin/gcloud \
+ # creates the directory $HOME/.config/gcloud/configurations
+ && gsutil version -l
+
 # Slim install of python packages that have a gcc dependency (cleanup included)
- && apt-get update && apt-get install -yq --no-install-recommends \
+RUN apt-get update && apt-get install -yq --no-install-recommends \
     $(cat /opt/gcc_pkgs.txt) \
  && pip3 install -r /opt/requirements_gcc.txt \
  && apt-get purge -y --auto-remove \
