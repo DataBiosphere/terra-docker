@@ -193,5 +193,11 @@ RUN R -e 'BiocManager::install(c("GENESIS"))'
 ENV R_LIBS /usr/local/lib/R/site-library:/opt/conda/lib/R/library
 RUN conda install -c bioconda r-saige
 
+# RW-8725 INSTALL QIMEE2
+RUN curl -L -o qiime2-2022.8.yml https://data.qiime2.org/distro/core/qiime2-2022.8-py38-linux-conda.yml && \
+    conda env create -n qiime2-2022.8 --file qiime2-2022.8.yml && \
+    rm qiime2-2022.8.yml
+
+
 ENV PIP_USER=true
 USER $USER

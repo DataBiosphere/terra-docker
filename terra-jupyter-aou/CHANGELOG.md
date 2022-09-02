@@ -1,3 +1,9 @@
+## 2.1.9 - 2022-09-02
+
+ - Add support to QIIME2
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-aou:2.1.9`
+
 ## 2.1.8 - 2022-07-12
 
 - Revert attempted Java11 upgrade back to Java8
