@@ -63,20 +63,18 @@ RUN useradd -m -s /bin/bash $USER \
     # git
     git \
  # Uncomment en_US.UTF-8 for inclusion in generation
- && sed -i 's/^# *\(en_US.UTF-8\)/\1/' /etc/locale.gen \
+ && sudo sed -i 's/^# *\(en_US.UTF-8\)/\1/' /etc/locale.gen \
  # Generate locale
  && sudo locale-gen \
  && apt-get clean \
- && rm -rf /var/lib/apt/lists/*
-
+ && rm -rf /var/lib/apt/lists/* \
 # Install miniconda to $CONDA_DIR
-RUN curl -so $HOME/miniconda.sh https://repo.anaconda.com/miniconda/Miniconda3-py37_4.12.0-Linux-x86_64.sh \
+ && curl -so $HOME/miniconda.sh https://repo.anaconda.com/miniconda/Miniconda3-py37_4.12.0-Linux-x86_64.sh \
  && chmod +x $HOME/miniconda.sh \
  && $HOME/miniconda.sh -b -p $CONDA_DIR \
- && rm $HOME/miniconda.sh
-
+ && rm $HOME/miniconda.sh \
 # Install gsutil with compiled crcmod
-RUN mkdir -p $GCLOUD_DIR \
+ && mkdir -p $GCLOUD_DIR \
  && curl -so $GCLOUD_DIR/google-cloud-cli.tar.gz \
     https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-cli-${GOOGLE_CLOUD_CLI_VERSION}-linux-x86_64.tar.gz \
  && tar -xzf $GCLOUD_DIR/google-cloud-cli.tar.gz -C $GCLOUD_DIR \
@@ -88,10 +86,9 @@ RUN mkdir -p $GCLOUD_DIR \
  && ln -s $GCLOUD_DIR/google-cloud-sdk/bin/docker-credential-gcloud /usr/bin/docker-credential-gcloud \
  && ln -s $GCLOUD_DIR/google-cloud-sdk/bin/gcloud /usr/bin/gcloud \
  # creates the directory $HOME/.config/gcloud/configurations
- && gsutil version -l
-
+ && gsutil version -l \
 # Slim install of python packages that have a gcc dependency (cleanup included)
-RUN apt-get update && apt-get install -yq --no-install-recommends \
+ && apt-get update && apt-get install -yq --no-install-recommends \
     $(cat /opt/gcc_pkgs.txt) \
  && pip3 install -r /opt/requirements_gcc.txt \
  && apt-get purge -y --auto-remove \
