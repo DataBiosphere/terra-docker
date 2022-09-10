@@ -87,6 +87,11 @@ RUN useradd -m -s /bin/bash $USER \
  && ln -s $GCLOUD_DIR/google-cloud-sdk/bin/gcloud /usr/bin/gcloud \
  # creates the directory $HOME/.config/gcloud/configurations
  && gsutil version -l \
+ && chown -R $USER:users $HOME/.conda \
+ && chown -R $USER:users $CONDA_DIR \
+ && chown -R $USER:users $HOME/.config/gcloud \
+ && mkdir $JUPYTER_HOME \
+ && chown -R $USER:users $JUPYTER_HOME \
 # Slim install of python packages that have a gcc dependency (cleanup included)
  && apt-get update && apt-get install -yq --no-install-recommends \
     $(cat /opt/gcc_pkgs.txt) \
@@ -112,18 +117,14 @@ RUN useradd -m -s /bin/bash $USER \
     https://github.com/broadinstitute/cromshell.git $HOME/cromshell \
  && pip3 install $HOME/cromshell \
  && rm -rf ~/.cache/pip \
- && conda clean -ya
+ && conda clean -yaf
 
 # Utilities
 COPY scripts $JUPYTER_HOME/scripts
 COPY custom $JUPYTER_HOME/custom
 COPY jupyter_notebook_config.py $JUPYTER_HOME
 
-RUN chown -R $USER:users $JUPYTER_HOME \
- && chown -R $USER:users $HOME/.conda \
- && chown -R $USER:users $CONDA_DIR \
- && chown -R $USER:users $HOME/.config/gcloud \
- && find $JUPYTER_HOME/scripts -name '*.sh' -type f | xargs chmod +x \
+RUN find $JUPYTER_HOME/scripts -name '*.sh' -type f | xargs chmod +x \
  # You can get kernel directory by running `jupyter kernelspec list`
  && $JUPYTER_HOME/scripts/kernel/kernelspec.sh $JUPYTER_HOME/scripts/kernel $CONDA_DIR/share/jupyter/kernels
 
