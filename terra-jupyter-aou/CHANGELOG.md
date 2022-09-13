@@ -1,3 +1,11 @@
+## 2.1.9 - 2022-09-02
+
+ - Add support for QIIME2
+ - Update `hail` to `0.2.98`
+   - See https://hail.is/docs/0.2/change_log.html#version-0-2-98) for details
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-aou:2.1.9`
+
 ## 2.1.8 - 2022-07-12
 
 - Revert attempted Java11 upgrade back to Java8
