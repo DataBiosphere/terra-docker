@@ -90,8 +90,6 @@ RUN useradd -m -s /bin/bash $USER \
  && chown -R $USER:users $HOME/.conda \
  && chown -R $USER:users $CONDA_DIR \
  && chown -R $USER:users $HOME/.config/gcloud \
- && mkdir $JUPYTER_HOME \
- && chown -R $USER:users $JUPYTER_HOME \
 # Slim install of python packages that have a gcc dependency (cleanup included)
  && apt-get update && apt-get install -yq --no-install-recommends \
     $(cat /opt/gcc_pkgs.txt) \
@@ -124,7 +122,8 @@ COPY scripts $JUPYTER_HOME/scripts
 COPY custom $JUPYTER_HOME/custom
 COPY jupyter_notebook_config.py $JUPYTER_HOME
 
-RUN find $JUPYTER_HOME/scripts -name '*.sh' -type f | xargs chmod +x \
+RUN chown -R $USER:users $JUPYTER_HOME \
+ && find $JUPYTER_HOME/scripts -name '*.sh' -type f | xargs chmod +x \
  # You can get kernel directory by running `jupyter kernelspec list`
  && $JUPYTER_HOME/scripts/kernel/kernelspec.sh $JUPYTER_HOME/scripts/kernel $CONDA_DIR/share/jupyter/kernels
 
