@@ -11,7 +11,6 @@ Nvidia drivers installed. This image adds the minimum
 requirements necessary to set up Jupyter and provide compatibility with Leonardo.
 
 - CUDA 11.3
-- Nvidia driver version 465.19.01
 - OS prerequisites
 - google-cloud-cli
 - Python 3.7
