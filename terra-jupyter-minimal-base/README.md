@@ -20,6 +20,14 @@ requirements necessary to set up Jupyter and provide compatibility with Leonardo
 
 To see the complete contents of this image please see the [Dockerfile](./Dockerfile).
 
+## Notes
+
+- Currently, the environment variable `WORKSPACE_BUCKET` is not getting set 
+  correctly when this image is used to create a Cloud Environment in Terra
+  - The value is `'.'`
+  - This will be fixed in future versions
+  - For now, it's recommended to avoid using this environment variable
+
 ## Selecting prior versions of this image
 
 To select an older version this image, you can search the [CHANGELOG.md](./CHANGELOG.md) 
