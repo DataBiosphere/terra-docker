@@ -184,13 +184,6 @@ RUN mkdir -p /tmp/vcftools && \
 
 RUN R -e 'BiocManager::install(c("GENESIS"))'
 
-# TODO(IA-3261): Remove this hack, and just conda install normally. R SAIGE
-# unfortunately is difficult to install outside of conda. Conda is also not
-# fully supported on the terra-docker base image. Here we workaround this by
-# installing (as root) via conda, and including the R lib path. Order is
-# important here, as packages.install() will target the first path in this list,
-# and the jupyter user will have readonly access to the conda path.
-ENV R_LIBS /usr/local/lib/R/site-library:/opt/conda/lib/R/library
 RUN conda install -c bioconda r-saige
 
 # RW-8725 INSTALL QIMEE2

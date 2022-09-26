@@ -1,3 +1,9 @@
+## 2.1.9.1 - 2022-09-26
+
+- Add support for QIIME2
+- Update `hail` to `0.2.98`
+  - See https://hail.is/docs/0.2/change_log.html#version-0-2-98) for details
+
 ## 2.1.9 - 2022-09-02
 
  - Add support for QIIME2
