@@ -184,7 +184,7 @@ RUN mkdir -p /tmp/vcftools && \
 
 RUN R -e 'BiocManager::install(c("GENESIS"))'
 
-RUN conda install -c bioconda r-saige
+RUN conda install -v -v -v -c bioconda r-saige
 
 # RW-8725 INSTALL QIMEE2
 RUN curl -L -o qiime2-2022.8.yml https://data.qiime2.org/distro/core/qiime2-2022.8-py38-linux-conda.yml && \
