@@ -1,4 +1,4 @@
-## 2.1.12 - 2022-10-19
+## 2.1.12 - 2022-10-21
 - Update `hail` to `0.2.104`
   - See https://hail.is/docs/0.2/change_log.html#version-0-2-104) for details
 
