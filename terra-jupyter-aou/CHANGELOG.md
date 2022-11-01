@@ -1,3 +1,9 @@
+## 2.1.13 - 2022-11-01
+- Update `hail` to `0.2.105`
+  - See https://hail.is/docs/0.2/change_log.html#version-0-2-105) for details
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-aou:2.1.13`
+
 ## 2.1.12 - 2022-10-21
 - Update `hail` to `0.2.104`
   - See https://hail.is/docs/0.2/change_log.html#version-0-2-104) for details
