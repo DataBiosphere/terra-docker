@@ -23,8 +23,8 @@ env:
   SERVICE_NAME: ${{ github.event.repository.name }}
   GOOGLE_PROJECT: broad-dsp-gcr-public
 jobs:
-  tag-publish-job:
-    runs-on: ubuntu-latest
+  publish-job:
+    runs-on: self-hosted
     steps:
       - name: Set image directory
         id: set-env-step
@@ -41,10 +41,16 @@ jobs:
         with:
           python-version: 3.7
 
+      - id: auth
+        uses: google-github-actions/auth@v0
+        with:
+          credentials_json: ${{ secrets.GCP_SA_KEY }}
+          create_credentials_file: true
+
       - name: Set up Cloud SDK
         uses: google-github-actions/setup-gcloud@v0.3.0
         with:
-          project_id: ${GOOGLE_PROJECT}
+          project_id: ${{ secrets.GCP_PROJECT_ID }}
 
       - name: Explicitly auth Docker for GCR
         run: gcloud auth configure-docker --quiet
