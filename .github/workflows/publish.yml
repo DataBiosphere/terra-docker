@@ -1,6 +1,8 @@
 name: Publish image to GCR
 on:
   workflow_dispatch:
+    push:
+      branches: [ yyu-gha ]
     inputs:
       image:
         description: 'Image to publish'
@@ -70,5 +72,4 @@ jobs:
         with:
           image: ${{ steps.image-name.outputs.name }}
       - name: Push GCR image
-        if: steps.skiptest.outputs.is-bump == 'no'
         run: "docker push ${{ steps.image-name.outputs.name }}"
