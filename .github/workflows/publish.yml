@@ -15,10 +15,6 @@ on:
           - terra-jupyter-gatk-ovtf
           - terra-jupyter-hail
           - terra-jupyter-python
-      version:
-        description: 'version to publish'
-        required: true
-        default: ''
       branch:
         description: 'Branch to run the workflow on'
         required: false
@@ -30,6 +26,16 @@ jobs:
   tag-publish-job:
     runs-on: ubuntu-latest
     steps:
+      - name: Set image directory
+        id: set-env-step
+        run: |
+          if ${{ github.event_name == 'workflow_dispatch' }}; then
+            IMAGE_DIR=${{ github.event.inputs.image }}
+          else
+            echo ::error ::${{ github.event_name }} not supported for this workflow
+            exit 1
+          fi
+          echo ::set-output name=image-dir::$ENV
       - name: Checkout current code
         uses: actions/checkout@v2
 
@@ -55,20 +61,7 @@ jobs:
       - name: Explicitly auth Docker for GCR
         run: gcloud auth configure-docker --quiet
 
-      - name: Construct docker image name and tag
-        id: image-name
-        run: |
-          echo ::set-output name=name::us.gcr.io/${GOOGLE_PROJECT}/${github.event.inputs.image}:${github.event.inputs.version}
-
       - name: Build Docker image and base images too, if needed
         run: |
           gcloud auth configure-docker
-          ./build.sh ${github.event.inputs.image} ${github.event.inputs.version}
-
-      - name: Run Trivy vulnerability scanner
-        # Link to the github location of the action https://github.com/broadinstitute/dsp-appsec-trivy-action
-        uses: broadinstitute/dsp-appsec-trivy-action@v1
-        with:
-          image: ${{ steps.image-name.outputs.name }}
-      - name: Push GCR image
-        run: "docker push ${{ steps.image-name.outputs.name }}"
+          ./build.sh IMAGE_DIR
