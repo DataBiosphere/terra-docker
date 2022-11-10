@@ -64,7 +64,7 @@ jobs:
       - name: Build Docker image and base images too, if needed
         run: |
           gcloud auth configure-docker
-          ./build_image.sh ${github.event.inputs.image} ${github.event.inputs.version}
+          ./build.sh ${github.event.inputs.image} ${github.event.inputs.version}
 
       - name: Run Trivy vulnerability scanner
         # Link to the github location of the action https://github.com/broadinstitute/dsp-appsec-trivy-action
