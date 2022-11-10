@@ -55,7 +55,7 @@ jobs:
       - name: Explicitly auth Docker for GCR
         run: gcloud auth configure-docker --quiet
 
-      - name: Build Docker image and base images too, if needed
+      - name: Build Docker image and publish
         run: |
           gcloud auth configure-docker
           ./build.sh ${IMAGE_DIR} ${{ secrets.GCP_SA_KEY }}
