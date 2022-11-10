@@ -41,10 +41,10 @@ jobs:
           credentials_json: ${{ secrets.GCP_SA_KEY }}
           create_credentials_file: true
 
-      - name: Set up Cloud SDK
-        uses: google-github-actions/setup-gcloud@v0.3.0
-        with:
-          project_id: ${{ secrets.GCP_PROJECT_ID }}
+#      - name: Set up Cloud SDK
+#        uses: google-github-actions/setup-gcloud@v0.3.0
+#        with:
+#          project_id: ${{ secrets.GCP_PROJECT_ID }}
 
       - name: Explicitly auth Docker for GCR
         run: gcloud auth configure-docker --quiet
