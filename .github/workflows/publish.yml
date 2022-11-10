@@ -19,9 +19,6 @@ on:
         description: 'Branch to run the workflow on'
         required: false
         default: 'master'
-env:
-  SERVICE_NAME: ${{ github.event.repository.name }}
-  GOOGLE_PROJECT: broad-dsp-gcr-public
 jobs:
   publish-job:
     runs-on: self-hosted
