@@ -31,11 +31,8 @@ jobs:
         run: |
           if ${{ github.event_name == 'workflow_dispatch' }}; then
             IMAGE_DIR=${{ github.event.inputs.image }}
-          else
-            echo ::error ::${{ github.event_name }} not supported for this workflow
-            exit 1
           fi
-          echo ::set-output name=image-dir::$ENV
+          echo ::set-output name=image-dir::IMAGE_DIR
       - name: Checkout current code
         uses: actions/checkout@v2
 
