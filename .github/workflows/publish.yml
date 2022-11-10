@@ -44,19 +44,10 @@ jobs:
         with:
           python-version: 3.7
 
-      - name: Free up some disk space
-        run: sudo rm -rf /usr/share/dotnet
-
-      - id: auth
-        uses: google-github-actions/auth@v0
-        with:
-          credentials_json: ${{ secrets.GCP_SA_KEY }}
-          create_credentials_file: true
-
       - name: Set up Cloud SDK
         uses: google-github-actions/setup-gcloud@v0.3.0
         with:
-          project_id: ${{ secrets.GCP_PROJECT_ID }}
+          project_id: ${GOOGLE_PROJECT}
 
       - name: Explicitly auth Docker for GCR
         run: gcloud auth configure-docker --quiet
@@ -64,4 +55,4 @@ jobs:
       - name: Build Docker image and base images too, if needed
         run: |
           gcloud auth configure-docker
-          ./build.sh IMAGE_DIR
+          ./build.sh ${IMAGE_DIR} ${{ secrets.GCP_SA_KEY }}
