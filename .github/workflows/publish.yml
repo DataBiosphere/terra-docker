@@ -27,12 +27,6 @@ jobs:
   publish-job:
     runs-on: self-hosted
     steps:
-      - name: Set image directory
-        id: set-env-step
-        run: |
-          if ${{ github.event_name == 'workflow_dispatch' }}; then
-            IMAGE_DIR=${{ github.event.inputs.image }}
-          fi
       - name: Checkout current code
         uses: actions/checkout@v2
 
@@ -58,4 +52,4 @@ jobs:
       - name: Build Docker image and publish
         run: |
           gcloud auth configure-docker
-          ./build.sh ${IMAGE_DIR} ${{ secrets.GCP_SA_KEY }}
+          ./build.sh ${{ github.event.inputs.image }} ${{ secrets.GCP_SA_KEY }}
