@@ -1,6 +1,5 @@
 name: Publish image to GCR
 on:
-  push:
   workflow_dispatch:
     inputs:
       image:
