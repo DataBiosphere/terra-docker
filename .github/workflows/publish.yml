@@ -15,6 +15,7 @@ on:
           - terra-jupyter-gatk-ovtf
           - terra-jupyter-hail
           - terra-jupyter-python
+        default: 'terra-jupyter-aou'
       branch:
         description: 'Branch to run the workflow on'
         required: false
@@ -32,7 +33,6 @@ jobs:
           if ${{ github.event_name == 'workflow_dispatch' }}; then
             IMAGE_DIR=${{ github.event.inputs.image }}
           fi
-          echo ::set-output name=image-dir::IMAGE_DIR
       - name: Checkout current code
         uses: actions/checkout@v2
 

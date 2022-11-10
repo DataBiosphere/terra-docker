@@ -4,7 +4,7 @@
 set -e -x
 
 IMAGE_DIR=$1
-SKIP_GCR_AUTH=$2
+GCP_SA_KEY=$2
 VERSION=$(cat config/conf.json | jq -r ".image_data | .[] | select(.name == \"$IMAGE_DIR\") | .version")
 
 TAG_NAME=$(git log --pretty=format:'%h' -n 1)
@@ -26,16 +26,17 @@ if [[ $VAULT_LOCATION == *"jenkins"* ]]; then
     VAULT_LOCATION="/etc/vault-token-dsde"
 fi
 
-if [[ -z "${SKIP_GCR_AUTH}" ]]; then
+if [[ -z "${GCP_SA_KEY}" ]]; then
   # will fail if you are not gcloud authed as dspci-wb-gcr-service-account or secret/dsde/firecloud/common/image-build-account.json
   # the below works locally but not on jenkins for some reason, using a different account until a resolution is found
   # docker run --rm  -v $VAULT_LOCATION:/root/.vault-token:ro broadinstitute/dsde-toolbox:latest vault read --format=json secret/dsde/dsp-techops/common/dspci-wb-gcr-service-account.json | jq .data > dspci-wb-gcr-service-account.json
   # gcloud auth activate-service-account --key-file=dspci-wb-gcr-service-account.json
   docker run --rm  -v $VAULT_LOCATION:/root/.vault-token:ro broadinstitute/dsde-toolbox:latest vault read --format=json secret/dsde/firecloud/common/image-build-account.json | jq .data > image-build-account.json
   GCP_SA_KEY = "image-build-account.json"
-  gcloud auth activate-service-account --key-file=$GCP_SA_KEY
-  gcloud auth configure-docker --quiet
 fi
+
+gcloud auth activate-service-account --key-file=$GCP_SA_KEY
+gcloud auth configure-docker --quiet
 
 docker image build ./$IMAGE_DIR \
   --tag $GCR_IMAGE_REPO/$IMAGE_DIR:$TAG_NAME \
