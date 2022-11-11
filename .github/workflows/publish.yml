@@ -48,4 +48,4 @@ jobs:
       - name: Build Docker image and publish
         run: |
           gcloud auth configure-docker
-          ./build.sh ${{ github.event.inputs.image }} ${{ secrets.GCP_SA_KEY }}
+          ./build.sh ${{ github.event.inputs.image }} "true"
