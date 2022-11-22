@@ -1,3 +1,9 @@
+## 2.1.7 - 2022-11-22T20:49:44.016171853Z
+
+- Update Bioconductor for 3.16 release
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-r:2.1.7`
+
 ## 2.1.6 - 2022-07-27T13:32:19.838903Z
 
 - Installs AnVIL and supporting packages.

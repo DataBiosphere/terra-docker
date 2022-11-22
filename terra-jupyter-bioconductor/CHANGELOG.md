@@ -1,3 +1,10 @@
+## 2.1.8 - 2022-11-22T20:49:44.056023723Z
+
+- Update `terra-jupyter-r` to `2.1.7`
+  - Update Bioconductor for 3.16 release
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-bioconductor:2.1.8`
+
 ## 2.1.7 - 2022-07-27T13:32:19.884050Z
 
 - Moved AnVIL and supporting packages to be installed in parent image.
