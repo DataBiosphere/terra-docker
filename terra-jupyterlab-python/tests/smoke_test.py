@@ -1,4 +1,4 @@
-"""Brief smoke tests for terra-jupyter-python.
+"""Brief smoke tests for terra-jupyterlab-python.
 
 Minimal tests simply import packages and run 'hello world' code to determine whether any exceptions
 are thrown.

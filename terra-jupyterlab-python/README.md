@@ -1,10 +1,10 @@
-# terra-jupyter-python image
+# terra-jupyterlab-python image
 
-This repo contains the terra-jupyter-python image that is compatible with notebook service in [Terra]("https://app.terra.bio/") called Leonardo. For example, use `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-python:{version}` in terra.
+This repo contains the terra-jupyterlab-python image that is compatible with notebook service in [Terra]("https://app.terra.bio/") called Leonardo. For example, use `us.gcr.io/broad-dsp-gcr-public/terra-jupyterlab-python:{version}` in terra.
 
 ## Image contents
 
-The terra-jupyter-python image extends the [terra-jupyter-base](../terra-jupyter-base) image, supported in this repo.
+The terra-jupyterlab-python image extends the [terra-jupyter-base](../terra-jupyter-base) image, supported in this repo.
 
 To see the complete contents of this image please see the [Dockerfile](./Dockerfile).
 

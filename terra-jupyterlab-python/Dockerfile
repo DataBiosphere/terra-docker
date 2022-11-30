@@ -20,6 +20,12 @@ RUN apt-get update && apt-get install -yq --no-install-recommends \
 
 ENV HTSLIB_CONFIGURE_OPTIONS="--enable-gcs"
 
+# This environment variable lets Leonardo know that this
+# image should launch a JupyterLab environment, and not a Jupyter environment.
+# Previously, Leonardo would only look at the JUPYTER_HOME env var,
+# but that is the same for both Jupyter and JupyterLab
+ENV IS_JUPYTER_LAB=true
+
 COPY requirements.txt /etc/terra-docker/
 
 # Dev note: in general, do not pin Python packages to any particular version.
@@ -49,6 +55,12 @@ RUN pip3 -V \
 
 
 RUN pip3 install --upgrade markupsafe==2.0.1
+
+# Eventually, upgrade to a newer version of JupyterLab
+# This will also pull in newer versions of other dependencies,
+# which can cause conflicts. So for MVP, stick with what's
+# included in the base image
+# RUN pip3 install --upgrade -Iv jupyterlab==3.5.0
 
 ENV USER jupyter
 USER $USER
