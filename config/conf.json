@@ -161,6 +161,27 @@
                 "include_in_custom_dataproc" : false,
                 "include_in_custom_gce" : false
             }
+        },
+        {
+            "name": "terra-jupyterlab-python",
+            "base_label": "JupyterLab Default",
+            "tools": [
+                "python"
+            ],
+            "packages": {
+                "python": [
+                    "pandas",
+                    "scikit-learn"
+                ]
+            },
+            "version": "0.0.1",
+            "automated_flags": {
+                "generate_docs": true,
+                "include_in_ui": true,
+                "build": true,
+                "include_in_custom_dataproc": true,
+                "include_in_custom_gce": true
+            }
         }
     ]
 }
