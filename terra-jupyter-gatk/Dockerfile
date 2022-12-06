@@ -46,7 +46,7 @@ RUN curl -L -o $GATK_ZIP_PATH https://github.com/broadinstitute/gatk/releases/do
 ENV NXF_MODE google
 RUN mkdir -p /tmp/nextflow && \
   cd /tmp/nextflow && \
-  curl -s https://github.com/nextflow-io/nextflow/releases/download/v22.04.0/nextflow | bash && \
+  wget -qO- https://github.com/nextflow-io/nextflow/releases/download/v22.04.5/nextflow | bash && \
   mv nextflow /bin/nextflow && \
   cd $HOME && \
   chmod 777 /bin/nextflow && \
