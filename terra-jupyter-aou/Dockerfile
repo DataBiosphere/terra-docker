@@ -198,6 +198,40 @@ RUN curl -L -o qiime2-2022.8.yml https://data.qiime2.org/distro/core/qiime2-2022
     conda env create -n qiime2-2022.8 --file qiime2-2022.8.yml && \
     rm qiime2-2022.8.yml
 
+# Install jellyfish
+RUN mkdir -p /tmp/jellyfish && \
+    cd /tmp/jellyfish && \
+    curl -L -o jellyfish.tar.gz https://github.com/gmarcais/Jellyfish/releases/download/v2.3.0/jellyfish-2.3.0.tar.gz && \
+    tar xvf jellyfish.tar.gz && \
+    cd jellyfish-2.3.0 && \
+    ./configure && \
+    make && \
+    make install && \
+    cd $HOME && \
+    rm -rf /tmp/jellyfish
+
+# Install pangenie
+RUN mkdir -p /tmp/pangenie && \
+  cd /tmp/pangenie && \
+  git clone https://github.com/eblerjana/pangenie.git && \
+  cd pangenie && \
+  mkdir build; cd build; cmake .. ; make && cd src && \
+  mv *.so /lib && \
+  mv * /bin/ && \
+  cd $HOME && \
+  rm -rf /tmp/pangenie
+
+# Install minimap2
+RUN curl -L https://github.com/lh3/minimap2/releases/download/v2.24/minimap2-2.24_x64-linux.tar.bz2 | tar -jxvf - && cd minimap2-2.24_x64-linux/ && cp minimap2 /bin/minimap2
+
+# Run whatshap
+RUN conda install -c bioconda whatshap
+
+# Install RepeatMasker (900 MB + 25 GB)
+RUN cd /usr/local && curl -L -o repeatmasker.tar.gz http://www.repeatmasker.org/RepeatMasker/RepeatMasker-4.1.4.tar.gz && \
+  tar xvf repeatmasker.tar.gz && cd Libraries && wget https://www.dfam.org/releases/Dfam_3.6/families/Dfam.h5.gz && \
+  gunzip Dfam.h5.gz && cd /usr/local/RepeatMasker && perl ./configure && cd $HOME
+
 
 ENV PIP_USER=true
 USER $USER
