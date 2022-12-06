@@ -224,8 +224,10 @@ RUN mkdir -p /tmp/pangenie && \
 # Install minimap2
 RUN curl -L https://github.com/lh3/minimap2/releases/download/v2.24/minimap2-2.24_x64-linux.tar.bz2 | tar -jxvf - && cd minimap2-2.24_x64-linux/ && cp minimap2 /bin/minimap2
 
-# Run whatshap
-RUN conda install -c bioconda whatshap
+# Run whatshap (>1h install)
+# RUN conda install -c bioconda whatshap
+# Alternatively, not using conda (1 min install)
+RUN pip install git+https://github.com/whatshap/whatshap
 
 # Install RepeatMasker (900 MB + 25 GB)
 RUN cd /usr/local && curl -L -o repeatmasker.tar.gz http://www.repeatmasker.org/RepeatMasker/RepeatMasker-4.1.4.tar.gz && \
