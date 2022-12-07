@@ -71,7 +71,7 @@ RUN find $JUPYTER_HOME/scripts -name '*.sh' -type f | xargs chmod +x \
     && (cd $X && pip3 download hail==$HAIL_VERSION --no-dependencies && \
         unzip hail*.whl && \
         grep 'Requires-Dist: ' hail*dist-info/METADATA | sed 's/Requires-Dist: //' | sed 's/ (//' | sed 's/)//' | grep -v 'pyspark' >$requirements_file && \
-        pip install -r $requirements_file) \
+        pip install --verbose -r $requirements_file) \
     && rm -rf $X \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
@@ -193,6 +193,13 @@ RUN R -e 'BiocManager::install(c("GENESIS"))'
 ENV R_LIBS /usr/local/lib/R/site-library:/opt/conda/lib/R/library
 RUN conda install -c bioconda r-saige
 
+# Install hdf5 library and h5py
+RUN apt-get update && \
+  apt install -yq --no-install-recommends \
+        libhdf5-serial-dev \
+        cmake
+RUN pip install --upgrade pip && pip install --verbose h5py
+
 # RW-8725 INSTALL QIMEE2
 RUN curl -L -o qiime2-2022.8.yml https://data.qiime2.org/distro/core/qiime2-2022.8-py38-linux-conda.yml && \
     conda env create -n qiime2-2022.8 --file qiime2-2022.8.yml && \
@@ -222,18 +229,45 @@ RUN mkdir -p /tmp/pangenie && \
   rm -rf /tmp/pangenie
 
 # Install minimap2
-RUN curl -L https://github.com/lh3/minimap2/releases/download/v2.24/minimap2-2.24_x64-linux.tar.bz2 | tar -jxvf - && cd minimap2-2.24_x64-linux/ && cp minimap2 /bin/minimap2
+RUN curl -L https://github.com/lh3/minimap2/releases/download/v2.24/minimap2-2.24_x64-linux.tar.bz2 | tar -jxvf - && cd minimap2-2.24_x64-linux/ && cp minimap2 /bin/minimap2 && cd $HOME
 
 # Run whatshap (>1h install)
 # RUN conda install -c bioconda whatshap
 # Alternatively, not using conda (1 min install)
-RUN pip install git+https://github.com/whatshap/whatshap
+RUN pip install --verbose git+https://github.com/whatshap/whatshap
 
-# Install RepeatMasker (900 MB + 25 GB)
+# TRF
+RUN mkdir -p /tmp/trf && cd /tmp/trf && \
+  git clone https://github.com/Benson-Genomics-Lab/TRF.git && cd TRF && \
+  mkdir build && cd build && ../configure && make && make install && \
+  cd $HOME && \
+  rm -rf /tmp/trf
+
+# HMMER
+RUN mkdir -p /tmp/hmmer && cd /tmp/hmmer && \
+  curl -L -o hmmer-3.3.tar.gz http://eddylab.org/software/hmmer/hmmer-3.3.tar.gz && \
+  tar -xzf hmmer-3.3.tar.gz && cd hmmer-3.3 && ./configure && \
+  make && make install && cd .. && rm -r hmmer-3.3 hmmer-3.3.tar.gz && cd $HOME && \
+  rm -rf /tmp/hmmer
+
+# rmblast (200M)
+RUN mkdir -p /tmp/rmblast && cd /tmp/rmblast && \
+  curl -L -o rmblast-2.11.0+-x64-linux.tar.gz http://www.repeatmasker.org/rmblast-2.11.0+-x64-linux.tar.gz && \
+  tar -zxvf rmblast-2.11.0+-x64-linux.tar.gz && \
+  cp rmblast-2.11.0/bin/* /usr/local/bin && \
+  cd $HOME && \
+  rm -rf /tmp/rmblast
+
+# Install RepeatMasker (900M + 25G)
 RUN cd /usr/local && curl -L -o repeatmasker.tar.gz http://www.repeatmasker.org/RepeatMasker/RepeatMasker-4.1.4.tar.gz && \
-  tar xvf repeatmasker.tar.gz && cd Libraries && wget https://www.dfam.org/releases/Dfam_3.6/families/Dfam.h5.gz && \
-  gunzip Dfam.h5.gz && cd /usr/local/RepeatMasker && perl ./configure && cd $HOME
+  tar xvf repeatmasker.tar.gz && rm repeatmasker.tar.gz && cd /usr/local/RepeatMasker/Libraries && curl -L -o Dfam.h5.gz https://www.dfam.org/releases/Dfam_3.6/families/Dfam.h5.gz && \
+  gunzip Dfam.h5.gz & cd /usr/local/RepeatMasker/ && \
+  perl ./configure --trf_prgm=`which trf` --hmmer_dir=`which nhmmscan` && \
+  perl ./configure --trf_prgm=`which trf` --rmblast_dir=`which rmblastn`
 
+RUN PERL_MM_USE_DEFAULT=1 cpan Text::Soundex
+ENV PATH=/usr/local/RepeatMasker:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+ENV PATH=/usr/local/bin:/usr/local/RepeatMasker:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 
 ENV PIP_USER=true
 USER $USER
