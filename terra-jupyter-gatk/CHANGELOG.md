@@ -1,3 +1,10 @@
+## 2.2.9 - 2022-11-22T20:49:44.110597220Z
+
+- Update `terra-jupyter-r` to `2.1.7`
+  - Update Bioconductor for 3.16 release
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-gatk:2.2.9`
+
 ## 2.2.8 - 2022-07-27T13:32:19.939107Z
 
 - Update `terra-jupyter-r` to `2.1.6`

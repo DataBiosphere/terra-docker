@@ -1,3 +1,10 @@
+## 2.1.13 - 2022-11-22T20:49:44.192223144Z
+
+- Update `terra-jupyter-r` to `2.1.7`
+  - Update Bioconductor for 3.16 release
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-aou:2.1.13`
+
 ## 2.1.12 - 2022-10-21
 - Update `hail` to `0.2.104`
   - See https://hail.is/docs/0.2/change_log.html#version-0-2-104) for details
