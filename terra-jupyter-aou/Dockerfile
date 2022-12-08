@@ -198,6 +198,8 @@ RUN apt-get update && \
   apt install -yq --no-install-recommends \
         libhdf5-serial-dev \
         cmake
+        && apt-get clean \
+        && rm -rf /var/lib/apt/lists/*
 RUN pip install --upgrade pip && pip install --verbose h5py
 
 # RW-8725 INSTALL QIMEE2
