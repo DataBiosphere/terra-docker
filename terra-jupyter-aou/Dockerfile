@@ -268,8 +268,7 @@ RUN cd /usr/local && curl -L -o repeatmasker.tar.gz http://www.repeatmasker.org/
   perl ./configure --trf_prgm=`which trf` --rmblast_dir=`which rmblastn`
 
 RUN PERL_MM_USE_DEFAULT=1 cpan Text::Soundex
-ENV PATH=/usr/local/RepeatMasker:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
-ENV PATH=/usr/local/bin:/usr/local/RepeatMasker:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+ENV PATH="$PATH:/usr/local/RepeatMasker"
 
 ENV PIP_USER=true
 USER $USER
