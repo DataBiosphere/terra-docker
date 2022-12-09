@@ -197,7 +197,7 @@ RUN conda install -c bioconda r-saige
 RUN apt-get update && \
   apt install -yq --no-install-recommends \
         libhdf5-serial-dev \
-        cmake
+        cmake \
         && apt-get clean \
         && rm -rf /var/lib/apt/lists/*
 RUN pip install --upgrade pip && pip install --verbose h5py
@@ -260,14 +260,18 @@ RUN mkdir -p /tmp/rmblast && cd /tmp/rmblast && \
   cd $HOME && \
   rm -rf /tmp/rmblast
 
-# Install RepeatMasker (900M + 25G)
-RUN cd /usr/local && curl -L -o repeatmasker.tar.gz http://www.repeatmasker.org/RepeatMasker/RepeatMasker-4.1.4.tar.gz && \
-  tar xvf repeatmasker.tar.gz && rm repeatmasker.tar.gz && cd /usr/local/RepeatMasker/Libraries && curl -L -o Dfam.h5.gz https://www.dfam.org/releases/Dfam_3.6/families/Dfam.h5.gz && \
-  gunzip Dfam.h5.gz & cd /usr/local/RepeatMasker/ && \
-  perl ./configure --trf_prgm=`which trf` --hmmer_dir=`which nhmmscan` && \
-  perl ./configure --trf_prgm=`which trf` --rmblast_dir=`which rmblastn`
-
 RUN PERL_MM_USE_DEFAULT=1 cpan Text::Soundex
+
+# Install RepeatMasker (900M + 25G)
+RUN curl -L http://www.repeatmasker.org/RepeatMasker/RepeatMasker-4.1.4.tar.gz \
+  | (cd /usr/local; tar -xz)
+
+# curl https://storage.googleapis.com/broad-dmohs-public/Dfam.h5.gz | gunzip \
+#   > /usr/local/RepeatMasker/Libraries/Dfam.h5
+# cd /usr/local/RepeatMasker; \
+#   perl ./configure --trf_prgm=`which trf` --hmmer_dir=`which nhmmscan` \
+#   && perl ./configure --trf_prgm=`which trf` --rmblast_dir=`which rmblastn`
+
 ENV PATH="$PATH:/usr/local/RepeatMasker"
 
 ENV PIP_USER=true
