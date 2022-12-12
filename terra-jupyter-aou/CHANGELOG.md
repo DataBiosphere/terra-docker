@@ -1,3 +1,18 @@
+## 2.1.14 - 2022-12-12
+
+- Add tools for long reads support
+  - jellyfish 2.3.0
+  - pangenie
+  - minimap2 2.24
+  - whatshap
+  - TRF
+  - HMMER 3.3
+  - rmblast 2.11.0
+  - RepeatMasker 4.1.4
+  - Text::Soundex
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-aou:2.1.14`
+
 ## 2.1.13 - 2022-11-22T20:49:44.192223144Z
 
 - Update `terra-jupyter-r` to `2.1.7`
