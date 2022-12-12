@@ -71,7 +71,7 @@ RUN find $JUPYTER_HOME/scripts -name '*.sh' -type f | xargs chmod +x \
     && (cd $X && pip3 download hail==$HAIL_VERSION --no-dependencies && \
         unzip hail*.whl && \
         grep 'Requires-Dist: ' hail*dist-info/METADATA | sed 's/Requires-Dist: //' | sed 's/ (//' | sed 's/)//' | grep -v 'pyspark' >$requirements_file && \
-        pip install --verbose -r $requirements_file) \
+        pip install -r $requirements_file) \
     && rm -rf $X \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
