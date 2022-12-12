@@ -262,15 +262,9 @@ RUN mkdir -p /tmp/rmblast && cd /tmp/rmblast && \
 
 RUN PERL_MM_USE_DEFAULT=1 cpan Text::Soundex
 
-# Install RepeatMasker (900M + 25G)
+# Install RepeatMasker (900M)
 RUN curl -L http://www.repeatmasker.org/RepeatMasker/RepeatMasker-4.1.4.tar.gz \
   | (cd /usr/local; tar -xz)
-
-# curl https://storage.googleapis.com/broad-dmohs-public/Dfam.h5.gz | gunzip \
-#   > /usr/local/RepeatMasker/Libraries/Dfam.h5
-# cd /usr/local/RepeatMasker; \
-#   perl ./configure --trf_prgm=`which trf` --hmmer_dir=`which nhmmscan` \
-#   && perl ./configure --trf_prgm=`which trf` --rmblast_dir=`which rmblastn`
 
 ENV PATH="$PATH:/usr/local/RepeatMasker"
 
