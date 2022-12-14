@@ -1,3 +1,9 @@
+## 2.1.15 - 2022-12-14
+- Update `hail` to `0.2.106`
+  - See https://hail.is/docs/0.2/change_log.html#version-0-2-106) for details
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-aou:2.1.15`
+
 ## 2.1.14 - 2022-12-12
 
 - Add tools for long reads support
