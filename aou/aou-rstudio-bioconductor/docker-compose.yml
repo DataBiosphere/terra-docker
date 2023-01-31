@@ -1,0 +1,14 @@
+version: '3.8'
+
+services:
+  rstudio:
+    build:
+      context: ./rstudio
+    container_name: rstudio
+    hostname: aou
+    restart: always
+    ports:
+      - "8787:8787"
+      - "443:443"
+    cap_add:
+      - NET_ADMIN
