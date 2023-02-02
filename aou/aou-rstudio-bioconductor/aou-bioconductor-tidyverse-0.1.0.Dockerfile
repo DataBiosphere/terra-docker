@@ -29,8 +29,8 @@ EXPOSE 80
 STOPSIGNAL SIGQUIT
 
 # Install tidyverse
-COPY rstudio/scripts/install_tidyverse /rocker_scripts/install_tidyverse.sh
-RUN /rocker_scripts/install_tidyverse.sh
+COPY rstudio/scripts/install_tidyverse.sh /rocker_scripts/install_tidyverse.sh
+RUN chmod +x /rocker_scripts/install_tidyverse.sh && /rocker_scripts/install_tidyverse.sh
 
 # DEBUG: install speedtest to ascertain wondershaper is working
 RUN apt-get update && apt-get install \
@@ -58,7 +58,7 @@ RUN usermod -g users rstudio \
     && useradd -m -s /bin/bash -N -u 1001 welder-user
 
 # google-cloud R packages
-# RUN R -e "BiocManager::install(c('AnVIL', 'DataBiosphere/Ronaldo', 'shiny', 'bigrquery', 'googleCloudStorageR', 'tidyverse', 'Seurat'))"
+RUN R -f /rocker_scripts/install_bioconductor.R
 
 ENV RSTUDIO_PORT 8787
 ENV RSTUDIO_HOME /etc/rstudio
@@ -73,9 +73,8 @@ RUN sed -i 's/"always_save_history": false/"always_save_history": true/g'  $RSTU
 
 EXPOSE $RSTUDIO_PORT
 
-COPY scripts ${RSTUDIO_HOME}/scripts
+# COPY scripts ${RSTUDIO_HOME}/scripts
 RUN find ${RSTUDIO_HOME}/scripts -name '*.sh' -type f | xargs chmod +x \
  && echo "PIP_USER=true" >>  /usr/local/lib/R/etc/Renviron.site
 
  CMD /bin/bash -c "wondershaper eth0 8096 4048 && nginx -g 'daemon on;' && /init"
- 
