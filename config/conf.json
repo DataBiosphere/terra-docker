@@ -145,7 +145,7 @@
             }
         },
         {
-            "name" : "terra-aou-bioconductor",
+            "name" : "terra-aou-rstudio-bioconductor",
             "base_label" : "All of Us",
             "tools" : [
                 "r"
