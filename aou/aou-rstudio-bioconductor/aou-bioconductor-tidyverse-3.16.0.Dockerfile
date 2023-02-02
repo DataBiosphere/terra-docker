@@ -32,7 +32,9 @@ STOPSIGNAL SIGQUIT
 
 # BUG: Delete broken google-cloud-sdk list and key preventing
 #      apt-get update to complete
-RUN rm -f /etc/apt/sources.list.d/google-cloud-sdk.list && rm -f /usr/share/keyrings/cloud.google.gpg && rm -f /usr/share/keyrings/cloud.google.gpg~
+RUN rm -f /etc/apt/sources.list.d/google-cloud-sdk.list \
+  && rm -f /usr/share/keyrings/cloud.google.gpg \
+  && rm -f /usr/share/keyrings/cloud.google.gpg~
 
 # DEBUG: install speedtest-cli to ascertain wondershaper is working
 RUN apt-get update && apt-get install \
@@ -67,11 +69,9 @@ ENV ROOT=false
 EXPOSE $RSTUDIO_PORT
 
 # Install su-exec
-RUN cd /tmp && git clone https://github.com/ncopa/su-exec.git && cd su-exec && make && cp su-exec /usr/local/bin && rm -rf /tmp/su-exec
+RUN cd /tmp && git clone https://github.com/ncopa/su-exec.git \
+  && cd su-exec && make && cp su-exec /usr/local/bin && rm -rf /tmp/su-exec
 
-# Run wondershaper to limit network bandwidth to 8mbps down and 4mbps up as
-# a different user than RStudio user which is set in the /init script.
-# CMD /bin/bash -c 'su-exec "wondershaper eth0 8096 4048" root rstudio && su-exec "nginx -g \'daemon on;\'" && /init'
 COPY rstudio/entrypoint.sh /init_aou
 RUN chmod +x /init_aou
 ENTRYPOINT [ "/init_aou" ]
