@@ -1,3 +1,5 @@
+options(Ncpus = parallel::detectCores())
+
 BiocManager::install(c(
     'AnVIL', 
     'DataBiosphere/Ronaldo', 
