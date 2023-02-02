@@ -145,6 +145,22 @@
             }
         },
         {
+            "name" : "terra-aou-bioconductor-tidyverse-3.16.0",
+            "base_label" : "All of Us",
+            "tools" : [
+                "r"
+            ],
+            "packages" : {},
+            "version" : "3.16.0",
+            "automated_flags" : {
+                "include_in_ui" : false,
+                "generate_docs" : false,
+                "build" : true,
+                "include_in_custom_dataproc" : true,
+                "include_in_custom_gce" : true
+            }
+        },
+        {
             "name" : "terra-jupyter-gatk-ovtf",
             "base_label" : "OpenVINO",
             "tools" : [

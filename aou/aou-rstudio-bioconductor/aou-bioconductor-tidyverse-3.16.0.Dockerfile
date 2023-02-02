@@ -6,6 +6,8 @@ RUN apt-get update \
  && apt-get clean \
  && rm -rf /var/lib/apt/lists/*
 
+
+# Base this image on the Terra AnVIL RStudio-Bioconductor image.
 FROM us.gcr.io/broad-dsp-gcr-public/anvil-rstudio-bioconductor:3.16.0
 
 ENV AOU_DOCKER_VERSION=3.16.0
@@ -24,6 +26,7 @@ COPY --from=nginx_base /etc/nginx/ /etc/nginx/
 COPY --from=nginx_base /usr/share/ /usr/share/
 COPY --from=nginx_base /var/lib/nginx/ /var/lib/nginx/
 
+# Expose port 80 for nginx
 EXPOSE 80
 STOPSIGNAL SIGQUIT
 
@@ -36,18 +39,21 @@ RUN apt-get update && apt-get install \
 	--no-install-recommends --no-install-suggests -y \
 	speedtest-cli
 
-# Use binary repos after
+# Compile from source during image construction to prevent loading
+# packages that have not been updated recently.
 ENV BIOCONDUCTOR_USE_CONTAINER_REPOSITORY=FALSE
 
 # Install tidyverse
 COPY rstudio/scripts/install_tidyverse.sh /rocker_scripts/install_tidyverse.sh
 RUN chmod +x /rocker_scripts/install_tidyverse.sh && /rocker_scripts/install_tidyverse.sh
 
-# Install more packages
+# Install top-25 most common packages
+# This step is very slow and we want to cache it as much as possible to prevent
+# users from having a bad experience.
 COPY rstudio/scripts/install_bioconductor.R /rocker_scripts/install_bioconductor.R
 RUN R -f /rocker_scripts/install_bioconductor.R
 
-# Use binary repos after
+# Use binary repos to speed up package installation.
 ENV BIOCONDUCTOR_USE_CONTAINER_REPOSITORY=TRUE
 
 # Add our rserver configuration
@@ -60,6 +66,12 @@ ENV DISABLE_AUTH=true
 ENV ROOT=false
 EXPOSE $RSTUDIO_PORT
 
-# Run wondershaper to limit network bandwidth to 8mbps up and 4mbps down as
+# Install su-exec
+RUN cd /tmp && git clone https://github.com/ncopa/su-exec.git && cd su-exec && make && cp su-exec /usr/local/bin && rm -rf /tmp/su-exec
+
+# Run wondershaper to limit network bandwidth to 8mbps down and 4mbps up as
 # a different user than RStudio user which is set in the /init script.
-CMD /bin/bash -c "wondershaper eth0 8096 4048 && nginx -g 'daemon on;' && /init"
+# CMD /bin/bash -c 'su-exec "wondershaper eth0 8096 4048" root rstudio && su-exec "nginx -g \'daemon on;\'" && /init'
+COPY rstudio/entrypoint.sh /init_aou
+RUN chmod +x /init_aou
+ENTRYPOINT [ "/init_aou" ]
