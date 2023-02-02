@@ -58,6 +58,7 @@ RUN usermod -g users rstudio \
     && useradd -m -s /bin/bash -N -u 1001 welder-user
 
 # google-cloud R packages
+COPY rstudio/scripts/install_bioconductor.R /rocker_scripts/install_bioconductor.R
 RUN R -f /rocker_scripts/install_bioconductor.R
 
 ENV RSTUDIO_PORT 8787
