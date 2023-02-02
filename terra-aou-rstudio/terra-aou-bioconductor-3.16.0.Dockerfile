@@ -30,11 +30,10 @@ COPY --from=nginx_base /var/lib/nginx/ /var/lib/nginx/
 EXPOSE 80
 STOPSIGNAL SIGQUIT
 
-# BUG: Delete broken google-cloud-sdk list and key preventing
+# BUG: Update broken google-cloud GPG key preventing
 #      apt-get update to complete
-RUN rm -f /etc/apt/sources.list.d/google-cloud-sdk.list \
-  && rm -f /usr/share/keyrings/cloud.google.gpg \
-  && rm -f /usr/share/keyrings/cloud.google.gpg~
+RUN curl -O https://packages.cloud.google.com/apt/doc/apt-key.gpg \
+    && apt-key add apt-key.gpg
 
 # DEBUG: install speedtest-cli to ascertain wondershaper is working
 RUN apt-get update && apt-get install \

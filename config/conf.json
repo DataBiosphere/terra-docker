@@ -145,7 +145,7 @@
             }
         },
         {
-            "name" : "terra-aou-bioconductor-tidyverse-3.16.0",
+            "name" : "terra-aou-bioconductor",
             "base_label" : "All of Us",
             "tools" : [
                 "r"
@@ -156,8 +156,8 @@
                 "include_in_ui" : false,
                 "generate_docs" : false,
                 "build" : true,
-                "include_in_custom_dataproc" : true,
-                "include_in_custom_gce" : true
+                "include_in_custom_dataproc" : false,
+                "include_in_custom_gce" : false
             }
         },
         {

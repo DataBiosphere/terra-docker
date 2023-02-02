@@ -1,0 +1,11 @@
+steps:
+  - name: 'gcr.io/cloud-builders/docker'
+    entrypoint: bash
+    args:
+      - -c
+      - |
+        cd terra-aou-rstudio
+        tag=$(cat ./VERSION)
+        docker build -t us.gcr.io/broad-dsp-gcr-public/terra-aou-rstudio-bioconductor:$tag .
+        docker push us.gcr.io/broad-dsp-gcr-public/terra-aou-rstudio-bioconductor:$tag
+timeout: 1200s
