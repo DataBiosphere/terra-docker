@@ -5,7 +5,7 @@ services:
   rstudio:
     build:
       context: ./
-    container_name: terra-aou-rstudio-bioconductor
+    container_name: terra-aou-rstudio
     hostname: aou
     restart: always
     ports:
