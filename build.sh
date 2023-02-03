@@ -42,7 +42,7 @@ docker push $GCR_IMAGE_REPO/$IMAGE_DIR:$TAG_NAME
 docker push $GCR_IMAGE_REPO/$IMAGE_DIR:$VERSION
 docker push $GCR_IMAGE_REPO/$IMAGE_DIR:latest
 
-if [[ $IMAGE_DIR = "terra-jupyter-aou" ]] || [[ $IMAGE_DIR = "aou-rstudio-bioconductor" ]]; then
+if [[ $IMAGE_DIR = "terra-jupyter-aou" ]] ; then
   docker tag $GCR_IMAGE_REPO/$IMAGE_DIR:$TAG_NAME broadinstitute/$IMAGE_DIR:$TAG_NAME
   docker tag $GCR_IMAGE_REPO/$IMAGE_DIR:$VERSION broadinstitute/$IMAGE_DIR:$VERSION
   docker tag $GCR_IMAGE_REPO/$IMAGE_DIR:$VERSION broadinstitute/$IMAGE_DIR:latest

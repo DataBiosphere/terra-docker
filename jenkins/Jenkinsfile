@@ -229,7 +229,7 @@ pipeline {
           description: "Specify this, along with the images below, to force the build of specific images. Can be used in conjunction with the branch parameter for testing. Note this will fail if an image for the version in the VERSION file exists in google.")
     string(name: "BRANCH", defaultValue: "master",
           description: "Specify along with useCustomImageIdentifier to build the image with a specific name")
-    text(name: 'IMAGES_TO_BUILD', defaultValue: 'terra-jupyter-base\nterra-jupyter-python\nterra-jupyter-r\nterra-jupyter-gatk\nterra-jupyter-bioconductor\nterra-jupyter-hail\nterra-jupyter-aou\nterra-jupyter-gatk-ovtf\nterra-aou-rstudio-bioconductor',
+    text(name: 'IMAGES_TO_BUILD', defaultValue: 'terra-jupyter-base\nterra-jupyter-python\nterra-jupyter-r\nterra-jupyter-gatk\nterra-jupyter-bioconductor\nterra-jupyter-hail\nterra-jupyter-aou\nterra-jupyter-gatk-ovtf\nterra-aou-rstudio',
       description: 'The is a text field for newline separate images to build. Each image should be specified via the directory it resides in. The default value is a working example.')
   }
 

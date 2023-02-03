@@ -1,6 +1,6 @@
-# terra-rstudio-aou image
+# terra-aou-rstudio image
 
-This repo contains the terra-rstudio-aou image that is compatible with notebook service in [Terra]("https://app.terra.bio/") called Leonardo. For example, use `us.gcr.io/broad-dsp-gcr-public/terra-rstudio-aou:{version}` in terra.
+This repo contains the terra-rstudio-aou image that is compatible with notebook service in [Terra]("https://app.terra.bio/") called Leonardo. For example, use `us.gcr.io/broad-dsp-gcr-public/terra-aou-rstudio:{version}` in terra.
 
 This image is intended to support usage in the [All of Us Workbench](https://github.com/all-of-us/workbench), which depends on Leonardo.
 
