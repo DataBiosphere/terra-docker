@@ -30,7 +30,7 @@ def String getChangeDescription(LinkedHashMap<String,String> versionMap) {
   def body = "$title\n These are the images that were built on this run"
   def version = ""
 
-  def String[] builtImages = sh( 
+  def String[] builtImages = sh(
     script: "cat $builtImagesFile",
     returnStdout: true
   ).trim().split("\n")
@@ -50,7 +50,7 @@ def String getChangeDescription(LinkedHashMap<String,String> versionMap) {
 }
 
 def LinkedHashSet<String> getSortedChangedImages() {
-  def String[] images = sh( 
+  def String[] images = sh(
     script: "cat config/conf.json | jq -r '.image_data | .[] | select(.automated_flags.build == true) | .name'",
     returnStdout: true
   ).trim().split("\n")
@@ -62,7 +62,7 @@ def LinkedHashSet<String> getSortedChangedImages() {
   for (String currImage in images) {
     if (hasImageChanged(currImage)) {
       println("detected change for $currImage")
-      filteredImages.add(currImage); 
+      filteredImages.add(currImage);
     }
   }
 
@@ -87,7 +87,7 @@ def Boolean hasImageChanged(String dir) {
 def LinkedHashSet<String> getSortedSet(Collection<String> imageSet) {
   def sortedSet = new LinkedHashSet<String>();
   def ArrayList<String> priorityOrder = ["terra-jupyter-base", "terra-jupyter-python", "terra-jupyter-r"]
-  
+
   for (String priorityImage in priorityOrder) {
     if (imageSet.contains(priorityImage)) {
       sortedSet.add(priorityImage)
@@ -115,7 +115,7 @@ def void buildImage(String imageDir) {
     returnStatus: true
   )
 
-  //if we cannot build an image because it will cause an overwrite of the remote gcr image, we set the build to unstable. 
+  //if we cannot build an image because it will cause an overwrite of the remote gcr image, we set the build to unstable.
   //We do this because the most likely scenario is it was desired that the image builds, but the VERSION file was not updated.
   //we do not want to fail in this circumstance, as there are other images to build
   if (exitCode == 14) {
@@ -159,8 +159,8 @@ def void updateConfigHashes(replacementMap) {
 }
 
 //parameterize with ":" prefix and end quote suffix instead of hardcode?
-//an example of a line it would update is: `IMAGE_DIR:TAG"`. 
-  //In this example, IMAGE_DIR would be the key in the map, and TAG would be whats replaced by the value. 
+//an example of a line it would update is: `IMAGE_DIR:TAG"`.
+  //In this example, IMAGE_DIR would be the key in the map, and TAG would be whats replaced by the value.
   //This function assumes that the line will end with a quote as well, and manually adds the quote so as not to assume a particular length for TAG
 def void replaceTags(String filePath, LinkedHashMap<String, String> replacementMap) {
   def contents = readFile(filePath).split('\n')
@@ -186,7 +186,7 @@ def void replaceTags(String filePath, LinkedHashMap<String, String> replacementM
   println("contents of $filePath after modification is $contents")
   def joinedContents = contents.join('\n')
   def workingDir = pwd()
- 
+
   fp = createFilePath("$workingDir/$filePath")
   //we add a trailing newline to the file as its lost in the split/join process
   fp.write(joinedContents + "\n", "UTF-8")
@@ -214,9 +214,9 @@ pipeline {
     //fixes this job to a specific node since some slaves have older versions of docker that cause problems
    agent { label 'node212' }
 
-  options { 
+  options {
     //we don't want to be building more than one PR's changes at once, we will queue them instead
-    disableConcurrentBuilds() 
+    disableConcurrentBuilds()
   }
 
   triggers {
@@ -229,12 +229,12 @@ pipeline {
           description: "Specify this, along with the images below, to force the build of specific images. Can be used in conjunction with the branch parameter for testing. Note this will fail if an image for the version in the VERSION file exists in google.")
     string(name: "BRANCH", defaultValue: "master",
           description: "Specify along with useCustomImageIdentifier to build the image with a specific name")
-    text(name: 'IMAGES_TO_BUILD', defaultValue: 'terra-jupyter-base\nterra-jupyter-python\nterra-jupyter-r\nterra-jupyter-gatk\nterra-jupyter-bioconductor\nterra-jupyter-hail\nterra-jupyter-aou\nterra-jupyter-gatk-ovtf', 
-      description: 'The is a text field for newline separate images to build. Each image should be specified via the directory it resides in. The default value is a working example.') 
+    text(name: 'IMAGES_TO_BUILD', defaultValue: 'terra-jupyter-base\nterra-jupyter-python\nterra-jupyter-r\nterra-jupyter-gatk\nterra-jupyter-bioconductor\nterra-jupyter-hail\nterra-jupyter-aou\nterra-jupyter-gatk-ovtf\nterra-aou-rstudio-bioconductor',
+      description: 'The is a text field for newline separate images to build. Each image should be specified via the directory it resides in. The default value is a working example.')
   }
 
    stages {
-     
+
     stage('Terra Docker Git') {
       steps {
         git credentialsId: 'jenkins-ssh-github', url: 'git@github.com:DataBiosphere/terra-docker.git', branch: "$BRANCH"
@@ -317,10 +317,10 @@ pipeline {
           //needed, because if a VERSION is not updated for all imageDirs with changes, the below git actions will cause the build to fail
           if (changesMade.isEmpty()) {
             abortBuild("No git changes detected")
-            shouldAbortBuild = true 
+            shouldAbortBuild = true
             return
           }
-        
+
           sshagent(['jenkins-ssh-github']) {
             sh """
               git config --global user.name "Jenkins Role account"
@@ -332,7 +332,7 @@ pipeline {
             """
           }
         }
-         
+
       }
     }
 
@@ -345,7 +345,7 @@ pipeline {
             docker pull us.gcr.io/broad-dsp-gcr-public/hub:1
             docker rm -f hub-runtime | true
 
-            docker run -itd --name=hub-runtime -u root -v ${WORKSPACE}:/app/leo us.gcr.io/broad-dsp-gcr-public/hub:1 
+            docker run -itd --name=hub-runtime -u root -v ${WORKSPACE}:/app/leo us.gcr.io/broad-dsp-gcr-public/hub:1
             docker cp \$token hub-runtime:/home/dsde-jenkins/.config/hub
             docker exec hub-runtime sudo chmod 777 /home/dsde-jenkins/.config/hub
           """
@@ -373,13 +373,13 @@ pipeline {
           cleanWs()
       }
       success {
-          slackSend(channel: '#dsp-callisto-internal', message: "Jenkins has successfully built images and created a PR with the updated terra-docker hashes.\n" + 
+          slackSend(channel: '#dsp-callisto-internal', message: "Jenkins has successfully built images and created a PR with the updated terra-docker hashes.\n" +
          "\nIf you would like to check the status of the PR, click: $prLink")
       }
       // failure {
       //   slackSend(channel: '#dsp-callisto-internal', message: "Jenkins has failed to on a build of the terra-docker repo. Some of the images may have been successfully built. See the log for details: $BUILD_URL")
       // }
     }
-     
+
 
 }
