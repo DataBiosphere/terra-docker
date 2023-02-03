@@ -51,6 +51,9 @@ ENV DISABLE_AUTH=true
 ENV ROOT=false
 EXPOSE $RSTUDIO_PORT
 
+# Hide tc etc from users
+RUN chmod 700 -R /usr/sbin/
+
 COPY rstudio/entrypoint.sh /init_aou
 RUN chmod +x /init_aou
 ENTRYPOINT [ "/init_aou" ]
