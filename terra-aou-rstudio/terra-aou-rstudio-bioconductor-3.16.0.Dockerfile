@@ -1,20 +1,6 @@
 # Base this image on the Terra AnVIL RStudio-Bioconductor image.
 FROM us.gcr.io/broad-dsp-gcr-public/anvil-rstudio-bioconductor:3.16.0
 
-# BUG: Update broken google-cloud GPG key preventing
-#      apt-get update to complete
-RUN curl -O https://packages.cloud.google.com/apt/doc/apt-key.gpg \
-    && apt-key add apt-key.gpg
-
-RUN apt-get update \
- && apt-get install -yq --no-install-recommends \
-    iproute2 \
- && echo iptables-persistent iptables-persistent/autosave_v4 boolean true | debconf-set-selections \
- && echo iptables-persistent iptables-persistent/autosave_v6 boolean true | debconf-set-selections \
- && apt-get -y install iptables-persistent \
- && apt-get clean \
- && rm -rf /var/lib/apt/lists/*
-
 ENV AOU_DOCKER_VERSION=3.16.0
 LABEL vendor="The All Of Us Research Program" \
       description="RStudio + Bioconductor docker image for use in the All of Us Researcher Workbench." \
@@ -22,11 +8,21 @@ LABEL vendor="The All Of Us Research Program" \
       version=$AOU_DOCKER_VERSION \
       url="https://github.com/DataBiosphere/terra-docker"
 
+# BUG: Update broken google-cloud GPG key preventing
+#      apt-get update to complete
+RUN curl -O https://packages.cloud.google.com/apt/doc/apt-key.gpg \
+    && apt-key add apt-key.gpg
 
 # DEBUG: install speedtest-cli to ascertain tc bandwidth throttling is working
-RUN apt-get update && apt-get install \
-	--no-install-recommends --no-install-suggests -y \
-	speedtest-cli
+RUN apt-get update \
+ && apt-get install -yq --no-install-recommends \
+    iproute2 \
+    speedtest-cli \
+ && echo iptables-persistent iptables-persistent/autosave_v4 boolean true | debconf-set-selections \
+ && echo iptables-persistent iptables-persistent/autosave_v6 boolean true | debconf-set-selections \
+ && apt-get -y install iptables-persistent \
+ && apt-get clean \
+ && rm -rf /var/lib/apt/lists/*
 
 # Compile from source during image construction to prevent loading
 # packages that have not been updated recently.
