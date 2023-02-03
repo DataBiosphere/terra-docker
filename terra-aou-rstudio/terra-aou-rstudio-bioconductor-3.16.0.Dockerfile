@@ -2,7 +2,10 @@
 FROM ubuntu/nginx:latest AS nginx_base
 RUN apt-get update \
  && apt-get install -yq --no-install-recommends \
-    wondershaper \
+    iproute2 iperf iputils-ping \
+ && echo iptables-persistent iptables-persistent/autosave_v4 boolean true | debconf-set-selections \
+ && echo iptables-persistent iptables-persistent/autosave_v6 boolean true | debconf-set-selections \
+ && apt-get -y install iptables-persistent \
  && apt-get clean \
  && rm -rf /var/lib/apt/lists/*
 
@@ -20,6 +23,10 @@ LABEL vendor="The All Of Us Research Program" \
 # Copy over the required files from the first stage
 COPY --from=nginx_base /lib/ /lib/
 COPY --from=nginx_base /sbin/ /sbin/
+# iptables etc are symlinked from here to /etc/alternatives
+COPY --from=nginx_base /usr/sbin/ /usr/sbin/
+# iptables etc reside here
+COPY --from=nginx_base /etc/alternatives/ /etc/alternatives/
 COPY --from=nginx_base /docker-entrypoint.d/ /docker-entrypoint.d/
 COPY --from=nginx_base /var/log/nginx/ /var/log/nginx/
 COPY --from=nginx_base /etc/nginx/ /etc/nginx/

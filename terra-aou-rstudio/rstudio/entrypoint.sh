@@ -2,9 +2,8 @@
 
 set -e # catches errors
 
-# Run wondershaper to limit network bandwidth to 8mbps down and 4mbps up as
-# a different user than RStudio user which is set in the /init script.
-su-exec root wondershaper eth0 8096 4048
+# Restrict uploads to 4096 kbit/s and unlimited download
+tc qdisc add dev eth0 root tbf rate 4096kbit latency 50ms burst 1540000
 
 # Init must be run as root and will internally handle mapping the end-user
 # to UID and GID mapping using S6-overlay
