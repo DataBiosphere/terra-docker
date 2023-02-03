@@ -10,4 +10,4 @@ tc qdisc add dev eth0 root tbf rate 4096kbit latency 50ms burst 1540000
 # https://github.com/just-containers/s6-overlay
 # using S6
 # https://skarnet.org/software/s6/overview.html
-/init
+exec /init
