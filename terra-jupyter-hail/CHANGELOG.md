@@ -1,3 +1,10 @@
+## 1.0.23 - 2023-02-09T14:18:49.030825Z
+
+- Update `terra-jupyter-base` to `1.0.12`
+  - Add cloud.google.com gpg key.
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-hail:1.0.23`
+
 ## 1.0.22 - 2022-12-14
 - Update `hail` to `0.2.107`
   - See https://hail.is/docs/0.2/change_log.html#version-0-2-107) for details
