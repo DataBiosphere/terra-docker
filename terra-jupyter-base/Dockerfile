@@ -28,7 +28,6 @@ RUN rm /etc/apt/sources.list.d/cuda.list \
 
 RUN curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key --keyring /usr/share/keyrings/cloud.google.gpg add -
 RUN sudo curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
-RUN wget -O - -q https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
 
 RUN apt-get update && apt-get install -yq --no-install-recommends \
     # gnupg requirement
