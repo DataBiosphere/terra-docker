@@ -119,7 +119,7 @@ RUN git clone https://github.com/broadinstitute/cromshell.git \
     && pip install .
 
 # verify cromshell 2.0 is installed
-RUN cromshell-alpha version
+RUN cromshell-beta version
 
 # tmp hack min-5
 # I'm not installing jupyterlab and I can't update init-actions.sh to not access it
