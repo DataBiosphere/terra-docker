@@ -37,9 +37,9 @@ def test_pandas_gbq():
   WHERE alpha_2_code LIKE 'A%'
   """
   # Credentials
-	credentials = service_account.Credentials.from_service_account_file('/tmp/credentials.json')
-	print(credentials['project_id'])
-	pandas_gbq.read_gbq(sql, project_id=os.environ['GOOGLE_PROJECT'], credentials=credentials)
+  credentials = service_account.Credentials.from_service_account_file('/tmp/credentials.json')
+  print(credentials['project_id'])
+  pandas_gbq.read_gbq(sql, project_id=os.environ['GOOGLE_PROJECT'], credentials=credentials)
   
 def test_tensorflow_gfile():
   
