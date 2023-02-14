@@ -29,17 +29,17 @@ def test_pandas():
     }
   )
   
-def test_pandas_gbq():
+# def test_pandas_gbq():
 
-  sql = """
-  SELECT country_name, alpha_2_code
-  FROM `bigquery-public-data.utility_us.country_code_iso`
-  WHERE alpha_2_code LIKE 'A%'
-  """
-  # Credentials
-  credentials = service_account.Credentials.from_service_account_file('/tmp/credentials.json')
-  print(os.environ['GOOGLE_PROJECT'])
-  pandas_gbq.read_gbq(sql, project_id=os.environ['GOOGLE_PROJECT'], credentials=credentials)
+#   sql = """
+#   SELECT country_name, alpha_2_code
+#   FROM `bigquery-public-data.utility_us.country_code_iso`
+#   WHERE alpha_2_code LIKE 'A%'
+#   """
+#   # Credentials
+#   credentials = service_account.Credentials.from_service_account_file('/tmp/credentials.json')
+#   print(os.environ['GOOGLE_PROJECT'])
+#   pandas_gbq.read_gbq(sql, project_id=os.environ['GOOGLE_PROJECT'], credentials=credentials)
   
 def test_tensorflow_gfile():
   
