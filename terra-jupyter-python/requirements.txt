@@ -46,3 +46,4 @@ google-resumable-media
 scikit-learn-intelex
 xgboost
 exceptiongroup
+google-auth
