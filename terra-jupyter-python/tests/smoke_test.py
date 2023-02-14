@@ -38,6 +38,7 @@ def test_pandas_gbq():
   """
   # Credentials
   credentials = service_account.Credentials.from_service_account_file('/tmp/credentials.json')
+  print(os.environ['GOOGLE_PROJECT'])
   pandas_gbq.read_gbq(sql, project_id=os.environ['GOOGLE_PROJECT'], credentials=credentials)
   
 def test_tensorflow_gfile():
