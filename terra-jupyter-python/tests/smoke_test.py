@@ -9,10 +9,14 @@ incompatibilities not currently detected by these tests.
 
 import os
 import pytest
+import pandas as pd
+import numpy as np
+import pandas_gbq
+import tensorflow as tf
+import pysam
+from google.oauth2 import service_account
 
 def test_pandas():
-  import pandas as pd
-  import numpy as np
   
   pd.DataFrame(
     {
@@ -25,31 +29,30 @@ def test_pandas():
     }
   )
   
-def test_pandas_gbq():
-  import pandas_gbq
+# def test_pandas_gbq():
 
-  sql = """
-  SELECT country_name, alpha_2_code
-  FROM `bigquery-public-data.utility_us.country_code_iso`
-  WHERE alpha_2_code LIKE 'A%'
-  """
-  pandas_gbq.read_gbq(sql, project_id=os.environ['GOOGLE_PROJECT'])
+#   sql = """
+#   SELECT country_name, alpha_2_code
+#   FROM `bigquery-public-data.utility_us.country_code_iso`
+#   WHERE alpha_2_code LIKE 'A%'
+#   """
+#   # Credentials
+#   credentials = service_account.Credentials.from_service_account_file('/tmp/credentials.json')
+#   print(os.environ['GOOGLE_PROJECT'])
+#   pandas_gbq.read_gbq(sql, project_id=os.environ['GOOGLE_PROJECT'], credentials=credentials)
   
 def test_tensorflow_gfile():
-  import tensorflow as tf
   
   tf.io.gfile.copy(src='gs://genomics-public-data/1000-genomes/other/sample_info/sample_info.csv',
                    dst='/tmp/genomics-public-data-1000-genomes-sample_info.csv',
                    overwrite=True)
 
 def test_tensorflow_hello_world():
-  import tensorflow as tf
   print("TensorFlow version : ", tf.version.GIT_VERSION, tf.version.VERSION)
   hello = tf.constant('Hello, TensorFlow!')
   tf.print(hello)
 
 def test_pysam():
-  import pysam
 
   # Create BAM file from scratch
   # Code stolen from https://pysam.readthedocs.io/en/latest/usage.html#creating-bam-cram-sam-files-from-scratch

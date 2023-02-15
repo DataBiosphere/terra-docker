@@ -45,3 +45,5 @@ google-resumable-media
 #adding intel optimized xgboost and intel extension for scikit-learn
 scikit-learn-intelex
 xgboost
+exceptiongroup
+google-auth

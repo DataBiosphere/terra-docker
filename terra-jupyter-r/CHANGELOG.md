@@ -1,3 +1,10 @@
+## 2.1.8 - 2023-02-09T14:18:49.113028Z
+
+- Update `terra-jupyter-base` to `1.0.12`
+  - Add cloud.google.com gpg key.
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-r:2.1.8`
+
 ## 2.1.7 - 2022-11-22T20:49:44.016171853Z
 
 - Update Bioconductor for 3.16 release
