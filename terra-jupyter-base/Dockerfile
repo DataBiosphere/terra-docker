@@ -153,7 +153,7 @@ RUN chown -R $USER:users $JUPYTER_HOME \
     && $JUPYTER_HOME/scripts/kernel/kernelspec.sh $JUPYTER_HOME/scripts/kernel /opt/conda/share/jupyter/kernels
 
 # Run a `jupyter lab build` during the Docker image build step so users don't have to do it on their own
-# The webpack building during `jupyter lab build` is memory intensive so node needs access to more memory
+# The webpack build during `jupyter lab build` is memory intensive so give it access to more memory as well
 RUN NODE_OPTIONS=--max-old-space-size=4096 jupyter lab build --minimize=True
 
 USER $USER
