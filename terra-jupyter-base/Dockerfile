@@ -152,6 +152,10 @@ RUN chown -R $USER:users $JUPYTER_HOME \
     #  You can get kernel directory by running `jupyter kernelspec list`
     && $JUPYTER_HOME/scripts/kernel/kernelspec.sh $JUPYTER_HOME/scripts/kernel /opt/conda/share/jupyter/kernels
 
+# Run a `jupyter lab build` during the Docker image build step so users don't have to do it on their own
+# The webpack building during `jupyter lab build` is memory intensive so node needs access to more memory
+RUN NODE_OPTIONS=--max-old-space-size=4096 jupyter lab build --minimize=True
+
 USER $USER
 EXPOSE $JUPYTER_PORT
 WORKDIR $HOME
