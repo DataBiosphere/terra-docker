@@ -1,3 +1,8 @@
+## 1.0.25 - 2023-02-22
+- Remove invalid python image dependency
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-hail:1.0.25`
+
 ## 1.0.24 - 2023-02-08
 - Update `hail` to `0.2.109`
   - See https://hail.is/docs/0.2/change_log.html#version-0-2-109) for details
