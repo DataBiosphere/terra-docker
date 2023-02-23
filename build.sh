@@ -29,7 +29,7 @@ if [[ $VAULT_LOCATION == *"jenkins"* ]]; then
     VAULT_LOCATION="/etc/vault-token-dsde"
 fi
 
-if [[ -z "${SKIP_GCP_AUTH}" || "${SKIP_GCP_AUTH}" != "true"]]; then
+if [[ -z "${SKIP_GCP_AUTH}" ]] || [["${SKIP_GCP_AUTH}" != "true"]]; then
   # will fail if you are not gcloud authed as dspci-wb-gcr-service-account or secret/dsde/firecloud/common/image-build-account.json
   # the below works locally but not on jenkins for some reason, using a different account until a resolution is found
   # docker run --rm  -v $VAULT_LOCATION:/root/.vault-token:ro broadinstitute/dsde-toolbox:latest vault read --format=json secret/dsde/dsp-techops/common/dspci-wb-gcr-service-account.json | jq .data > dspci-wb-gcr-service-account.json
