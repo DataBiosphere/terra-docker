@@ -49,16 +49,6 @@ docker push $GCR_IMAGE_REPO/$IMAGE_DIR:$TAG_NAME
 docker push $GCR_IMAGE_REPO/$IMAGE_DIR:$VERSION
 docker push $GCR_IMAGE_REPO/$IMAGE_DIR:latest
 
-if [[ $IMAGE_DIR = "terra-jupyter-aou" ]] || [[ $IMAGE_DIR = "aou-rstudio-bioconductor" ]]; then
-  docker tag $GCR_IMAGE_REPO/$IMAGE_DIR:$TAG_NAME broadinstitute/$IMAGE_DIR:$TAG_NAME
-  docker tag $GCR_IMAGE_REPO/$IMAGE_DIR:$VERSION broadinstitute/$IMAGE_DIR:$VERSION
-  docker tag $GCR_IMAGE_REPO/$IMAGE_DIR:$VERSION broadinstitute/$IMAGE_DIR:latest
-
-  docker push broadinstitute/$IMAGE_DIR:$VERSION
-  docker push broadinstitute/$IMAGE_DIR:$TAG_NAME
-  docker push broadinstitute/$IMAGE_DIR:latest
-fi
-
 docker kill $IMAGE_DIR || true
 docker rm -f $IMAGE_DIR || true
 docker run --rm -itd -u root -e PIP_USER=false --entrypoint='/bin/bash' --name $IMAGE_DIR $GCR_IMAGE_REPO/$IMAGE_DIR:$VERSION

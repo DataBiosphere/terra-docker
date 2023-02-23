@@ -14,7 +14,7 @@ on:
           - terra-jupyter-gatk-ovtf
           - terra-jupyter-hail
           - terra-jupyter-python
-        default: 'terra-jupyter-aou'
+          - terra-rstudio-aou
       branch:
         description: 'Branch to run the workflow on'
         required: false
