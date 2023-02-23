@@ -10,9 +10,6 @@ VERSION=$(cat config/conf.json | jq -r ".image_data | .[] | select(.name == \"$I
 TAG_NAME=$(git log --pretty=format:'%h' -n 1)
 GCR_IMAGE_REPO=$(cat config/conf.json | jq -r .gcr_image_repo)
 
-echo $IMAGE_DIR
-echo $GCP_SA_KEY
-echo $VERSION
 #below is a regex to match strictly on $VERSION, not any tags which have a substring of $VERSION
 IMAGE_EXISTS=$(gcloud container images list-tags  --filter="TAGS~^$VERSION$" $GCR_IMAGE_REPO/$IMAGE_DIR)
 
