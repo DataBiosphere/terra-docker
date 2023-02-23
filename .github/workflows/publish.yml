@@ -15,6 +15,7 @@ on:
           - terra-jupyter-hail
           - terra-jupyter-python
           - terra-rstudio-aou
+        default: terra-rstudio-rstudio
       branch:
         description: 'Branch to run the workflow on'
         required: false
