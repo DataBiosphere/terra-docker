@@ -5,7 +5,7 @@ set -e -x
 
 IMAGE_DIR=$1
 SKIP_GCP_AUTH=$2
-VERSION="2.1.100"
+VERSION=$(cat config/conf.json | jq -r ".image_data | .[] | select(.name == \"$IMAGE_DIR\") | .version")
 
 TAG_NAME=$(git log --pretty=format:'%h' -n 1)
 GCR_IMAGE_REPO=$(cat config/conf.json | jq -r .gcr_image_repo)
