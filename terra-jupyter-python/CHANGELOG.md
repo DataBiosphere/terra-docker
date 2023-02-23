@@ -1,3 +1,10 @@
+## 1.0.14 - 2023-02-09T14:18:49.058004Z
+
+- Update `terra-jupyter-base` to `1.0.12`
+  - Add cloud.google.com gpg key.
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-python:1.0.14`
+
 ## 1.0.13 - 2022-06-23T10:58:12.961300Z
 
 - Update `terra-jupyter-base` to `1.0.10`

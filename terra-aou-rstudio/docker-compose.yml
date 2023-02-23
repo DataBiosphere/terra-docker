@@ -1,0 +1,15 @@
+# For development only
+version: '3.8'
+
+services:
+  rstudio:
+    build:
+      context: ./
+    container_name: terra-aou-rstudio
+    hostname: aou
+    restart: always
+    ports:
+      - "80:8787"
+      - "443:443"
+    cap_add:
+      - NET_ADMIN

@@ -6,7 +6,7 @@ name: Test terra-jupyter-gatk-ovtf
 # Step 1: Create a service account per these instructions:
 #         https://github.com/google-github-actions/setup-gcloud/blob/master/setup-gcloud/README.md
 # Step 2: Give the service account the following permissions within the project: BigQuery User
-# Step 3: Store its key and project id as GitHub repository secrets GCP_SA_KEY and GCP_PROJECT_ID.
+# Step 3: Store its key and project id as GitHub repository secrets TD_GCP_SA_KEY and GCP_PROJECT_ID.
 #         https://docs.github.com/en/free-pro-team@latest/actions/reference/encrypted-secrets#creating-encrypted-secrets-for-a-repository
 
 on:
@@ -53,9 +53,9 @@ jobs:
       run: sudo rm -rf /usr/share/dotnet
 
     - id: auth
-      uses: google-github-actions/auth@v0
+      uses: google-github-actions/auth@v1
       with:
-        credentials_json: ${{ secrets.GCP_SA_KEY }}
+        credentials_json: ${{ secrets.TD_GCP_SA_KEY }}
         create_credentials_file: true
 
     - name: Set up Cloud SDK

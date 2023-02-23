@@ -1,3 +1,33 @@
+## 1.0.25 - 2023-02-22
+- Remove invalid python image dependency
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-hail:1.0.25`
+
+## 1.0.24 - 2023-02-08
+- Update `hail` to `0.2.109`
+  - See https://hail.is/docs/0.2/change_log.html#version-0-2-109) for details
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-hail:1.0.24`
+
+## 1.0.23 - 2023-02-09T14:18:49.030825Z
+
+- Update `terra-jupyter-base` to `1.0.12`
+  - Add cloud.google.com gpg key.
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-hail:1.0.23`
+
+## 1.0.22 - 2022-12-14
+- Update `hail` to `0.2.107`
+  - See https://hail.is/docs/0.2/change_log.html#version-0-2-107) for details
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-hail:1.0.22`
+
+## 1.0.21 - 2022-11-01
+- Update `hail` to `0.2.105`
+  - See https://hail.is/docs/0.2/change_log.html#version-0-2-105) for details
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-hail:1.0.21`
+
 ## 1.0.20 - 2022-08-22
 - Update `hail` to `0.2.98`
   - See https://hail.is/docs/0.2/change_log.html#version-0-2-98) for details

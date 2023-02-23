@@ -1,4 +1,4 @@
-FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-gatk:2.2.8
+FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-gatk:2.2.10
 
 USER root
 
@@ -47,7 +47,7 @@ RUN jupyter nbextension enable --py igv --sys-prefix
 ENV PYTHONPATH $PYTHONPATH:/usr/lib/spark/python
 
 ENV PYSPARK_PYTHON=python3
-ENV HAIL_VERSION=0.2.104
+ENV HAIL_VERSION=0.2.109
 
 RUN find $JUPYTER_HOME/scripts -name '*.sh' -type f | xargs chmod +x \
     && $JUPYTER_HOME/scripts/kernel/kernelspec.sh $JUPYTER_HOME/scripts/kernel /opt/conda/share/jupyter/kernels \
@@ -193,11 +193,80 @@ RUN R -e 'BiocManager::install(c("GENESIS"))'
 ENV R_LIBS /usr/local/lib/R/site-library:/opt/conda/lib/R/library
 RUN conda install -c bioconda r-saige
 
+# Install hdf5 library and h5py
+RUN apt-get update && \
+  apt install -yq --no-install-recommends \
+        libhdf5-serial-dev \
+        cmake \
+        && apt-get clean \
+        && rm -rf /var/lib/apt/lists/*
+RUN pip install --upgrade pip && pip install --verbose h5py
+
 # RW-8725 INSTALL QIMEE2
 RUN curl -L -o qiime2-2022.8.yml https://data.qiime2.org/distro/core/qiime2-2022.8-py38-linux-conda.yml && \
     conda env create -n qiime2-2022.8 --file qiime2-2022.8.yml && \
     rm qiime2-2022.8.yml
 
+# Install jellyfish
+RUN mkdir -p /tmp/jellyfish && \
+    cd /tmp/jellyfish && \
+    curl -L -o jellyfish.tar.gz https://github.com/gmarcais/Jellyfish/releases/download/v2.3.0/jellyfish-2.3.0.tar.gz && \
+    tar xvf jellyfish.tar.gz && \
+    cd jellyfish-2.3.0 && \
+    ./configure && \
+    make && \
+    make install && \
+    cd $HOME && \
+    rm -rf /tmp/jellyfish
+
+# Install pangenie
+RUN mkdir -p /tmp/pangenie && \
+  cd /tmp/pangenie && \
+  git clone https://github.com/eblerjana/pangenie.git && \
+  cd pangenie && \
+  mkdir build; cd build; cmake .. ; make && cd src && \
+  mv *.so /lib && \
+  mv * /bin/ && \
+  cd $HOME && \
+  rm -rf /tmp/pangenie
+
+# Install minimap2
+RUN curl -L https://github.com/lh3/minimap2/releases/download/v2.24/minimap2-2.24_x64-linux.tar.bz2 | tar -jxvf - && cd minimap2-2.24_x64-linux/ && cp minimap2 /bin/minimap2 && cd $HOME
+
+# Run whatshap (>1h install)
+# RUN conda install -c bioconda whatshap
+# Alternatively, not using conda (1 min install)
+RUN pip install --verbose git+https://github.com/whatshap/whatshap
+
+# TRF
+RUN mkdir -p /tmp/trf && cd /tmp/trf && \
+  git clone https://github.com/Benson-Genomics-Lab/TRF.git && cd TRF && \
+  mkdir build && cd build && ../configure && make && make install && \
+  cd $HOME && \
+  rm -rf /tmp/trf
+
+# HMMER
+RUN mkdir -p /tmp/hmmer && cd /tmp/hmmer && \
+  curl -L -o hmmer-3.3.tar.gz http://eddylab.org/software/hmmer/hmmer-3.3.tar.gz && \
+  tar -xzf hmmer-3.3.tar.gz && cd hmmer-3.3 && ./configure && \
+  make && make install && cd .. && rm -r hmmer-3.3 hmmer-3.3.tar.gz && cd $HOME && \
+  rm -rf /tmp/hmmer
+
+# rmblast (200M)
+RUN mkdir -p /tmp/rmblast && cd /tmp/rmblast && \
+  curl -L -o rmblast-2.11.0+-x64-linux.tar.gz http://www.repeatmasker.org/rmblast-2.11.0+-x64-linux.tar.gz && \
+  tar -zxvf rmblast-2.11.0+-x64-linux.tar.gz && \
+  cp rmblast-2.11.0/bin/* /usr/local/bin && \
+  cd $HOME && \
+  rm -rf /tmp/rmblast
+
+RUN PERL_MM_USE_DEFAULT=1 cpan Text::Soundex
+
+# Install RepeatMasker (900M)
+RUN curl -L http://www.repeatmasker.org/RepeatMasker/RepeatMasker-4.1.4.tar.gz \
+  | (cd /usr/local; tar -xz)
+
+ENV PATH="$PATH:/usr/local/RepeatMasker"
 
 ENV PIP_USER=true
 USER $USER

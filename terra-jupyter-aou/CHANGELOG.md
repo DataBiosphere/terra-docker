@@ -1,3 +1,44 @@
+## 2.1.17 - 2023-02-08
+- Update `hail` to `0.2.109`
+  - See https://hail.is/docs/0.2/change_log.html#version-0-2-109) for details
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-aou:2.1.17`
+
+## 2.1.16 - 2023-02-09T14:18:49.188741Z
+
+- Update `terra-jupyter-base` to `1.0.12`
+  - Add cloud.google.com gpg key.
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-aou:2.1.16`
+
+## 2.1.15 - 2022-12-14
+- Update `hail` to `0.2.107`
+  - See https://hail.is/docs/0.2/change_log.html#version-0-2-107) for details
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-aou:2.1.15`
+
+## 2.1.14 - 2022-12-12
+
+- Add tools for long reads support
+  - jellyfish 2.3.0
+  - pangenie
+  - minimap2 2.24
+  - whatshap
+  - TRF
+  - HMMER 3.3
+  - rmblast 2.11.0
+  - RepeatMasker 4.1.4
+  - Text::Soundex
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-aou:2.1.14`
+
+## 2.1.13 - 2022-11-22T20:49:44.192223144Z
+
+- Update `terra-jupyter-r` to `2.1.7`
+  - Update Bioconductor for 3.16 release
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-aou:2.1.13`
+
 ## 2.1.12 - 2022-10-21
 - Update `hail` to `0.2.104`
   - See https://hail.is/docs/0.2/change_log.html#version-0-2-104) for details
