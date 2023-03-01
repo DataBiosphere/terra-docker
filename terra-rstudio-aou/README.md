@@ -8,7 +8,7 @@ This image is intended to support usage in the [All of Us Workbench](https://git
 
 The terra-rstudio-aou extends the [AnVIL Bioconductor image](https://github.com/anvilproject/anvil-docker) by including the following:
 
-- Configuring `tc` to limit network bandwidth.
+- Configuring `wondershaper` to limit network bandwidth.
 
 To see the complete contents of this image please see the [Dockerfile](./Dockerfile).
 

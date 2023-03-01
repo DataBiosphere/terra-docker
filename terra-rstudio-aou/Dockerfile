@@ -44,6 +44,13 @@ ENV BIOCONDUCTOR_USE_CONTAINER_REPOSITORY=TRUE
 # Add our rserver configuration
 ADD rstudio/rserver.conf $RSTUDIO_HOME/rserver.conf
 
+# Install Wondershaper from source, for client-side egress limiting.
+RUN cd /usr/local/share && \
+  git clone https://github.com/magnific0/wondershaper.git --depth 1 && \
+  cd wondershaper && \
+  make install && \
+  cd $HOME
+
 # Expose ports 8787 and disable authentication as this is handled
 # internally.  Root access/super powers are disabled.
 ENV RSTUDIO_PORT 8787
