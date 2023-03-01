@@ -161,7 +161,7 @@
             "packages" : {
                 
             },
-            "version" : "1.16.0",
+            "version" : "3.16.0",
             "automated_flags" : {
                 "include_in_ui" : false,
                 "generate_docs" : false,
