@@ -51,22 +51,36 @@ docker run -d -p <port_number>:8000 -v <your_local_path_to_the_repo>/terra-docke
 
 Once you have the container running, you should be able to access jupyter at http://localhost:<port_number>/notebooks. You should be able to navigate to the smoke test ipynb file you're interested in, and run a cell. After you modify a smoke test `.ipynb` file, go to `Cell` -> `All Ouput` -> `Clear` to clear all outputs to keep the `.ipynb` files smaller.
 
-## Generate New Image
-If you are adding a new image:
+## Generate New Image or Update Existing Image
+
+Detailed documentation on how to integrate the terra-docker image with Leonardo can be found [here](https://broadworkbench.atlassian.net/wiki/spaces/IA/pages/2519564289/Integrating+new+Terra+docker+images+with+Leonardo)
+
+### If you are adding a new image:
 - Create a new directory with the Dockerfile and a CHANGELOG.md. 
 - Add the directory name (also referred to as the image name) as an entry to the image_data array in the file in config/conf.json. For more info on what is needed for a new image, see the section on the config
 - If you wish the image to be baked into our custom image, which makes the runtime load significantly faster (recommended), make a PR into the leonardo [repo](https://github.com/DataBiosphere/leonardo) doing the following within the `jenkins` folder:
     - Add the image to the parameter list in the Jenkinsfile
     - Update the relevant `prepare` script in each subdirectory. Currently there is a prepare script for gce and dataproc.
-    - It is recommended to add a test in the `automation` directory
+    - It is recommended to add a test in the `automation` directory (`automation/src/test/resources/reference.conf`)
     - Add your image to the `reference.conf` in the automation directory. This will be the only place any future version updates to your image happen. This ensures, along with the test in the previous step, that any changes to the image are tested.
+    - Run the GHA to generate the image, and add it to `reference.conf` in the http directory (`http/src/main/resources/reference.conf`)
 
-If you are updating an existing image:
-- Update the version in config/conf.json
-- Update CHANGELOG.md
-- Ensure that no `From` statements need to be updated based on the image you updated (i.e., if you update the base image, you will need to update several other images)
-- Follow [instructions](https://broadworkbench.atlassian.net/wiki/spaces/AP/pages/100401153/Testing+notebook+functionality+with+Fiab) to test the image
-- Once you merge a PR, A [jenkins job](https://fc-jenkins.dsp-techops.broadinstitute.org/job/leonardo-build-terra-docker/) will automatically detect which image you have updated and build it + generate documentation. 
+### If you are updating an existing image:
+- [Create your terra-docker PR](https://broadworkbench.atlassian.net/wiki/spaces/IA/pages/2519564289/Integrating+new+Terra+docker+images+with+Leonardo#1.-Create-a-terra-docker-PR)
+    - Update the version in config/conf.json
+    - Update CHANGELOG.md and VERSION file
+    - Ensure that no `From` statements need to be updated based on the image you updated (i.e., if you update the base image, you will need to update several other images)
+    - Run updateVersions.sc to bump all images dependent on the base
+- [Merge your terra-docker PR and check if the image(s) is(are) created](https://broadworkbench.atlassian.net/wiki/spaces/IA/pages/2519564289/Integrating+new+Terra+docker+images+with+Leonardo#2.-Merge-your-terra-docker-PR-and-check-images-are-created)
+- [Open a PR in leonardo](https://broadworkbench.atlassian.net/wiki/spaces/IA/pages/2519564289/Integrating+new+Terra+docker+images+with+Leonardo#3.-Create-a-new-leo-PR-that-integrates-the-new-images)
+    - Update the relevant `prepare` script within the `jenkins` folder
+    - Update the automation `reference.conf` file
+- [Run the GHA on your branch to generate the new image](https://broadworkbench.atlassian.net/wiki/spaces/IA/pages/2519564289/Integrating+new+Terra+docker+images+with+Leonardo#4.-Run-the-Github-Action-in-leo-to-generate-a-new-custom-COS-image)
+- [Update the leonardo PR to use the newly generated image](https://broadworkbench.atlassian.net/wiki/spaces/IA/pages/2519564289/Integrating+new+Terra+docker+images+with+Leonardo#5.-Update-the-Leo-PR-to-use-the-generated-OS-images)
+- Ensure that the `terra-docker-versions-candidate.json` file (which is what the UI sources the dropdown from) in the `terra-docjker-image-documentation-[env]` bucket correclty references your new docker image
+- [Update the terra-docker version candidate json](https://broadworkbench.atlassian.net/wiki/spaces/IA/pages/2519564289/Integrating+new+Terra+docker+images+with+Leonardo#6.-Update-terra-docker-versions-candidate.json)
+
+
 
 If you wish to build locally, run `docker build [your_dir] -t [name]`. 
 
@@ -143,4 +157,5 @@ The scripts folder has scripts used for building.
 
 ## Image dependencies
 
+Note that this dependency graph needs to be updated!
 ![Image dependencies](dependencies.png)
