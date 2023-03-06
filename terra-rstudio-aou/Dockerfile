@@ -55,7 +55,6 @@ RUN cd /usr/local/share && \
 # internally.  Root access/super powers are disabled.
 ENV RSTUDIO_PORT 8787
 ENV DISABLE_AUTH=true
-ENV ROOT=false
 EXPOSE $RSTUDIO_PORT
 
 # Hide tc etc from users

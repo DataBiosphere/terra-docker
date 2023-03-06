@@ -20,8 +20,6 @@ on:
         description: 'Branch to run the workflow on'
         required: false
         default: 'master'
-    push:
-      branches: [ yyu-gha ]
 jobs:
   publish-job:
     runs-on: self-hosted
