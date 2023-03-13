@@ -26,7 +26,7 @@
                     "tidyverse"
                 ]
             },
-            "version" : "2.1.9",
+            "version" : "2.1.10",
             "automated_flags" : {
                 "generate_docs" : true,
                 "include_in_ui" : true,
@@ -47,7 +47,7 @@
                     "hail"
                 ]
             },
-            "version" : "1.0.25",
+            "version" : "1.0.26",
             "automated_flags" : {
                 "generate_docs" : true,
                 "include_in_ui" : true,
@@ -68,7 +68,7 @@
                     "scikit-learn"
                 ]
             },
-            "version" : "1.0.14",
+            "version" : "1.0.15",
             "automated_flags" : {
                 "generate_docs" : true,
                 "include_in_ui" : true,
@@ -84,9 +84,9 @@
                 "python"
             ],
             "packages" : {
-
+                
             },
-            "version" : "1.0.13",
+            "version" : "1.0.14",
             "automated_flags" : {
                 "generate_docs" : true,
                 "include_in_ui" : false,
@@ -102,9 +102,9 @@
                 "r"
             ],
             "packages" : {
-
+                
             },
-            "version" : "2.1.8",
+            "version" : "2.1.9",
             "automated_flags" : {
                 "include_in_ui" : false,
                 "generate_docs" : true,
@@ -122,9 +122,9 @@
                 "r"
             ],
             "packages" : {
-
+                
             },
-            "version" : "2.2.10",
+            "version" : "2.2.11",
             "automated_flags" : {
                 "include_in_ui" : true,
                 "generate_docs" : true,
@@ -141,9 +141,9 @@
                 "r"
             ],
             "packages" : {
-
+                
             },
-            "version" : "2.1.17",
+            "version" : "2.1.18",
             "automated_flags" : {
                 "include_in_ui" : false,
                 "generate_docs" : false,
@@ -159,7 +159,7 @@
                 "r"
             ],
             "packages" : {
-
+                
             },
             "version" : "3.16.0",
             "automated_flags" : {
@@ -179,9 +179,9 @@
                 "r"
             ],
             "packages" : {
-
+                
             },
-            "version" : "0.2.8",
+            "version" : "0.2.9",
             "automated_flags" : {
                 "include_in_ui" : false,
                 "generate_docs" : true,

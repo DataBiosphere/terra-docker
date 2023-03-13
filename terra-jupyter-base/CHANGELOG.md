@@ -1,3 +1,9 @@
+## 1.0.14 - 2023-03-13T17:26:34.128391Z
+
+- Include `jupyter lab build` step
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-base:1.0.14`
+
 ## 1.0.13 - 2023-03-09
 
 - Include `jupyter lab build` step
