@@ -55,6 +55,7 @@ docker run --rm -itd -u root -e PIP_USER=false --entrypoint='/bin/bash' --name $
 if [[ $IMAGE_DIR != "terra-rstudio-aou" ]]; then
   gcloud auth list
   python scripts/generate_package_docs.py "$IMAGE_DIR"
+fi
 
 docker kill $IMAGE_DIR || true
 docker rm -f $IMAGE_DIR || true
