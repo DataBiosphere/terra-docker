@@ -13,7 +13,7 @@
     "label": "RStudio (R 4.2.2, Bioconductor 3.16, Python 3.10.6)",
     "version": "3.16.0",
     "updated": "2022-11-22",
-    "packages": "https://storage.googleapis.com/terra-docker-image-documentation/placeholder.json",
+    "packages": "https://raw.githubusercontent.com/anvilproject/anvil-docker/master/anvil-rstudio-bioconductor/info/anvil-rstudio-bioconductor-3.16.0-versions.json",
     "image": "us.gcr.io/broad-dsp-gcr-public/anvil-rstudio-bioconductor:3.16.0",
     "requiresSpark": false,
     "isRStudio": true
