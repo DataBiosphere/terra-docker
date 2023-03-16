@@ -268,6 +268,11 @@ RUN curl -L http://www.repeatmasker.org/RepeatMasker/RepeatMasker-4.1.4.tar.gz \
 
 
 # Install Cromshell
+RUN git clone https://github.com/broadinstitute/cromshell.git \
+    && cd cromshell \
+    && git checkout cromshell_2.0 \
+    && git checkout 0.5.3.0 \
+    && pip install .
 RUN cromshell-alpha version
 
 # Remove workspace_cromwell script as it may allow user bypass AoU to create Cromwell via Leo directly
