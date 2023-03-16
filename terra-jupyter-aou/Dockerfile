@@ -271,10 +271,10 @@ RUN curl -L http://www.repeatmasker.org/RepeatMasker/RepeatMasker-4.1.4.tar.gz \
 RUN cromshell-alpha version
 
 # Remove workspace_cromwell script as it may allow user bypass AoU to create Cromwell via Leo directly
-rm -f /usr/local/bin/workspace_cromwell.py
+RUN rm -f /usr/local/bin/workspace_cromwell.py
 
 # Downgrade jupyter_contrib_nbextensions as the newer version breaks snippet_menu extension
-pip install --force-reinstall -v "jupyter_contrib_nbextensions==0.5.1"
+RUN pip install --force-reinstall -v "jupyter_contrib_nbextensions==0.5.1"
 
 ENV PATH="$PATH:/usr/local/RepeatMasker"
 
