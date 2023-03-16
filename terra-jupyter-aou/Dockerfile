@@ -274,7 +274,7 @@ RUN cromshell-alpha version
 rm -f /usr/local/bin/workspace_cromwell.py
 
 # Downgrade jupyter_contrib_nbextensions as the newer version breaks snippet_menu extension
-pip install --force-reinstall -v "jupyter_contrib_nbextensions==0.5.1" \
+pip install --force-reinstall -v "jupyter_contrib_nbextensions==0.5.1"
 
 ENV PATH="$PATH:/usr/local/RepeatMasker"
 
