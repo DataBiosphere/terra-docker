@@ -83,9 +83,7 @@
             "tools" : [
                 "python"
             ],
-            "packages" : {
-                
-            },
+            "packages" : {},
             "version" : "1.0.14",
             "automated_flags" : {
                 "generate_docs" : true,
@@ -101,9 +99,7 @@
             "tools" : [
                 "r"
             ],
-            "packages" : {
-                
-            },
+            "packages" : {},
             "version" : "2.1.9",
             "automated_flags" : {
                 "include_in_ui" : false,
@@ -121,9 +117,7 @@
                 "python",
                 "r"
             ],
-            "packages" : {
-                
-            },
+            "packages" : {},
             "version" : "2.2.11",
             "automated_flags" : {
                 "include_in_ui" : true,
@@ -140,10 +134,8 @@
                 "python",
                 "r"
             ],
-            "packages" : {
-                
-            },
-            "version" : "2.1.18",
+            "packages" : {},
+            "version" : "2.1.19",
             "automated_flags" : {
                 "include_in_ui" : false,
                 "generate_docs" : false,
@@ -158,9 +150,7 @@
             "tools" : [
                 "r"
             ],
-            "packages" : {
-                
-            },
+            "packages" : {},
             "version" : "3.16.0",
             "automated_flags" : {
                 "include_in_ui" : false,
@@ -178,9 +168,7 @@
                 "python",
                 "r"
             ],
-            "packages" : {
-                
-            },
+            "packages" : {},
             "version" : "0.2.9",
             "automated_flags" : {
                 "include_in_ui" : false,
