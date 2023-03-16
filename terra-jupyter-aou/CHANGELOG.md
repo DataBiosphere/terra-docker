@@ -1,3 +1,10 @@
+## 2.1.18 - 2023-03-13T17:26:34.247154Z
+
+- Update `terra-jupyter-base` to `1.0.14`
+  - Include `jupyter lab build` step
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-aou:2.1.18`
+
 ## 2.1.17 - 2023-02-08
 - Update `hail` to `0.2.109`
   - See https://hail.is/docs/0.2/change_log.html#version-0-2-109) for details

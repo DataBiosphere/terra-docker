@@ -1,3 +1,10 @@
+## 2.1.10 - 2023-03-13T17:26:34.148443Z
+
+- Update `terra-jupyter-base` to `1.0.14`
+  - Include `jupyter lab build` step
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-bioconductor:2.1.10`
+
 ## 2.1.9 - 2023-02-09T14:18:48.987542Z
 
 - Update `terra-jupyter-base` to `1.0.12`

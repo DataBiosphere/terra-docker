@@ -1,3 +1,10 @@
+## 1.0.26 - 2023-03-13T17:26:34.162828Z
+
+- Update `terra-jupyter-base` to `1.0.14`
+  - Include `jupyter lab build` step
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-hail:1.0.26`
+
 ## 1.0.25 - 2023-02-22
 - Remove invalid python image dependency
 

@@ -1,3 +1,10 @@
+## 2.2.11 - 2023-03-13T17:26:34.219509Z
+
+- Update `terra-jupyter-base` to `1.0.14`
+  - Include `jupyter lab build` step
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-gatk:2.2.11`
+
 ## 2.2.10 - 2023-02-09T14:18:49.138553Z
 
 - Update `terra-jupyter-base` to `1.0.12`
