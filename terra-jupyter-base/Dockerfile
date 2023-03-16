@@ -112,12 +112,6 @@ RUN pip3 -V \
     # For gcloud alpha storage support.
     && pip3 install google-crc32c --target /usr/lib/google-cloud-sdk/lib/third_party
 
-# install Cromshell 2.0
-RUN git clone https://github.com/broadinstitute/cromshell.git \
-    && cd cromshell \
-    && git checkout cromshell_2.0 \
-    && pip install .
-
 # verify cromshell 2.0 is installed
 RUN cromshell-beta version
 
