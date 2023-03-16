@@ -159,3 +159,7 @@ The scripts folder has scripts used for building.
 
 Note that this dependency graph needs to be updated!
 ![Image dependencies](dependencies.png)
+
+## Push Images to GCR
+
+To push images to Broad managed Google Container Registry``gcr.io/broad-dsp-gcr-public``, manually trigger ``Publish image to GCR `` Github action and choose the image to push.
