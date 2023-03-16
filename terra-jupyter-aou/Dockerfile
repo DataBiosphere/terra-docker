@@ -47,7 +47,7 @@ RUN jupyter nbextension enable --py igv --sys-prefix
 ENV PYTHONPATH $PYTHONPATH:/usr/lib/spark/python
 
 ENV PYSPARK_PYTHON=python3
-ENV HAIL_VERSION=0.2.109
+ENV HAIL_VERSION=0.2.112
 
 RUN find $JUPYTER_HOME/scripts -name '*.sh' -type f | xargs chmod +x \
     && $JUPYTER_HOME/scripts/kernel/kernelspec.sh $JUPYTER_HOME/scripts/kernel /opt/conda/share/jupyter/kernels \
@@ -272,6 +272,9 @@ RUN cromshell-alpha version
 
 # Remove workspace_cromwell script as it may allow user bypass AoU to create Cromwell via Leo directly
 rm -f /usr/local/bin/workspace_cromwell.py
+
+# Downgrade jupyter_contrib_nbextensions as the newer version breaks snippet_menu extension
+pip install --force-reinstall -v "jupyter_contrib_nbextensions==0.5.1" \
 
 ENV PATH="$PATH:/usr/local/RepeatMasker"
 
