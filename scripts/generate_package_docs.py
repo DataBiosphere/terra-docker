@@ -21,7 +21,7 @@ def get_docs(params):
 
   docs = {}
   for tool in tools:
-    print "Writing doc for tool {}".format(tool)
+    print ("Writing doc for tool {}".format(tool))
       #flattens the arrays of objects with packages:version key value pairs into single object with all key value pairs
     docs[tool] = utils.flatten_list_of_dicts(doc_builder[tool](params))
 
