@@ -266,10 +266,6 @@ RUN PERL_MM_USE_DEFAULT=1 cpan Text::Soundex
 RUN curl -L http://www.repeatmasker.org/RepeatMasker/RepeatMasker-4.1.4.tar.gz \
   | (cd /usr/local; tar -xz)
 
-
-# Install Cromshell
-RUN cromshell-alpha version
-
 # Remove workspace_cromwell script as it may allow user bypass AoU to create Cromwell via Leo directly
 RUN rm -f /usr/local/bin/workspace_cromwell.py
 
