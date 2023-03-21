@@ -1,4 +1,4 @@
-FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-gatk:2.2.10
+FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-gatk:2.2.11
 
 USER root
 
@@ -268,7 +268,8 @@ RUN curl -L http://www.repeatmasker.org/RepeatMasker/RepeatMasker-4.1.4.tar.gz \
 
 # Remove workspace_cromwell script as it may allow user bypass AoU to create Cromwell via Leo directly
 RUN rm -f /usr/local/bin/workspace_cromwell.py
-
+# alias cromshell_beta to cromshell
+RUN echo "alias cromshell='cromshell_beta'" >> ~/.bash_aliases
 # Downgrade jupyter_contrib_nbextensions as the newer version breaks snippet_menu extension
 RUN pip install --force-reinstall -v "jupyter_contrib_nbextensions==0.5.1"
 
