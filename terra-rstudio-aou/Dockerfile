@@ -1,7 +1,7 @@
 # Base this image on the Terra AnVIL RStudio-Bioconductor image.
 FROM us.gcr.io/broad-dsp-gcr-public/anvil-rstudio-bioconductor:3.16.0
 
-ENV AOU_DOCKER_VERSION=3.16.0
+ENV AOU_DOCKER_VERSION=0.1.1
 LABEL vendor="The All Of Us Research Program" \
       description="RStudio + Bioconductor docker image for use in the All of Us Researcher Workbench." \
       license="GPL-2.0-or-later" \
