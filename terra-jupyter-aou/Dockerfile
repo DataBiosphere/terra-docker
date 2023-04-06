@@ -47,7 +47,7 @@ RUN jupyter nbextension enable --py igv --sys-prefix
 ENV PYTHONPATH $PYTHONPATH:/usr/lib/spark/python
 
 ENV PYSPARK_PYTHON=python3
-ENV HAIL_VERSION=0.2.109
+ENV HAIL_VERSION=0.2.112
 
 RUN find $JUPYTER_HOME/scripts -name '*.sh' -type f | xargs chmod +x \
     && $JUPYTER_HOME/scripts/kernel/kernelspec.sh $JUPYTER_HOME/scripts/kernel /opt/conda/share/jupyter/kernels \
@@ -191,7 +191,7 @@ RUN R -e 'BiocManager::install(c("GENESIS"))'
 # important here, as packages.install() will target the first path in this list,
 # and the jupyter user will have readonly access to the conda path.
 ENV R_LIBS /usr/local/lib/R/site-library:/opt/conda/lib/R/library
-RUN conda install -c bioconda r-saige
+RUN conda install -c bioconda r-saige=0.45
 
 # Install hdf5 library and h5py
 RUN apt-get update && \
@@ -265,6 +265,17 @@ RUN PERL_MM_USE_DEFAULT=1 cpan Text::Soundex
 # Install RepeatMasker (900M)
 RUN curl -L http://www.repeatmasker.org/RepeatMasker/RepeatMasker-4.1.4.tar.gz \
   | (cd /usr/local; tar -xz)
+
+# Remove workspace_cromwell script as it may allow user bypass AoU to create Cromwell via Leo directly
+RUN rm -f /usr/local/bin/workspace_cromwell.py
+# alias cromshell_beta to cromshell
+RUN echo "alias cromshell='cromshell_beta'" >> ~/.bash_aliases
+# Downgrade jupyter_contrib_nbextensions as the newer version breaks snippet_menu extension
+RUN pip install --force-reinstall -v "jupyter_contrib_nbextensions==0.5.1"
+
+# Downgrade Jinja2 as the newer version breaks the notebook
+# See https://jinja.palletsprojects.com/en/3.1.x/changes/#version-3-1-0
+RUN pip install --force-reinstall -v "Jinja2==3.0.3"
 
 ENV PATH="$PATH:/usr/local/RepeatMasker"
 
