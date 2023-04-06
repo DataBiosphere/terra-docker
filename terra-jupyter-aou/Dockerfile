@@ -273,6 +273,10 @@ RUN echo "alias cromshell='cromshell_beta'" >> ~/.bash_aliases
 # Downgrade jupyter_contrib_nbextensions as the newer version breaks snippet_menu extension
 RUN pip install --force-reinstall -v "jupyter_contrib_nbextensions==0.5.1"
 
+# Downgrade Jinja2 as the newer version breaks the notebook
+# See https://jinja.palletsprojects.com/en/3.1.x/changes/#version-3-1-0
+RUN pip install --force-reinstall -v "Jinja2==3.0.3"
+
 ENV PATH="$PATH:/usr/local/RepeatMasker"
 
 ENV PIP_USER=true
