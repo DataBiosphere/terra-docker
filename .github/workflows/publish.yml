@@ -14,6 +14,7 @@ on:
           - terra-jupyter-gatk-ovtf
           - terra-jupyter-hail
           - terra-jupyter-python
+          - terra-jupyter-r
           - terra-rstudio-aou
         default: terra-rstudio-rstudio
       branch:
