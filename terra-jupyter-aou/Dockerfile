@@ -191,7 +191,7 @@ RUN R -e 'BiocManager::install(c("GENESIS"))'
 # important here, as packages.install() will target the first path in this list,
 # and the jupyter user will have readonly access to the conda path.
 ENV R_LIBS /usr/local/lib/R/site-library:/opt/conda/lib/R/library
-RUN conda install -c bioconda r-saige
+RUN conda install -c bioconda r-saige=0.45
 
 # Install hdf5 library and h5py
 RUN apt-get update && \
