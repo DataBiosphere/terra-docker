@@ -14,20 +14,21 @@ on:
           - terra-jupyter-gatk-ovtf
           - terra-jupyter-hail
           - terra-jupyter-python
+          - terra-jupyter-r
           - terra-rstudio-aou
         default: terra-rstudio-rstudio
       branch:
         description: 'Branch to run the workflow on'
         required: false
         default: 'master'
-    push:
-      branches: [ yyu-gha ]
 jobs:
   publish-job:
     runs-on: self-hosted
     steps:
       - name: Checkout current code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ github.event.inputs.branch }}
 
       - name: Set up Python
         uses: actions/setup-python@v2

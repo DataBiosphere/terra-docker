@@ -1,7 +1,7 @@
 # Base this image on the Terra AnVIL RStudio-Bioconductor image.
 FROM us.gcr.io/broad-dsp-gcr-public/anvil-rstudio-bioconductor:3.16.0
 
-ENV AOU_DOCKER_VERSION=3.16.0
+ENV AOU_DOCKER_VERSION=0.1.1
 LABEL vendor="The All Of Us Research Program" \
       description="RStudio + Bioconductor docker image for use in the All of Us Researcher Workbench." \
       license="GPL-2.0-or-later" \
@@ -44,11 +44,17 @@ ENV BIOCONDUCTOR_USE_CONTAINER_REPOSITORY=TRUE
 # Add our rserver configuration
 ADD rstudio/rserver.conf $RSTUDIO_HOME/rserver.conf
 
+# Install Wondershaper from source, for client-side egress limiting.
+RUN cd /usr/local/share && \
+  git clone https://github.com/magnific0/wondershaper.git --depth 1 && \
+  cd wondershaper && \
+  make install && \
+  cd $HOME
+
 # Expose ports 8787 and disable authentication as this is handled
 # internally.  Root access/super powers are disabled.
 ENV RSTUDIO_PORT 8787
 ENV DISABLE_AUTH=true
-ENV ROOT=false
 EXPOSE $RSTUDIO_PORT
 
 # Hide tc etc from users
