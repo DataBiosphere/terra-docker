@@ -1,3 +1,10 @@
+## 2.1.20 - 2023-04-11
+- Update `hail` to `0.2.113`
+  - See https://hail.is/docs/0.2/change_log.html#version-0-2-113) for details
+  - Install r-saige and SAIGEgds using BiocManager
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-aou:2.1.20`
+- 
 ## 2.1.19 - 2023-03-16
 - Update `hail` to `0.2.112`
   - See https://hail.is/docs/0.2/change_log.html#version-0-2-112) for details
