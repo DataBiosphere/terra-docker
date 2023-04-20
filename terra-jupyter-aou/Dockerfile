@@ -47,7 +47,11 @@ RUN jupyter nbextension enable --py igv --sys-prefix
 ENV PYTHONPATH $PYTHONPATH:/usr/lib/spark/python
 
 ENV PYSPARK_PYTHON=python3
+<<<<<<< HEAD
 ENV HAIL_VERSION=0.2.113
+=======
+ENV HAIL_VERSION=0.2.112
+>>>>>>> origin/master
 
 RUN find $JUPYTER_HOME/scripts -name '*.sh' -type f | xargs chmod +x \
     && $JUPYTER_HOME/scripts/kernel/kernelspec.sh $JUPYTER_HOME/scripts/kernel /opt/conda/share/jupyter/kernels \
