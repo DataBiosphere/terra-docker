@@ -185,11 +185,7 @@ RUN mkdir -p /tmp/vcftools && \
 
 RUN R -e 'BiocManager::install(c("GENESIS"))'
 
-# Downgrade Jinja2 as the newer version breaks the notebook
-# See https://jinja.palletsprojects.com/en/3.1.x/changes/#version-3-1-0
-RUN pip install --force-reinstall -v "Jinja2==3.0.3"
-
-RUN R -e 'BiocManager::install(c("SAIGEgds","SNPRelate","r-saige"))'
+RUN R -e 'BiocManager::install(c("SAIGEgds","SNPRelate"))'
 
 # Install hdf5 library and h5py
 RUN apt-get update && \
@@ -270,6 +266,10 @@ RUN rm -f /usr/local/bin/workspace_cromwell.py
 RUN echo "alias cromshell='cromshell_beta'" >> ~/.bash_aliases
 # Downgrade jupyter_contrib_nbextensions as the newer version breaks snippet_menu extension
 RUN pip install --force-reinstall -v "jupyter_contrib_nbextensions==0.5.1"
+
+# Downgrade Jinja2 as the newer version breaks the notebook
+# See https://jinja.palletsprojects.com/en/3.1.x/changes/#version-3-1-0
+RUN pip install --force-reinstall -v "Jinja2==3.0.3"
 
 ENV PATH="$PATH:/usr/local/RepeatMasker"
 
