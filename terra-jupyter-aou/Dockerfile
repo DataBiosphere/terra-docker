@@ -47,7 +47,8 @@ RUN jupyter nbextension enable --py igv --sys-prefix
 ENV PYTHONPATH $PYTHONPATH:/usr/lib/spark/python
 
 ENV PYSPARK_PYTHON=python3
-ENV HAIL_VERSION=0.2.112
+
+ENV HAIL_VERSION=0.2.113
 
 RUN find $JUPYTER_HOME/scripts -name '*.sh' -type f | xargs chmod +x \
     && $JUPYTER_HOME/scripts/kernel/kernelspec.sh $JUPYTER_HOME/scripts/kernel /opt/conda/share/jupyter/kernels \
@@ -184,14 +185,7 @@ RUN mkdir -p /tmp/vcftools && \
 
 RUN R -e 'BiocManager::install(c("GENESIS"))'
 
-# TODO(IA-3261): Remove this hack, and just conda install normally. R SAIGE
-# unfortunately is difficult to install outside of conda. Conda is also not
-# fully supported on the terra-docker base image. Here we workaround this by
-# installing (as root) via conda, and including the R lib path. Order is
-# important here, as packages.install() will target the first path in this list,
-# and the jupyter user will have readonly access to the conda path.
-ENV R_LIBS /usr/local/lib/R/site-library:/opt/conda/lib/R/library
-RUN conda install -c bioconda r-saige=0.45
+RUN R -e 'BiocManager::install(c("SAIGEgds","SNPRelate"))'
 
 # Install hdf5 library and h5py
 RUN apt-get update && \
