@@ -14,7 +14,7 @@ c.NotebookApp.ip = '0.0.0.0'
 c.NotebookApp.port = 8000
 c.NotebookApp.open_browser = False
 
-c.NotebookApp.token = ''
+c.NotebookApp.token = 'test'
 c.NotebookApp.disable_check_xsrf = True #see https://github.com/nteract/hydrogen/issues/922
 c.NotebookApp.allow_origin = '*'
 
