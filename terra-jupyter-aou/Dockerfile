@@ -259,8 +259,6 @@ RUN curl -L http://www.repeatmasker.org/RepeatMasker/RepeatMasker-4.1.4.tar.gz \
 
 # Remove workspace_cromwell script as it may allow user bypass AoU to create Cromwell via Leo directly
 RUN rm -f /usr/local/bin/workspace_cromwell.py
-# alias cromshell_beta to cromshell
-RUN echo "alias cromshell='cromshell-beta'" >> ~/.bash_aliases
 
 # Downgrade Jinja2 as the newer version breaks the notebook
 # See https://jinja.palletsprojects.com/en/3.1.x/changes/#version-3-1-0
