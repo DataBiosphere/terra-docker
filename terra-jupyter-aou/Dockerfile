@@ -48,7 +48,7 @@ ENV PYTHONPATH $PYTHONPATH:/usr/lib/spark/python
 
 ENV PYSPARK_PYTHON=python3
 
-ENV HAIL_VERSION=0.2.113
+ENV HAIL_VERSION=0.2.107
 
 RUN find $JUPYTER_HOME/scripts -name '*.sh' -type f | xargs chmod +x \
     && $JUPYTER_HOME/scripts/kernel/kernelspec.sh $JUPYTER_HOME/scripts/kernel /opt/conda/share/jupyter/kernels \
@@ -263,7 +263,7 @@ RUN curl -L http://www.repeatmasker.org/RepeatMasker/RepeatMasker-4.1.4.tar.gz \
 # Remove workspace_cromwell script as it may allow user bypass AoU to create Cromwell via Leo directly
 RUN rm -f /usr/local/bin/workspace_cromwell.py
 # alias cromshell_beta to cromshell
-RUN echo "alias cromshell='cromshell_beta'" >> ~/.bash_aliases
+RUN echo "alias cromshell='cromshell-beta'" >> ~/.bash_aliases
 # Downgrade jupyter_contrib_nbextensions as the newer version breaks snippet_menu extension
 RUN pip install --force-reinstall -v "jupyter_contrib_nbextensions==0.5.1"
 
