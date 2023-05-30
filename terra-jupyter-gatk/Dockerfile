@@ -53,6 +53,28 @@ RUN mkdir -p /tmp/nextflow && \
   chown -R $USER:users $HOME/.nextflow && \
   rm -rf /tmp/nextflow
 
+# Install bcftools
+RUN mkdir -p /tmp/bcftools && \
+    cd /tmp/bcftools && \
+    curl -L -o bcftools.tar.bz2 https://github.com/samtools/bcftools/releases/download/1.17/bcftools-1.17.tar.bz2 && \
+    bzip2 -d bcftools.tar.bz2 && \
+    tar xvf bcftools.tar && \
+    cd bcftools-1.17 && \
+    make && \
+    make install && \
+    cd $HOME && \
+    rm -rf /tmp/bcftools
+
+# Install bedtools
+RUN mkdir -p /tmp/bedtools && \
+    cd /tmp/bedtools && \
+    wget https://github.com/arq5x/bedtools2/releases/download/v2.31.0/bedtools-2.31.0.tar.gz && \
+    tar -zxvf bedtools-2.31.0.tar.gz && \
+    cd bedtools2 && \
+    make && \
+    cd $HOME && \
+    rm -rf /tmp/bedtools
+
 RUN pip install /etc/gatk-$GATK_VERSION/gatkPythonPackageArchive.zip
 RUN pip3 install --upgrade markupsafe==2.0.1
 
