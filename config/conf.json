@@ -124,7 +124,7 @@
             "packages" : {
                 
             },
-            "version" : "2.2.11",
+            "version" : "2.2.12",
             "automated_flags" : {
                 "include_in_ui" : true,
                 "generate_docs" : true,
