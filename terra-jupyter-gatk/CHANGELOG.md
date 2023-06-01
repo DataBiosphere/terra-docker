@@ -1,3 +1,10 @@
+## 2.2.13 - 2023-06-01T17:49:47.668283846Z
+
+- Update `terra-jupyter-r` to `2.1.10`
+  - Bioconductor 3.17 release with R 4.3
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-gatk:2.2.13`
+
 ## 2.2.12 - 2023-05-31T13:55:05
 
 - Add bcftools

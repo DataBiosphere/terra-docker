@@ -1,3 +1,10 @@
+## 2.1.22 - 2023-06-01T17:49:47.721962740Z
+
+- Update `terra-jupyter-r` to `2.1.10`
+  - Bioconductor 3.17 release with R 4.3
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-aou:2.1.22`
+
 ## 2.1.21 - 2023-05-24
 - Rollback `hail` to `0.2.107`
 - Fix `cromshell` alias typo
