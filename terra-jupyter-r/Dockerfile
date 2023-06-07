@@ -5,7 +5,7 @@ COPY scripts $JUPYTER_HOME/scripts
 
 # Add env vars to identify binary package installation
 ENV TERRA_R_PLATFORM="terra-jupyter-r"
-ENV TERRA_R_PLATFORM_BINARY_VERSION=3.16.0
+ENV TERRA_R_PLATFORM_BINARY_VERSION=3.17
 
 # Install protobuf 3.19.1. Note this version comes from base deep learning image. Use `conda list` to see what's installed
 RUN cd /tmp \
@@ -96,6 +96,12 @@ RUN apt-get update \
 	libzmq3-dev \
 	libsbml5-dev \
 	biber \
+        ## for gpuMagic package
+        ocl-icd-opencl-dev \
+        ## for ChemmineOB package
+        libeigen3-dev \
+        ## for rawrr package
+        mono-runtime \
     && ln -s /usr/lib/gcc/x86_64-linux-gnu/7/libgfortran.so /usr/lib/x86_64-linux-gnu/libgfortran.so \
     && ln -s /usr/lib/gcc/x86_64-linux-gnu/7/libstdc++.so /usr/lib/x86_64-linux-gnu/libstdc++.so \
     && apt-get clean \
@@ -121,7 +127,7 @@ RUN pip3 -V \
 
 RUN R -e 'install.packages("BiocManager")' \
     ## check version
-    && R -e 'BiocManager::install(version="3.16", ask=FALSE)' \
+    && R -e 'BiocManager::install(version="3.17", ask=FALSE)' \
     && R -e 'BiocManager::install(c( \
     "boot", \
     "class", \

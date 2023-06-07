@@ -1,4 +1,4 @@
-FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-gatk:2.2.11
+FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-gatk:2.2.12
 
 USER root
 
