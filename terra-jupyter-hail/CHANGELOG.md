@@ -1,3 +1,9 @@
+## 1.0.26 - 2023-06-07
+
+- Force the regeneration of 1.0.26 that was never published
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-hail:1.0.27`
+
 ## 1.0.26 - 2023-03-13T17:26:34.162828Z
 
 - Update `terra-jupyter-base` to `1.0.14`

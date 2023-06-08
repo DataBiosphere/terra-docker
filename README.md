@@ -71,7 +71,7 @@ Detailed documentation on how to integrate the terra-docker image with Leonardo 
     - Update CHANGELOG.md and VERSION file
     - Ensure that no `From` statements need to be updated based on the image you updated (i.e., if you update the base image, you will need to update several other images)
     - Run updateVersions.sc to bump all images dependent on the base
-- [Merge your terra-docker PR and check if the image(s) is(are) created](https://broadworkbench.atlassian.net/wiki/spaces/IA/pages/2519564289/Integrating+new+Terra+docker+images+with+Leonardo#2.-Merge-your-terra-docker-PR-and-check-images-are-created)
+- [Merge your terra-docker PR and check if the image(s) and version json files are created](https://broadworkbench.atlassian.net/wiki/spaces/IA/pages/2519564289/Integrating+new+Terra+docker+images+with+Leonardo#2.-Merge-your-terra-docker-PR-and-check-images-are-created)
 - [Open a PR in leonardo](https://broadworkbench.atlassian.net/wiki/spaces/IA/pages/2519564289/Integrating+new+Terra+docker+images+with+Leonardo#3.-Create-a-new-leo-PR-that-integrates-the-new-images)
     - Update the relevant `prepare` script within the `jenkins` folder
     - Update the automation `reference.conf` file
