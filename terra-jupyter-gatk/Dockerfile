@@ -72,6 +72,7 @@ RUN mkdir -p /tmp/bedtools && \
     tar -zxvf bedtools-2.31.0.tar.gz && \
     cd bedtools2 && \
     make && \
+    make install && \
     cd $HOME && \
     rm -rf /tmp/bedtools
 
