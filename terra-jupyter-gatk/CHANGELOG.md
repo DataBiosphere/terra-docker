@@ -1,3 +1,9 @@
+## 2.2.14 - 2023-06-09
+
+- Actually install bedtools to accessible path
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-gatk:2.2.14`
+
 ## 2.2.13 - 2023-06-01T17:49:47.668283846Z
 
 - Update `terra-jupyter-r` to `2.1.10`
