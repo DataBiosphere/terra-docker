@@ -1,3 +1,7 @@
+## 2.1.11 - 2023-06-15
+
+- Bioconductor 3.17 release with R 4.3
+
 ## 2.1.10 - 2023-06-01T17:49:47.585402026Z
 
 - Bioconductor 3.17 release with R 4.3

@@ -1,3 +1,7 @@
+## 1.0.15 - 2023-06-15
+
+- Bump version to rebuild base image with latest jupyter-notebook-utils.
+
 ## 1.0.14 - 2023-03-13T17:26:34.128391Z
 
 - Include `jupyter lab build` step

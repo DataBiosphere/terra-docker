@@ -1,3 +1,7 @@
+## 0.2.11 - 2023-06-15
+
+- Update `terra-jupyter-base` to `1.0.15`
+
 ## 0.2.10 - 2023-06-01T17:49:47.736670188Z
 
 - Update `terra-jupyter-r` to `2.1.10`
