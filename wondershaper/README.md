@@ -31,12 +31,6 @@ docker run --name wondershaper-container us.gcr.io/wondershaper/wondershaper:lat
 
 Please note that the image is already published, so you don't need to perform any additional steps unless you want to modify the Dockerfile or the entrypoint script.
 
-If needed, the build and the publish commands are:
-```
-docker build -t us.gcr.io/broad-dsp-gcr-public/wondershaper:latest .
-docker push us.gcr.io/broad-dsp-gcr-public/wondershaper:latest
-```
-
 
 Remember to replace wondershaper-container with your preferred container name.
 
