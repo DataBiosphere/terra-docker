@@ -1,3 +1,7 @@
+## 1.0.27 - 2023-06-07
+
+- Update `terra-jupyter-base` to `1.0.15`
+
 ## 1.0.26 - 2023-06-07
 
 - Force the regeneration of 1.0.26 that was never published
