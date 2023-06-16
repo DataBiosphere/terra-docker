@@ -7,7 +7,7 @@ The Dockerfile sets up an Ubuntu-based environment, installs the required depend
 To build the Docker image locally, use the following command:
 
 ```
-docker build -t wondershaper-image .
+docker build -t wondershaper-local-image .
 ```
 
 To run the local image, use:
@@ -26,7 +26,7 @@ Keeps the container running by executing the tail -f /dev/null command.
 To run the Wondershaper container using the published image (us.gcr.io/wondershaper/wondershaper:latest), execute the following command:
 
 ```
-docker run --name wondershaper-container us.gcr.io/wondershaper/wondershaper:latest
+docker run --name wondershaper-container us.gcr.io/broad-dsp-gcr-public/wondershaper:latest
 ```
 
 Please note that the image is already published, so you don't need to perform any additional steps unless you want to modify the Dockerfile or the entrypoint script.
