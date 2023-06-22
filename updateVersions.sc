@@ -5,13 +5,13 @@
 
 val workbenchUtil2 = "0.10-c3ef6b80-SNAP"
 
-val circeVersion = "0.13.0"
+val circeVersion = "0.14.0"
 interp.load.ivy(
-  "co.fs2" %% "fs2-io" % "2.4.2",
+  "co.fs2" %% "fs2-io" % "2.5.10",
   "io.circe" %% "circe-core" % circeVersion,
   "io.circe" %% "circe-parser" % circeVersion,
   "io.circe" %% "circe-generic" % circeVersion,
-  "io.circe" %% "circe-optics" % circeVersion
+  "io.circe" %% "circe-optics_sjs1" % circeVersion
 )
 
 @
@@ -78,30 +78,24 @@ def main(updatedImage: String, updatedImageReleaseNote: String, bumpMajorVersion
       "terra-jupyter-r",
       "terra-jupyter-gatk",
       "terra-jupyter-aou",
-      "terra-jupyter-gatk-ovtf"
     )
     case "terra-jupyter-r" => List(
       "terra-jupyter-r",
       "terra-jupyter-bioconductor",
       "terra-jupyter-gatk",
       "terra-jupyter-aou",
-      "terra-jupyter-gatk-ovtf"
     )
     case "terra-jupyter-python" => List(
       "terra-jupyter-python",
       "terra-jupyter-hail",
       "terra-jupyter-gatk",
       "terra-jupyter-aou",
-      "terra-jupyter-gatk-ovtf"
     )
     case "terra-jupyter-hail" => List(
       "terra-jupyter-hail"
     )
     case "terra-jupyter-gatk" => List(
       "terra-jupyter-gatk"
-    )
-    case "terra-jupyter-gatk-ovtf" => List(
-      "terra-jupyter-gatk-ovtf"
     )
     case updatedImage =>
       throw new Exception(s"${updatedImage} is not supported yet. Please update the script to support the image")

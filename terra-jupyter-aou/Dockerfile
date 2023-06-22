@@ -25,12 +25,9 @@ RUN apt-get update && apt-get install -yq --no-install-recommends \
 
 ENV PIP_USER=false
 
-# pandas-profiling 3.1.0 causes conflicts with pyplot
-# pandas-profiling 3.2.0 is incompatible with markupsafe 2.0.1
-# 3.0.0 (lower is untested) avoids both of these issues.
 RUN pip3 install --upgrade \
-  "pandas_profiling<=3.0.0" \
-  "markupsafe==2.0.1"
+  "pandas_profiling==3.6.6" \
+  "markupsafe==2.1.2"
 
 RUN pip3 install \
       nbstripout \

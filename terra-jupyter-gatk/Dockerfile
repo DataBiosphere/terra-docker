@@ -6,7 +6,7 @@ USER root
 
 # need to apt-get everything for python since we can only copy pip installed packages
 RUN apt-get update && apt-get install -yq --no-install-recommends \
-  python3.7-dev \
+  python3.10-dev \
   python-tk \
   openjdk-8-jdk \
   tk-dev \
@@ -77,11 +77,11 @@ RUN mkdir -p /tmp/bedtools && \
     rm -rf /tmp/bedtools
 
 RUN pip install /etc/gatk-$GATK_VERSION/gatkPythonPackageArchive.zip
-RUN pip3 install --upgrade markupsafe==2.0.1
+RUN pip3 install --upgrade markupsafe==2.1.2
 
 COPY cnn-models.patch /etc/gatk-$GATK_VERSION/cnn-models.patch
 
-RUN patch -u /opt/conda/lib/python3.7/site-packages/vqsr_cnn/vqsr_cnn/models.py -i /etc/gatk-$GATK_VERSION/cnn-models.patch
+RUN patch -u /opt/conda/lib/python3.10/site-packages/vqsr_cnn/vqsr_cnn/models.py -i /etc/gatk-$GATK_VERSION/cnn-models.patch
 
 ENV PIP_USER=true
 
