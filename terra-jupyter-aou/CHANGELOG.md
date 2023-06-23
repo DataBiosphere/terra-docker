@@ -1,3 +1,9 @@
+## 2.2.0 - 2023-06-23
+
+- Update python from 3.7 to 3.10
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-aou:2.2.0`
+
 ## 2.1.22 - 2023-06-01T17:49:47.721962740Z
 
 - Update `terra-jupyter-r` to `2.1.10`

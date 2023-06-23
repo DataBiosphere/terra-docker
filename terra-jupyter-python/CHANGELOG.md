@@ -1,3 +1,9 @@
+## 1.1.0 - 2023-06-23
+
+- Update python 3.7 to 3.10
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-python:1.1.0`
+
 ## 1.0.15 - 2023-03-13T17:26:34.179905Z
 
 - Update `terra-jupyter-base` to `1.0.14`

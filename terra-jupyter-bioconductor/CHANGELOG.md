@@ -1,3 +1,9 @@
+## 2.2.0 - 2023-06-23
+
+- Update python 3.7 to 3.10
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-bioconductor:2.2.0`
+
 ## 2.1.11 - 2023-06-01T17:49:47.622531112Z
 
 - Update `terra-jupyter-r` to `2.1.10`

@@ -1,6 +1,6 @@
-FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-python:1.0.15 AS python
+FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-python:1.1.0 AS python
 
-FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-r:2.1.10
+FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-r:2.2.0
 
 USER root
 
