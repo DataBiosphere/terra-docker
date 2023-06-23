@@ -1,6 +1,6 @@
 # adapted from https://hub.docker.com/r/jupyter/base-notebook/ AKA https://github.com/jupyter/docker-stacks/tree/master/base-notebook
 
-FROM gcr.io/deeplearning-platform-release/tf-gpu.2-7
+FROM gcr.io/deeplearning-platform-release/tf-gpu.2-11
 
 USER root
 
@@ -26,8 +26,11 @@ RUN rm /etc/apt/sources.list.d/cuda.list \
     && curl -L -O https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/cuda-keyring_1.0-1_all.deb \
     && sudo dpkg -i cuda-keyring_1.0-1_all.deb
 
+#Key is stored in legacy trusted.gpg keyring (/etc/apt/trusted.gpg)
 RUN curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key --keyring /usr/share/keyrings/cloud.google.gpg add -
 RUN curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
+
+RUN sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 3B4FE6ACC0B21F32
 
 RUN apt-get update && apt-get install -yq --no-install-recommends \
     # gnupg requirement
@@ -55,8 +58,6 @@ RUN apt-get update && apt-get install -yq --no-install-recommends \
     libffi-dev \
     liblzma-dev \
     python-openssl \
-    libexempi3 \
-    libv8-3.14-dev \
     # install script requirements
     sudo \
     locales \
@@ -70,7 +71,7 @@ RUN apt-get update && apt-get install -yq --no-install-recommends \
     # Generate locale
     && locale-gen \
     && apt-get clean \
-    && rm -rf /var/lib/apt/lists/*
+    && rm -rf /var/lib/apt/lists/* 
 
 ENV LC_ALL en_US.UTF-8
 

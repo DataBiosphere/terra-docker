@@ -80,13 +80,15 @@ Detailed documentation on how to integrate the terra-docker image with Leonardo 
 - Ensure that the `terra-docker-versions-candidate.json` file (which is what the UI sources the dropdown from) in the `terra-docjker-image-documentation-[env]` bucket correclty references your new docker image
 - [Update the terra-docker version candidate json](https://broadworkbench.atlassian.net/wiki/spaces/IA/pages/2519564289/Integrating+new+Terra+docker+images+with+Leonardo#6.-Update-terra-docker-versions-candidate.json)
 
-
-
-If you wish to build locally, run `docker build [your_dir] -t [name]`. 
-
-It is not advised to run build.sh locally, as this will push to the remote docker repo and delete the image locally upon completion.  
-
 ## Testing your image manually
+
+Build the image:
+run `docker build [your_dir] -t [name]`.
+
+`docker build terra-jupyter-base -t terra-jupyter-base`
+
+It is not advised to run build.sh locally, as this will push to the remote docker repo and delete the image locally upon completion. 
+
 All images can be run locally. For example:
 ```
 docker run --rm -it -p 8000:8000 us.gcr.io/broad-dsp-gcr-public/terra-jupyter-base:0.0.7

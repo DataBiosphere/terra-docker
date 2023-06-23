@@ -11,7 +11,7 @@ interp.load.ivy(
   "io.circe" %% "circe-core" % circeVersion,
   "io.circe" %% "circe-parser" % circeVersion,
   "io.circe" %% "circe-generic" % circeVersion,
-  "io.circe" %% "circe-optics_sjs1" % circeVersion
+  "io.circe" %% "circe-optics" % circeVersion, // not found: https://repo1.maven.org/maven2/io/circe/circe-optics_3/0.14.0/circe-optics_3-0.14.0.pom
 )
 
 @

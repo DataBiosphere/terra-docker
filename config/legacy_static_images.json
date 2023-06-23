@@ -1,11 +1,20 @@
 [
   {
-    "updated": "2023-02-09",
-    "image": "us.gcr.io/broad-dsp-gcr-public/terra-jupyter-bioconductor:2.1.9",
+    "updated": "2023-06-23",
+    "image": "us.gcr.io/broad-dsp-gcr-public/terra-jupyter-bioconductor:2.1.10",
     "label": "Legacy R / Bioconductor (R 4.2.2, Bioconductor 3.16, Python 3.7.12)",
-    "version": "2.1.9",
+    "version": "2.1.10",
     "requiresSpark": false,
-    "packages": "https://storage.googleapis.com/terra-docker-image-documentation/terra-jupyter-bioconductor-2.1.9-versions.json",
+    "packages": "https://storage.googleapis.com/terra-docker-image-documentation/terra-jupyter-bioconductor-2.1.10-versions.json",
     "id": "terra-jupyter-bioconductor_legacy"
+  },
+  {
+    "updated": "2023-06-23",
+    "image": "us.gcr.io/broad-dsp-gcr-public/terra-jupyter-gatk:2.2.14",
+    "label": "Legacy GATK (GATK 4.2.4.0, Python 3.7.12, R 4.3.0)",
+    "version": "2.2.14",
+    "requiresSpark": false,
+    "packages": "https://storage.googleapis.com/terra-docker-image-documentation/terra-jupyter-gatk:2.2.14-versions.json",
+    "id": "terra-jupyter-gatk_legacy"
   }
 ]
