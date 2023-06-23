@@ -51,6 +51,8 @@ RUN apt-get update && apt-get install -yq --no-install-recommends \
     libbz2-dev \
     libreadline-dev \
     libsqlite3-dev \
+    libexempi3 \
+    libv8-3.14-dev \
     llvm \
     libncurses5-dev \
     libncursesw5-dev \
