@@ -110,17 +110,9 @@ RUN pip3 -V \
     && pip3 install firecloud \
     && pip3 install terra-notebook-utils \
     && pip3 install crcmod \
-    # For gcloud alpha storage support.
-    && pip3 install google-crc32c --target /usr/lib/google-cloud-sdk/lib/third_party
-
-# install Cromshell 2.0
-RUN git clone https://github.com/broadinstitute/cromshell.git \
-    && cd cromshell \
-    && git checkout cromshell_2.0 \
-    && pip install .
-
-# verify cromshell 2.0 is installed
-RUN cromshell-beta version
+    # For gcloud alpha storage support.   
+    && pip3 install google-crc32c --target /usr/lib/google-cloud-sdk/lib/third_party \
+    && pip3 install cromshell==2.0.0
 
 # tmp hack min-5
 # I'm not installing jupyterlab and I can't update init-actions.sh to not access it
