@@ -21,7 +21,6 @@ cycler
 h5py
 html5lib
 joblib
-keras
 patsy
 pymc3
 pyparsing
@@ -44,4 +43,3 @@ google-resumable-media
 scikit-learn-intelex
 xgboost
 exceptiongroup
-bq
