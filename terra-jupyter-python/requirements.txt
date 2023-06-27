@@ -23,7 +23,6 @@ html5lib
 joblib
 patsy
 pymc3
-pyparsing
 Cython
 pysam
 --no-binary=pysam
