@@ -1,5 +1,4 @@
-FROM --platform=linux/amd64 terra-jupyter-base
-# us.gcr.io/broad-dsp-gcr-public/terra-jupyter-base:1.1.0
+FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-base:1.1.0
 USER root
 
 COPY scripts $JUPYTER_HOME/scripts
