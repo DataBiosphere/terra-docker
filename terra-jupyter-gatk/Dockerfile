@@ -6,7 +6,6 @@ USER root
 
 # need to apt-get everything for python since we can only copy pip installed packages
 RUN apt-get update && apt-get install -yq --no-install-recommends \
-  python3.10-dev \
   python-tk \
   openjdk-8-jdk \
   tk-dev \

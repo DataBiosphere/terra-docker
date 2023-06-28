@@ -116,6 +116,9 @@ RUN pip3 -V \
     && pip3 install google-crc32c --target /usr/lib/google-cloud-sdk/lib/third_party \
     && pip3 install cromshell==2.0.0
 
+# to allow file-saving in different formats
+RUN jupyter nbextension enable toc2/main
+
 # tmp hack min-5
 # I'm not installing jupyterlab and I can't update init-actions.sh to not access it
 RUN mkdir -p /usr/local/share/jupyter/lab
