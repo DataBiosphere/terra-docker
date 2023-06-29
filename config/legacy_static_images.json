@@ -5,7 +5,7 @@
     "label": "Legacy R / Bioconductor (R 4.2.2, Bioconductor 3.16, Python 3.7.12)",
     "version": "2.1.10",
     "requiresSpark": false,
-    "packages": "https://storage.googleapis.com/terra-docker-image-documentation/terra-jupyter-bioconductor-2.1.10-versions.json",
+    "packages": "https://storage.googleapis.com/terra-docker-image-documentation/terra-jupyter-bioconductor-2.1.11-versions.json",
     "id": "terra-jupyter-bioconductor_legacy"
   },
   {
