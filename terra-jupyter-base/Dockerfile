@@ -28,8 +28,6 @@ RUN rm /etc/apt/sources.list.d/cuda.list \
 RUN curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key --keyring /usr/share/keyrings/cloud.google.gpg add -
 RUN curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
 
-RUN sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 3B4FE6ACC0B21F32
-
 RUN apt-get update && apt-get install -yq --no-install-recommends \
     # gnupg requirement
     dirmngr \
