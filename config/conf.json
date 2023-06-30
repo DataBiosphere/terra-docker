@@ -143,7 +143,7 @@
             "packages" : {
                 
             },
-            "version" : "2.2.0",
+            "version" : "2.2.1",
             "automated_flags" : {
                 "include_in_ui" : false,
                 "generate_docs" : false,
@@ -158,7 +158,9 @@
             "tools" : [
                 "r"
             ],
-            "packages" : {},
+            "packages" : {
+
+            },
             "version" : "0.1.1",
             "automated_flags" : {
                 "include_in_ui" : false,
@@ -171,8 +173,12 @@
         {
             "name" : "wondershaper",
             "base_label" : "wondershaper",
-            "tools" : [],
-            "packages" : {},
+            "tools" : [
+
+            ],
+            "packages" : {
+
+            },
             "version" : "0.0.1",
             "automated_flags" : {
                 "include_in_ui" : false,
