@@ -27,14 +27,4 @@
     "image": "us.gcr.io/broad-dsp-gcr-public/anvil-rstudio-bioconductor:3.16.1",
     "requiresSpark": false,
     "isRStudio": true
-},
-{
-    "id": "OpenVINO integration with Tensorflow",
-    "label": "OpenVINO integration with Tensorflow (openvino-tensorflow 1.1.0, Python 3.7.12, GATK 4.2.4.1)",
-    "version": "0.2.0",
-    "updated": "2022-01-31",
-    "packages": "https://storage.googleapis.com/terra-docker-image-documentation/terra-jupyter-gatk-ovtf-0.1.7-versions.json",
-    "image": "us.gcr.io/broad-dsp-gcr-public/terra-jupyter-gatk-ovtf:0.1.7",
-    "requiresSpark": false,
-    "isCommunity": true
 }]

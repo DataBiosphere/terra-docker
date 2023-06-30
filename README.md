@@ -80,13 +80,19 @@ Detailed documentation on how to integrate the terra-docker image with Leonardo 
 - Ensure that the `terra-docker-versions-candidate.json` file (which is what the UI sources the dropdown from) in the `terra-docjker-image-documentation-[env]` bucket correclty references your new docker image
 - [Update the terra-docker version candidate json](https://broadworkbench.atlassian.net/wiki/spaces/IA/pages/2519564289/Integrating+new+Terra+docker+images+with+Leonardo#6.-Update-terra-docker-versions-candidate.json)
 
-
-
-If you wish to build locally, run `docker build [your_dir] -t [name]`. 
-
-It is not advised to run build.sh locally, as this will push to the remote docker repo and delete the image locally upon completion.  
-
 ## Testing your image manually
+
+Build the image:
+run `docker build [your_dir] -t [name]`.
+
+`docker build terra-jupyter-base -t terra-jupyter-base`
+
+If you're on an M1 and building an image from a locally built image, replace the current FROM command:
+
+`FROM --platform=linux/amd64 terra-jupyter-base`
+
+It is not advised to run build.sh locally, as this will push to the remote docker repo and delete the image locally upon completion. 
+
 All images can be run locally. For example:
 ```
 docker run --rm -it -p 8000:8000 us.gcr.io/broad-dsp-gcr-public/terra-jupyter-base:0.0.7
@@ -103,7 +109,7 @@ Running locally is conventient for quick development and exploring the image. Ho
 - there are no environment variables like `GOOGLE_PROJECT`, `WORKSPACE_NAME`, `WORKSPACE_BUCKET`, etc when running locally
 - there is no workspace-syncing when run locally
 
-To launch an image through Terra, navigate to https://app.terra.bio, select a workspace, enter your image in the "Custom Image" field, and click Create.
+To launch an image through Terra, navigate to https://app.terra.bio or your BEE's UI, select a workspace, enter your new image in the "Custom Image" field, and click Create.
 
 ## Automation Tests
 [Here](https://github.com/DataBiosphere/leonardo/tree/develop/automation/src/test/scala/org/broadinstitute/dsde/workbench/leonardo/notebooks) are automation tests for various docker image, please update the image hash for relevant tests. You can run the job build-terra-docker to automatically create a PR with your branch if you manually specify versions.

@@ -8,7 +8,7 @@ The terra-jupyter-base extends the [Ubuntu base image]("https://github.com/tiano
 
 - OS prerequisites
 - google-cloud-sdk
-- Python 3.7
+- Python 3.10
 - pip
 - conda
 - Jupyter & JupyterLab
