@@ -1,1 +1,1 @@
-FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-r:2.1.10
+FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-r:2.2.0

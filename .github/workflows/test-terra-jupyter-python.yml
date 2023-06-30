@@ -49,7 +49,7 @@ jobs:
     - name: Set up Python
       uses: actions/setup-python@v2
       with:
-        python-version: 3.7
+        python-version: '3.10'
 
     - name: Free up some disk space
       run: sudo rm -rf /usr/share/dotnet    
@@ -112,10 +112,8 @@ jobs:
           --workdir=/tests \
           --entrypoint="" \
           terra-jupyter-python:smoke-test \
-          /bin/sh -c "pip3 install --no-deps pytest iniconfig pluggy py; pytest"
-          # Use --no-deps to avoid an unneccessary upgrade of pyparsing which then causes tensorflow tests to fail.
-          # TODO: whenever we no longer need to pin pyparsing, simplify the above command to 'pip3 install pytest ; pytest'
-
+          /bin/sh -c "pip3 install pytest ; pytest"
+          
     - name: Test Python code specific to notebooks with nbconvert
       # Simply 'Cell -> Run All` these notebooks and expect no errors in the case of a successful run of the test suite.
       # If the tests throw any exceptions, execution of the notebooks will halt at that point. Look at the workflow

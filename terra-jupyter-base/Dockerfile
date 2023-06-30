@@ -1,6 +1,6 @@
 # adapted from https://hub.docker.com/r/jupyter/base-notebook/ AKA https://github.com/jupyter/docker-stacks/tree/master/base-notebook
 
-FROM gcr.io/deeplearning-platform-release/tf-gpu.2-7
+FROM gcr.io/deeplearning-platform-release/tf-gpu.2-11.py310
 
 USER root
 
@@ -21,7 +21,6 @@ RUN sudo -i \
 # see article: https://developer.nvidia.com/blog/updating-the-cuda-linux-gpg-repository-key/
 # first we remove the bad keys from base image (https://github.com/NVIDIA/nvidia-docker/issues/1631#issuecomment-1112828208)
 RUN rm /etc/apt/sources.list.d/cuda.list \
-    && rm /etc/apt/sources.list.d/nvidia-ml.list \
     && sudo apt-key del 7fa2af80 \
     && curl -L -O https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/cuda-keyring_1.0-1_all.deb \
     && sudo dpkg -i cuda-keyring_1.0-1_all.deb
@@ -48,6 +47,8 @@ RUN apt-get update && apt-get install -yq --no-install-recommends \
     libbz2-dev \
     libreadline-dev \
     libsqlite3-dev \
+    libexempi3 \
+    libv8-3.14-dev \
     llvm \
     libncurses5-dev \
     libncursesw5-dev \
@@ -55,8 +56,6 @@ RUN apt-get update && apt-get install -yq --no-install-recommends \
     libffi-dev \
     liblzma-dev \
     python-openssl \
-    libexempi3 \
-    libv8-3.14-dev \
     # install script requirements
     sudo \
     locales \
@@ -70,7 +69,7 @@ RUN apt-get update && apt-get install -yq --no-install-recommends \
     # Generate locale
     && locale-gen \
     && apt-get clean \
-    && rm -rf /var/lib/apt/lists/*
+    && rm -rf /var/lib/apt/lists/* 
 
 ENV LC_ALL en_US.UTF-8
 
@@ -101,7 +100,7 @@ RUN pip3 -V \
     && pip3 install python-datauri \
     && pip3 install jupyter_contrib_nbextensions \
     && pip3 install jupyter_nbextensions_configurator \
-    && pip3 install markupsafe==2.0.1 \
+    && pip3 install markupsafe==2.1.2 \
     # Avoid broken lower versions: https://github.com/jupyter/nbconvert/pull/1624
     && pip3 install "nbconvert>=6.4.5" \
     # for jupyter_delocalize.py and jupyter_notebook_config.py
@@ -109,17 +108,12 @@ RUN pip3 -V \
     && pip3 install firecloud \
     && pip3 install terra-notebook-utils \
     && pip3 install crcmod \
-    # For gcloud alpha storage support.
-    && pip3 install google-crc32c --target /usr/lib/google-cloud-sdk/lib/third_party
+    # For gcloud alpha storage support.   
+    && pip3 install google-crc32c --target /usr/lib/google-cloud-sdk/lib/third_party \
+    && pip3 install cromshell==2.0.0
 
-# install Cromshell 2.0
-RUN git clone https://github.com/broadinstitute/cromshell.git \
-    && cd cromshell \
-    && git checkout cromshell_2.0 \
-    && pip install .
-
-# verify cromshell 2.0 is installed
-RUN cromshell-beta version
+# to allow file-saving in different formats
+RUN jupyter nbextension enable toc2/main
 
 # tmp hack min-5
 # I'm not installing jupyterlab and I can't update init-actions.sh to not access it

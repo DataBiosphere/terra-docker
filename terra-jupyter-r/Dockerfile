@@ -1,17 +1,17 @@
-FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-base:1.0.14
+FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-base:1.1.0
 USER root
 
 COPY scripts $JUPYTER_HOME/scripts
 
 # Add env vars to identify binary package installation
-ENV TERRA_R_PLATFORM="terra-jupyter-r"
+ENV TERRA_R_PLATFORM="terra-jupyter-r-1.1.0"
 ENV TERRA_R_PLATFORM_BINARY_VERSION=3.17
 
-# Install protobuf 3.19.1. Note this version comes from base deep learning image. Use `conda list` to see what's installed
+# Install protobuf 3.20.3. Note this version comes from base deep learning image. Use `conda list` to see what's installed
 RUN cd /tmp \
-  && wget https://github.com/protocolbuffers/protobuf/releases/download/v3.19.1/protobuf-all-3.19.1.tar.gz \
-	&& tar -xvzf protobuf-all-3.19.1.tar.gz \
-	&& cd protobuf-3.19.1/ \
+  && wget https://github.com/protocolbuffers/protobuf/releases/download/v3.20.3/protobuf-all-3.20.3.tar.gz \
+	&& tar -xvzf protobuf-all-3.20.3.tar.gz \
+	&& cd protobuf-3.20.3/ \
 	&& ./configure \
 	&& make \
 	&& make check \
