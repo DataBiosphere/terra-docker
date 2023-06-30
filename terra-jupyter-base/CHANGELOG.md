@@ -1,3 +1,8 @@
+## 1.1.0 - 2023-06-23
+
+- Upgrade python 3.7 to 3.10
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-base:1.1.0`
 ## 1.0.14 - 2023-03-13T17:26:34.128391Z
 
 - Include `jupyter lab build` step

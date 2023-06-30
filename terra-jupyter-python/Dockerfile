@@ -1,4 +1,4 @@
-FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-base:1.0.14
+FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-base:1.1.0
 USER root
 # This makes it so pip runs as root, not the user.
 ENV PIP_USER=false
@@ -41,14 +41,14 @@ RUN pip3 -V \
   # for '<Terra billing project id>'`. To work-around this uninstall the dependency so that flag `--use_rest_api` can be used
   # with `%%bigquery` to use the older, slower mechanism for data transfer.
   && pip3 uninstall -y google-cloud-bigquery-storage \
-  && sed -i 's/pandas.lib/pandas/g' /opt/conda/lib/python3.7/site-packages/ggplot/stats/smoothers.py \
+  && sed -i 's/pandas.lib/pandas/g' /opt/conda/lib/python3.10/site-packages/ggplot/stats/smoothers.py \
   # the next few `sed` lines are workaround for a ggplot bug. See https://github.com/yhat/ggpy/issues/662
-  && sed -i 's/pandas.tslib.Timestamp/pandas.Timestamp/g' /opt/conda/lib/python3.7/site-packages/ggplot/stats/smoothers.py \
-  && sed -i 's/pd.tslib.Timestamp/pd.Timestamp/g' /opt/conda/lib/python3.7/site-packages/ggplot/stats/smoothers.py \
-  && sed -i 's/pd.tslib.Timestamp/pd.Timestamp/g' /opt/conda/lib/python3.7/site-packages/ggplot/utils.py
+  && sed -i 's/pandas.tslib.Timestamp/pandas.Timestamp/g' /opt/conda/lib/python3.10/site-packages/ggplot/stats/smoothers.py \
+  && sed -i 's/pd.tslib.Timestamp/pd.Timestamp/g' /opt/conda/lib/python3.10/site-packages/ggplot/stats/smoothers.py \
+  && sed -i 's/pd.tslib.Timestamp/pd.Timestamp/g' /opt/conda/lib/python3.10/site-packages/ggplot/utils.py
 
 
-RUN pip3 install --upgrade markupsafe==2.0.1
+RUN pip3 install --upgrade markupsafe==2.1.2
 
 ENV USER jupyter
 USER $USER

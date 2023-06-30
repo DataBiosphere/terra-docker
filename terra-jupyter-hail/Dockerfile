@@ -1,6 +1,8 @@
-FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-python:1.0.15
+FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-python:1.1.0
 USER root
 
+
+# If anything below this is updated, make the corresponding changes in the aou image
 ENV PIP_USER=false
 ENV PYTHONPATH $PYTHONPATH:/usr/lib/spark/python
 ENV PYSPARK_PYTHON=python3

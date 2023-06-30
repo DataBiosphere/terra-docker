@@ -26,7 +26,7 @@
                     "tidyverse"
                 ]
             },
-            "version" : "2.1.11",
+            "version" : "2.2.0",
             "automated_flags" : {
                 "generate_docs" : true,
                 "include_in_ui" : true,
@@ -47,7 +47,7 @@
                     "hail"
                 ]
             },
-            "version" : "1.0.28",
+            "version" : "1.1.1",
             "automated_flags" : {
                 "generate_docs" : true,
                 "include_in_ui" : true,
@@ -68,7 +68,7 @@
                     "scikit-learn"
                 ]
             },
-            "version" : "1.0.15",
+            "version" : "1.1.0",
             "automated_flags" : {
                 "generate_docs" : true,
                 "include_in_ui" : true,
@@ -83,8 +83,10 @@
             "tools" : [
                 "python"
             ],
-            "packages" : {},
-            "version" : "1.0.14",
+            "packages" : {
+                
+            },
+            "version" : "1.1.0",
             "automated_flags" : {
                 "generate_docs" : true,
                 "include_in_ui" : false,
@@ -99,8 +101,10 @@
             "tools" : [
                 "r"
             ],
-            "packages" : {},
-            "version" : "2.1.10",
+            "packages" : {
+                
+            },
+            "version" : "2.2.0",
             "automated_flags" : {
                 "include_in_ui" : false,
                 "generate_docs" : true,
@@ -117,8 +121,10 @@
                 "python",
                 "r"
             ],
-            "packages" : {},
-            "version" : "2.2.14",
+            "packages" : {
+                
+            },
+            "version" : "2.3.0",
             "automated_flags" : {
                 "include_in_ui" : true,
                 "generate_docs" : true,
@@ -134,8 +140,10 @@
                 "python",
                 "r"
             ],
-            "packages" : {},
-            "version" : "2.1.22",
+            "packages" : {
+                
+            },
+            "version" : "2.2.0",
             "automated_flags" : {
                 "include_in_ui" : false,
                 "generate_docs" : false,
@@ -155,24 +163,6 @@
             "automated_flags" : {
                 "include_in_ui" : false,
                 "generate_docs" : false,
-                "build" : true,
-                "include_in_custom_dataproc" : false,
-                "include_in_custom_gce" : false
-            }
-        },
-        {
-            "name" : "terra-jupyter-gatk-ovtf",
-            "base_label" : "OpenVINO",
-            "tools" : [
-                "gatk",
-                "python",
-                "r"
-            ],
-            "packages" : {},
-            "version" : "0.2.10",
-            "automated_flags" : {
-                "include_in_ui" : false,
-                "generate_docs" : true,
                 "build" : true,
                 "include_in_custom_dataproc" : false,
                 "include_in_custom_gce" : false
