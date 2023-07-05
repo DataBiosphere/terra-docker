@@ -1,4 +1,4 @@
-FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-gatk:2.2.14
+FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-gatk:2.3.1
 
 USER root
 
@@ -25,12 +25,9 @@ RUN apt-get update && apt-get install -yq --no-install-recommends \
 
 ENV PIP_USER=false
 
-# pandas-profiling 3.1.0 causes conflicts with pyplot
-# pandas-profiling 3.2.0 is incompatible with markupsafe 2.0.1
-# 3.0.0 (lower is untested) avoids both of these issues.
 RUN pip3 install --upgrade \
-  "pandas_profiling<=3.0.0" \
-  "markupsafe==2.0.1"
+  "pandas_profiling==3.6.6" \
+  "markupsafe==2.1.2"
 
 RUN pip3 install \
       nbstripout \
@@ -48,7 +45,7 @@ ENV PYTHONPATH $PYTHONPATH:/usr/lib/spark/python
 
 ENV PYSPARK_PYTHON=python3
 
-ENV HAIL_VERSION=0.2.107
+ENV HAIL_VERSION=0.2.109
 
 RUN find $JUPYTER_HOME/scripts -name '*.sh' -type f | xargs chmod +x \
     && $JUPYTER_HOME/scripts/kernel/kernelspec.sh $JUPYTER_HOME/scripts/kernel /opt/conda/share/jupyter/kernels \
@@ -59,7 +56,7 @@ RUN find $JUPYTER_HOME/scripts -name '*.sh' -type f | xargs chmod +x \
     && update-alternatives --install /etc/hadoop/conf hadoop-conf /etc/hadoop/conf.empty 100 \
     && update-alternatives --install /etc/hive/conf hive-conf /etc/hive/conf.dist 100 \
     && apt-get update \
-    && apt install -yq --no-install-recommends \
+    && apt install -yq --no-install-recommends openjdk-8-jdk \
         g++ \
         liblz4-dev \
     # specify Java 8
@@ -264,8 +261,6 @@ RUN curl -L http://www.repeatmasker.org/RepeatMasker/RepeatMasker-4.1.4.tar.gz \
 RUN rm -f /usr/local/bin/workspace_cromwell.py
 # alias cromshell_beta to cromshell
 RUN echo "alias cromshell='cromshell-beta'" >> ~/.bash_aliases
-# Downgrade jupyter_contrib_nbextensions as the newer version breaks snippet_menu extension
-RUN pip install --force-reinstall -v "jupyter_contrib_nbextensions==0.5.1"
 
 # Downgrade Jinja2 as the newer version breaks the notebook
 # See https://jinja.palletsprojects.com/en/3.1.x/changes/#version-3-1-0

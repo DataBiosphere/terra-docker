@@ -1,6 +1,14 @@
-## 2.1.11 - 2023-06-15
+## 2.2.1 - 2023-07-05
 
-- Bioconductor 3.17 release with R 4.3
+- Bump base image version to update terra-notebook-utils to latest.
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-r:2.2.1`
+
+## 2.2.0 - 2023-06-23
+
+- Python upgrade 3.7 to 3.10
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-r:2.2.0`
 
 ## 2.1.10 - 2023-06-01T17:49:47.585402026Z
 

@@ -1,3 +1,9 @@
+## 2.3.0 - 2023-06-23
+
+- Update python 3.7 to 3.10
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-gatk:2.3.0`
+
 ## 2.2.14 - 2023-06-09
 
 - Update `terra-jupyter-base` to `1.0.15`
