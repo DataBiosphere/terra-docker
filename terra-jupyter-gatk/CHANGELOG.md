@@ -1,12 +1,14 @@
+## 2.3.1 - 2023-07-05
+
+- Update `terra-jupyter-base` to `2.3.1`, pulls in latest terra-notebook-utils build.
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-gatk:2.3.1`
+
 ## 2.3.0 - 2023-06-23
 
 - Update python 3.7 to 3.10
 
 Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-gatk:2.3.0`
-
-## 2.2.14 - 2023-06-09
-
-- Update `terra-jupyter-base` to `1.0.15`
 
 ## 2.2.14 - 2023-06-09
 

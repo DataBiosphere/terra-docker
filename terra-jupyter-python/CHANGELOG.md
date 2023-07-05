@@ -1,6 +1,6 @@
 ## 1.0.1 - 2023-07-05
 
-- Update `terra-jupyter-base` to `1.1.11`
+- Update `terra-jupyter-base` to `1.1.1`, pulls in latest terra-notebook-utils build.
 
 Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-python:1.1.1`
 
