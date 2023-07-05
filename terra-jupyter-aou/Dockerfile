@@ -264,7 +264,7 @@ RUN echo "alias cromshell='cromshell-beta'" >> ~/.bash_aliases
 
 # Downgrade Jinja2 as the newer version breaks the notebook
 # See https://jinja.palletsprojects.com/en/3.1.x/changes/#version-3-1-0
-RUN pip install --force-reinstall -v "Jinja2==3.0.3"
+RUN pip install -v "Jinja2==3.0.3"
 
 ENV PATH="$PATH:/usr/local/RepeatMasker"
 
