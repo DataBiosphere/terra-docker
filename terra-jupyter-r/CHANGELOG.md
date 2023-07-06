@@ -1,3 +1,9 @@
+## 2.2.1 - 2023-07-06
+
+- Change notebook config to server config
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-r:2.2.1`
+
 ## 2.2.0 - 2023-06-23
 
 - Python upgrade 3.7 to 3.10

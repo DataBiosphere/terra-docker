@@ -1,3 +1,9 @@
+## 2.3.1 - 2023-07-06
+
+- Change notebook config to server config
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-gatk:2.3.1`
+
 ## 2.3.0 - 2023-06-23
 
 - Update python 3.7 to 3.10
