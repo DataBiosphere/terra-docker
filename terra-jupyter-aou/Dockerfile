@@ -35,7 +35,7 @@ RUN pip3 install \
       dsub \
       "git+https://github.com/all-of-us/workbench-snippets.git#egg=terra_widgets&subdirectory=py"
 
-RUN pip3 install --upgrade --force-reinstall exceptiongroup==1.1.1
+RUN pip3 install --upgrade exceptiongroup==1.1.2
 
 # 2.0.0 has breaking changes and we're not ready for them yet.
 RUN pip3 install "igv-jupyter>=1.0.0,<2.0.0"

@@ -35,7 +35,7 @@ RUN find $JUPYTER_HOME/scripts -name '*.sh' -type f | xargs chmod +x \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
-RUN pip3 install --upgrade --force-reinstall exceptiongroup==1.1.1
+RUN pip3 install --upgrade exceptiongroup==1.1.2
 
 ENV PIP_USER=true
 USER $USER
