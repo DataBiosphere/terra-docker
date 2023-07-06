@@ -110,8 +110,7 @@ RUN pip3 -V \
     && pip3 install crcmod \
     # For gcloud alpha storage support.   
     && pip3 install google-crc32c --target /usr/lib/google-cloud-sdk/lib/third_party \
-    && pip3 install cromshell==2.0.0 \
-    && pip3 install exceptiongroup==1.1.1
+    && pip3 install cromshell==2.0.0
 
 # to allow file-saving in different formats
 RUN jupyter nbextension enable toc2/main
