@@ -86,4 +86,4 @@ jobs:
           --workdir=/tests \
           --entrypoint="" \
           terra-jupyter-base:smoke-test \
-          /bin/sh -c "pip3 install pytest; pytest"
+          /bin/sh -c "pytest"
