@@ -106,7 +106,7 @@ jobs:
           --workdir=/tests \
           --entrypoint="" \
           terra-jupyter-hail:smoke-test \
-          /bin/bash -c 'pip3 install pytest ; pytest terra-jupyter-python/tests/ terra-jupyter-hail/tests/'
+          /bin/bash -c 'pip3 install --force-reinstall pytest ; pytest terra-jupyter-python/tests/ terra-jupyter-hail/tests/'
 
     - name: Test Python code specific to notebooks with nbconvert
       # Simply 'Cell -> Run All` these notebooks and expect no errors in the case of a successful run of the test suite.
