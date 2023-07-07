@@ -77,7 +77,7 @@ RUN mkdir -p /tmp/bedtools && \
 
 RUN pip install /etc/gatk-$GATK_VERSION/gatkPythonPackageArchive.zip
 RUN pip3 install --upgrade markupsafe==2.1.2
-RUN pip3 install --upgrade exceptiongroup==1.1.2
+RUN pip3 install --upgrade --ignore-installed exceptiongroup==1.1.1
 
 COPY cnn-models.patch /etc/gatk-$GATK_VERSION/cnn-models.patch
 

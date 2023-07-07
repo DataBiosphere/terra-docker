@@ -23,6 +23,8 @@ RUN apt-get update && apt-get install -yq --no-install-recommends \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/*
 
+RUN pip3 install --upgrade --ignore-installed exceptiongroup==1.1.1
+
 ENV PIP_USER=false
 
 RUN pip3 install --upgrade \
@@ -35,7 +37,6 @@ RUN pip3 install \
       dsub \
       "git+https://github.com/all-of-us/workbench-snippets.git#egg=terra_widgets&subdirectory=py"
 
-RUN pip3 install --upgrade exceptiongroup==1.1.2
 
 # 2.0.0 has breaking changes and we're not ready for them yet.
 RUN pip3 install "igv-jupyter>=1.0.0,<2.0.0"
