@@ -49,7 +49,6 @@ RUN pip3 -V \
 
 
 RUN pip3 install --upgrade markupsafe==2.1.2
-RUN pip3 install --upgrade --ignore-installed exceptiongroup==1.1.1
 
 ENV USER jupyter
 USER $USER

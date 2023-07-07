@@ -23,7 +23,6 @@ RUN apt-get update && apt-get install -yq --no-install-recommends \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/*
 
-RUN pip3 install --upgrade --ignore-installed exceptiongroup==1.1.1
 
 ENV PIP_USER=false
 
