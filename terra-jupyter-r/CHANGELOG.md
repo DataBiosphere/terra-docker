@@ -1,3 +1,9 @@
+## 2.2.1 - 2023-07-05
+
+- Bump base image version to update terra-notebook-utils to latest.
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-r:2.2.1`
+
 ## 2.2.0 - 2023-06-23
 
 - Python upgrade 3.7 to 3.10

@@ -98,6 +98,7 @@ jobs:
     - name: Test Python code with pytest
       run: |
         chmod a+r "${{ steps.auth.outputs.credentials_file_path }}"
+        rm -rf /opt/conda/lib/python3.10/site-packages/exceptiongroup-1.1.1.dist-info/
         docker run \
           --env GOOGLE_PROJECT \
           --volume "${{ steps.auth.outputs.credentials_file_path }}":/tmp/credentials.json:ro \
