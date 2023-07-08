@@ -101,8 +101,8 @@ RUN pip3 -V \
     && pip3 install jupyter_contrib_nbextensions \
     && pip3 install jupyter_nbextensions_configurator \
     && pip3 install markupsafe==2.1.2 \
-    # Avoid broken lower versions: https://github.com/jupyter/nbconvert/pull/1624
-    && pip3 install "nbconvert>=6.4.5" \
+    # Avoid broken lower versions: https://github.com/jupyter/nbconvert/pull/1624, pinning to latest known working version on terra
+    && pip3 install "nbconvert==7.2.9" \
     # for jupyter_delocalize.py and jupyter_server_config.py
     && pip3 install requests \
     && pip3 install firecloud \
@@ -113,7 +113,8 @@ RUN pip3 -V \
     && pip3 install cromshell==2.0.0
 
 # to allow file-saving in different formats
-RUN jupyter nbextension enable toc2/main
+# toc2 is not compatible with versions of notebooks over 5.x - deprecated
+# RUN jupyter nbextension enable toc2/main
 
 # tmp hack min-5
 # I'm not installing jupyterlab and I can't update init-actions.sh to not access it
