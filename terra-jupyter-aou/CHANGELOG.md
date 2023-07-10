@@ -1,6 +1,7 @@
 ## 2.2.1 - 2023-07-06
 
 - Change notebook config to server config
+- Remove outdated cromshell alias
 
 Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-aou:2.2.1`
 
