@@ -1,3 +1,9 @@
+## 2.2.1 - 2023-07-10T15:49:55.974075Z
+
+- Remove outdated cromshell alias
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-aou:2.2.1`
+
 ## 2.2.0 - 2023-06-23
 
 - Update python from 3.7 to 3.10
