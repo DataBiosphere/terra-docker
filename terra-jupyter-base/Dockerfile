@@ -103,6 +103,8 @@ RUN pip3 -V \
     && pip3 install markupsafe==2.1.2 \
     # Avoid broken lower versions: https://github.com/jupyter/nbconvert/pull/1624, pinning to latest known working version on terra
     && pip3 install "nbconvert==7.2.9" \
+    # Avoid notebook extension issues
+    && pip3 install "nbclassic<0.5" \
     # for jupyter_delocalize.py and jupyter_server_config.py
     && pip3 install requests \
     && pip3 install firecloud \

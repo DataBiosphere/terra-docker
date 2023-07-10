@@ -1,6 +1,8 @@
 ## 1.1.1 - 2023-07-06
 
 - Change notebook config to server config
+- Update `hail` to `0.2.119`
+  - See https://hail.is/docs/0.2/change_log.html#version-0-2-119 for details
 
 Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-hail:1.1.1`
 

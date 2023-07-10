@@ -2,6 +2,8 @@
 
 - Change notebook config to server config
 - Remove outdated cromshell alias
+- Update `hail` to `0.2.119`
+  - See https://hail.is/docs/0.2/change_log.html#version-0-2-119 for details
 
 Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-aou:2.2.1`
 
