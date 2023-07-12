@@ -89,7 +89,7 @@ ENV WELDER_USER welder-user
 ENV WELDER_UID 1001
 RUN useradd -m -s /bin/bash -N -u $WELDER_UID $WELDER_USER
 
-# ensure this matches c.ServerApp.port in jupyter_server_config.py
+# ensure this matches c.NotebookApp.port in jupyter_notebook_config.py
 ENV JUPYTER_PORT 8000
 ENV JUPYTER_HOME /etc/jupyter
 
@@ -105,7 +105,7 @@ RUN pip3 -V \
     && pip3 install "nbconvert==7.2.9" \
     # Avoid notebook extension issues
     && pip3 install "nbclassic<0.5" \
-    # for jupyter_delocalize.py and jupyter_server_config.py
+    # for jupyter_delocalize.py and jupyter_notebook_config.py
     && pip3 install requests \
     && pip3 install firecloud \
     && pip3 install terra-notebook-utils \
@@ -136,7 +136,7 @@ ENV PATH="${PATH}:${HOME}/.local/bin:${HOME}/packages/bin"
 
 COPY scripts $JUPYTER_HOME/scripts
 COPY custom $JUPYTER_HOME/custom
-COPY jupyter_server_config.py $JUPYTER_HOME
+COPY jupyter_notebook_config.py $JUPYTER_HOME
 
 # copy workspace_cromwell.py script and make it runnable by all users
 RUN curl -o /usr/local/bin/workspace_cromwell.py https://raw.githubusercontent.com/broadinstitute/cromwhelm/1ceedf89587cffd355f37401b179001f029f77ed/scripts/workspace_cromwell.py \
