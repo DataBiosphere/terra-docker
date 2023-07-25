@@ -1,3 +1,7 @@
+## 1.1.1 - 2023-07-06
+
+- Fix bug introduced in https://github.com/DataBiosphere/terra-docker/commit/4a5b4c9212aedcafa2f41fbeb2b161089341c578 
+
 ## 1.1.0 - 2023-06-23
 
 - Upgrade python 3.7 to 3.10

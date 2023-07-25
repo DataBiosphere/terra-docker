@@ -3,7 +3,7 @@ import json
 import os
 import requests
 import tornado
-from jupyter_server.services.contents.largefilemanager import LargeFileManager
+from notebook.services.contents.largefilemanager import LargeFileManager
 
 METADATA_TTL = timedelta(minutes=5)
 

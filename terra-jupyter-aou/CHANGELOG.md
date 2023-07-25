@@ -1,3 +1,12 @@
+## 2.2.1 - 2023-07-06
+
+- Fix bug introduced in https://github.com/DataBiosphere/terra-docker/commit/4a5b4c9212aedcafa2f41fbeb2b161089341c578 
+- Remove outdated cromshell alias
+- Update `hail` to `0.2.119`
+  - See https://hail.is/docs/0.2/change_log.html#version-0-2-119 for details
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-aou:2.2.1`
+
 ## 2.2.0 - 2023-06-23
 
 - Update python from 3.7 to 3.10

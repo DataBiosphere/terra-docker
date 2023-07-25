@@ -1,3 +1,9 @@
+## 2.3.1 - 2023-07-06
+
+- Fix bug introduced in https://github.com/DataBiosphere/terra-docker/commit/4a5b4c9212aedcafa2f41fbeb2b161089341c578 
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-gatk:2.3.1`
+
 ## 2.3.0 - 2023-06-23
 
 - Update python 3.7 to 3.10
