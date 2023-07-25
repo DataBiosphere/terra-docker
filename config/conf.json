@@ -11,7 +11,7 @@
     "gcr_image_repo" : "us.gcr.io/broad-dsp-gcr-public",
     "doc_bucket" : "gs://terra-docker-image-documentation",
     "doc_bucket_no_prefix" : "terra-docker-image-documentation",
-    "spark_version" : "2.4.5",
+    "spark_version" : "3.3.0",
     "image_data" : [
         {
             "name" : "terra-jupyter-bioconductor",
