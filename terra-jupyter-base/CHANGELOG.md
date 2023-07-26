@@ -1,3 +1,9 @@
+## 1.1.2 - 2023-07-26T14:05:19.477306Z
+
+- Removed deprecated google auth usage
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-base:1.1.2`
+
 ## 1.1.1 - 2023-07-06
 
 - Fix bug introduced in https://github.com/DataBiosphere/terra-docker/commit/4a5b4c9212aedcafa2f41fbeb2b161089341c578 
