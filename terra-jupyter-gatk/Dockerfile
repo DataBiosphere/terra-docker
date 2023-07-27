@@ -7,7 +7,6 @@ USER root
 # need to apt-get everything for python since we can only copy pip installed packages
 RUN apt-get update && apt-get install -yq --no-install-recommends \
   python-tk \
-  openjdk-8-jdk \
   tk-dev \
   libssl-dev \
   xz-utils \
@@ -19,8 +18,6 @@ RUN apt-get update && apt-get install -yq --no-install-recommends \
   libz-dev \
   samtools \
   git-lfs \
-  # specify Java 8
-  && update-alternatives --set java /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/*
 
@@ -34,7 +31,7 @@ COPY --from=python /etc/terra-docker/requirements.txt /etc/terra-docker/base_req
 RUN pip install --upgrade -r /etc/terra-docker/base_requirements.txt
 
 # Install GATK
-ENV GATK_VERSION 4.2.4.0
+ENV GATK_VERSION 4.3.0.0
 ENV GATK_ZIP_PATH /tmp/gatk-${GATK_VERSION}.zip
 
 RUN curl -L -o $GATK_ZIP_PATH https://github.com/broadinstitute/gatk/releases/download/$GATK_VERSION/gatk-$GATK_VERSION.zip \
