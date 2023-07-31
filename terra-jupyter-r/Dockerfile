@@ -1,4 +1,4 @@
-FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-base:1.1.1
+FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-base:1.1.2
 
 USER root
 
@@ -160,14 +160,14 @@ RUN R -e 'install.packages("BiocManager")' \
     "pbdZMQ", \
     "uuid"))' \
     && R -e 'BiocManager::install("DataBiosphere/Ronaldo")'
-    
+
 # Install Bioconductor packages found at:
 # https://raw.githubusercontent.com/anvilproject/anvil-docker/master/anvil-rstudio-bioconductor/install.R
 RUN R -e 'BiocManager::install(c( \
     "AnVIL", \
-    "SingleCellExperiment", \ 
+    "SingleCellExperiment", \
     "GenomicFeatures", \
-    "GenomicAlignments", \ 
+    "GenomicAlignments", \
     "ShortRead", \
     "DESeq2", \
     "AnnotationHub", \

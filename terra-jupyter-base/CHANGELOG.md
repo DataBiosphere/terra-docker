@@ -1,3 +1,8 @@
+## 1.1.2 - 2023-07-31
+- Upgrade Terra Notebook Utils to `0.13.0`
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-base:1.1.2`
+
 ## 1.1.1 - 2023-07-06
 
 - Fix bug introduced in https://github.com/DataBiosphere/terra-docker/commit/4a5b4c9212aedcafa2f41fbeb2b161089341c578 

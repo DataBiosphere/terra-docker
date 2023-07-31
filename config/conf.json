@@ -26,7 +26,7 @@
                     "tidyverse"
                 ]
             },
-            "version" : "2.2.1",
+            "version" : "2.2.2",
             "automated_flags" : {
                 "generate_docs" : true,
                 "include_in_ui" : true,
@@ -47,7 +47,7 @@
                     "hail"
                 ]
             },
-            "version" : "1.1.1",
+            "version" : "1.1.2",
             "automated_flags" : {
                 "generate_docs" : true,
                 "include_in_ui" : true,
@@ -68,7 +68,7 @@
                     "scikit-learn"
                 ]
             },
-            "version" : "1.1.1",
+            "version" : "1.1.2",
             "automated_flags" : {
                 "generate_docs" : true,
                 "include_in_ui" : true,
@@ -84,9 +84,9 @@
                 "python"
             ],
             "packages" : {
-                
+
             },
-            "version" : "1.1.1",
+            "version" : "1.1.2",
             "automated_flags" : {
                 "generate_docs" : true,
                 "include_in_ui" : false,
@@ -102,9 +102,9 @@
                 "r"
             ],
             "packages" : {
-                
+
             },
-            "version" : "2.2.1",
+            "version" : "2.2.2",
             "automated_flags" : {
                 "include_in_ui" : false,
                 "generate_docs" : true,
@@ -122,9 +122,9 @@
                 "r"
             ],
             "packages" : {
-                
+
             },
-            "version" : "2.3.1",
+            "version" : "2.3.2",
             "automated_flags" : {
                 "include_in_ui" : true,
                 "generate_docs" : true,
@@ -141,9 +141,9 @@
                 "r"
             ],
             "packages" : {
-                
+
             },
-            "version" : "2.2.1",
+            "version" : "2.2.2",
             "automated_flags" : {
                 "include_in_ui" : false,
                 "generate_docs" : false,
@@ -159,7 +159,7 @@
                 "r"
             ],
             "packages" : {
-                
+
             },
             "version" : "0.1.1",
             "automated_flags" : {
