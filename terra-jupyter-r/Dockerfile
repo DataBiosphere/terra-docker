@@ -103,6 +103,10 @@ RUN apt-get update \
         libeigen3-dev \
         ## for rawrr package
         mono-runtime \
+	## for nloptr package
+	cmake \
+ 	## for archive package
+ 	libarchive-dev \
     && ln -s /usr/lib/gcc/x86_64-linux-gnu/7/libgfortran.so /usr/lib/x86_64-linux-gnu/libgfortran.so \
     && ln -s /usr/lib/gcc/x86_64-linux-gnu/7/libstdc++.so /usr/lib/x86_64-linux-gnu/libstdc++.so \
     && apt-get clean \
