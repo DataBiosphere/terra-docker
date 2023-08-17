@@ -3,9 +3,8 @@
 * Run it with `ammonite for Scala 2.13+`
 */
 
-val workbenchUtil2 = "0.10-c3ef6b80-SNAP"
 
-val circeVersion = "0.14.0"
+val circeVersion = "0.14.1"
 interp.load.ivy(
   "co.fs2" %% "fs2-io" % "2.5.10",
   "io.circe" %% "circe-core" % circeVersion,
@@ -51,7 +50,7 @@ def modifyVersion(bumpMajorVersion: Boolean): Json => Json =
       newVersion(s, bumpMajorVersion)
   }
 
-def modifyImageData(imagesToUpdate: List[String], bumpMajorVersion: Boolean): Json => Json =
+def modifyImageData(imagesToUpdate: List[String], bumpMajorVersion: Boolean): Json => Json = 
   root.image_data.arr.modify {
     listOfImageData =>
       listOfImageData.map {
