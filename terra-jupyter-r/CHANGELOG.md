@@ -1,3 +1,9 @@
+## 2.2.2 - 2023-08-18T18:31:49.471831821Z
+
+- Add missing sysdeps for Bioc/R packages
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-r:2.2.2`
+
 ## 2.2.1 - 2023-07-06
 
 - Fix bug introduced in https://github.com/DataBiosphere/terra-docker/commit/4a5b4c9212aedcafa2f41fbeb2b161089341c578 
