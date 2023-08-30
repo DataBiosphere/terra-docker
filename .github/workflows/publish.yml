@@ -1,0 +1,55 @@
+name: Publish image to GCR
+on:
+  workflow_dispatch:
+    inputs:
+      image:
+        description: 'Image to publish'
+        required: true
+        type: choice
+        options:
+          - terra-jupyter-aou
+          - terra-jupyter-base
+          - terra-jupyter-bioconductor
+          - terra-jupyter-gatk
+          - terra-jupyter-hail
+          - terra-jupyter-python
+          - terra-jupyter-r
+          - terra-rstudio-aou
+          - wondershaper
+        default: terra-rstudio-rstudio
+      branch:
+        description: 'Branch to run the workflow on'
+        required: false
+        default: 'master'
+jobs:
+  publish-job:
+    runs-on: self-hosted
+    steps:
+      - name: Checkout current code
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ github.event.inputs.branch }}
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.10'
+
+      - id: auth
+        uses: google-github-actions/auth@v1
+        with:
+          credentials_json: ${{ secrets.TD_GCP_SA_KEY }}
+          create_credentials_file: true
+
+      - name: Set up Cloud SDK
+        uses: google-github-actions/setup-gcloud@v0.3.0
+        with:
+          project_id: ${{ secrets.GCP_PROJECT_ID }}
+
+      - name: Explicitly auth Docker for GCR
+        run: gcloud auth configure-docker --quiet
+
+      - name: Build Docker image and publish
+        run: |
+          gcloud auth configure-docker
+          ./build.sh ${{ github.event.inputs.image }} "true"

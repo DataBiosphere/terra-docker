@@ -1,7 +1,7 @@
 #!/bin/bash
 # Perform a local build of an image for smoke-testing purposes. Also build its tree of base images, when missing.
 #
-# Example: ./build_smoke_test_image terra-jupyter-python  
+# Example: ./build_smoke_test_image.sh terra-jupyter-python  
 #
 # Current working directory must be the directory in which this script resides (one level above all the Dockerfiles).
 # It walks down each relevant image directory, making changes to the FROM statements,

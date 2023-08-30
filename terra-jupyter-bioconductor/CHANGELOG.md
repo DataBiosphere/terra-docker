@@ -1,3 +1,51 @@
+## 2.2.1 - 2023-07-06
+
+- Fix bug introduced in https://github.com/DataBiosphere/terra-docker/commit/4a5b4c9212aedcafa2f41fbeb2b161089341c578 
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-bioconductor:2.2.1`
+
+## 2.2.0 - 2023-06-23
+
+- Update python 3.7 to 3.10
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-bioconductor:2.2.0`
+
+## 2.1.11 - 2023-06-01T17:49:47.622531112Z
+
+- Update `terra-jupyter-r` to `2.1.10`
+  - Bioconductor 3.17 release with R 4.3
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-bioconductor:2.1.11`
+
+## 2.1.10 - 2023-03-13T17:26:34.148443Z
+
+- Update `terra-jupyter-base` to `1.0.14`
+  - Include `jupyter lab build` step
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-bioconductor:2.1.10`
+
+## 2.1.9 - 2023-02-09T14:18:48.987542Z
+
+- Update `terra-jupyter-base` to `1.0.12`
+  - Add cloud.google.com gpg key.
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-bioconductor:2.1.9`
+
+## 2.1.8 - 2022-11-22T20:49:44.056023723Z
+
+- Update `terra-jupyter-r` to `2.1.7`
+  - Update Bioconductor for 3.16 release
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-bioconductor:2.1.8`
+
+## 2.1.7 - 2022-07-27T13:32:19.884050Z
+
+- Moved AnVIL and supporting packages to be installed in parent image.
+- Update `terra-jupyter-r` to `2.1.6`
+  - Installs AnVIL and supporting packages.
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-bioconductor:2.1.7`
+
 ## 2.1.6 - 2022-07-22
 
 - Fix anvil package install

@@ -1,3 +1,28 @@
+## 1.1.1 - 2023-07-06
+
+- Fix bug introduced in https://github.com/DataBiosphere/terra-docker/commit/4a5b4c9212aedcafa2f41fbeb2b161089341c578 
+
+## 1.1.0 - 2023-06-23
+
+- Upgrade python 3.7 to 3.10
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-base:1.1.0`
+## 1.0.14 - 2023-03-13T17:26:34.128391Z
+
+- Include `jupyter lab build` step
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-base:1.0.14`
+
+## 1.0.13 - 2023-03-09
+
+- Include `jupyter lab build` step
+
+## 1.0.12 - 2023-02-09T14:18:48.948718Z
+
+- Add cloud.google.com gpg key.
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-base:1.0.12`
+
 ## 1.0.11 - 2022-06-23T10:58:12.961300Z
 
 - Fix leo_url variable in workspace_cromwell.py script for AoU projects

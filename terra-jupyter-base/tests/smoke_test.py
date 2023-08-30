@@ -19,6 +19,7 @@ def test_terra_notebook_utils():
   import terra_notebook_utils
 
 # Re-add this test if one day base image no longer declares `/home/jupyter` as a VOLUME
+# toc2 is also not supporting our version of notebook anymore
 # def test_extensions():
 #   output = subprocess.check_output("jupyter nbextension list", shell=True)
 #   if not "toc2/main" in str(output):

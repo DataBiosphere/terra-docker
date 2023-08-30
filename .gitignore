@@ -16,3 +16,5 @@ package-lock.json
 .conda/
 .python_history
 .keras/
+.ammonite/
+.metals/

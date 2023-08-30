@@ -6,7 +6,7 @@ name: Test terra-jupyter-gatk
 # Step 1: Create a service account per these instructions:
 #         https://github.com/google-github-actions/setup-gcloud/blob/master/setup-gcloud/README.md
 # Step 2: Give the service account the following permissions within the project: BigQuery User
-# Step 3: Store its key and project id as GitHub repository secrets GCP_SA_KEY and GCP_PROJECT_ID.
+# Step 3: Store its key and project id as GitHub repository secrets TD_GCP_SA_KEY and GCP_PROJECT_ID.
 #         https://docs.github.com/en/free-pro-team@latest/actions/reference/encrypted-secrets#creating-encrypted-secrets-for-a-repository
 
 on:
@@ -38,24 +38,24 @@ env:
 jobs:
 
   test_docker_image:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
 
     steps:
     - name: Checkout
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
 
     - name: Set up Python
-      uses: actions/setup-python@v2
+      uses: actions/setup-python@v4
       with:
-        python-version: 3.7
+        python-version: '3.10'
 
     - name: Free up some disk space
       run: sudo rm -rf /usr/share/dotnet
 
     - id: auth
-      uses: google-github-actions/auth@v0
+      uses: google-github-actions/auth@v1
       with:
-        credentials_json: ${{ secrets.GCP_SA_KEY }}
+        credentials_json: ${{ secrets.TD_GCP_SA_KEY }}
         create_credentials_file: true
 
     - name: Set up Cloud SDK

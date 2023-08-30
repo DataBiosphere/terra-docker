@@ -21,12 +21,8 @@ cycler
 h5py
 html5lib
 joblib
-# Remove the version pin for keras when tensorflow is updated to 2.7 or higher.
-keras==2.7.0
 patsy
 pymc3
-# fix to 2.4.7 so that tensorflow still works
-pyparsing==2.4.7
 Cython
 pysam
 --no-binary=pysam
