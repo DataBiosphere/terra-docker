@@ -6,15 +6,16 @@ notebook service in [Terra]("https://app.terra.bio/") called Leonardo.
 ## Image contents
 
 `terra-jupyter-minimal-gpu-base` extends an image from Nvidia built on top of 
-Ubuntu 20.04 called `nvcr.io/nvidia/cuda:11.3.1-base-ubuntu20.04`, which has CUDA and
+Ubuntu 20.04 called `nvcr.io/nvidia/cuda:11.8.0-base-ubuntu20.04`, which has CUDA and
 Nvidia drivers installed. This image adds the minimum 
 requirements necessary to set up Jupyter and provide compatibility with Leonardo.
 
-- CUDA 11.3
+- CUDA 11.4
 - OS prerequisites
 - google-cloud-cli
-- Python 3.7
+- Python 3.10
 - Miniconda
+- Mamba
 - Jupyter
 - Leonardo customizations/extensions
 - Terra python client library ([FISS](https://github.com/broadinstitute/fiss))

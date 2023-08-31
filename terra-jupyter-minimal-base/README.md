@@ -10,8 +10,9 @@ requirements necessary to set up Jupyter and provide compatibility with Leonardo
 
 - OS prerequisites
 - google-cloud-cli
-- Python 3.7
+- Python 3.10
 - Miniconda
+- Mamba
 - Jupyter
 - Leonardo customizations/extensions
 - Terra python client library ([FISS](https://github.com/broadinstitute/fiss))

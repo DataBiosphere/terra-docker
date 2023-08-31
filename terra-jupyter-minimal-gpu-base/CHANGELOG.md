@@ -1,3 +1,16 @@
+## 0.0.2 - 08/30/2023
+
+- Extends `nvcr.io/nvidia/cuda:11.8.0-base-ubuntu20.04` base image
+  - CUDA 11.4
+- OS prerequisites
+- google-cloud-cli
+- Python 3.10
+- Miniconda
+- Mamba
+- Jupyter
+- Leonardo customizations/extensions
+- Terra python client library ([FISS](https://github.com/broadinstitute/fiss))
+
 ## 0.0.1 - 08/30/2022
 
 - Extends `nvcr.io/nvidia/cuda:11.3.1-base-ubuntu20.04` base image
