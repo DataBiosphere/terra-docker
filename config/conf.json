@@ -11,7 +11,7 @@
     "gcr_image_repo" : "us.gcr.io/broad-dsp-gcr-public",
     "doc_bucket" : "gs://terra-docker-image-documentation",
     "doc_bucket_no_prefix" : "terra-docker-image-documentation",
-    "spark_version" : "2.4.5",
+    "spark_version" : "3.3.0",
     "image_data" : [
         {
             "name" : "terra-jupyter-bioconductor",
@@ -26,7 +26,7 @@
                     "tidyverse"
                 ]
             },
-            "version" : "2.1.6",
+            "version" : "2.2.1",
             "automated_flags" : {
                 "generate_docs" : true,
                 "include_in_ui" : true,
@@ -47,7 +47,7 @@
                     "hail"
                 ]
             },
-            "version" : "1.0.19",
+            "version" : "1.1.1",
             "automated_flags" : {
                 "generate_docs" : true,
                 "include_in_ui" : true,
@@ -68,7 +68,7 @@
                     "scikit-learn"
                 ]
             },
-            "version" : "1.0.13",
+            "version" : "1.1.1",
             "automated_flags" : {
                 "generate_docs" : true,
                 "include_in_ui" : true,
@@ -83,8 +83,10 @@
             "tools" : [
                 "python"
             ],
-            "packages" : {},
-            "version" : "1.0.11",
+            "packages" : {
+                
+            },
+            "version" : "1.1.1",
             "automated_flags" : {
                 "generate_docs" : true,
                 "include_in_ui" : false,
@@ -99,8 +101,10 @@
             "tools" : [
                 "r"
             ],
-            "packages" : {},
-            "version" : "2.1.5",
+            "packages" : {
+                
+            },
+            "version" : "2.2.1",
             "automated_flags" : {
                 "include_in_ui" : false,
                 "generate_docs" : true,
@@ -117,8 +121,10 @@
                 "python",
                 "r"
             ],
-            "packages" : {},
-            "version" : "2.2.7",
+            "packages" : {
+                
+            },
+            "version" : "2.3.1",
             "automated_flags" : {
                 "include_in_ui" : true,
                 "generate_docs" : true,
@@ -134,8 +140,10 @@
                 "python",
                 "r"
             ],
-            "packages" : {},
-            "version" : "2.1.8",
+            "packages" : {
+                
+            },
+            "version" : "2.2.1",
             "automated_flags" : {
                 "include_in_ui" : false,
                 "generate_docs" : false,
@@ -145,19 +153,36 @@
             }
         },
         {
-            "name" : "terra-jupyter-gatk-ovtf",
-            "base_label" : "OpenVINO",
+            "name" : "terra-rstudio-aou",
+            "base_label" : "All of Us",
             "tools" : [
-                "gatk",
-                "python",
                 "r"
             ],
-            "packages" : {},
-            "version" : "0.2.5",
+            "packages" : {
+                
+            },
+            "version" : "0.1.1",
             "automated_flags" : {
                 "include_in_ui" : false,
-                "generate_docs" : true,
+                "generate_docs" : false,
                 "build" : true,
+                "include_in_custom_dataproc" : false,
+                "include_in_custom_gce" : false
+            }
+        },
+        {
+            "name" : "wondershaper",
+            "base_label" : "wondershaper",
+            "tools" : [
+            ],
+            "packages" : {
+
+            },
+            "version" : "0.0.1",
+            "automated_flags" : {
+                "include_in_ui" : false,
+                "generate_docs" : false,
+                "build" : false,
                 "include_in_custom_dataproc" : false,
                 "include_in_custom_gce" : false
             }

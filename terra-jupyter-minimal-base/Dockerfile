@@ -10,7 +10,7 @@ USER root
 # files display nicer when viewed in a terminal.
 ENV DEBIAN_FRONTEND=noninteractive \
     LC_ALL=en_US.UTF-8 \
-    GOOGLE_CLOUD_CLI_VERSION="397.0.0" \
+    GOOGLE_CLOUD_CLI_VERSION="444.0.0" \
     USER=jupyter \
     WELDER_USER=welder-user \
     WELDER_UID=1001 \
@@ -69,7 +69,7 @@ RUN useradd -m -s /bin/bash $USER \
  && apt-get clean \
  && rm -rf /var/lib/apt/lists/* \
 # Install miniconda to $CONDA_DIR
- && curl -so $HOME/miniconda.sh https://repo.anaconda.com/miniconda/Miniconda3-py37_4.12.0-Linux-x86_64.sh \
+ && curl -so $HOME/miniconda.sh https://repo.anaconda.com/miniconda/Miniconda3-py310_23.5.1-0-Linux-x86_64.sh \
  && chmod +x $HOME/miniconda.sh \
  && $HOME/miniconda.sh -b -p $CONDA_DIR \
  && rm $HOME/miniconda.sh \
@@ -78,14 +78,15 @@ RUN useradd -m -s /bin/bash $USER \
  && curl -so $GCLOUD_DIR/google-cloud-cli.tar.gz \
     https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-cli-${GOOGLE_CLOUD_CLI_VERSION}-linux-x86_64.tar.gz \
  && tar -xzf $GCLOUD_DIR/google-cloud-cli.tar.gz -C $GCLOUD_DIR \
- && .$GCLOUD_DIR/google-cloud-sdk/install.sh --usage-reporting false --rc-path $HOME/.bashrc \
+ && .$GCLOUD_DIR/google-cloud-sdk/install.sh --install-python false --usage-reporting false --rc-path $HOME/.bashrc \
  # manual symlinks since .bashrc is not getting sourced and PATH is getting overwritten in Terra Cloud Environment
  && ln -s $GCLOUD_DIR/google-cloud-sdk/bin/gsutil /usr/bin/gsutil \
  && ln -s $GCLOUD_DIR/google-cloud-sdk/bin/anthoscli /usr/bin/anthoscli \
  && ln -s $GCLOUD_DIR/google-cloud-sdk/bin/bq /usr/bin/bq \
  && ln -s $GCLOUD_DIR/google-cloud-sdk/bin/docker-credential-gcloud /usr/bin/docker-credential-gcloud \
  && ln -s $GCLOUD_DIR/google-cloud-sdk/bin/gcloud /usr/bin/gcloud \
- # creates the directory $HOME/.config/gcloud/configurations
+ # creates the directory $HOME/.config/gcloud/configurations \
+ && conda install -y -c conda-forge crcmod \
  && gsutil version -l \
  && chown -R $USER:users $HOME/.conda \
  && chown -R $USER:users $HOME/.config/gcloud \
@@ -109,10 +110,10 @@ RUN useradd -m -s /bin/bash $USER \
  && curl -o /usr/local/bin/workspace_cromwell.py \
     https://raw.githubusercontent.com/broadinstitute/cromwhelm/1ceedf89587cffd355f37401b179001f029f77ed/scripts/workspace_cromwell.py \
  && chmod +x /usr/local/bin/workspace_cromwell.py \
-# Cromshell 2.0
- && git clone --branch cromshell_2.0 --single-branch \
-    https://github.com/broadinstitute/cromshell.git $HOME/cromshell \
- && pip3 install $HOME/cromshell \
+# Mamba
+ && conda install -y -c conda-forge mamba==1.5.0 \
+ && conda install -y -c conda-forge libarchive==3.6.2 requests==2.31.0 \
+# Cleanup
  && rm -rf ~/.cache/pip \
  && conda clean -yaf \
  && chown -R $USER:users $CONDA_DIR

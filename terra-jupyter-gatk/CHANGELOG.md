@@ -1,3 +1,64 @@
+## 2.3.1 - 2023-07-28
+
+- Fix bug introduced in https://github.com/DataBiosphere/terra-docker/commit/4a5b4c9212aedcafa2f41fbeb2b161089341c578
+- Remove Java 8 and update to GATK 4.3.0.0
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-gatk:2.3.1`
+
+## 2.3.0 - 2023-06-23
+
+- Update python 3.7 to 3.10
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-gatk:2.3.0`
+
+## 2.2.14 - 2023-06-09
+
+- Actually install bedtools to accessible path
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-gatk:2.2.14`
+
+## 2.2.13 - 2023-06-01T17:49:47.668283846Z
+
+- Update `terra-jupyter-r` to `2.1.10`
+  - Bioconductor 3.17 release with R 4.3
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-gatk:2.2.13`
+
+## 2.2.12 - 2023-05-31T13:55:05
+
+- Add bcftools
+- Add bedtools
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-gatk:2.2.12`
+
+## 2.2.11 - 2023-03-13T17:26:34.219509Z
+
+- Update `terra-jupyter-base` to `1.0.14`
+  - Include `jupyter lab build` step
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-gatk:2.2.11`
+
+## 2.2.10 - 2023-02-09T14:18:49.138553Z
+
+- Update `terra-jupyter-base` to `1.0.12`
+  - Add cloud.google.com gpg key.
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-gatk:2.2.10`
+
+## 2.2.9 - 2022-11-22T20:49:44.110597220Z
+
+- Update `terra-jupyter-r` to `2.1.7`
+  - Update Bioconductor for 3.16 release
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-gatk:2.2.9`
+
+## 2.2.8 - 2022-07-27T13:32:19.939107Z
+
+- Update `terra-jupyter-r` to `2.1.6`
+  - Installs AnVIL and supporting packages.
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-gatk:2.2.8`
+
 ## 2.2.7 - 2022-06-23T10:58:12.961300Z
 
 - Update `terra-jupyter-base` to `1.0.10`

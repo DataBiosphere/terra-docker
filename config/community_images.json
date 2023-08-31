@@ -10,21 +10,21 @@
 },
 {
     "id": "RStudio",
-    "label": "RStudio (R 4.2.0, Bioconductor 3.15, Python 3.8.10)",
-    "version": "3.15.2",
-    "updated": "2022-05-09",
-    "packages": "https://storage.googleapis.com/terra-docker-image-documentation/placeholder.json",
-    "image": "us.gcr.io/broad-dsp-gcr-public/anvil-rstudio-bioconductor:3.15.2",
+    "label": "RStudio (R 4.3.0, Bioconductor 3.17, Python 3.10.6)",
+    "version": "3.17.0",
+    "updated": "2023-05-12",
+    "packages": "https://raw.githubusercontent.com/anvilproject/anvil-docker/master/anvil-rstudio-bioconductor/info/anvil-rstudio-bioconductor-3.17.0-versions.json",
+    "image": "us.gcr.io/broad-dsp-gcr-public/anvil-rstudio-bioconductor:3.17.0",
     "requiresSpark": false,
     "isRStudio": true
 },
 {
-    "id": "OpenVINO integration with Tensorflow",
-    "label": "OpenVINO integration with Tensorflow (openvino-tensorflow 1.1.0, Python 3.7.12, GATK 4.2.4.1)",
-    "version": "0.2.0",
-    "updated": "2022-01-31",
-    "packages": "https://storage.googleapis.com/terra-docker-image-documentation/terra-jupyter-gatk-ovtf-0.1.7-versions.json",
-    "image": "us.gcr.io/broad-dsp-gcr-public/terra-jupyter-gatk-ovtf:0.1.7",
+    "id": "LegacyRStudio",
+    "label": "Legacy RStudio (R 4.2.3, Bioconductor 3.16, Python 3.10.6)",
+    "version": "3.16.1",
+    "updated": "2023-05-12",
+    "packages": "https://raw.githubusercontent.com/anvilproject/anvil-docker/master/anvil-rstudio-bioconductor/info/anvil-rstudio-bioconductor-3.16.1-versions.json",
+    "image": "us.gcr.io/broad-dsp-gcr-public/anvil-rstudio-bioconductor:3.16.1",
     "requiresSpark": false,
-    "isCommunity": true
+    "isRStudio": true
 }]

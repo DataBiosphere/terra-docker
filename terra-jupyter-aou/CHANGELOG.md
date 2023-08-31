@@ -1,3 +1,121 @@
+## 2.2.1 - 2023-07-28
+
+- Fix bug introduced in https://github.com/DataBiosphere/terra-docker/commit/4a5b4c9212aedcafa2f41fbeb2b161089341c578 
+- Remove outdated cromshell alias
+- Remove Java 8 and update `hail` to `0.2.120`
+  - See https://hail.is/docs/0.2/change_log.html#version-0-2-120 for details
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-aou:2.2.1`
+
+## 2.2.0 - 2023-06-23
+
+- Update python from 3.7 to 3.10
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-aou:2.2.0`
+
+## 2.1.22 - 2023-06-01T17:49:47.721962740Z
+
+- Update `terra-jupyter-r` to `2.1.10`
+  - Bioconductor 3.17 release with R 4.3
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-aou:2.1.22`
+
+## 2.1.21 - 2023-05-24
+- Rollback `hail` to `0.2.107`
+- Fix `cromshell` alias typo
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-aou:2.1.21`
+- 
+
+## 2.1.20 - 2023-04-11
+- Update `hail` to `0.2.113`
+  - See https://hail.is/docs/0.2/change_log.html#version-0-2-113) for details
+- Replace r-saige with SAIGEgds.
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-aou:2.1.20`
+- 
+
+## 2.1.19 - 2023-03-16
+- Update `hail` to `0.2.112`
+  - See https://hail.is/docs/0.2/change_log.html#version-0-2-112) for details
+- Add alias for `cromshell`
+- Remove `workspace_cromwell.p`
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-aou:2.1.19`
+
+## 2.1.18 - 2023-03-13T17:26:34.247154Z
+
+- Update `terra-jupyter-base` to `1.0.14`
+  - Include `jupyter lab build` step
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-aou:2.1.18`
+
+## 2.1.17 - 2023-02-08
+- Update `hail` to `0.2.109`
+  - See https://hail.is/docs/0.2/change_log.html#version-0-2-109) for details
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-aou:2.1.17`
+
+## 2.1.16 - 2023-02-09T14:18:49.188741Z
+
+- Update `terra-jupyter-base` to `1.0.12`
+  - Add cloud.google.com gpg key.
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-aou:2.1.16`
+
+## 2.1.15 - 2022-12-14
+- Update `hail` to `0.2.107`
+  - See https://hail.is/docs/0.2/change_log.html#version-0-2-107) for details
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-aou:2.1.15`
+
+## 2.1.14 - 2022-12-12
+
+- Add tools for long reads support
+  - jellyfish 2.3.0
+  - pangenie
+  - minimap2 2.24
+  - whatshap
+  - TRF
+  - HMMER 3.3
+  - rmblast 2.11.0
+  - RepeatMasker 4.1.4
+  - Text::Soundex
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-aou:2.1.14`
+
+## 2.1.13 - 2022-11-22T20:49:44.192223144Z
+
+- Update `terra-jupyter-r` to `2.1.7`
+  - Update Bioconductor for 3.16 release
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-aou:2.1.13`
+
+## 2.1.12 - 2022-10-21
+- Update `hail` to `0.2.104`
+  - See https://hail.is/docs/0.2/change_log.html#version-0-2-104) for details
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-aou:2.1.12`
+
+## 2.1.11 - 2022-10-04
+- Update `hail` to `0.2.101`
+  - See https://hail.is/docs/0.2/change_log.html#version-0-2-101) for details
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-aou:2.1.11`
+
+## 2.1.10 - 2022-09-23
+- Update `hail` to `0.2.100`
+  - See https://hail.is/docs/0.2/change_log.html#version-0-2-100) for details
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-aou:2.1.10`
+
+## 2.1.9 - 2022-09-02
+
+ - Add support for QIIME2
+ - Update `hail` to `0.2.98`
+   - See https://hail.is/docs/0.2/change_log.html#version-0-2-98) for details
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-aou:2.1.9`
+
 ## 2.1.8 - 2022-07-12
 
 - Revert attempted Java11 upgrade back to Java8

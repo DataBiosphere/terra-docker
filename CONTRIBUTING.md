@@ -20,6 +20,8 @@ If you are from outside the Broad, don't worry about adding a JIRA issue number 
 
 If you are handling these contributions from the Broad side, please remember to create a corresponding JIRA ticket. This ticket number will be used to track contributions internally.
 
+Standard operating procedures between Bioconductor and Terra teams during release have been detailed in [this document](https://docs.google.com/document/d/1-TVfD9GisifdgB9rjM5Q2ieCri1NPEC8cgHZTy8fWeo/edit#). 
+
 ## Community Images
 
 Community images must be vetted before they will be introduced into Terra.

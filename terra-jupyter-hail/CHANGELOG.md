@@ -1,3 +1,66 @@
+## 1.1.1 - 2023-07-28
+
+- Fix bug introduced in https://github.com/DataBiosphere/terra-docker/commit/4a5b4c9212aedcafa2f41fbeb2b161089341c578 
+- Remove Java 8 and update `hail` to `0.2.120`
+  - See https://hail.is/docs/0.2/change_log.html#version-0-2-120 for details
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-hail:1.1.1`
+
+## 1.1.0 - 2023-06-23
+
+- Update python 3.7 to 3.10
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-hail:1.1.0`
+
+## 1.0.26 - 2023-06-07
+
+- Force the regeneration of 1.0.26 that was never published
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-hail:1.0.27`
+
+## 1.0.26 - 2023-03-13T17:26:34.162828Z
+
+- Update `terra-jupyter-base` to `1.0.14`
+  - Include `jupyter lab build` step
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-hail:1.0.26`
+
+## 1.0.25 - 2023-02-22
+- Remove invalid python image dependency
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-hail:1.0.25`
+
+## 1.0.24 - 2023-02-08
+- Update `hail` to `0.2.109`
+  - See https://hail.is/docs/0.2/change_log.html#version-0-2-109) for details
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-hail:1.0.24`
+
+## 1.0.23 - 2023-02-09T14:18:49.030825Z
+
+- Update `terra-jupyter-base` to `1.0.12`
+  - Add cloud.google.com gpg key.
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-hail:1.0.23`
+
+## 1.0.22 - 2022-12-14
+- Update `hail` to `0.2.107`
+  - See https://hail.is/docs/0.2/change_log.html#version-0-2-107) for details
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-hail:1.0.22`
+
+## 1.0.21 - 2022-11-01
+- Update `hail` to `0.2.105`
+  - See https://hail.is/docs/0.2/change_log.html#version-0-2-105) for details
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-hail:1.0.21`
+
+## 1.0.20 - 2022-08-22
+- Update `hail` to `0.2.98`
+  - See https://hail.is/docs/0.2/change_log.html#version-0-2-98) for details
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-hail:1.0.20`
+
 ## 1.0.19 - 2022-06-30
 - Update `hail` to `0.2.96`
   - See https://hail.is/docs/0.2/change_log.html#version-0-2-96) for details

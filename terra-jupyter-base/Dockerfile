@@ -1,6 +1,6 @@
 # adapted from https://hub.docker.com/r/jupyter/base-notebook/ AKA https://github.com/jupyter/docker-stacks/tree/master/base-notebook
 
-FROM gcr.io/deeplearning-platform-release/tf-gpu.2-7
+FROM gcr.io/deeplearning-platform-release/tf-gpu.2-11.py310
 
 USER root
 
@@ -21,10 +21,12 @@ RUN sudo -i \
 # see article: https://developer.nvidia.com/blog/updating-the-cuda-linux-gpg-repository-key/
 # first we remove the bad keys from base image (https://github.com/NVIDIA/nvidia-docker/issues/1631#issuecomment-1112828208)
 RUN rm /etc/apt/sources.list.d/cuda.list \
-    && rm /etc/apt/sources.list.d/nvidia-ml.list \
     && sudo apt-key del 7fa2af80 \
     && curl -L -O https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/cuda-keyring_1.0-1_all.deb \
     && sudo dpkg -i cuda-keyring_1.0-1_all.deb
+
+RUN curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key --keyring /usr/share/keyrings/cloud.google.gpg add -
+RUN curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
 
 RUN apt-get update && apt-get install -yq --no-install-recommends \
     # gnupg requirement
@@ -45,6 +47,8 @@ RUN apt-get update && apt-get install -yq --no-install-recommends \
     libbz2-dev \
     libreadline-dev \
     libsqlite3-dev \
+    libexempi3 \
+    libv8-3.14-dev \
     llvm \
     libncurses5-dev \
     libncursesw5-dev \
@@ -52,8 +56,6 @@ RUN apt-get update && apt-get install -yq --no-install-recommends \
     libffi-dev \
     liblzma-dev \
     python-openssl \
-    libexempi3 \
-    libv8-3.14-dev \
     # install script requirements
     sudo \
     locales \
@@ -62,12 +64,12 @@ RUN apt-get update && apt-get install -yq --no-install-recommends \
     # openjdk 11
     default-jre \
     default-jdk \
- # Uncomment en_US.UTF-8 for inclusion in generation
- && sed -i 's/^# *\(en_US.UTF-8\)/\1/' /etc/locale.gen \
- # Generate locale
- && locale-gen \
- && apt-get clean \
- && rm -rf /var/lib/apt/lists/*
+    # Uncomment en_US.UTF-8 for inclusion in generation
+    && sed -i 's/^# *\(en_US.UTF-8\)/\1/' /etc/locale.gen \
+    # Generate locale
+    && locale-gen \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/* 
 
 ENV LC_ALL en_US.UTF-8
 
@@ -92,31 +94,29 @@ ENV JUPYTER_PORT 8000
 ENV JUPYTER_HOME /etc/jupyter
 
 RUN pip3 -V \
- # When we upgraded from jupyter 5.7.8 to 6.1.1, we broke terminal button on terra-ui.
- # Hence, make sure to manually test out "launch terminal" button (the button in the green bar next to start and stop buttons)
- # to make sure we don't accidentally break it every time we upgrade notebook version until we figure out an automation test for this
- && pip3 install python-datauri \
- && pip3 install jupyter_contrib_nbextensions \
- && pip3 install jupyter_nbextensions_configurator \
- && pip3 install markupsafe==2.0.1 \
- # Avoid broken lower versions: https://github.com/jupyter/nbconvert/pull/1624
- && pip3 install "nbconvert>=6.4.5" \
- # for jupyter_delocalize.py and jupyter_notebook_config.py
- && pip3 install requests \
- && pip3 install firecloud \
- && pip3 install terra-notebook-utils \
- && pip3 install crcmod \
- # For gcloud alpha storage support.
- && pip3 install google-crc32c --target /usr/lib/google-cloud-sdk/lib/third_party
+    # When we upgraded from jupyter 5.7.8 to 6.1.1, we broke terminal button on terra-ui.
+    # Hence, make sure to manually test out "launch terminal" button (the button in the green bar next to start and stop buttons)
+    # to make sure we don't accidentally break it every time we upgrade notebook version until we figure out an automation test for this
+    && pip3 install python-datauri \
+    && pip3 install jupyter_contrib_nbextensions \
+    && pip3 install jupyter_nbextensions_configurator \
+    && pip3 install markupsafe==2.1.2 \
+    # Avoid broken lower versions: https://github.com/jupyter/nbconvert/pull/1624, pinning to latest known working version on terra
+    && pip3 install "nbconvert==7.2.9" \
+    # Avoid notebook extension issues
+    && pip3 install "nbclassic<0.5" \
+    # for jupyter_delocalize.py and jupyter_notebook_config.py
+    && pip3 install requests \
+    && pip3 install firecloud \
+    && pip3 install terra-notebook-utils \
+    && pip3 install crcmod \
+    # For gcloud alpha storage support.   
+    && pip3 install google-crc32c --target /usr/lib/google-cloud-sdk/lib/third_party \
+    && pip3 install cromshell==2.0.0
 
-# install Cromshell 2.0
-RUN git clone https://github.com/broadinstitute/cromshell.git \
- && cd cromshell \
- && git checkout cromshell_2.0 \
- && pip install .
-
-# verify cromshell 2.0 is installed
-RUN cromshell-alpha version
+# to allow file-saving in different formats
+# toc2 is not compatible with versions of notebooks over 5.x - deprecated
+# RUN jupyter nbextension enable toc2/main
 
 # tmp hack min-5
 # I'm not installing jupyterlab and I can't update init-actions.sh to not access it
@@ -140,14 +140,18 @@ COPY jupyter_notebook_config.py $JUPYTER_HOME
 
 # copy workspace_cromwell.py script and make it runnable by all users
 RUN curl -o /usr/local/bin/workspace_cromwell.py https://raw.githubusercontent.com/broadinstitute/cromwhelm/1ceedf89587cffd355f37401b179001f029f77ed/scripts/workspace_cromwell.py \
- && chmod +x /usr/local/bin/workspace_cromwell.py
+    && chmod +x /usr/local/bin/workspace_cromwell.py
 
 RUN chown -R $USER:users $JUPYTER_HOME \
-# Disable nb_conda for now. Consider re-enable in the future
- && jupyter nbextension disable nb_conda --py --sys-prefix \
- && find $JUPYTER_HOME/scripts -name '*.sh' -type f | xargs chmod +x \
-#  You can get kernel directory by running `jupyter kernelspec list`
- && $JUPYTER_HOME/scripts/kernel/kernelspec.sh $JUPYTER_HOME/scripts/kernel /opt/conda/share/jupyter/kernels
+    # Disable nb_conda for now. Consider re-enable in the future
+    && jupyter nbextension disable nb_conda --py --sys-prefix \
+    && find $JUPYTER_HOME/scripts -name '*.sh' -type f | xargs chmod +x \
+    #  You can get kernel directory by running `jupyter kernelspec list`
+    && $JUPYTER_HOME/scripts/kernel/kernelspec.sh $JUPYTER_HOME/scripts/kernel /opt/conda/share/jupyter/kernels
+
+# Run a `jupyter lab build` during the Docker image build step so users don't have to do it on their own
+# The webpack build during `jupyter lab build` is memory intensive so give it access to more memory as well
+RUN NODE_OPTIONS=--max-old-space-size=4096 jupyter lab build --minimize=True
 
 USER $USER
 EXPOSE $JUPYTER_PORT

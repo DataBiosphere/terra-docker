@@ -3,11 +3,10 @@
 * Run it with `ammonite for Scala 2.13+`
 */
 
-val workbenchUtil2 = "0.10-c3ef6b80-SNAP"
 
-val circeVersion = "0.13.0"
+val circeVersion = "0.14.1"
 interp.load.ivy(
-  "co.fs2" %% "fs2-io" % "2.4.2",
+  "co.fs2" %% "fs2-io" % "2.5.10",
   "io.circe" %% "circe-core" % circeVersion,
   "io.circe" %% "circe-parser" % circeVersion,
   "io.circe" %% "circe-generic" % circeVersion,
@@ -51,7 +50,7 @@ def modifyVersion(bumpMajorVersion: Boolean): Json => Json =
       newVersion(s, bumpMajorVersion)
   }
 
-def modifyImageData(imagesToUpdate: List[String], bumpMajorVersion: Boolean): Json => Json =
+def modifyImageData(imagesToUpdate: List[String], bumpMajorVersion: Boolean): Json => Json = 
   root.image_data.arr.modify {
     listOfImageData =>
       listOfImageData.map {
@@ -78,21 +77,18 @@ def main(updatedImage: String, updatedImageReleaseNote: String, bumpMajorVersion
       "terra-jupyter-r",
       "terra-jupyter-gatk",
       "terra-jupyter-aou",
-      "terra-jupyter-gatk-ovtf"
     )
     case "terra-jupyter-r" => List(
       "terra-jupyter-r",
       "terra-jupyter-bioconductor",
       "terra-jupyter-gatk",
       "terra-jupyter-aou",
-      "terra-jupyter-gatk-ovtf"
     )
     case "terra-jupyter-python" => List(
       "terra-jupyter-python",
       "terra-jupyter-hail",
       "terra-jupyter-gatk",
       "terra-jupyter-aou",
-      "terra-jupyter-gatk-ovtf"
     )
     case "terra-jupyter-hail" => List(
       "terra-jupyter-hail"
@@ -100,8 +96,8 @@ def main(updatedImage: String, updatedImageReleaseNote: String, bumpMajorVersion
     case "terra-jupyter-gatk" => List(
       "terra-jupyter-gatk"
     )
-    case "terra-jupyter-gatk-ovtf" => List(
-      "terra-jupyter-gatk-ovtf"
+    case "terra-jupyter-aou" => List(
+      "terra-jupyter-aou"
     )
     case updatedImage =>
       throw new Exception(s"${updatedImage} is not supported yet. Please update the script to support the image")
