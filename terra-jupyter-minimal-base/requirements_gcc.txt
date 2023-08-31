@@ -1,3 +1,2 @@
-terra-notebook-utils==0.10.0
-firecloud==0.16.32.post1
-crcmod==1.7
+terra-notebook-utils==0.13.0
+firecloud==0.16.35
