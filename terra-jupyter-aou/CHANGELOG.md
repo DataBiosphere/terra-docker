@@ -1,3 +1,9 @@
+## 2.2.2 - 2023-09-19
+- Update `hail` to `0.2.123`
+  - See https://hail.is/docs/0.2/change_log.html#version-0-2-123) for details
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-aou:2.2.2`
+
 ## 2.2.1 - 2023-07-28
 
 - Fix bug introduced in https://github.com/DataBiosphere/terra-docker/commit/4a5b4c9212aedcafa2f41fbeb2b161089341c578 
