@@ -47,7 +47,7 @@
                     "hail"
                 ]
             },
-            "version" : "1.1.1",
+            "version" : "1.1.2",
             "automated_flags" : {
                 "generate_docs" : true,
                 "include_in_ui" : true,
@@ -83,9 +83,7 @@
             "tools" : [
                 "python"
             ],
-            "packages" : {
-                
-            },
+            "packages" : {},
             "version" : "1.1.1",
             "automated_flags" : {
                 "generate_docs" : true,
@@ -101,9 +99,7 @@
             "tools" : [
                 "r"
             ],
-            "packages" : {
-                
-            },
+            "packages" : {},
             "version" : "2.2.1",
             "automated_flags" : {
                 "include_in_ui" : false,
@@ -121,9 +117,7 @@
                 "python",
                 "r"
             ],
-            "packages" : {
-                
-            },
+            "packages" : {},
             "version" : "2.3.1",
             "automated_flags" : {
                 "include_in_ui" : true,
@@ -140,9 +134,7 @@
                 "python",
                 "r"
             ],
-            "packages" : {
-                
-            },
+            "packages" : {},
             "version" : "2.2.1",
             "automated_flags" : {
                 "include_in_ui" : false,
@@ -158,9 +150,7 @@
             "tools" : [
                 "r"
             ],
-            "packages" : {
-                
-            },
+            "packages" : {},
             "version" : "0.1.1",
             "automated_flags" : {
                 "include_in_ui" : false,
@@ -173,11 +163,8 @@
         {
             "name" : "wondershaper",
             "base_label" : "wondershaper",
-            "tools" : [
-            ],
-            "packages" : {
-
-            },
+            "tools" : [],
+            "packages" : {},
             "version" : "0.0.1",
             "automated_flags" : {
                 "include_in_ui" : false,
