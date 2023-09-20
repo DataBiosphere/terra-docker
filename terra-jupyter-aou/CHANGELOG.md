@@ -3,6 +3,9 @@
   - Update `terra-jupyter-python` to `1.1.2`
     - Update `terra-jupyter-base` tp `1.1.2`
       - Upgrade Terra Notebook Utils to `0.13.0`
+- Update PanGenie to 3.0.1 and pinning version
+- Update RMBlast to 2.14.0
+- Update RepeatMasker to 4.1.5
 
 Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-aou:2.2.2`
 
