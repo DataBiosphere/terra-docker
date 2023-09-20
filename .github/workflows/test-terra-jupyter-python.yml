@@ -40,7 +40,7 @@ env:
 jobs:
 
   test_docker_image:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
 
     steps:
     - name: Checkout
@@ -52,7 +52,7 @@ jobs:
         python-version: '3.10'
 
     - name: Free up some disk space
-      run: sudo rm -rf /usr/share/dotnet    
+      run: sudo rm -rf /usr/share/dotnet
 
     - id: auth
       uses: google-github-actions/auth@v1
@@ -113,7 +113,7 @@ jobs:
           --entrypoint="" \
           terra-jupyter-python:smoke-test \
           /bin/sh -c "pip3 install pytest ; pytest"
-          
+
     - name: Test Python code specific to notebooks with nbconvert
       # Simply 'Cell -> Run All` these notebooks and expect no errors in the case of a successful run of the test suite.
       # If the tests throw any exceptions, execution of the notebooks will halt at that point. Look at the workflow

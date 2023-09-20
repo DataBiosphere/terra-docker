@@ -1,10 +1,10 @@
 @startmindmap
-* terra-jupyter-base Y
-** terra-jupyter-python Y
-*** terra-jupyter-gatk Y
+* terra-jupyter-base
+** terra-jupyter-python
+*** terra-jupyter-gatk
 **** terra-jupyter-aou
 *** terra-jupyter-hail
-** terra-jupyter-r Y
-*** terra-jupyter-gatk Y
-*** terra-jupyter-bioconductor Y
+** terra-jupyter-r
+*** terra-jupyter-gatk
+*** terra-jupyter-bioconductor
 @endmindmap
