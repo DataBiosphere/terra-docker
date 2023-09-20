@@ -10,11 +10,11 @@
 },
 {
     "id": "RStudio",
-    "label": "RStudio (R 4.3.0, Bioconductor 3.17, Python 3.10.6)",
-    "version": "3.17.0",
-    "updated": "2023-05-12",
-    "packages": "https://raw.githubusercontent.com/anvilproject/anvil-docker/master/anvil-rstudio-bioconductor/info/anvil-rstudio-bioconductor-3.17.0-versions.json",
-    "image": "us.gcr.io/broad-dsp-gcr-public/anvil-rstudio-bioconductor:3.17.0",
+    "label": "RStudio (R 4.3.1, Bioconductor 3.17, Python 3.10.12)",
+    "version": "3.17.1",
+    "updated": "2023-09-13",
+    "packages": "https://raw.githubusercontent.com/anvilproject/anvil-docker/main/anvil-rstudio-bioconductor/info/anvil-rstudio-bioconductor-3.17.1-versions.json",
+    "image": "us.gcr.io/broad-dsp-gcr-public/anvil-rstudio-bioconductor:3.17.1",
     "requiresSpark": false,
     "isRStudio": true
 },
@@ -23,7 +23,7 @@
     "label": "Legacy RStudio (R 4.2.3, Bioconductor 3.16, Python 3.10.6)",
     "version": "3.16.1",
     "updated": "2023-05-12",
-    "packages": "https://raw.githubusercontent.com/anvilproject/anvil-docker/master/anvil-rstudio-bioconductor/info/anvil-rstudio-bioconductor-3.16.1-versions.json",
+    "packages": "https://raw.githubusercontent.com/anvilproject/anvil-docker/main/anvil-rstudio-bioconductor/info/anvil-rstudio-bioconductor-3.16.1-versions.json",
     "image": "us.gcr.io/broad-dsp-gcr-public/anvil-rstudio-bioconductor:3.16.1",
     "requiresSpark": false,
     "isRStudio": true
