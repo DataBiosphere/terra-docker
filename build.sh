@@ -42,22 +42,22 @@ docker image build ./$IMAGE_DIR \
   --tag $GCR_IMAGE_REPO/$IMAGE_DIR:$VERSION \
   --tag $GCR_IMAGE_REPO/$IMAGE_DIR:latest
 
-docker push $GCR_IMAGE_REPO/$IMAGE_DIR:$TAG_NAME
-docker push $GCR_IMAGE_REPO/$IMAGE_DIR:$VERSION
-docker push $GCR_IMAGE_REPO/$IMAGE_DIR:latest
-
-docker kill $IMAGE_DIR || true
-docker rm -f $IMAGE_DIR || true
-docker run --rm -itd -u root -e PIP_USER=false --entrypoint='/bin/bash' --name $IMAGE_DIR $GCR_IMAGE_REPO/$IMAGE_DIR:$VERSION
-
-if [[ $IMAGE_DIR != "terra-rstudio-aou" ]]; then
-  gcloud auth list
-  python scripts/generate_package_docs.py "$IMAGE_DIR"
-fi
-
-docker kill $IMAGE_DIR || true
-docker rm -f $IMAGE_DIR || true
-docker image rm -f $GCR_IMAGE_REPO/$IMAGE_DIR:$VERSION
-docker image rm -f $GCR_IMAGE_REPO/$IMAGE_DIR:$TAG_NAME
+#docker push $GCR_IMAGE_REPO/$IMAGE_DIR:$TAG_NAME
+#docker push $GCR_IMAGE_REPO/$IMAGE_DIR:$VERSION
+#docker push $GCR_IMAGE_REPO/$IMAGE_DIR:latest
+#
+#docker kill $IMAGE_DIR || true
+#docker rm -f $IMAGE_DIR || true
+#docker run --rm -itd -u root -e PIP_USER=false --entrypoint='/bin/bash' --name $IMAGE_DIR $GCR_IMAGE_REPO/$IMAGE_DIR:$VERSION
+#
+#if [[ $IMAGE_DIR != "terra-rstudio-aou" ]]; then
+#  gcloud auth list
+#  python scripts/generate_package_docs.py "$IMAGE_DIR"
+#fi
+#
+#docker kill $IMAGE_DIR || true
+#docker rm -f $IMAGE_DIR || true
+#docker image rm -f $GCR_IMAGE_REPO/$IMAGE_DIR:$VERSION
+#docker image rm -f $GCR_IMAGE_REPO/$IMAGE_DIR:$TAG_NAME
 
 echo "Successfully completed build script for $IMAGE_DIR"
