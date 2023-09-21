@@ -36,7 +36,8 @@ certifi
 intel-openmp
 mkl
 wheel
-plotnine
+plotnine==0.10.1
+mizani==0.9.2
 google-resumable-media
 #adding intel optimized xgboost and intel extension for scikit-learn
 scikit-learn-intelex
