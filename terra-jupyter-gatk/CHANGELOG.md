@@ -1,3 +1,10 @@
+## 2.3.2 - 2023-07-31
+- Update `terra-jupyter-python` to `1.1.2`
+  - Update `terra-jupyter-base` tp `1.1.2`
+    - Upgrade Terra Notebook Utils to `0.13.0`
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-gatk:2.3.2`
+
 ## 2.3.1 - 2023-07-28
 
 - Fix bug introduced in https://github.com/DataBiosphere/terra-docker/commit/4a5b4c9212aedcafa2f41fbeb2b161089341c578

@@ -1,4 +1,4 @@
-FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-gatk:2.3.1
+FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-gatk:2.3.2
 
 USER root
 
@@ -34,7 +34,8 @@ RUN pip3 install \
       nbstripout \
       papermill \
       dsub \
-      "git+https://github.com/all-of-us/workbench-snippets.git#egg=terra_widgets&subdirectory=py"
+      "git+https://github.com/all-of-us/workbench-snippets.git#egg=terra_widgets&subdirectory=py" \
+      'PyYAML==6.0.1'
 
 
 # 2.0.0 has breaking changes and we're not ready for them yet.
@@ -212,16 +213,27 @@ RUN mkdir -p /tmp/jellyfish && \
     cd $HOME && \
     rm -rf /tmp/jellyfish
 
+# Install Cereal headers (dependency of pangenie)
+RUN mkdir -p /tmp/cereal && \
+    cd /tmp/cereal && \
+    curl -fsSL -o cereal.tar.gz https://github.com/USCiLab/cereal/archive/refs/tags/v1.3.2.tar.gz && \
+    tar xvf cereal.tar.gz && \
+    cd cereal-1.3.2/include && \
+    mv cereal/ /usr/local/include/ && \
+    cd $HOME && \
+    rm -rf /tmp/cereal
+
 # Install pangenie
 RUN mkdir -p /tmp/pangenie && \
-  cd /tmp/pangenie && \
-  git clone https://github.com/eblerjana/pangenie.git && \
-  cd pangenie && \
-  mkdir build; cd build; cmake .. ; make && cd src && \
-  mv *.so /lib && \
-  mv * /bin/ && \
-  cd $HOME && \
-  rm -rf /tmp/pangenie
+    cd /tmp/pangenie && \
+    curl -fsSL -o pangenie.tar.gz https://github.com/eblerjana/pangenie/archive/refs/tags/v3.0.1.tar.gz && \
+    tar xvf pangenie.tar.gz && \
+    cd pangenie-3.0.1 && \
+    mkdir build; cd build; cmake .. ; make && cd src && \
+    mv *.so /lib && \
+    mv * /bin/ && \
+    cd $HOME && \
+    rm -rf /tmp/pangenie
 
 # Install minimap2
 RUN curl -fsSL https://github.com/lh3/minimap2/releases/download/v2.24/minimap2-2.24_x64-linux.tar.bz2 | tar -jxvf - && cd minimap2-2.24_x64-linux/ && cp minimap2 /bin/minimap2 && cd $HOME
@@ -247,16 +259,16 @@ RUN mkdir -p /tmp/hmmer && cd /tmp/hmmer && \
 
 # rmblast (200M)
 RUN mkdir -p /tmp/rmblast && cd /tmp/rmblast && \
-  curl -fsSL -o rmblast-2.11.0+-x64-linux.tar.gz http://www.repeatmasker.org/rmblast-2.11.0+-x64-linux.tar.gz && \
-  tar -zxvf rmblast-2.11.0+-x64-linux.tar.gz && \
-  cp rmblast-2.11.0/bin/* /usr/local/bin && \
+  curl -fsSL -o rmblast-2.14.0+-x64-linux.tar.gz https://www.repeatmasker.org/rmblast/rmblast-2.14.0+-x64-linux.tar.gz && \
+  tar -zxvf rmblast-2.14.0+-x64-linux.tar.gz && \
+  cp rmblast-2.14.0/bin/* /usr/local/bin && \
   cd $HOME && \
   rm -rf /tmp/rmblast
 
 RUN PERL_MM_USE_DEFAULT=1 cpan Text::Soundex
 
 # Install RepeatMasker (900M)
-RUN curl -fsSL http://www.repeatmasker.org/RepeatMasker/RepeatMasker-4.1.4.tar.gz \
+RUN curl -fsSL http://www.repeatmasker.org/RepeatMasker/RepeatMasker-4.1.5.tar.gz \
   | (cd /usr/local; tar -xz)
 
 # Remove workspace_cromwell script as it may allow user bypass AoU to create Cromwell via Leo directly

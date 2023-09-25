@@ -69,7 +69,7 @@ RUN apt-get update && apt-get install -yq --no-install-recommends \
     # Generate locale
     && locale-gen \
     && apt-get clean \
-    && rm -rf /var/lib/apt/lists/* 
+    && rm -rf /var/lib/apt/lists/*
 
 ENV LC_ALL en_US.UTF-8
 
@@ -102,15 +102,15 @@ RUN pip3 -V \
     && pip3 install jupyter_nbextensions_configurator \
     && pip3 install markupsafe==2.1.2 \
     # Avoid broken lower versions: https://github.com/jupyter/nbconvert/pull/1624, pinning to latest known working version on terra
-    && pip3 install "nbconvert==7.2.9" \
+    && pip3 install "nbconvert>=7.7.3" \
     # Avoid notebook extension issues
     && pip3 install "nbclassic<0.5" \
     # for jupyter_delocalize.py and jupyter_notebook_config.py
     && pip3 install requests \
     && pip3 install firecloud \
-    && pip3 install terra-notebook-utils \
+    && pip3 install terra-notebook-utils==0.13.0 \
     && pip3 install crcmod \
-    # For gcloud alpha storage support.   
+    # For gcloud alpha storage support.
     && pip3 install google-crc32c --target /usr/lib/google-cloud-sdk/lib/third_party \
     && pip3 install cromshell==2.0.0
 

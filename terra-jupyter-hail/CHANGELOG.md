@@ -1,6 +1,13 @@
+## 1.1.2 - 2023-07-31
+- Update `terra-jupyter-python` to `1.1.2`
+  - Update `terra-jupyter-base` to `1.1.2`
+    - Upgrade Terra Notebook Utils to `0.13.0`
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-hail:1.1.2`
+
 ## 1.1.1 - 2023-07-28
 
-- Fix bug introduced in https://github.com/DataBiosphere/terra-docker/commit/4a5b4c9212aedcafa2f41fbeb2b161089341c578 
+- Fix bug introduced in https://github.com/DataBiosphere/terra-docker/commit/4a5b4c9212aedcafa2f41fbeb2b161089341c578
 - Remove Java 8 and update `hail` to `0.2.120`
   - See https://hail.is/docs/0.2/change_log.html#version-0-2-120 for details
 

@@ -1,6 +1,6 @@
-FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-python:1.1.1 AS python
+FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-python:1.1.2 AS python
 
-FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-r:2.2.1
+FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-r:2.2.2
 
 USER root
 
@@ -79,7 +79,14 @@ COPY cnn-models.patch /etc/gatk-$GATK_VERSION/cnn-models.patch
 
 RUN patch -u /opt/conda/lib/python3.10/site-packages/vqsr_cnn/vqsr_cnn/models.py -i /etc/gatk-$GATK_VERSION/cnn-models.patch
 
+# Older version of nbconvert fail to convert notebooks to html
+RUN pip3 install "nbconvert>=7.7.3"
+
 ENV PIP_USER=true
 
 ENV USER jupyter
+
 USER $USER
+
+# pytz seems to have a metadata error when installing. Force-reinstalling fixes this.
+RUN pip3 install --force-reinstall pytz

@@ -1,11 +1,11 @@
-FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-base:1.1.1
+FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-base:1.1.2
 
 USER root
 
 COPY scripts $JUPYTER_HOME/scripts
 
 # Add env vars to identify binary package installation
-ENV TERRA_R_PLATFORM="terra-jupyter-r-1.1.1"
+ENV TERRA_R_PLATFORM="terra-jupyter-r-1.1.2"
 ENV TERRA_R_PLATFORM_BINARY_VERSION=3.17
 
 # Install protobuf 3.20.3. Note this version comes from base deep learning image. Use `conda list` to see what's installed
@@ -160,14 +160,14 @@ RUN R -e 'install.packages("BiocManager")' \
     "pbdZMQ", \
     "uuid"))' \
     && R -e 'BiocManager::install("DataBiosphere/Ronaldo")'
-    
+
 # Install Bioconductor packages found at:
 # https://raw.githubusercontent.com/anvilproject/anvil-docker/master/anvil-rstudio-bioconductor/install.R
 RUN R -e 'BiocManager::install(c( \
     "AnVIL", \
-    "SingleCellExperiment", \ 
+    "SingleCellExperiment", \
     "GenomicFeatures", \
-    "GenomicAlignments", \ 
+    "GenomicAlignments", \
     "ShortRead", \
     "DESeq2", \
     "AnnotationHub", \

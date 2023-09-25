@@ -1,6 +1,17 @@
+## 2.2.2 - 2023-07-31
+- Update `terra-jupyter-gatk` to `2.3.2`
+  - Update `terra-jupyter-python` to `1.1.2`
+    - Update `terra-jupyter-base` tp `1.1.2`
+      - Upgrade Terra Notebook Utils to `0.13.0`
+- Update PanGenie to 3.0.1 and pinning version
+- Update RMBlast to 2.14.0
+- Update RepeatMasker to 4.1.5
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-aou:2.2.2`
+
 ## 2.2.1 - 2023-07-28
 
-- Fix bug introduced in https://github.com/DataBiosphere/terra-docker/commit/4a5b4c9212aedcafa2f41fbeb2b161089341c578 
+- Fix bug introduced in https://github.com/DataBiosphere/terra-docker/commit/4a5b4c9212aedcafa2f41fbeb2b161089341c578
 - Remove outdated cromshell alias
 - Remove Java 8 and update `hail` to `0.2.120`
   - See https://hail.is/docs/0.2/change_log.html#version-0-2-120 for details
