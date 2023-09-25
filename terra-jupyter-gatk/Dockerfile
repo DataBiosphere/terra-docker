@@ -81,10 +81,12 @@ RUN patch -u /opt/conda/lib/python3.10/site-packages/vqsr_cnn/vqsr_cnn/models.py
 
 # Older version of nbconvert fail to convert notebooks to html
 RUN pip3 install "nbconvert>=7.7.3"
-# pytz seems to have a metadata error when installing. Force-reinstalling fixes this.
-RUN pip3 install --force-reinstall pytz
 
 ENV PIP_USER=true
 
 ENV USER jupyter
+
 USER $USER
+
+# pytz seems to have a metadata error when installing. Force-reinstalling fixes this.
+RUN pip3 install --force-reinstall pytz

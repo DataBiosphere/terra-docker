@@ -34,7 +34,8 @@ RUN pip3 install \
       nbstripout \
       papermill \
       dsub \
-      "git+https://github.com/all-of-us/workbench-snippets.git#egg=terra_widgets&subdirectory=py"
+      "git+https://github.com/all-of-us/workbench-snippets.git#egg=terra_widgets&subdirectory=py" \
+      'PyYAML==6.0.1'
 
 
 # 2.0.0 has breaking changes and we're not ready for them yet.
