@@ -1,3 +1,8 @@
+## 1.1.3 - 2023-10-03
+- Downgrade notebook to `6.5.4` and jupyterlab-server to `2.23.0`
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-base:1.1.3`
+
 ## 1.1.2 - 2023-07-31
 - Upgrade Terra Notebook Utils to `0.13.0`
 
