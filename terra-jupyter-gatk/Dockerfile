@@ -1,4 +1,4 @@
-FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-python:1.1.3 AS python
+FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-python:1.1.4 AS python
 
 FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-r:2.2.3
 
@@ -82,11 +82,11 @@ RUN patch -u /opt/conda/lib/python3.10/site-packages/vqsr_cnn/vqsr_cnn/models.py
 # Older version of nbconvert fail to convert notebooks to html
 RUN pip3 install "nbconvert>=7.7.3"
 
+
 ENV PIP_USER=true
 
 ENV USER jupyter
 
 USER $USER
 
-# pytz seems to have a metadata error when installing. Force-reinstalling fixes this.
-RUN pip3 install --force-reinstall pytz
+
