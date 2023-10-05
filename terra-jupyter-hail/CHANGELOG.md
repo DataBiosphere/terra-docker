@@ -1,3 +1,10 @@
+## 1.1.3 - 2023-10-03
+- Update `terra-jupyter-python` to `1.1.3`
+  - Update `terra-jupyter-base` to `1.1.3`
+    - Downgrade notebook to `6.5.4` and jupyterlab-server to `2.23.0`
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-hail:1.1.3`
+
 ## 1.1.2 - 2023-07-31
 - Update `terra-jupyter-python` to `1.1.2`
   - Update `terra-jupyter-base` to `1.1.2`

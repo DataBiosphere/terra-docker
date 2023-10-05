@@ -1,11 +1,11 @@
-FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-base:1.1.2
+FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-base:1.1.3
 
 USER root
 
 COPY scripts $JUPYTER_HOME/scripts
 
 # Add env vars to identify binary package installation
-ENV TERRA_R_PLATFORM="terra-jupyter-r-1.1.2"
+ENV TERRA_R_PLATFORM="terra-jupyter-r-1.1.3"
 ENV TERRA_R_PLATFORM_BINARY_VERSION=3.17
 
 # Install protobuf 3.20.3. Note this version comes from base deep learning image. Use `conda list` to see what's installed

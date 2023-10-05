@@ -106,6 +106,9 @@ RUN pip3 -V \
     # Avoid notebook extension issues
     && pip3 install "nbclassic<0.5" \
     # for jupyter_delocalize.py and jupyter_notebook_config.py
+    # DO NOT CHANGE OR UNPIN NOTEBOOK OR JUPYTERLAB-SERVER! When trying with 6.5.5 and 2.24.0 notebook commands could not find the notebook config file
+    && pip3 install notebook==6.5.4 \
+    && pip3 install jupyterlab-server==2.23.0 \
     && pip3 install requests \
     && pip3 install firecloud \
     && pip3 install terra-notebook-utils==0.13.0 \
