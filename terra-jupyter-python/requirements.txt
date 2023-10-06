@@ -27,7 +27,7 @@ Cython
 pysam
 --no-binary=pysam
 python-dateutil
-pytz
+pytz==2023.3
 pyvcf3
 theano
 tqdm

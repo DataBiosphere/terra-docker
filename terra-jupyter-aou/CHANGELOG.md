@@ -1,3 +1,10 @@
+## 2.2.4 - 2023-10-06
+- Update `terra-jupyter-gatk` to `2.3.4`
+  - Update `terra-jupyter-python` to `1.1.4`
+    - Downgrade pytz to `2023.3`
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-aou:2.2.4`
+
 ## 2.2.3 - 2023-10-03
 - Update `terra-jupyter-gatk` to `2.3.3`
   - Update `terra-jupyter-python` to `1.1.3`

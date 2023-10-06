@@ -49,8 +49,7 @@ ENV PIP_USER=true
 # Enable Intel oneDNN optimizatoin by default
 ENV TF_ENABLE_ONEDNN_OPTS=1
 
-# pytz seems to have a metadata error when installing. Force-reinstalling fixes this.
-RUN pip3 install --force-reinstall pytz
+
 
 # Note: this entrypoint is provided for running Jupyter independently of Leonardo.
 # When Leonardo deploys this image onto a cluster, the entrypoint is overwritten to enable
