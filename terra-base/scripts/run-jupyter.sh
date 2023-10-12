@@ -9,7 +9,7 @@ umask 002
 NOTEBOOKS_DIR=${1:-${HOME}}
 
 # Forces python 3
-JUPYTER_BASE="python3 jupyter-nbclassic"
+JUPYTER_BASE="python3 jupyter-notebook"
 JUPYTER_CMD="$JUPYTER_BASE --NotebookApp.nbserver_extensions=\"{'jupyter_localize_extension':True}\" &> ${NOTEBOOKS_DIR}/jupyter.log"
 
 echo $JUPYTER_CMD
