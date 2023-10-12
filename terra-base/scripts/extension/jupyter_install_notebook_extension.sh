@@ -10,6 +10,6 @@ if [ -n "$1" ]; then
   else
     mv ${JUPYTER_EXTENSION} ${JUPYTER_HOME}/${JUPYTER_EXTENSION_NAME}/main.js
   fi
-  sudo -E -u jupyter /opt/conda/bin/jupyter nbextension install ${JUPYTER_HOME}/${JUPYTER_EXTENSION_NAME}/ --user
-  sudo -E -u jupyter /opt/conda/bin/jupyter nbextension enable ${JUPYTER_EXTENSION_NAME}/main
+  sudo -E -u jupyter jupyter nbextension install ${JUPYTER_HOME}/${JUPYTER_EXTENSION_NAME}/ --user
+  sudo -E -u jupyter jupyter nbextension enable ${JUPYTER_EXTENSION_NAME}/main
 fi
