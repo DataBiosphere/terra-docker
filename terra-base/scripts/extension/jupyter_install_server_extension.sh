@@ -8,5 +8,5 @@ if [ -n "$1" ]; then
   mkdir ${JUPYTER_HOME}/${JUPYTER_EXTENSION_NAME}
   tar -xzf ${JUPYTER_EXTENSION} -C${JUPYTER_HOME}/${JUPYTER_EXTENSION_NAME}
   pip3 install -e ${JUPYTER_HOME}/${JUPYTER_EXTENSION_NAME}
-  sudo -E -u jupyter jupyter serverextension enable --py ${JUPYTER_EXTENSION_NAME}
+  sudo -E -u jupyter serverextension enable --py ${JUPYTER_EXTENSION_NAME}
 fi
