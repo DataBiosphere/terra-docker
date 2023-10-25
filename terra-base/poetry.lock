@@ -125,17 +125,6 @@ files = [
 frozenlist = ">=1.1.0"
 
 [[package]]
-name = "anaconda"
-version = "0.0.1.1"
-description = "Please use the Anaconda installer."
-category = "main"
-optional = false
-python-versions = "*"
-files = [
-    {file = "anaconda-0.0.1.1.tar.gz", hash = "sha256:2e26def2dc581e92783d62772d8bf8c8328c9cc10407dc51c94268ca41decf37"},
-]
-
-[[package]]
 name = "anyio"
 version = "4.0.0"
 description = "High level compatibility layer for multiple asynchronous event loop implementations"
@@ -3778,4 +3767,4 @@ multidict = ">=4.0"
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.10"
-content-hash = "8e761b8c0c8b14e41e9a89512b0b5e98219efa0bb1c8493bddfced33d20e90f3"
+content-hash = "00881af73ba51e0dbaf45d0fd7d2058c56d84c9de282b1187d3e0db68837b0b8"

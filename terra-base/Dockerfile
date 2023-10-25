@@ -6,31 +6,35 @@ FROM --platform=linux/amd64 nvidia/cuda:12.2.0-base-ubuntu22.04
 #######################
 ENV DEBIAN_FRONTEND noninteractive
 ENV LC_ALL en_US.UTF-8
-ENV USER jupyter
-ENV HOME /home/$USER
 # Ensure this matches c.NotebookApp.port in jupyter_notebook_config.py
 ENV JUPYTER_PORT 8000
 ENV JUPYTER_HOME /etc/jupyter
 ENV JUPYTER_KERNELSPEC_DIR /usr/local/share/jupyter
-# The welder uid is consistent with the Welder docker definition here:
-#  https://github.com/DataBiosphere/welder/blob/master/project/Settings.scala
-# Adding welder-user to the Jupyter container isn't strictly required, but it makes welder-added
-# files display nicer when viewed in a terminal.
-ENV WELDER_USER welder-user
-ENV WELDER_UID 1001
-# When using PIP_USER=true packages are installed into Python site.USER_BASE, which is '/home/jupyter' for this system.
-# Append '/home/jupyter/.local/bin' to PATH
-# pip docs: https://pip.pypa.io/en/stable/reference/pip_install/#cmdoption-user
-ENV PATH "${PATH}:${HOME}/.local/bin:${HOME}/packages/bin:${POETRY_DIR}/bin"
 # We need node >18 for jupyter to work
 ENV NODE_MAJOR 20
 
 #######################
 # Users Setup
 #######################
-RUN useradd -m -s /bin/bash $USER
-RUN usermod -g users $USER
+# Create the jupyter user, add it to the `users` group and specify the home directory path
+ENV USER jupyter
+ENV USER_HOME /home/$USER
+RUN useradd -m -s /bin/bash -d $USER_HOME -N -g users $USER
+# Create the welder user
+# The welder uid is consistent with the Welder docker definition here:
+#  https://github.com/DataBiosphere/welder/blob/master/project/Settings.scala
+# Adding welder-user to the Jupyter container isn't strictly required, but it makes welder-added
+# files display nicer when viewed in a terminal.
+ENV WELDER_USER welder-user
+ENV WELDER_UID 1001
 RUN useradd -m -s /bin/bash -N -u $WELDER_UID $WELDER_USER
+
+# We want to grant the jupyter user limited sudo permissions
+# without password so they can install the necessary packages that they 
+# want to use on the docker container
+RUN mkdir -p /etc/sudoers.d \
+        && echo "$USER ALL=(ALL) NOPASSWD: /usr/bin/apt-get install *, /opt/conda install *, /opt/poetry install *" > /etc/sudoers.d/$USER \
+        && chmod 0440 /etc/sudoers.d/$USER
 
 #######################
 # Prerequisites
@@ -39,6 +43,7 @@ RUN apt-get update && apt-get install -yq --no-install-recommends \
     sudo \
     ca-certificates \ 
     curl \
+    jq \
     # gnupg requirement
     gnupg \
     dirmngr \
@@ -80,28 +85,42 @@ RUN apt-get update && apt-get install -yq --no-install-recommends \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
-RUN curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key --keyring /usr/share/keyrings/cloud.google.gpg add -
-RUN curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
+RUN curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key --keyring /usr/share/keyrings/cloud.google.gpg add -
+RUN curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
 
-# Install Node >18
+# Install Node >18 (needed for jupyterlab)
 RUN apt-get update && apt-get install -yq --no-install-recommends 
-RUN sudo mkdir -p /etc/apt/keyrings
-RUN curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key | sudo gpg --dearmor -o /etc/apt/keyrings/nodesource.gpg
+RUN mkdir -p /etc/apt/keyrings
+RUN curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key | gpg --dearmor -o /etc/apt/keyrings/nodesource.gpg
 
-RUN echo "deb [signed-by=/etc/apt/keyrings/nodesource.gpg] https://deb.nodesource.com/node_$NODE_MAJOR.x nodistro main" | sudo tee /etc/apt/sources.list.d/nodesource.list
-RUN sudo dpkg --remove --force-remove-reinstreq libnode-dev
-RUN sudo apt-get update && apt-get install -f -yq nodejs
+RUN echo "deb [signed-by=/etc/apt/keyrings/nodesource.gpg] https://deb.nodesource.com/node_$NODE_MAJOR.x nodistro main" | tee /etc/apt/sources.list.d/nodesource.list
+RUN dpkg --remove --force-remove-reinstreq libnode-dev
+RUN apt-get update && apt-get install -f -yq nodejs
 
-########################################
-# Manage python dependencies with poetry
-########################################
+############
+# Install R
+############
+RUN apt-get update && apt-get install -y r-base
+
+################
+# Install Python
+################
 # Install Python 3.10 and add to python path
 RUN apt-get update && apt-get install -y python3.10 python3-pip
 RUN update-alternatives --install /usr/bin/python python /usr/bin/python3.10 1 \
     && update-alternatives --set python /usr/bin/python3.10
 
+############################
+# Manage python dependencies
+############################
+## POETRY is the prefered tool to create virtual environments and
+## manage dependencies - Should be used by Terra devs
 # Install Poetry
-RUN curl -sSL https://install.python-poetry.org | python3
+ENV POETRY_HOME /opt/poetry
+RUN curl -sSL https://install.python-poetry.org | POETRY_HOME=$POETRY_HOME python3
+# Append '/home/jupyter/.local/bin' to PATH
+# poetry docs: https://python-poetry.org/docs/
+ENV PATH "${PATH}:${POETRY_HOME}/bin"
 
 # Prevent poetry from creating a virtual environment (we want to install on the docker system python)
 RUN poetry config virtualenvs.create false
@@ -109,7 +128,16 @@ RUN poetry config virtualenvs.create false
 # Install python dependencies with poetry
 COPY poetry.lock .
 COPY pyproject.toml .
-RUN poetry install --no-root --no-cache --no-interaction
+RUN poetry install --no-cache --no-interaction
+
+## CONDA should not be used by terra devs, but is a widely used tools
+## to manage python environments in a runtime and we should provide it to users
+ENV CONDA_HOME /opt/conda
+RUN curl -so $HOME/miniconda.sh https://repo.anaconda.com/miniconda/Miniconda3-py310_23.5.1-0-Linux-x86_64.sh \
+    && chmod +x $HOME/miniconda.sh \
+    && $HOME/miniconda.sh -b -p $CONDA_HOME \
+    && rm $HOME/miniconda.sh
+ENV PATH "${PATH}:${CONDA_HOME}/bin"
 
 # #######################
 # # Utilities
@@ -117,6 +145,7 @@ RUN poetry install --no-root --no-cache --no-interaction
 COPY scripts $JUPYTER_HOME/scripts
 COPY custom $JUPYTER_HOME/custom
 COPY jupyter_notebook_config.py $JUPYTER_HOME
+RUN chown -R $USER:users $JUPYTER_HOME
 
 # copy workspace_cromwell.py script and make it runnable by all users
 RUN curl -o /usr/local/bin/workspace_cromwell.py https://raw.githubusercontent.com/broadinstitute/cromwhelm/1ceedf89587cffd355f37401b179001f029f77ed/scripts/workspace_cromwell.py \
@@ -127,10 +156,9 @@ RUN chown -R $USER:users $JUPYTER_KERNELSPEC_DIR \
     # You can get kernel directory by running `jupyter kernelspec list`
     && $JUPYTER_HOME/scripts/kernel/kernelspec.sh $JUPYTER_HOME/scripts/kernel $JUPYTER_KERNELSPEC_DIR/kernels
 
-# Make sure that the jupyter user will have access to the jupyter path in the worksing directory
+# Make sure that the jupyter user will have access to the jupyter path in the working directory
 EXPOSE $JUPYTER_PORT
-WORKDIR $HOME
-RUN sudo chown -R $USER:users $HOME/.local/share
+WORKDIR $USER_HOME
 
 # make pip install to a user directory, instead of a system directory which requires root.
 # this is useful so `pip install` commands can be run in the context of a notebook.

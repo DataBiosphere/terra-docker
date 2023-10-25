@@ -12,6 +12,7 @@ requirements necessary to set up Jupyter and provide compatibility with Leonardo
 
 - OS prerequisites
 - Python 3.10
+- R 4.1.2
 - Anaconda
 - Jupyter
 - Leonardo customizations/extensions

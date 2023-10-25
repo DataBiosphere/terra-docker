@@ -32,7 +32,7 @@ c.NotebookApp.nbserver_extensions = {
     'jupyter_localize_extension': True
 }
 
-c.NotebookApp.kernel_manager_class = 'notebook.services.kernels.kernelmanager.AsyncMappingKernelManager'
+c.NotebookApp.kernel_manager_class = 'jupyter_server.services.kernels.kernelmanager.AsyncMappingKernelManager'
 
 mgr_class = 'DelocalizingContentsManager'
 if os.environ.get('WELDER_ENABLED') == 'true':
