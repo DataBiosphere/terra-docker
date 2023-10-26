@@ -13,6 +13,7 @@ if os.environ.get('JUPYTER_DEBUG_LOGGING') == 'true':
 c.NotebookApp.ip = '0.0.0.0'
 c.NotebookApp.port = 8000
 c.NotebookApp.open_browser = False
+c.NotebookApp.use_redirect_file = False
 
 c.NotebookApp.token = ''
 c.NotebookApp.disable_check_xsrf = True #see https://github.com/nteract/hydrogen/issues/922

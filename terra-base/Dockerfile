@@ -33,7 +33,7 @@ RUN useradd -m -s /bin/bash -N -u $WELDER_UID $WELDER_USER
 # without password so they can install the necessary packages that they 
 # want to use on the docker container
 RUN mkdir -p /etc/sudoers.d \
-        && echo "$USER ALL=(ALL) NOPASSWD: /usr/bin/apt-get install *, /opt/conda install *, /opt/poetry install *" > /etc/sudoers.d/$USER \
+        && echo "$USER ALL=(ALL) NOPASSWD: /usr/bin/apt-get install *, conda install *, poetry install" > /etc/sudoers.d/$USER \
         && chmod 0440 /etc/sudoers.d/$USER
 
 #######################
@@ -105,7 +105,10 @@ RUN apt-get update && apt-get install -y r-base
 ################
 # Install Python
 ################
-# Install Python 3.10 and add to python path
+# Install Python 3.10 and add to system python path
+# Note that miniconda does come with it's own installation of python,
+# but it is cleaner to do a proper system instalation here and set the 
+# path properly
 RUN apt-get update && apt-get install -y python3.10 python3-pip
 RUN update-alternatives --install /usr/bin/python python /usr/bin/python3.10 1 \
     && update-alternatives --set python /usr/bin/python3.10
@@ -130,6 +133,9 @@ COPY poetry.lock .
 COPY pyproject.toml .
 RUN poetry install --no-cache --no-interaction
 
+###################
+# Install Miniconda
+###################
 ## CONDA should not be used by terra devs, but is a widely used tools
 ## to manage python environments in a runtime and we should provide it to users
 ENV CONDA_HOME /opt/conda
@@ -169,4 +175,4 @@ USER $USER
 # When Leonardo deploys this image onto a cluster, the entrypoint is overwritten to enable
 # additional setup inside the container before execution.  Jupyter execution occurs when the
 # init-actions.sh script uses 'docker exec' to call run-jupyter.sh.
-ENTRYPOINT ["jupyter", "notebook"]
+ENTRYPOINT ["/usr/local/bin/jupyter-notebook"]
