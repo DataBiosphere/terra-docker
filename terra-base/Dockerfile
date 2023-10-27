@@ -33,7 +33,7 @@ RUN useradd -m -s /bin/bash -N -u $WELDER_UID $WELDER_USER
 # without password so they can install the necessary packages that they 
 # want to use on the docker container
 RUN mkdir -p /etc/sudoers.d \
-        && echo "$USER ALL=(ALL) NOPASSWD: /usr/bin/apt-get install *, conda install *, poetry install" > /etc/sudoers.d/$USER \
+        && echo "$USER ALL=(ALL) NOPASSWD: /usr/bin/apt-get install *, /opt/conda/bin/conda install *, /opt/poetry/bin/poetry install" > /etc/sudoers.d/$USER \
         && chmod 0440 /etc/sudoers.d/$USER
 
 #######################
