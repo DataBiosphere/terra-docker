@@ -19,6 +19,8 @@ crcmod = "^1.7"
 cromshell = "^2.0.0"
 google-crc32c = "^1.5.0"
 terra-notebook-utils = "^0.13.0"
+nbclassic = "^1.0.0"
+jupyter-contrib-nbextensions = "^0.7.0"
 
 
 [tool.poetry.dev-dependencies]
