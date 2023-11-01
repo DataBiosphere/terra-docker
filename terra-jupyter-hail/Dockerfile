@@ -23,7 +23,7 @@ RUN find $JUPYTER_HOME/scripts -name '*.sh' -type f | xargs chmod +x \
     #     g++ \
     #     liblz4-dev \
     # && update-alternatives --set java /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java \
-    && pip3 install pypandoc gnomad \
+    && pip3 install pypandoc gnomad==0.6.4 \
     && pip3 install --no-dependencies hail==$HAIL_VERSION \
     && X=$(mktemp -d) \
     && requirements_file=$(mktemp) \
