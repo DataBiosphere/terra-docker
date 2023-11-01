@@ -1,12 +1,18 @@
+## 2.2.7 - 2023-11-01
+- Pin `gnomad` to `0.6.4`
+  - See https://github.com/broadinstitute/gnomad_methods/releases for details
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-aou:2.2.7`
+
 ## 2.2.6 - 2023-10-30
 - Update `hail` to `0.2.126`
-  - See https://hail.is/docs/0.2/change_log.html#version-0-2-126) for details
+  - See https://hail.is/docs/0.2/change_log.html#version-0-2-126 for details
 
 Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-aou:2.2.6`
 
 ## 2.2.5 - 2023-10-27
 - Update `hail` to `0.2.125`
-  - See https://hail.is/docs/0.2/change_log.html#version-0-2-125) for details
+  - See https://hail.is/docs/0.2/change_log.html#version-0-2-125 for details
 
 Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-aou:2.2.5`
 
