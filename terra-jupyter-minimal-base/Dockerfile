@@ -74,7 +74,7 @@ RUN useradd -m -s /bin/bash $USER \
  && chmod +x $HOME/miniconda.sh \
  && $HOME/miniconda.sh -b -p $CONDA_DIR \
  && rm $HOME/miniconda.sh \
- && conda install -n base -c conda-forge conda-libmamba-solver==23.11.0 \
+ && conda install -n base -c conda-forge conda-libmamba-solver \
  && conda config --set solver libmamba \
 # Install gsutil with compiled crcmod
  && mkdir -p $GCLOUD_DIR \
