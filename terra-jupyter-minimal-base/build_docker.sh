@@ -6,7 +6,7 @@ cp -r ../terra-jupyter-base/custom custom
 cp -r ../terra-jupyter-base/scripts scripts
 cp -r ../terra-jupyter-base/jupyter_notebook_config.py jupyter_notebook_config.py
 
-docker build -t terra-jupyter-minimal-base:0.0.2 .
+docker build -t terra-jupyter-minimal-base:0.0.3 .
 
 rm -r custom
 rm -r scripts

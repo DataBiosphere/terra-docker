@@ -10,13 +10,14 @@ USER root
 # files display nicer when viewed in a terminal.
 ENV DEBIAN_FRONTEND=noninteractive \
     LC_ALL=en_US.UTF-8 \
-    GOOGLE_CLOUD_CLI_VERSION="444.0.0" \
+    GOOGLE_CLOUD_CLI_VERSION="454.0.0" \
     USER=jupyter \
     WELDER_USER=welder-user \
     WELDER_UID=1001 \
     # ensure this matches c.NotebookApp.port in jupyter_notebook_config.py
     JUPYTER_PORT=8000 \
     JUPYTER_HOME=/etc/jupyter \
+    MINICONDA_VERSION="py310_23.9.0-0" \
     CONDA_AUTO_UPDATE_CONDA=false \
     CONDA_DIR=/opt/conda \
     GCLOUD_DIR=/opt/gcloud
@@ -69,7 +70,7 @@ RUN useradd -m -s /bin/bash $USER \
  && apt-get clean \
  && rm -rf /var/lib/apt/lists/* \
 # Install miniconda to $CONDA_DIR
- && curl -so $HOME/miniconda.sh https://repo.anaconda.com/miniconda/Miniconda3-py310_23.5.1-0-Linux-x86_64.sh \
+ && curl -so $HOME/miniconda.sh https://repo.anaconda.com/miniconda/Miniconda3-${MINICONDA_VERSION}-Linux-x86_64.sh \
  && chmod +x $HOME/miniconda.sh \
  && $HOME/miniconda.sh -b -p $CONDA_DIR \
  && rm $HOME/miniconda.sh \
@@ -111,8 +112,12 @@ RUN useradd -m -s /bin/bash $USER \
     https://raw.githubusercontent.com/broadinstitute/cromwhelm/1ceedf89587cffd355f37401b179001f029f77ed/scripts/workspace_cromwell.py \
  && chmod +x /usr/local/bin/workspace_cromwell.py \
 # Mamba
+ && conda install -n base -c conda-forge conda-libmamba-solver==23.11.0 \
+ && conda config --set solver libmamba \
  && conda install -y -c conda-forge mamba==1.5.0 \
  && conda install -y -c conda-forge libarchive==3.6.2 requests==2.31.0 \
+# Enable dropdown menu showing all conda envs as jupyter kernels
+ && conda install -c anaconda ipykernel \
 # Cleanup
  && rm -rf ~/.cache/pip \
  && conda clean -yaf \
