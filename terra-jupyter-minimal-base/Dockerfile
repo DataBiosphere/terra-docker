@@ -17,7 +17,7 @@ ENV DEBIAN_FRONTEND=noninteractive \
     # ensure this matches c.NotebookApp.port in jupyter_notebook_config.py
     JUPYTER_PORT=8000 \
     JUPYTER_HOME=/etc/jupyter \
-    MINICONDA_VERSION="py310_23.9.0-0" \
+    MINICONDA_VERSION="py310_23.5.2-0" \
     CONDA_AUTO_UPDATE_CONDA=false \
     CONDA_DIR=/opt/conda \
     GCLOUD_DIR=/opt/gcloud
