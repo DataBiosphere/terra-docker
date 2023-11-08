@@ -114,7 +114,7 @@ RUN useradd -m -s /bin/bash $USER \
     https://raw.githubusercontent.com/broadinstitute/cromwhelm/1ceedf89587cffd355f37401b179001f029f77ed/scripts/workspace_cromwell.py \
  && chmod +x /usr/local/bin/workspace_cromwell.py \
 # Mamba
- && conda install -y -c conda-forge mamba \
+ && conda install -y -c conda-forge mamba==1.5.1 \
  && conda install -y -c conda-forge libarchive==3.6.2 requests==2.31.0 \
 # Enable dropdown menu showing all conda envs as jupyter kernels
  && conda install -c anaconda ipykernel \
