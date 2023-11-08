@@ -74,8 +74,8 @@ RUN useradd -m -s /bin/bash $USER \
  && chmod +x $HOME/miniconda.sh \
  && $HOME/miniconda.sh -b -p $CONDA_DIR \
  && rm $HOME/miniconda.sh \
- && conda install -n base -c conda-forge conda-libmamba-solver==23.11.0 \
- && conda config --set solver libmamba \
+# && conda install -n base -c conda-forge conda-libmamba-solver==23.11.0 \
+# && conda config --set solver libmamba \
 # Install gsutil with compiled crcmod
  && mkdir -p $GCLOUD_DIR \
  && curl -so $GCLOUD_DIR/google-cloud-cli.tar.gz \
@@ -114,8 +114,8 @@ RUN useradd -m -s /bin/bash $USER \
     https://raw.githubusercontent.com/broadinstitute/cromwhelm/1ceedf89587cffd355f37401b179001f029f77ed/scripts/workspace_cromwell.py \
  && chmod +x /usr/local/bin/workspace_cromwell.py \
 # Mamba
- && conda install -y -c conda-forge mamba==1.5.3 \
- && conda install -y -c conda-forge libarchive==3.6.2 requests==2.31.0 \
+# && conda install -y -c conda-forge mamba==1.5.3 \
+# && conda install -y -c conda-forge libarchive==3.6.2 requests==2.31.0 \
 # Enable dropdown menu showing all conda envs as jupyter kernels
  && conda install -c anaconda ipykernel \
 # Cleanup
