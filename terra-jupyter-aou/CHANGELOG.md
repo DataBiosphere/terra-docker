@@ -1,3 +1,10 @@
+## 2.2.8 - 2023-11-14T15:56:44.507726350Z
+
+- Update `terra-jupyter-r` to `1.1.4`
+  - Bioconductor 3.18 release
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-aou:2.2.8`
+
 ## 2.2.7 - 2023-11-01
 - Pin `gnomad` to `0.6.4`
   - See https://github.com/broadinstitute/gnomad_methods/releases for details

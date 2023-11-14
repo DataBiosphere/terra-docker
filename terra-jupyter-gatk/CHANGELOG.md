@@ -1,3 +1,10 @@
+## 2.3.5 - 2023-11-14T15:56:44.486168932Z
+
+- Update `terra-jupyter-r` to `1.1.4`
+  - Bioconductor 3.18 release
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-gatk:2.3.5`
+
 ## 2.3.4 - 2023-10-06
 - Update `terra-jupyter-python` to `1.1.4`
   - Downgrade pytz to `2023.3`
