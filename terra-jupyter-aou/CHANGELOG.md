@@ -1,6 +1,6 @@
 ## 2.2.8 - 2023-11-14T15:56:44.507726350Z
 
-- Update `terra-jupyter-r` to `1.1.4`
+- Update `terra-jupyter-r` to `2.2.4`
   - Bioconductor 3.18 release
 
 Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-aou:2.2.8`
