@@ -16,7 +16,7 @@ biopython
 bx-python
 fastinterval
 matplotlib-venn
-bleach
+bleach==6.0.0
 cycler
 h5py
 html5lib
