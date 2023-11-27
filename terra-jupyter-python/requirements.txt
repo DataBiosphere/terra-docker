@@ -16,7 +16,7 @@ biopython==1.81
 bx-python==0.10.0
 fastinterval==0.1.1
 matplotlib-venn==0.11.9
-bleach==6.0.0
+bleach==6.1.0
 cycler>=0.10,<=0.12.1
 h5py==3.10.0
 html5lib==1.1
