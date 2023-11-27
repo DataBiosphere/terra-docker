@@ -1,3 +1,9 @@
+## 2.3.5 - 2023-11-27
+
+- Update Samtools to `1.18`
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-gatk:2.3.6`
+
 ## 2.3.5 - 2023-11-14T15:56:44.486168932Z
 
 - Update `terra-jupyter-r` to `2.2.4`

@@ -1,7 +1,8 @@
 ## 2.2.8 - 2023-11-14T15:56:44.507726350Z
 
-- Update `terra-jupyter-r` to `2.2.4`
+- Update `terra-jupyter-gatk` to `2.3.6`
   - Bioconductor 3.18 release
+  - Samtools 1.18
 
 Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-aou:2.2.8`
 
