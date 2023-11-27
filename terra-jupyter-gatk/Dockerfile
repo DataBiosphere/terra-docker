@@ -5,6 +5,10 @@ FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-r:2.2.4
 USER root
 
 # need to apt-get everything for python since we can only copy pip installed packages
+RUN sudo -i \
+    echo "deb http://security.ubuntu.com/ubuntu/ noble main" >> /etc/apt/sources.list \
+    sudo apt update samtools
+
 RUN apt-get update && apt-get install -yq --no-install-recommends \
   python-tk \
   tk-dev \
