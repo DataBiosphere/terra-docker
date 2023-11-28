@@ -1,3 +1,9 @@
+## 1.1.5 - 2023-11-28
+- Upgrade bleach to `6.1.0`
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-python:1.1.5`
+
+
 ## 1.1.4 - 2023-10-06
 - Downgrade pytz to `2023.3`
 
