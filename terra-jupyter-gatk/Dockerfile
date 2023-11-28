@@ -20,7 +20,7 @@ RUN apt-get update && apt-get install -yq --no-install-recommends \
   liblzo2-dev \
   zlib1g-dev \
   libz-dev \
-  samtools==1.18 \
+  samtools \
   git-lfs \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/*
