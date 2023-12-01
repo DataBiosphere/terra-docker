@@ -1,3 +1,8 @@
+## 1.1.8 - 2023-12-01
+- Update `terra-jupyter-python` to `1.1.5`
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-hail:1.1.8`
+
 ## 1.1.7 - 2023-11-01
 - Pin `gnomad` to `0.6.4`
   - See https://github.com/broadinstitute/gnomad_methods/releases for details
