@@ -1,3 +1,17 @@
+## 2.3.6 - 2023-11-27
+
+- Update Samtools to `1.18`
+- Update `terra-jupyter-python` to `2.2.5`
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-gatk:2.3.6`
+
+## 2.3.5 - 2023-11-14T15:56:44.486168932Z
+
+- Update `terra-jupyter-r` to `2.2.4`
+  - Bioconductor 3.18 release
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-gatk:2.3.5`
+
 ## 2.3.4 - 2023-10-06
 - Update `terra-jupyter-python` to `1.1.4`
   - Downgrade pytz to `2023.3`

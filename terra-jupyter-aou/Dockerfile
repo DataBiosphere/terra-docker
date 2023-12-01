@@ -1,4 +1,4 @@
-FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-gatk:2.3.4
+FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-gatk:2.3.6
 
 USER root
 
@@ -22,7 +22,6 @@ RUN apt-get update && apt-get install -yq --no-install-recommends \
   zlib1g \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/*
-
 
 ENV PIP_USER=false
 
