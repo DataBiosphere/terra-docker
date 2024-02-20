@@ -1,6 +1,6 @@
 ## 2.2.9 - 2024-01-12
 - Update `hail` to `0.2.127`
-  - See https://hail.is/docs/0.2/change_log.html#version-0-2-127) for details
+  - See https://hail.is/docs/0.2/change_log.html#version-0-2-128) for details
 
 Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-aou:2.2.9`
 
