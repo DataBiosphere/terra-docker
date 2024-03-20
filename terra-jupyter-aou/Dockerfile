@@ -95,7 +95,7 @@ RUN mkdir -p /tmp/plink && \
 
 RUN mkdir -p /tmp/plink2 && \
   cd /tmp/plink2 && \
-  curl -fsSL -o plink2.zip "https://s3.amazonaws.com/plink2-assets/alpha2/plink2_linux_x86_64.zip" && \
+  curl -fsSL -o plink2.zip "https://s3.amazonaws.com/plink2-assets/plink2_linux_x86_64_latest.zip" && \
   unzip plink2.zip && \
   mv plink2 /bin/plink2 && \
   cd $HOME && \
