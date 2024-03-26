@@ -1,0 +1,2 @@
+terra-notebook-utils==0.13.0
+firecloud==0.16.35
