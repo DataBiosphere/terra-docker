@@ -1,6 +1,10 @@
 # Smallest image with ubuntu jammy, CUDA and NVDIA drivers installed - 80 mb
 FROM --platform=linux/amd64 nvidia/cuda:12.2.0-base-ubuntu22.04
 
+# Use bash as the shell, like the jupyter terminal (just nicer to work with than sh)
+ENV SHELL /usr/bin/bash
+SHELL ["/usr/bin/bash", "-c"]
+
 #######################
 # Environment Variables
 #######################
@@ -19,11 +23,10 @@ ENV NODE_MAJOR 20
 # container as root
 ENV USER_HOME /home/jupyter
 RUN mkdir $USER_HOME
-# We want to store the user virtual environments in a directory
+# We want to store the user conda environments in a directory
 # that will be in the persistent disk
-ENV CONDA_ENV_NAME terra-python3.10
+ENV CONDA_ENV_NAME base-python3.10
 ENV CONDA_ENV_HOME $USER_HOME/.envs/$CONDA_ENV_NAME
-RUN mkdir -p $CONDA_ENV_HOME
 
 # Create the welder user
 # The welder uid is consistent with the Welder docker definition here:
@@ -92,70 +95,73 @@ RUN echo "deb [signed-by=/etc/apt/keyrings/nodesource.gpg] https://deb.nodesourc
 RUN dpkg --remove --force-remove-reinstreq libnode-dev
 RUN apt-get update && apt-get install -f -yq nodejs
 
-##############################
-# Install Python via Miniconda
-##############################
-## Note: CONDA should not be used by terra devs, but is a widely used tools
-## to manage python environments in a runtime and we should provide it to users
-ENV CONDA_HOME /opt/conda
+#####################################
+# Install Python 3.10 via Miniconda
+#####################################
+## Note: CONDA should NOT be used by terra devs to manage dependencies (see the use of poetry below instead),
+## but is a widely used tool to manage python environments in a runtime and we should provide it to users
 RUN curl -so $HOME/miniconda.sh https://repo.anaconda.com/miniconda/Miniconda3-py310_23.5.1-0-Linux-x86_64.sh \
     && chmod +x $HOME/miniconda.sh \
-    && $HOME/miniconda.sh -b -p $CONDA_HOME \
+    && $HOME/miniconda.sh -b -p $CONDA_ENV_HOME \
     && rm $HOME/miniconda.sh
-ENV PATH "${PATH}:${CONDA_HOME}/bin"
+ENV PATH "${PATH}:${CONDA_ENV_HOME}/bin"
 
-ENV BASE_PYTHON_PATH /opt/conda/bin/python
+ENV BASE_PYTHON_PATH $CONDA_ENV_HOME/bin/python
 ENV PYTHONDONTWRITEBYTECODE=true
 
-################################################
-# Install Jupyter in the base python environment
-################################################
-## POETRY is the prefered tool to create virtual environments and
-## manage dependencies - Should be used by Terra devs - poetry docs: https://python-poetry.org/docs/
+###################################################
+# Set up the user to use the conda base environment
+###################################################
+## The user should have full access to the conda base environment, and can use it directly, or
+## create new conda environments on top of it. The important part is that jupyter IS NOT installed
+## in the base environment to provide isolation between the user environment, and the jupyter server
+## to avoid cross-contamination
+COPY conda-environment.yml .
+RUN conda env update --prefix $CONDA_ENV_HOME --file conda-environment.yml --prune\
+    # Remove packages tarballs and python bytecode files from the image
+    && conda clean -afy \
+    && find $CONDA_ENV_HOME -follow -type f -name '*.pyc' -delete \
+    && rm conda-environment.yml
+
+# Add the user base conda environment as a jupyter kernel - this should be the default now
+# This commands activates the conda environment and then calls ipykernel from within
+# to install it as a kernel under the same name
+RUN conda run -p ${CONDA_ENV_HOME} python -m ipykernel install --user --name=$CONDA_ENV_NAME
+
+# Prep the jupyter terminal to conda init and make sure the base conda environment is 
+# activated and the name is displayed in the terminal prompt
+COPY conda_init.txt .
+RUN cat conda_init.txt >> ~/.bashrc && \
+    printf "\nconda activate ${CONDA_ENV_HOME}" >> ~/.bashrc && \
+    conda config --set env_prompt '({name})' && \
+    source ~/.bashrc && \
+    rm conda_init.txt
+
+####################################################
+# Install Jupyter in an isolated virtual environment
+####################################################
+## Virtualenv and POETRY are the prefered tool to create virtual environments and
+## manage dependencies for Terra Devs - poetry docs: https://python-poetry.org/docs/
 ENV POETRY_HOME /opt/poetry
 # Append POETRY_HOME to PATH
 ENV PATH "${PATH}:${POETRY_HOME}/bin"
 COPY poetry.lock .
 COPY pyproject.toml .
 
-# Install Poetry, set up the base environment for jupyter to run and then cleanup / uninstall poetry
+ENV JUPYTER_VIRTUAL_ENV=/usr/jupytervenv
+# Add jupyter virtual environmemt to PATH
+ENV PATH="$JUPYTER_VIRTUAL_ENV/bin:$PATH"
+
+# Install Poetry, set up the virtual environment for jupyter to run and then cleanup / uninstall poetry
 RUN curl -sSL https://install.python-poetry.org | POETRY_HOME=$POETRY_HOME $BASE_PYTHON_PATH \
-    # Prevent poetry from creating a virtual environment (we want to install on the docker system python)
-    && poetry config virtualenvs.create false \
+    # Create a virtual environment and activate it for poetry to use
+    && $BASE_PYTHON_PATH -m venv $JUPYTER_VIRTUAL_ENV \
+    && source activate $JUPYTER_VIRTUAL_ENV \
     # Install python dependencies with poetry
-    && poetry install --no-dev --no-cache --no-interaction \
+    && poetry install --no-interaction --no-ansi --no-dev --no-cache \
     # Cleanup
     && rm poetry.lock && rm pyproject.toml \
     && curl -sSL https://install.python-poetry.org | POETRY_HOME=$POETRY_HOME $BASE_PYTHON_PATH - --uninstall
-
-# Remove the base environment from the list of available kernels so it is hidden from the user
-# Note that this needs to be done with setting the c.KernelSpecManager.ensure_native_kernel flag
-# to False in 'jupyter_server_config.py'
-RUN jupyter kernelspec remove python3 -y
-
-#######################################################
-# Create a CONDA virtual environment for user isolation
-#######################################################
-# Create a new conda environment for the user, activate it, and add it to the list of python kernels
-# This step is a bit slow to build, but worth it to provide the user with an isolated environment
-COPY conda-environment.yml .
-RUN conda env create -f conda-environment.yml --prefix=$CONDA_ENV_HOME\
-    # Remove packages tarballs and python bytecode files from the image
-    && conda clean -afy \
-    && find $CONDA_ENV_HOME -follow -type f -name '*.pyc' -delete \
-    && rm conda-environment.yml
-# Add the user conda environment as a jupyter kernel - this should be the default now
-# This commands activates the conda environment and then calls ipykernel from within
-# to install it as a kernel under the same name
-RUN conda run -p ${CONDA_ENV_HOME} python -m ipykernel install --user --name=$CONDA_ENV_NAME
-
-# Automagically activate the user conda environment when opening the jupyter terminal
-COPY conda_init.txt .
-RUN cat conda_init.txt >> ~/.bashrc && \
-    printf "\nconda activate ${CONDA_ENV_HOME}" >> ~/.bashrc && \
-    conda config --set env_prompt '({name})' && \
-    echo "auto_activate_base: false" >> ~/.condarc && \
-    rm conda_init.txt
 
 # ##################################
 # # Terra-specific Jupyter Utilities
@@ -163,25 +169,21 @@ RUN cat conda_init.txt >> ~/.bashrc && \
 # Ensure this matches c.ServerApp.port in 'jupyter_server_config.py'
 ENV JUPYTER_PORT 8888
 EXPOSE $JUPYTER_PORT
-ENV JUPYTER_HOME /etc/jupyter
+ENV JUPYTER_HOME  $JUPYTER_VIRTUAL_ENV/etc/jupyter
 
 # Install the custom extensions to enable welder for file syncing
+# This can be done for system python packages so that they are always found
 COPY custom $JUPYTER_HOME/custom
-ENV PYTHON_LIBRARIES_PATH $CONDA_HOME/lib/python3.10/site-packages
-COPY custom/jupyter_delocalize.py $PYTHON_LIBRARIES_PATH
+COPY custom/jupyter_delocalize.py $JUPYTER_VIRTUAL_ENV/lib/python3.10/site-packages
 COPY jupyter_server_config.py $JUPYTER_HOME
 
-# Disable the use of system shell commands in the notebook to avoid users
-# interacting with our base python via the notebook
-ENV IPYTHON_HOME /etc/ipython/
-COPY ipython_config.py $IPYTHON_HOME
+# Remove the jupyter environment from the list of available kernels so it is hidden from the user
+# Note that this needs to be done with setting the c.KernelSpecManager.ensure_native_kernel flag
+# to False in 'jupyter_server_config.py'
+RUN jupyter kernelspec remove python3 -y
 
-# Set up the working directory to be /home/jupyter, and make sure the
-# shell is bash, like the jupyter terminal (just nicer to work with than sh)
+# Set up the working directory to be /home/jupyter
 WORKDIR $USER_HOME
-ENV SHELL /usr/bin/bash
-SHELL ["/usr/bin/bash", "-c"]
-RUN source ~/.bashrc
 
 # Copy the script that the service deploying to Terra (e.g. leonardo) will use for docker exec
 COPY run-jupyter.sh $JUPYTER_HOME/run-jupyter.sh
@@ -189,4 +191,4 @@ COPY run-jupyter.sh $JUPYTER_HOME/run-jupyter.sh
 # When Leonardo deploys this image onto a cluster, the entrypoint is overwritten to enable
 # additional setup inside the container before execution.  Jupyter execution occurs when the
 # init-actions.sh script uses 'docker exec' to call run-jupyter.sh.
-ENTRYPOINT ["/opt/conda/bin/jupyter", "lab"]
+ENTRYPOINT ["/usr/jupytervenv/bin/jupyter", "lab"]
