@@ -1,0 +1,1 @@
+#c.InteractiveShellApp.exec_lines = ['get_ipython().system = lambda *args: print("Use of the ! operator is disabled, please use the % operator in the notebook cell, or do the operation in the terminal instead.")']

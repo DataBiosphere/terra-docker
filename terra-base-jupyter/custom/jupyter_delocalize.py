@@ -21,7 +21,7 @@ class WelderContentsManager(LargeFileManager):
     # lacking and its configuration can be complex. Having this in the server
     # logs is useful for confirming which ContentsManager is in use.
     self.log.info('initializing WelderContentsManager')
-    self.welder_base_url = 'http://welder:8080'
+    self.welder_base_url = 'http://127.0.0.1:8081'
     super(WelderContentsManager, self).__init__(*args, **kwargs)
 
   def _extract_welder_error(self, resp):
