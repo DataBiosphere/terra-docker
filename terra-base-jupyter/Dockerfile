@@ -25,6 +25,8 @@ ENV USER_HOME /home/jupyter
 RUN mkdir $USER_HOME
 # We want to store the user conda environments in a directory
 # that will be in the persistent disk
+# Note: If you change the Conda home location, please update
+# conda_init.txt accordingly
 ENV CONDA_ENV_NAME base-python3.10
 ENV CONDA_ENV_HOME $USER_HOME/.envs/$CONDA_ENV_NAME
 
@@ -172,7 +174,6 @@ EXPOSE $JUPYTER_PORT
 ENV JUPYTER_HOME  $JUPYTER_VIRTUAL_ENV/etc/jupyter
 
 # Install the custom extensions to enable welder for file syncing
-# This can be done for system python packages so that they are always found
 COPY custom $JUPYTER_HOME/custom
 COPY custom/jupyter_delocalize.py $JUPYTER_VIRTUAL_ENV/lib/python3.10/site-packages
 COPY jupyter_server_config.py $JUPYTER_HOME
@@ -182,11 +183,12 @@ COPY jupyter_server_config.py $JUPYTER_HOME
 # to False in 'jupyter_server_config.py'
 RUN jupyter kernelspec remove python3 -y
 
-# Set up the working directory to be /home/jupyter
+# Set up the working directory
 WORKDIR $USER_HOME
 
 # Copy the script that the service deploying to Terra (e.g. leonardo) will use for docker exec
 COPY run-jupyter.sh $JUPYTER_HOME/run-jupyter.sh
+
 # Note: this entrypoint is provided for running Jupyter independently of Leonardo.
 # When Leonardo deploys this image onto a cluster, the entrypoint is overwritten to enable
 # additional setup inside the container before execution.  Jupyter execution occurs when the

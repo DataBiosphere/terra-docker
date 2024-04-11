@@ -10,4 +10,4 @@ c.ServerApp.allow_origin="*"
 c.ServerApp.disable_check_xsrf=True # to prevent 'xsrf missing from POST' error https://broadworkbench.atlassian.net/browse/IA-4284
 c.ServerApp.terminado_settings = {'shell_command': ['/usr/bin/bash']}
 c.KernelSpecManager.ensure_native_kernel = False # Hide the default python3 kernel that jupyter is running in to isolate from the user
-#c.ServerApp.contents_manager_class=WelderContentsManager
+c.ServerApp.contents_manager_class=WelderContentsManager
