@@ -1,24 +1,23 @@
-# terra-base image
+# terra-base-jupyter image
 
-This repo contains the terra-base image that is compatible with the
-notebook service in [Terra]("https://app.terra.bio/") called Leonardo.
-The goal is to provide a lean, GPU-enabled base image that can be use for both Terra-suported, and custome image builds.
-[See design doc]("https://broadworkbench.atlassian.net/wiki/spaces/IA/pages/2842460165/2023-08-28+Terra+Docker+Refactoring+POC#Provide-a-leaner-set-of-terra-docker-images")
+This repo contains the terra-base-jupyter image that is compatible with the
+jupyter notebook service in [Terra]("https://app.terra.bio/") called Leonardo.
+The goal is to provide a lean, GPU-enabled base image that can be use for both Terra-suported, and custom image builds.
+
+The goal is to provide the user with a base conda environment where they can install any
+package they need, while keeping the jupyter server itself in an isolated virtual environment
+that DSP devs control using poetry as the dependency manager
 
 ## Image contents
 
-`terra-base` extends an cuda 12.2.0 and Ubuntu 22.04 base image with the minimum 
+`terra-base-jupyter` extends an cuda 12.2.0 and Ubuntu 22.04 base image with the minimum 
 requirements necessary to set up Jupyter and provide compatibility with Leonardo and GPU machines.
 
 - OS prerequisites
-- Python 3.10
-- R 4.1.2
-- Anaconda
-- Jupyter
-- Leonardo customizations/extensions
-- Terra python client library ([FISS](https://github.com/broadinstitute/fiss))
-- Terra notebook utils
-- Full list of python packages is available [here](pyproject.toml)
+- Miniconda with python 3.10
+- Two python virtual environments based on miniconda python
+-- The user base Conda environment, full list of python packages is available [here](conda-environment.yml)
+-- The jupyter virtual environment managed separately by poetry, full list of python packages is available [here](pyproject.toml) that contains the terra-specific configurations (e.g. WelderContentManager)
 
 To see the complete contents of this image please see the [Dockerfile](./Dockerfile).
 
@@ -67,7 +66,7 @@ $> export LDFLAGS="-L/opt/homebrew/opt/libomp/lib -L/opt/homebrew/opt/llvm/lib"
 $> export CPPFLAGS="-I/opt/homebrew/opt/libomp/include -I/opt/homebrew/opt/llvmp/include"
 ```
 
-From inside the `terra-base` directory, run the following command to install
+From inside the `terra-base-jupyter` directory, run the following command to install
 the python 3.10 environment with the relevant packages:
 
 ```bash
