@@ -21,6 +21,13 @@ requirements necessary to set up Jupyter and provide compatibility with Leonardo
 
 To see the complete contents of this image please see the [Dockerfile](./Dockerfile).
 
+Note that you can build the image locally and run it by using the following commands from within this directory:
+
+```bash
+$> docker build . -t test-base-jupyter
+$> docker run --rm -it -p 8888:8888 test-base-jupyter /home/jupyter/ /usr/jupytervenv/bin/jupyter lab --ip 0.0.0.0 --no-browser --allow-root
+```
+
 ## Contributing
 
 ### Installing python 3.10
