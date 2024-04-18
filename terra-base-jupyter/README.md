@@ -2,7 +2,7 @@
 
 This repo contains the terra-base-jupyter image that is compatible with the
 jupyter notebook service in [Terra]("https://app.terra.bio/") called Leonardo.
-The goal is to provide a lean, GPU-enabled base image that can be use for both Terra-suported, and custom image builds.
+The goal is to provide a lean GPU-enabled base image that can be use for both Terra-suported and custom image builds.
 
 The goal is to provide the user with a base conda environment where they can install any
 package they need, while keeping the jupyter server itself in an isolated virtual environment

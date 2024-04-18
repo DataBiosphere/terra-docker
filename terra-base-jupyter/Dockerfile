@@ -14,45 +14,36 @@ ENV LC_ALL en_US.UTF-8
 # We need node >18 for jupyter to work
 ENV NODE_MAJOR 20
 
+# Set the python version and corresponding conda installer
+ENV PYTHON_VERSION 3.10
+ENV CONDA_INSTALLER https://repo.anaconda.com/miniconda/Miniconda3-py310_23.5.1-0-Linux-x86_64.sh
+
 ###############
 # Prerequisites
 ###############
 RUN apt-get update && apt-get install -yq --no-install-recommends \
+    # basic necessities 
     sudo \
     ca-certificates \ 
     curl \
     jq \
+    tree \
     # gnupg requirement
     gnupg \
     dirmngr \
-    # useful utilities for debugging within the docker
+    # useful utilities for debugging within docker itself
     nano \
+    less \
     procps \
     lsb-release \
-    # python requirements
-    checkinstall \
+    # gcc compiler
     build-essential \
-    zlib1g-dev \
-    # pip requirements
-    libssl-dev \
-    libbz2-dev \
-    libreadline-dev \
-    libsqlite3-dev \
-    libexempi8 \
-    libnode-dev \
-    llvm \
-    libncurses5-dev \
-    libncursesw5-dev \
-    tk-dev \
-    libffi-dev \
-    liblzma-dev \
-    python3-openssl \
-    # install script requirements
     locales \
     # for ssh-agent and ssh-add
     keychain \
     # extras \
     wget \
+    aria2 \
     bzip2 \
     # git
     git \
@@ -69,7 +60,6 @@ RUN mkdir -p /etc/apt/keyrings
 RUN curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key | gpg --dearmor -o /etc/apt/keyrings/nodesource.gpg
 
 RUN echo "deb [signed-by=/etc/apt/keyrings/nodesource.gpg] https://deb.nodesource.com/node_$NODE_MAJOR.x nodistro main" | tee /etc/apt/sources.list.d/nodesource.list
-RUN dpkg --remove --force-remove-reinstreq libnode-dev
 RUN apt-get update && apt-get install -f -yq nodejs
 
 #############
@@ -95,22 +85,27 @@ RUN echo "$USER ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/$USER \
     && chmod 0440 /etc/sudoers.d/$USER
 
 #####################################
-# Install Python 3.10 via Miniconda
+# Install Python via Miniconda
 #####################################
 ## Note: CONDA should NOT be used by terra devs to manage dependencies (see the use of poetry below instead),
 ## but is a widely used tool to manage python environments in a runtime and we should provide it to users
 ## We want to store the user conda environments in a directory
 ## that will be in the persistent disk
 ## Attention: If you change the Conda home location, please update conda_init.txt accordingly
-ENV CONDA_ENV_NAME base-python3.10
+ENV CONDA_ENV_NAME base-python${PYTHON_VERSION}
 ENV CONDA_ENV_HOME $USER_HOME/.envs/$CONDA_ENV_NAME
-RUN curl -so $HOME/miniconda.sh https://repo.anaconda.com/miniconda/Miniconda3-py310_23.5.1-0-Linux-x86_64.sh \
-    && chmod +x $HOME/miniconda.sh \
-    && $HOME/miniconda.sh -b -p $CONDA_ENV_HOME \
-    && rm $HOME/miniconda.sh
+RUN curl -so $USER_HOME/miniconda.sh ${CONDA_INSTALLER} \
+    && chmod +x $USER_HOME/miniconda.sh \
+    && $USER_HOME/miniconda.sh -b -p $CONDA_ENV_HOME \
+    # Make sure the USER is the owner of the folder where
+    # the base python is installed, and subsequent conda environments
+    && chown -R $USER:users $USER_HOME \
+    && rm $USER_HOME/miniconda.sh
 ENV PATH "${PATH}:${CONDA_ENV_HOME}/bin"
 
+# Set up the path to the user python
 ENV BASE_PYTHON_PATH $CONDA_ENV_HOME/bin/python
+# Tell condo to NOT write bite code (aka these.pyc files)
 ENV PYTHONDONTWRITEBYTECODE=true
 
 ###################################################
@@ -121,10 +116,10 @@ ENV PYTHONDONTWRITEBYTECODE=true
 ## in the base environment to provide isolation between the user environment, and the jupyter server
 ## to avoid cross-contamination
 COPY conda-environment.yml .
-RUN conda env update --prefix $CONDA_ENV_HOME --file conda-environment.yml --prune\
+RUN conda env update --prefix $CONDA_ENV_HOME --file conda-environment.yml --prune \
     # Remove packages tarballs and python bytecode files from the image
     && conda clean -afy \
-    && find $CONDA_ENV_HOME -follow -type f -name '*.pyc' -delete \
+    # && find $CONDA_ENV_HOME -follow -type f -name '*.pyc' -delete \
     && rm conda-environment.yml
 
 # Add the user base conda environment as a jupyter kernel - this should be the default now
@@ -152,15 +147,18 @@ ENV PATH "${PATH}:${POETRY_HOME}/bin"
 COPY poetry.lock .
 COPY pyproject.toml .
 
-ENV JUPYTER_VIRTUAL_ENV=/usr/jupytervenv
-# Add jupyter virtual environmemt to PATH
-ENV PATH="$JUPYTER_VIRTUAL_ENV/bin:$PATH"
+ENV JUPYTER_HOME /usr/jupytervenv
+# Add jupyter virtual environmemt to PATH,
+# but make sure to add it at the end so that the 
+# Conda base python takes precedence 
+# (aka the ! operator in iPython shells should NOT access the jupyter virtualenvironment)
+ENV PATH "${PATH}:${JUPYTER_HOME}/bin"
 
 # Install Poetry, set up the virtual environment for jupyter to run and then cleanup / uninstall poetry
 RUN curl -sSL https://install.python-poetry.org | POETRY_HOME=$POETRY_HOME $BASE_PYTHON_PATH \
     # Create a virtual environment and activate it for poetry to use
-    && $BASE_PYTHON_PATH -m venv $JUPYTER_VIRTUAL_ENV \
-    && source activate $JUPYTER_VIRTUAL_ENV \
+    && $BASE_PYTHON_PATH -m venv $JUPYTER_HOME \
+    && source $JUPYTER_HOME/bin/activate \
     # Install python dependencies with poetry
     && poetry install --no-interaction --no-ansi --no-dev --no-cache \
     # Cleanup
@@ -173,17 +171,16 @@ RUN curl -sSL https://install.python-poetry.org | POETRY_HOME=$POETRY_HOME $BASE
 # Ensure this matches c.ServerApp.port in 'jupyter_server_config.py'
 ENV JUPYTER_PORT 8888
 EXPOSE $JUPYTER_PORT
-ENV JUPYTER_HOME  $JUPYTER_VIRTUAL_ENV/etc/jupyter
 
 # Install the custom extensions to enable welder for file syncing
-COPY custom $JUPYTER_HOME/custom
-COPY custom/jupyter_delocalize.py $JUPYTER_VIRTUAL_ENV/lib/python3.10/site-packages
-COPY jupyter_server_config.py $JUPYTER_HOME
+COPY custom $JUPYTER_HOME/etc/jupyter/custom
+COPY custom/jupyter_delocalize.py $JUPYTER_HOME/lib/python${PYTHON_VERSION}/site-packages
+COPY jupyter_server_config.py $JUPYTER_HOME/etc/jupyter
 
 # Remove the jupyter environment from the list of available kernels so it is hidden from the user
 # Note that this needs to be done with setting the c.KernelSpecManager.ensure_native_kernel flag
 # to False in 'jupyter_server_config.py'
-RUN jupyter kernelspec remove python3 -y
+RUN $JUPYTER_HOME/bin/jupyter kernelspec remove python3 -y
 
 # Copy the script that the service deploying to Terra (e.g. leonardo) will use for docker exec
 COPY run-jupyter.sh $JUPYTER_HOME/run-jupyter.sh
