@@ -86,7 +86,7 @@ ENV HOME /home/$USER
 # Adding welder-user to the Jupyter container isn't strictly required, but it makes welder-added
 # files display nicer when viewed in a terminal.
 ENV WELDER_USER welder-user
-ENV WELDER_UID 1001
+ENV WELDER_UID 2001
 RUN useradd -m -s /bin/bash -N -u $WELDER_UID $WELDER_USER
 
 # ensure this matches c.NotebookApp.port in jupyter_notebook_config.py
