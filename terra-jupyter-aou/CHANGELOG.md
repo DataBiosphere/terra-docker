@@ -1,3 +1,12 @@
+## 2.2.8 - 2022-04-23
+- Update `terra-jupyter-gatk` to `2.3.5`
+  - Update `terra-jupyter-r` to `2.2.4`
+  - Update `terra-jupyter-python` to `1.1.5`
+    - Update `terra-jupyter-base` to `1.1.4`
+      - Change the welder user id
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-aou:2.2.8`
+
 ## 2.2.7 - 2023-11-01
 - Pin `gnomad` to `0.6.4`
   - See https://github.com/broadinstitute/gnomad_methods/releases for details

@@ -1,3 +1,9 @@
+## 2.3.5 - 2024-04-23
+- Update `terra-jupyter-r` to `2.2.4`
+- Update `terra-jupyter-python` to `1.1.5`
+  - Update `terra-jupyter-base` to `1.1.4`
+    - Change the welder user id
+
 ## 2.3.4 - 2023-10-06
 - Update `terra-jupyter-python` to `1.1.4`
   - Downgrade pytz to `2023.3`

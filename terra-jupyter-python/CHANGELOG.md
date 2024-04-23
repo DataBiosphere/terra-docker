@@ -1,3 +1,9 @@
+## 1.1.5 - 2024-04-23
+- Update `terra-jupyter-base` to `1.1.4`
+  - Change the welder user id
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-python:1.1.5`
+
 ## 1.1.4 - 2023-10-06
 - Downgrade pytz to `2023.3`
 
