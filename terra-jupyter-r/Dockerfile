@@ -5,7 +5,7 @@ USER root
 COPY scripts $JUPYTER_HOME/scripts
 
 # Add env vars to identify binary package installation
-ENV TERRA_R_PLATFORM="terra-jupyter-r-2.2.4"
+ENV TERRA_R_PLATFORM="terra-jupyter-r-2.2.5"
 ENV TERRA_R_PLATFORM_BINARY_VERSION=3.18
 
 # Install protobuf 3.20.3. Note this version comes from base deep learning image. Use `conda list` to see what's installed

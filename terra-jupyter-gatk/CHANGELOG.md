@@ -1,5 +1,5 @@
 ## 2.3.7 - 2024-04-23
-- Update `terra-jupyter-r` to `2.2.4`
+- Update `terra-jupyter-r` to `2.2.5`
 - Update `terra-jupyter-python` to `1.1.6`
   - Update `terra-jupyter-base` to `1.1.4`
     - Change the welder user id

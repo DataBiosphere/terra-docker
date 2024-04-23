@@ -7,7 +7,7 @@ Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-bioconductor:2.2.5`
 
 ## 2.2.4 - 2023-11-14T15:56:44.470211534Z
 
-- Update `terra-jupyter-r` to `2.2.4`
+- Update `terra-jupyter-r` to `2.2.5`
   - Bioconductor 3.18 release
 
 Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-bioconductor:2.2.4`
