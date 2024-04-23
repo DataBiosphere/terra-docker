@@ -1,9 +1,35 @@
-## 2.2.8 - 2022-04-23
-- Update `terra-jupyter-gatk` to `2.3.5`
+## 2.2.12 - 2022-04-23
+- Update `terra-jupyter-gatk` to `2.3.7`
   - Update `terra-jupyter-r` to `2.2.4`
-  - Update `terra-jupyter-python` to `1.1.5`
+  - Update `terra-jupyter-python` to `1.1.6`
     - Update `terra-jupyter-base` to `1.1.4`
       - Change the welder user id
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-aou:2.2.12`
+
+## 2.2.11 - 2024-04-10
+- Update `hail` to `0.2.130`
+  - See https://hail.is/docs/0.2/change_log.html#version-0-2-130) for details
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-aou:2.2.11`
+
+## 2.2.10 - 2024-04-05
+- Update `hail` to `0.2.129`
+  - See https://hail.is/docs/0.2/change_log.html#version-0-2-129) for details
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-aou:2.2.10`
+
+## 2.2.9 - 2024-01-12
+- Update `hail` to `0.2.128`
+  - See https://hail.is/docs/0.2/change_log.html#version-0-2-128) for details
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-aou:2.2.9`
+
+## 2.2.8 - 2023-11-14T15:56:44.507726350Z
+
+- Update `terra-jupyter-gatk` to `2.3.6`
+  - Bioconductor 3.18 release
+  - Samtools 1.18
 
 Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-aou:2.2.8`
 

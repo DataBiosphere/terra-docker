@@ -1,4 +1,4 @@
-FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-gatk:2.3.5
+FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-gatk:2.3.7
 
 USER root
 
@@ -22,7 +22,6 @@ RUN apt-get update && apt-get install -yq --no-install-recommends \
   zlib1g \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/*
-
 
 ENV PIP_USER=false
 
@@ -48,7 +47,7 @@ ENV PYTHONPATH $PYTHONPATH:/usr/lib/spark/python
 
 ENV PYSPARK_PYTHON=python3
 
-ENV HAIL_VERSION=0.2.126
+ENV HAIL_VERSION=0.2.130
 
 RUN find $JUPYTER_HOME/scripts -name '*.sh' -type f | xargs chmod +x \
     && $JUPYTER_HOME/scripts/kernel/kernelspec.sh $JUPYTER_HOME/scripts/kernel /opt/conda/share/jupyter/kernels \
@@ -96,7 +95,7 @@ RUN mkdir -p /tmp/plink && \
 
 RUN mkdir -p /tmp/plink2 && \
   cd /tmp/plink2 && \
-  curl -fsSL -o plink2.zip "https://s3.amazonaws.com/plink2-assets/alpha2/plink2_linux_x86_64.zip" && \
+  curl -fsSL -o plink2.zip "https://s3.amazonaws.com/plink2-assets/plink2_linux_x86_64_latest.zip" && \
   unzip plink2.zip && \
   mv plink2 /bin/plink2 && \
   cd $HOME && \

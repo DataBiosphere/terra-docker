@@ -1,7 +1,24 @@
-## 1.1.8 - 2024-04-23
-- Update `terra-jupyter-python` to `1.1.5`
+## 1.1.11 - 2024-04-23
+- Update `terra-jupyter-python` to `1.1.6`
   - Update `terra-jupyter-base` to `1.1.4`
     - Change the welder user id
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-hail:1.1.11`
+
+## 1.1.10 - 2024-04-10
+- Update `hail` to `0.2.130`
+  - See https://hail.is/docs/0.2/change_log.html#version-0-2-130) for details
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-hail:1.1.10`
+
+## 1.1.9 - 2024-01-12
+- Update `hail` to `0.2.128`
+  - See https://hail.is/docs/0.2/change_log.html#version-0-2-128) for details
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-hail:1.1.9`
+
+## 1.1.8 - 2023-12-01
+- Update `terra-jupyter-python` to `1.1.5`
 
 Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-hail:1.1.8`
 

@@ -1,6 +1,11 @@
-## 1.1.5 - 2024-04-23
+## 1.1.6 - 2024-04-23
 - Update `terra-jupyter-base` to `1.1.4`
   - Change the welder user id
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-python:1.1.6`
+
+## 1.1.5 - 2023-11-28
+- Pin bleach to `6.0.0`
 
 Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-python:1.1.5`
 

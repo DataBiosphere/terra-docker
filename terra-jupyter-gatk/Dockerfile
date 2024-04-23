@@ -16,7 +16,6 @@ RUN apt-get update && apt-get install -yq --no-install-recommends \
   liblzo2-dev \
   zlib1g-dev \
   libz-dev \
-  samtools \
   git-lfs \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/*
@@ -49,13 +48,25 @@ RUN mkdir -p /tmp/nextflow && \
   chown -R $USER:users $HOME/.nextflow && \
   rm -rf /tmp/nextflow
 
+# Install samtools
+RUN mkdir -p /tmp/samtools && \
+    cd /tmp/samtools && \
+    curl -L -o samtools.tar.bz2 https://github.com/samtools/samtools/releases/download/1.18/samtools-1.18.tar.bz2 && \
+    bzip2 -d samtools.tar.bz2 && \
+    tar xvf samtools.tar && \
+    cd samtools-1.18 && \
+    make && \
+    make install && \
+    cd $HOME && \
+    rm -rf /tmp/samtools
+
 # Install bcftools
 RUN mkdir -p /tmp/bcftools && \
     cd /tmp/bcftools && \
-    curl -L -o bcftools.tar.bz2 https://github.com/samtools/bcftools/releases/download/1.17/bcftools-1.17.tar.bz2 && \
+    curl -L -o bcftools.tar.bz2 https://github.com/samtools/bcftools/releases/download/1.18/bcftools-1.18.tar.bz2 && \
     bzip2 -d bcftools.tar.bz2 && \
     tar xvf bcftools.tar && \
-    cd bcftools-1.17 && \
+    cd bcftools-1.18 && \
     make && \
     make install && \
     cd $HOME && \

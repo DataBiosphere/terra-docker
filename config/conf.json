@@ -26,7 +26,7 @@
                     "tidyverse"
                 ]
             },
-            "version" : "2.2.3",
+            "version" : "2.2.4",
             "automated_flags" : {
                 "generate_docs" : true,
                 "include_in_ui" : true,
@@ -47,7 +47,7 @@
                     "hail"
                 ]
             },
-            "version" : "1.1.7",
+            "version" : "1.1.10",
             "automated_flags" : {
                 "generate_docs" : true,
                 "include_in_ui" : true,
@@ -68,7 +68,7 @@
                     "scikit-learn"
                 ]
             },
-            "version" : "1.1.4",
+            "version" : "1.1.5",
             "automated_flags" : {
                 "generate_docs" : true,
                 "include_in_ui" : true,
@@ -100,7 +100,7 @@
                 "r"
             ],
             "packages" : {},
-            "version" : "2.2.3",
+            "version" : "2.2.4",
             "automated_flags" : {
                 "include_in_ui" : false,
                 "generate_docs" : true,
@@ -118,7 +118,7 @@
                 "r"
             ],
             "packages" : {},
-            "version" : "2.3.4",
+            "version" : "2.3.6",
             "automated_flags" : {
                 "include_in_ui" : true,
                 "generate_docs" : true,
@@ -135,7 +135,7 @@
                 "r"
             ],
             "packages" : {},
-            "version" : "2.2.7",
+            "version" : "2.2.11",
             "automated_flags" : {
                 "include_in_ui" : false,
                 "generate_docs" : false,

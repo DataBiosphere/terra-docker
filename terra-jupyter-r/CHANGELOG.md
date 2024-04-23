@@ -1,6 +1,12 @@
-## 2.2.4 - 2024-04-23
+## 2.2.5 - 2024-04-23
 - Update `terra-jupyter-base` to `1.1.4`
   - Change the welder user id
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-r:2.2.5`
+
+## 2.2.4 - 2023-11-14T15:56:44.443656567Z
+
+- Bioconductor 3.18 release
 
 Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-r:2.2.4`
 
