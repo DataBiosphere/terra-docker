@@ -75,14 +75,15 @@ ENV WELDER_UID 1001
 RUN useradd -m -N -u $WELDER_UID $WELDER_USER
 
 # Create the jupyter user
-ENV USER jupyter
-ENV USER_HOME /home/$USER
-RUN useradd -m -d $USER_HOME -N -g users $USER
+ENV JUPYTER_USER jupyter-user
+ENV JUPYTER_UID 1002
+ENV JUPYTER_USER_HOME /home/$JUPYTER_USER
+RUN useradd -m -d $JUPYTER_USER_HOME -N -u $JUPYTER_UID -g users $JUPYTER_USER
 # We want to grant the jupyter user sudo permissions
 # without password so they can install the necessary packages that they 
 # want to use on the docker container
-RUN echo "$USER ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/$USER \
-    && chmod 0440 /etc/sudoers.d/$USER
+RUN echo "$JUPYTER_USER ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/$JUPYTER_USER \
+    && chmod 0440 /etc/sudoers.d/$JUPYTER_USER
 
 #####################################
 # Install Python via Miniconda
@@ -93,14 +94,14 @@ RUN echo "$USER ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/$USER \
 ## that will be in the persistent disk
 ## Attention: If you change the Conda home location, please update conda_init.txt accordingly
 ENV CONDA_ENV_NAME base-python${PYTHON_VERSION}
-ENV CONDA_ENV_HOME $USER_HOME/.envs/$CONDA_ENV_NAME
-RUN curl -so $USER_HOME/miniconda.sh ${CONDA_INSTALLER} \
-    && chmod +x $USER_HOME/miniconda.sh \
-    && $USER_HOME/miniconda.sh -b -p $CONDA_ENV_HOME \
+ENV CONDA_ENV_HOME $JUPYTER_USER_HOME/.envs/$CONDA_ENV_NAME
+RUN curl -so $JUPYTER_USER_HOME/miniconda.sh ${CONDA_INSTALLER} \
+    && chmod +x $JUPYTER_USER_HOME/miniconda.sh \
+    && $JUPYTER_USER_HOME/miniconda.sh -b -p $CONDA_ENV_HOME \
     # Make sure the USER is the owner of the folder where
     # the base python is installed, and subsequent conda environments
-    && chown -R $USER:users $USER_HOME \
-    && rm $USER_HOME/miniconda.sh
+    && chown -R $USER:users $JUPYTER_USER_HOME \
+    && rm $JUPYTER_USER_HOME/miniconda.sh
 ENV PATH "${PATH}:${CONDA_ENV_HOME}/bin"
 
 # Set up the path to the user python
@@ -130,10 +131,10 @@ RUN conda run -p ${CONDA_ENV_HOME} python -m ipykernel install --name=$CONDA_ENV
 # Prep the jupyter terminal to conda init and make sure the base conda environment is 
 # activated and the name is displayed in the terminal prompt
 COPY conda_init.txt .
-RUN cat conda_init.txt >> $USER_HOME/.bashrc && \
-    printf "\nconda activate ${CONDA_ENV_HOME}" >> $USER_HOME/.bashrc && \
+RUN cat conda_init.txt >> $JUPYTER_USER_HOME/.bashrc && \
+    printf "\nconda activate ${CONDA_ENV_HOME}" >> $JUPYTER_USER_HOME/.bashrc && \
     conda config --set env_prompt '({name})' && \
-    source $USER_HOME/.bashrc && \
+    source $JUPYTER_USER_HOME/.bashrc && \
     rm conda_init.txt
 
 ####################################################
@@ -184,10 +185,11 @@ RUN $JUPYTER_HOME/bin/jupyter kernelspec remove python3 -y
 
 # Copy the script that the service deploying to Terra (e.g. leonardo) will use for docker exec
 COPY run-jupyter.sh $JUPYTER_HOME/run-jupyter.sh
+RUN chmod +x $JUPYTER_HOME/run-jupyter.sh
 
 # Set up the user and working directory
-USER $USER
-WORKDIR $USER_HOME
+USER $JUPYTER_USER
+WORKDIR $JUPYTER_USER_HOME
 
 # Note: this entrypoint is provided for running Jupyter independently of Leonardo.
 # When Leonardo deploys this image onto a cluster, the entrypoint is overwritten to enable

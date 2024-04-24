@@ -11,7 +11,7 @@ SERVER_APP_WEBSOCKET_URL=${2:-${HOME}}
 NOTEBOOKS_DIR=${3:-${HOME}}
 
 JUPYTER_BASE="/usr/jupytervenv/bin/python /usr/jupytervenv/bin/jupyter server"
-JUPYTER_CMD="$JUPYTER_BASE --ServerApp.base_url=${SERVER_APP_BASE_URL} --ServerApp.websocket_url=${SERVER_APP_WEBSOCKET_URL} --autoreload --notebook-dir=${NOTEBOOKS_DIR}&> ${NOTEBOOKS_DIR}/jupyter.log"
+JUPYTER_CMD="$JUPYTER_BASE --ServerApp.base_url=${SERVER_APP_BASE_URL} --ServerApp.websocket_url=${SERVER_APP_WEBSOCKET_URL} --autoreload&> ${NOTEBOOKS_DIR}/jupyter.log"
 
 echo $JUPYTER_CMD
 
