@@ -77,6 +77,7 @@ RUN useradd -m -N -u $WELDER_UID $WELDER_USER
 # Create the jupyter user
 ENV JUPYTER_USER jupyter-user
 ENV JUPYTER_UID 1002
+# Create the jupyter user home
 ENV JUPYTER_USER_HOME /home/$JUPYTER_USER
 RUN useradd -m -d $JUPYTER_USER_HOME -N -u $JUPYTER_UID -g users $JUPYTER_USER
 # We want to grant the jupyter user sudo permissions
@@ -98,9 +99,6 @@ ENV CONDA_ENV_HOME $JUPYTER_USER_HOME/.envs/$CONDA_ENV_NAME
 RUN curl -so $JUPYTER_USER_HOME/miniconda.sh ${CONDA_INSTALLER} \
     && chmod +x $JUPYTER_USER_HOME/miniconda.sh \
     && $JUPYTER_USER_HOME/miniconda.sh -b -p $CONDA_ENV_HOME \
-    # Make sure the USER is the owner of the folder where
-    # the base python is installed, and subsequent conda environments
-    && chown -R $USER:users $JUPYTER_USER_HOME \
     && rm $JUPYTER_USER_HOME/miniconda.sh
 ENV PATH "${PATH}:${CONDA_ENV_HOME}/bin"
 
@@ -120,8 +118,10 @@ COPY conda-environment.yml .
 RUN conda env update --prefix $CONDA_ENV_HOME --file conda-environment.yml --prune \
     # Remove packages tarballs and python bytecode files from the image
     && conda clean -afy \
-    # && find $CONDA_ENV_HOME -follow -type f -name '*.pyc' -delete \
-    && rm conda-environment.yml
+    && rm conda-environment.yml \
+    # Make sure the JUPYTER_USER is the owner of the folder where
+    # the base conda is installed
+    && chown -R $JUPYTER_USER:users $JUPYTER_USER_HOME
 
 # Add the user base conda environment as a jupyter kernel - this should be the default now
 # This commands activates the conda environment and then calls ipykernel from within
@@ -187,9 +187,9 @@ RUN $JUPYTER_HOME/bin/jupyter kernelspec remove python3 -y
 COPY run-jupyter.sh $JUPYTER_HOME/run-jupyter.sh
 RUN chmod +x $JUPYTER_HOME/run-jupyter.sh
 
-# Set up the user and working directory
+# Set up the user and working directory, which is where the persistent disk will be mounted
 USER $JUPYTER_USER
-WORKDIR $JUPYTER_USER_HOME
+WORKDIR $JUPYTER_USER_HOME/persistent_disk
 
 # Note: this entrypoint is provided for running Jupyter independently of Leonardo.
 # When Leonardo deploys this image onto a cluster, the entrypoint is overwritten to enable
