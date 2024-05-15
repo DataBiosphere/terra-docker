@@ -6,7 +6,7 @@ COPY scripts $JUPYTER_HOME/scripts
 
 # Add env vars to identify binary package installation
 ENV TERRA_R_PLATFORM="terra-jupyter-r-2.2.4"
-ENV TERRA_R_PLATFORM_BINARY_VERSION=3.18
+ENV TERRA_R_PLATFORM_BINARY_VERSION=3.19
 
 # Install protobuf 3.20.3. Note this version comes from base deep learning image. Use `conda list` to see what's installed
 RUN cd /tmp \
@@ -132,7 +132,7 @@ RUN pip3 -V \
 
 RUN R -e 'install.packages("BiocManager")' \
     ## check version
-    && R -e 'BiocManager::install(version="3.18", ask=FALSE)' \
+    && R -e 'BiocManager::install(version="3.19", ask=FALSE)' \
     && R -e 'BiocManager::install(c( \
     "boot", \
     "class", \
