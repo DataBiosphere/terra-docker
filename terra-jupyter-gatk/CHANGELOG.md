@@ -1,3 +1,10 @@
+## 2.3.7 - 2024-05-15T15:36:28.602743427Z
+
+- Update `terra-jupyter-r` to `2.2.5`
+  - Update for R 4.4.0 and Bioc 3.19
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-gatk:2.3.7`
+
 ## 2.3.6 - 2023-11-27
 
 - Update Samtools to `1.18`

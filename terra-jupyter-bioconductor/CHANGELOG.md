@@ -1,3 +1,10 @@
+## 2.2.5 - 2024-05-15T15:36:28.576892790Z
+
+- Update `terra-jupyter-r` to `2.2.5`
+  - Update for R 4.4.0 and Bioc 3.19
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-bioconductor:2.2.5`
+
 ## 2.2.4 - 2023-11-14T15:56:44.470211534Z
 
 - Update `terra-jupyter-r` to `2.2.4`
