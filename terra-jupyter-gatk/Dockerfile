@@ -91,8 +91,8 @@ COPY cnn-models.patch /etc/gatk-$GATK_VERSION/cnn-models.patch
 RUN patch -u /opt/conda/lib/python3.10/site-packages/vqsr_cnn/vqsr_cnn/models.py -i /etc/gatk-$GATK_VERSION/cnn-models.patch
 
 # Older version of nbconvert fail to convert notebooks to html
-RUN pip3 install "nbconvert>=7.7.3" \
-    && pip3 install --force-reinstall "python-dateutil"
+RUN pip3 install --force-reinstall "python-dateutil" \
+    && pip3 install "nbconvert>=7.7.3"
 
 
 ENV PIP_USER=true
