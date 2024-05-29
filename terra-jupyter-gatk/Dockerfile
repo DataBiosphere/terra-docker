@@ -55,6 +55,7 @@ RUN mkdir -p /tmp/samtools && \
     bzip2 -d samtools.tar.bz2 && \
     tar xvf samtools.tar && \
     cd samtools-1.18 && \
+    ./configure --enable-gcs && \
     make && \
     make install && \
     cd $HOME && \
@@ -67,6 +68,7 @@ RUN mkdir -p /tmp/bcftools && \
     bzip2 -d bcftools.tar.bz2 && \
     tar xvf bcftools.tar && \
     cd bcftools-1.18 && \
+    ./configure --enable-gcs && \
     make && \
     make install && \
     cd $HOME && \
