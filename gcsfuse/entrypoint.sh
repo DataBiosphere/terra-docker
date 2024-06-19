@@ -26,7 +26,7 @@ do
   mkdir -p $volume
 
   # Mount the GCS bucket
-  gcsfuse --implicit-dirs -o allow_other,rw $bucket $volume
+  gcsfuse  --billing-project $GOOGLE_PROJECT --implicit-dirs -o allow_other,ro $bucket $volume
 done
 
 # Keep the container running
