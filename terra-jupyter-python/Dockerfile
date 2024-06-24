@@ -41,6 +41,10 @@ RUN pip3 -V \
   && sed -i 's/pd.tslib.Timestamp/pd.Timestamp/g' /opt/conda/lib/python3.10/site-packages/ggplot/utils.py
 
 RUN pip3 install --upgrade markupsafe==2.1.2
+RUN pip install "pandas" "numpy" "scanpy[leiden]" "loompy" "session_info" "tensorflow_io" \
+  && pip install git+https://github.com/broadinstitute/CellBender.git@v0.3.0 \
+  && pip install --user scikit-misc \
+  && pip install snapatac2==2.6.4
 
 ENV USER jupyter
 USER $USER
