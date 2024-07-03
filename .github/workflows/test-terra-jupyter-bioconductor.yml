@@ -84,7 +84,7 @@ jobs:
           --workdir=/tests \
           --entrypoint="" \
           terra-jupyter-bioconductor:smoke-test \
-          /bin/sh -c 'for nb in *ipynb ; do jupyter nbconvert --to html --ExecutePreprocessor.timeout=300 --execute "${nb}" ; done'
+          /bin/sh -c 'for nb in *ipynb ; do jupyter nbconvert --to html_embed --ExecutePreprocessor.timeout=300 --execute "${nb}" ; done'
 
     - name: Upload workflow artifacts
       uses: actions/upload-artifact@v2
