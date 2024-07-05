@@ -1,3 +1,7 @@
+## 1.1.11 - 2024-07-03
+- Update `hail` to `0.2.131`
+  - See https://hail.is/docs/0.2/change_log.html#version-0-2-131) for details
+
 ## 1.1.10 - 2024-04-10
 - Update `hail` to `0.2.130`
   - See https://hail.is/docs/0.2/change_log.html#version-0-2-130) for details

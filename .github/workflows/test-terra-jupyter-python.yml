@@ -89,7 +89,7 @@ jobs:
           --workdir=/tests \
           --entrypoint="" \
           terra-jupyter-python:smoke-test \
-          /bin/sh -c 'for nb in *ipynb ; do jupyter nbconvert --to html --ExecutePreprocessor.allow_errors=True --execute "${nb}" ; done'
+          /bin/sh -c 'for nb in *ipynb ; do jupyter nbconvert --to html_embed --ExecutePreprocessor.allow_errors=True --execute "${nb}" ; done'
 
     - name: Upload workflow artifacts
       uses: actions/upload-artifact@v2
@@ -112,7 +112,7 @@ jobs:
           --workdir=/tests \
           --entrypoint="" \
           terra-jupyter-python:smoke-test \
-          /bin/sh -c "pip3 install pytest ; pytest"
+          /bin/sh -c "pip3 install pytest --user ; pytest"
 
     - name: Test Python code specific to notebooks with nbconvert
       # Simply 'Cell -> Run All` these notebooks and expect no errors in the case of a successful run of the test suite.
@@ -132,4 +132,4 @@ jobs:
           --workdir=/tests \
           --entrypoint="" \
           terra-jupyter-python:smoke-test \
-          /bin/sh -c 'for nb in *ipynb ; do jupyter nbconvert --to html --execute "${nb}" ; done'
+          /bin/sh -c 'for nb in *ipynb ; do jupyter nbconvert --to html_embed --execute "${nb}" ; done'

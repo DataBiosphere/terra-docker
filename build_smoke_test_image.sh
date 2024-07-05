@@ -40,4 +40,7 @@ build_smoke_test_image() {
   popd
 }
 
+# Log available disk space prior to building image
+df -kh
+
 build_smoke_test_image $1
