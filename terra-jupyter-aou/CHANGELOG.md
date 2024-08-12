@@ -1,3 +1,9 @@
+## 2.2.13 - 2024-08-12
+- Update `hail` to `0.2.130.post1`
+  - See https://github.com/hail-is/hail/releases/tag/0.2.130.post1 for details
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-aou:2.2.13`
+
 ## 2.2.12 - 2024-05-15T15:36:28.616710060Z
 
 - Update `terra-jupyter-r` to `2.2.5`
