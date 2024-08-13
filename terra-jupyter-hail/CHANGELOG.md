@@ -1,3 +1,9 @@
+## 1.1.12 - 2024-08-12
+- Update `hail` to `0.2.130.post1`
+  - See https://github.com/hail-is/hail/releases/tag/0.2.130.post1 for details
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-hail:1.1.12`
+
 ## 1.1.11 - 2024-07-03
 - Update `hail` to `0.2.131`
   - See https://hail.is/docs/0.2/change_log.html#version-0-2-131) for details
