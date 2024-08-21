@@ -27,7 +27,7 @@ def generate_docs():
   remote_versions_list = list(map(lambda image_doc: {image_doc["id"]: image_doc["version"]}, remote_docs))
   remote_versions = utils.flatten_list_of_dicts(remote_versions_list)
 
-  print "current versions detected: " + str(remote_versions)
+  print("current versions detected: " + str(remote_versions))
 
   legacy_gatk_doc = filter(lambda remote_doc: remote_doc["id"] == "terra-jupyter-gatk_legacy", remote_docs)[0]
   legacy_bioconductor_doc = utils.read_json_file(static_config_location)[0] # hard coding this until next bioconductor release (~06/2022)
@@ -38,7 +38,7 @@ def generate_docs():
 
       remote_doc = list(filter(lambda image_doc: image_doc["id"] == image_config["name"], remote_docs))[0]
       if image_config["name"] in remote_versions and image_config["version"] == remote_versions[image_config["name"]]:
-        print "using remote doc: {}".format(remote_doc)
+        print("using remote doc: {}".format(remote_doc))
         doc = remote_doc
       else:
         doc = generate_doc_for_image(image_config)
@@ -58,7 +58,7 @@ def generate_docs():
   return docs
 
 def get_legacy_image(new_version, remote_doc, current_legacy_img):
-  print "generating legacy image"
+  print("generating legacy image")
   new_version = new_version.split(".")
   new_version_patch = int(new_version[2])
   new_version_minor = int(new_version[1])
