@@ -12,13 +12,13 @@
 # 7- terra-jupyter-bioconductor
 # 8- terra-rstudio-aou
 # 9- wondershaper
-images=(terra-jupyter-base terra-jupyter-python terra-jupyter-r terra-jupyter-gatk terra-jupyter-hail terra-jupyter-aou terra-jupyter-bioconductor terra-rstudio-aou wondershaper)
+images=("terra-jupyter-base" "terra-jupyter-python" "terra-jupyter-r" "terra-jupyter-gatk" "terra-jupyter-hail" "terra-jupyter-aou" "terra-jupyter-bioconductor" "terra-rstudio-aou" "wondershaper")
 
 # Loop over each image to build in the correct order
-for image in images; do
+for image in "${images[@]}"; do
   # Call build.sh with the image to build
-  echo 'Building and publishing the following image to GCR: $image'
-  ./build.sh "$image" "true"
+  echo "Building and publishing the following image to GCR: $image"
+  ./build.sh $image true
 done
 
 # Once all images have been built, generate and push the 'terra-docker-versions-new' doc

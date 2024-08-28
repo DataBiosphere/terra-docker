@@ -29,7 +29,7 @@ def generate_docs():
 
   print("current versions detected: " + str(remote_versions))
 
-  legacy_gatk_doc = filter(lambda remote_doc: remote_doc["id"] == "terra-jupyter-gatk_legacy", remote_docs)[0]
+  legacy_gatk_doc = list(filter(lambda remote_doc: remote_doc["id"] == "terra-jupyter-gatk_legacy", remote_docs))[0]
   legacy_bioconductor_doc = utils.read_json_file(static_config_location)[0] # hard coding this until next bioconductor release (~06/2022)
 
   for image_config in image_configs:
