@@ -1,0 +1,42 @@
+name: Build and publish all images to GCR
+
+on:
+    push:
+        branches: [ master ]
+    workflow_dispatch:
+      inputs:
+          branch:
+            description: 'Branch to run the workflow on'
+            required: false
+            default: 'master'
+
+jobs:
+  publish-job:
+    runs-on: self-hosted
+    steps:
+      - name: Checkout current code
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.10'
+
+      - id: auth
+        uses: google-github-actions/auth@v1
+        with:
+          credentials_json: ${{ secrets.TD_GCP_SA_KEY }}
+          create_credentials_file: true
+
+      - name: Set up Cloud SDK
+        uses: google-github-actions/setup-gcloud@v0.3.0
+        with:
+          project_id: ${{ secrets.GCP_PROJECT_ID }}
+
+      - name: Explicitly auth Docker for GCR
+        run: gcloud auth configure-docker --quiet
+
+      - name: Build Docker image and publish
+        run: |
+          gcloud auth configure-docker
+          ./build_all.sh
