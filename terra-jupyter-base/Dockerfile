@@ -111,7 +111,7 @@ RUN pip3 -V \
     && pip3 install jupyterlab-server==2.23.0 \
     && pip3 install requests \
     && pip3 install firecloud \
-    && pip3 install terra-notebook-utils==0.13.0 \
+    && pip3 install terra-notebook-utils==0.14.0 \
     && pip3 install crcmod \
     # For gcloud alpha storage support.
     && pip3 install google-crc32c --target /usr/lib/google-cloud-sdk/lib/third_party \
