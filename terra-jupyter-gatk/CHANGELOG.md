@@ -1,3 +1,10 @@
+## 2.3.8 - 2024-09-04
+- Update `terra-jupyter-python` to `1.1.6`
+  - Update `terra-jupyter-base` to `1.1.4`
+    - Update terra-notebook-utils to `0.14.0`
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-gatk:2.3.8`
+
 ## 2.3.7 - 2024-05-15T15:36:28.602743427Z
 
 - Update `terra-jupyter-r` to `2.2.5`
