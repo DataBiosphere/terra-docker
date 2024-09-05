@@ -44,6 +44,8 @@ scikit-learn-intelex
 xgboost
 #older version of nbconvert fail to convert notebooks to html
 nbconvert>=7.7.3
-# shapely > 2.X is not compatible with bigquery yet, see https://github.com/googleapis/python-aiplatform/issues/1852
-shapely<2.0.0
+# See: https://github.com/GoogleCloudPlatform/generative-ai/issues/849
+shapely==1.8.5.post1
+pygeos==0.12.0
+geopandas==0.10.2
 
