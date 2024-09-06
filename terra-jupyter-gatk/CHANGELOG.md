@@ -1,5 +1,6 @@
 ## 2.3.8 - 2024-09-04
 - Update `terra-jupyter-python` to `1.1.6`
+- Update `terra-jupyter-r` to `2.2.6`
   - Update `terra-jupyter-base` to `1.1.4`
     - Update terra-notebook-utils to `0.14.0`
 
