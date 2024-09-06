@@ -48,4 +48,5 @@ nbconvert>=7.7.3
 shapely==1.8.5.post1
 pygeos==0.12.0
 geopandas==0.10.2
-
+# See: https://stackoverflow.com/questions/77549493/modulenotfounderror-no-module-named-jupyter-server-contents/77549554#77549554
+traitlets==5.9.0
