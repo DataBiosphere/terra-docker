@@ -27,7 +27,7 @@ ENV PIP_USER=false
 # uninstalling packages: https://github.com/conda/conda/issues/10357
 COPY --from=python /etc/terra-docker/requirements.txt /etc/terra-docker/base_requirements.txt
 
-RUN pip install --upgrade -r /etc/terra-docker/base_requirements.txt
+RUN pip install -r /etc/terra-docker/base_requirements.txt
 
 # Install GATK
 ENV GATK_VERSION 4.3.0.0
