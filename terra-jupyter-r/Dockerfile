@@ -168,6 +168,7 @@ RUN R -e 'install.packages("BiocManager")' \
 # Install Bioconductor packages found at:
 # https://raw.githubusercontent.com/anvilproject/anvil-docker/master/anvil-rstudio-bioconductor/install.R
 RUN R -e 'BiocManager::install(c( \
+	"XML", \
     "AnVIL", \
     "SingleCellExperiment", \
     "GenomicFeatures", \
