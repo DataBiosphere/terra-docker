@@ -158,6 +158,8 @@ RUN R -e 'install.packages("BiocManager")' \
     # GCP essentials
     "bigrquery",  \
     "googleCloudStorageR", \
+	# GenomicFeatures dependency
+	"rtracklayer", \
     # User oriented packages
     "reticulate", \
     "remotes", \
