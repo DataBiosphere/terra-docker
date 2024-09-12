@@ -117,10 +117,10 @@ RUN apt-get update \
 # Add libsbml CFLAGS
 ENV LIBSBML_CFLAGS="-I/usr/include"
 ENV LIBSBML_LIBS="-lsbml"
-ENV XML_CONFIG="/opt/conda/bin/xml2-config"
+ENV XML_CONFIG="/usr/bin/xml2-config"
 RUN echo 'export LIBSBML_CFLAGS="-I/usr/include"' >> /etc/profile \
     && echo 'export LIBSBML_LIBS="-lsbml"' >> /etc/profile \
-	&& echo 'export XML_CONFIG="/opt/conda/bin/xml2-config"' >> /etc/profile
+	&& echo 'export XML_CONFIG="/usr/bin/xml2-config"' >> /etc/profile
 
 ## set pip3 to run as root, not as jupyter user
 ENV PIP_USER=false
@@ -158,8 +158,6 @@ RUN R -e 'install.packages("BiocManager")' \
     # GCP essentials
     "bigrquery",  \
     "googleCloudStorageR", \
-	# GenomicFeatures dependency
-	"rtracklayer", \
     # User oriented packages
     "reticulate", \
     "remotes", \
