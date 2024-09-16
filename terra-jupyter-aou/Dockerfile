@@ -195,10 +195,10 @@ RUN apt-get update && \
         && rm -rf /var/lib/apt/lists/*
 RUN pip install --upgrade pip && pip install --verbose h5py
 
-# RW-8725 INSTALL QIMEE2
-RUN curl -fsSL -o qiime2-2022.8.yml https://data.qiime2.org/distro/core/qiime2-2022.8-py38-linux-conda.yml && \
-    conda env create -n qiime2-2022.8 --file qiime2-2022.8.yml && \
-    rm qiime2-2022.8.yml
+# QIIME 2 2024.5 Amplicon Distribution
+RUN curl -fsSL -o qiime2-2024.5.yml https://data.qiime2.org/distro/amplicon/qiime2-amplicon-2024.5-py39-linux-conda.yml && \
+    conda env create -n qiime2-2024.5 --file qiime2-2024.5.yml && \
+    rm qiime2-2024.5.yml
 
 # Install jellyfish
 RUN mkdir -p /tmp/jellyfish && \
