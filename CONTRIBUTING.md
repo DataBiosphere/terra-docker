@@ -6,7 +6,7 @@
 
 We do our work on a feature branch based on master. When you open a pull request, add the JIRA issue number to the PR title. This will make a reference from JIRA to the GitHub issue. Briefly describe your changes in the description section.
 
-This is also a good opportunity to verify that all the appropriate image versions were bumped. It is important to keep in mind which images extend from where ([Image Dependecies](https://github.com/DataBiosphere/terra-docker#image-dependencies)). Make sure to bump the version of the image you are changing and update its reference in all images that extend from it.
+This is also a good opportunity to verify that all the appropriate image versions were bumped. It is important to keep in mind which images extend from where ([Image Dependecies](https://github.com/DataBiosphere/terra-docker#image-dependencies)). Make sure to bump the version of the image you are changing in `config/conf.json` and update its reference in all images that extend from it.
 
 You can also run `amm ./updateVersions.sc <image name> <release note>` to upgrade derived images. If you're updating `terra-jupyter-aou` image, please make a pull request similar to [this PR](https://github.com/DataBiosphere/leonardo/pull/1612) (less updating `terra_jupyter_aou_old`).
 

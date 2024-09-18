@@ -1,11 +1,11 @@
-FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-base:1.1.3
+FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-base:1.1.4
 
 USER root
 
 COPY scripts $JUPYTER_HOME/scripts
 
 # Add env vars to identify binary package installation
-ENV TERRA_R_PLATFORM="terra-jupyter-r-2.2.5"
+ENV TERRA_R_PLATFORM="terra-jupyter-r-2.2.6"
 ENV TERRA_R_PLATFORM_BINARY_VERSION=3.19
 
 # Install protobuf 3.20.3. Note this version comes from base deep learning image. Use `conda list` to see what's installed
@@ -117,8 +117,10 @@ RUN apt-get update \
 # Add libsbml CFLAGS
 ENV LIBSBML_CFLAGS="-I/usr/include"
 ENV LIBSBML_LIBS="-lsbml"
+ENV XML_CONFIG="/usr/bin/xml2-config"
 RUN echo 'export LIBSBML_CFLAGS="-I/usr/include"' >> /etc/profile \
-    && echo 'export LIBSBML_LIBS="-lsbml"' >> /etc/profile
+    && echo 'export LIBSBML_LIBS="-lsbml"' >> /etc/profile \
+	&& echo 'export XML_CONFIG="/usr/bin/xml2-config"' >> /etc/profile
 
 ## set pip3 to run as root, not as jupyter user
 ENV PIP_USER=false

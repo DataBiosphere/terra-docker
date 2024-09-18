@@ -87,7 +87,7 @@ jobs:
           /bin/bash -c 'for nb in {terra-jupyter-python/tests,terra-jupyter-hail/tests}/*ipynb ; do jupyter nbconvert --to html_embed --ExecutePreprocessor.allow_errors=True --execute "${nb}" ; done'
 
     - name: Upload workflow artifacts
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v4
       with:
         name: notebook-execution-results
         path: |

@@ -108,10 +108,13 @@ RUN pip3 -V \
     # for jupyter_delocalize.py and jupyter_notebook_config.py
     # DO NOT CHANGE OR UNPIN NOTEBOOK OR JUPYTERLAB-SERVER! When trying with 6.5.5 and 2.24.0 notebook commands could not find the notebook config file
     && pip3 install notebook==6.5.4 \
+    && pip3 install jupyter-server==1.24.0 \
     && pip3 install jupyterlab-server==2.23.0 \
+    # See: https://stackoverflow.com/questions/77549493/modulenotfounderror-no-module-named-jupyter-server-contents/77549554#77549554
+    && pip3 install traitlets==5.9.0 \
     && pip3 install requests \
     && pip3 install firecloud \
-    && pip3 install terra-notebook-utils==0.13.0 \
+    && pip3 install terra-notebook-utils==0.14.0 \
     && pip3 install crcmod \
     # For gcloud alpha storage support.
     && pip3 install google-crc32c --target /usr/lib/google-cloud-sdk/lib/third_party \
