@@ -1,11 +1,3 @@
-## 2.2.14 - 2024-09-04
-- Update `terra-jupyter-gatk` to `2.3.8`
-  - Update `terra-jupyter-python` to `1.1.6`
-    - Update `terra-jupyter-base` to `1.1.4`
-      - Update terra-notebook-utils to `0.14.0`
-
-Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-aou:2.2.14`
-
 ## 2.2.13 - 2024-08-12
 - Update `hail` to `0.2.130.post1`
   - See https://github.com/hail-is/hail/releases/tag/0.2.130.post1 for details
