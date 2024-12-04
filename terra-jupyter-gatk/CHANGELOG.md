@@ -1,3 +1,10 @@
+## 2.3.8 - 2024-12-04T17:30:49.287815033Z
+
+- Update `terra-jupyter-r` to `2.2.6`
+  - Update for R 4.4.2 and Bioc 3.20
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-gatk:2.3.8`
+
 ## 2.3.7 - 2024-05-15T15:36:28.602743427Z
 
 - Update `terra-jupyter-r` to `2.2.5`

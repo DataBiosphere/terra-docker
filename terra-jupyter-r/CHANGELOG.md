@@ -1,3 +1,9 @@
+## 2.2.6 - 2024-12-04T17:30:49.258285293Z
+
+- Update for R 4.4.2 and Bioc 3.20
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-r:2.2.6`
+
 ## 2.2.5 - 2024-05-15T15:36:28.555690376Z
 
 - Update for R 4.4.0 and Bioc 3.19

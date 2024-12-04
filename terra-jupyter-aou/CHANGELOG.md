@@ -1,3 +1,10 @@
+## 2.2.14 - 2024-12-04T17:30:49.302274524Z
+
+- Update `terra-jupyter-r` to `2.2.6`
+  - Update for R 4.4.2 and Bioc 3.20
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-aou:2.2.14`
+
 ## 2.2.13 - 2024-08-12
 - Update `hail` to `0.2.130.post1`
   - See https://github.com/hail-is/hail/releases/tag/0.2.130.post1 for details
