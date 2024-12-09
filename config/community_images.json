@@ -9,7 +9,7 @@
     "isCommunity": true
 },
 {
-    "id": "Rstudio",
+    "id": "RStudio",
     "label": "RStudio (R 4.4.2, Bioconductor 3.20, Python 3.12.3)",
     "version": "3.20.0",
     "updated": "2024-11-20",
