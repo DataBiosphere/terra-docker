@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "terra-base-jupyter"
+version = "0.1.0"
+description = ""
+authors = ["LizBaldo <baldo@broadinstitute.org>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+jupyter = "^1.0.0"
+
+[tool.poetry.dev-dependencies]
+pytest = "*"
+nose = "*"
+requests-mock = "*"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
