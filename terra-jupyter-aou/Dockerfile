@@ -188,10 +188,6 @@ RUN R -e 'BiocManager::install(c("SAIGEgds","SNPRelate"))'
 
 RUN R -e 'BiocManager::install(c("jbisanz/qiime2R"))'
 
-# RUN R -e 'install.packages("devtools")' \
-#    ## check version
-#    && R -e "devtools::install(version='$TERRA_R_PLATFORM_BINARY_VERSION', ask=FALSE)" \
-
 # Install hdf5 library and h5py
 RUN apt-get update && \
   apt install -yq --no-install-recommends \
