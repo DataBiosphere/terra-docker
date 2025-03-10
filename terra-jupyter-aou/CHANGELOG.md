@@ -1,3 +1,9 @@
+## 2.2.15 - 2025-03-07
+* upgrade qiime
+* install qiime2R
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-aou:2.2.15`
+
 ## 2.2.14 - 2024-12-04T17:30:49.302274524Z
 
 - Update `terra-jupyter-r` to `2.2.6`
