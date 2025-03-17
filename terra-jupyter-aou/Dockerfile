@@ -186,6 +186,8 @@ RUN R -e 'BiocManager::install(c("GENESIS"))'
 
 RUN R -e 'BiocManager::install(c("SAIGEgds","SNPRelate"))'
 
+RUN R -e 'BiocManager::install(c("jbisanz/qiime2R"))'
+
 # Install hdf5 library and h5py
 RUN apt-get update && \
   apt install -yq --no-install-recommends \
@@ -195,10 +197,10 @@ RUN apt-get update && \
         && rm -rf /var/lib/apt/lists/*
 RUN pip install --upgrade pip && pip install --verbose h5py
 
-# QIIME 2 2024.5 Amplicon Distribution
-RUN curl -fsSL -o qiime2-2024.5.yml https://data.qiime2.org/distro/amplicon/qiime2-amplicon-2024.5-py39-linux-conda.yml && \
-    conda env create -n qiime2-2024.5 --file qiime2-2024.5.yml && \
-    rm qiime2-2024.5.yml
+# QIIME 2 2024.10 Amplicon Distribution
+RUN curl -fsSL -o qiime2-2024.10.yml https://data.qiime2.org/distro/amplicon/qiime2-amplicon-2024.10-py310-linux-conda.yml && \
+    conda env create -n qiime2-2024.10 --file qiime2-2024.10.yml && \
+    rm qiime2-2024.10.yml
 
 # Install jellyfish
 RUN mkdir -p /tmp/jellyfish && \
