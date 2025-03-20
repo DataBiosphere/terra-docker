@@ -11,11 +11,11 @@ ENV DEBIAN_FRONTEND noninteractive
 
 RUN sudo -i \
     echo "deb http://security.ubuntu.com/ubuntu/ bionic main" >> /etc/apt/sources.list \
-    sudo apt update libexempi3
+    && sudo apt update libexempi3
 
 RUN sudo -i \
     echo "deb http://us.archive.ubuntu.com/ubuntu/ bionic universe" >> /etc/apt/sources.list \
-    sudo apt update libv8-3.14-dev
+    && sudo apt update libv8-3.14-dev
 
 # nvidia is updating and rotating the signing keys used by the apt, dnf/yum, and zypper package managers beginning April 27, 2022
 # see article: https://developer.nvidia.com/blog/updating-the-cuda-linux-gpg-repository-key/
