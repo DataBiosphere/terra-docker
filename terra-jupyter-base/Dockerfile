@@ -56,7 +56,7 @@ ENV LC_ALL en_US.UTF-8
 # Python / Jupyter
 #######################
 
-ENV USER jupyter
+ENV USER=jupyter
 RUN usermod -g users jupyter
 ENV HOME /home/$USER
 
@@ -64,13 +64,13 @@ ENV HOME /home/$USER
 #  https://github.com/DataBiosphere/welder/blob/master/project/Settings.scala
 # Adding welder-user to the Jupyter container isn't strictly required, but it makes welder-added
 # files display nicer when viewed in a terminal.
-ENV WELDER_USER welder-user
-ENV WELDER_UID 1001
+ENV WELDER_USER=welder-user
+ENV WELDER_UID=1001
 RUN useradd -m -s /bin/bash -N -u $WELDER_UID $WELDER_USER
 
 # ensure this matches c.NotebookApp.port in jupyter_notebook_config.py
-ENV JUPYTER_PORT 8000
-ENV JUPYTER_HOME /etc/jupyter
+ENV JUPYTER_PORT=8000
+ENV JUPYTER_HOME=/etc/jupyter
 
 RUN pip3 -V \
     # When we upgraded from jupyter 5.7.8 to 6.1.1, we broke terminal button on terra-ui.
