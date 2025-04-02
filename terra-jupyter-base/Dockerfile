@@ -1,6 +1,6 @@
 # adapted from https://hub.docker.com/r/jupyter/base-notebook/ AKA https://github.com/jupyter/docker-stacks/tree/master/base-notebook
 
-FROM gcr.io/deeplearning-platform-release/tf-gpu.2-11.py310
+FROM gcr.io/deeplearning-platform-release/tf2-cu123.2-17.py310
 
 USER root
 
@@ -8,25 +8,6 @@ USER root
 # Prerequisites
 #######################
 ENV DEBIAN_FRONTEND noninteractive
-
-RUN sudo -i \
-    echo "deb http://security.ubuntu.com/ubuntu/ bionic main" >> /etc/apt/sources.list \
-    sudo apt update libexempi3
-
-RUN sudo -i \
-    echo "deb http://us.archive.ubuntu.com/ubuntu/ bionic universe" >> /etc/apt/sources.list \
-    sudo apt update libv8-3.14-dev
-
-# nvidia is updating and rotating the signing keys used by the apt, dnf/yum, and zypper package managers beginning April 27, 2022
-# see article: https://developer.nvidia.com/blog/updating-the-cuda-linux-gpg-repository-key/
-# first we remove the bad keys from base image (https://github.com/NVIDIA/nvidia-docker/issues/1631#issuecomment-1112828208)
-RUN rm /etc/apt/sources.list.d/cuda.list \
-    && sudo apt-key del 7fa2af80 \
-    && curl -L -O https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/cuda-keyring_1.0-1_all.deb \
-    && sudo dpkg -i cuda-keyring_1.0-1_all.deb
-
-RUN curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key --keyring /usr/share/keyrings/cloud.google.gpg add -
-RUN curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
 
 RUN apt-get update && apt-get install -yq --no-install-recommends \
     # gnupg requirement
@@ -47,15 +28,13 @@ RUN apt-get update && apt-get install -yq --no-install-recommends \
     libbz2-dev \
     libreadline-dev \
     libsqlite3-dev \
-    libexempi3 \
-    libv8-3.14-dev \
     llvm \
     libncurses5-dev \
     libncursesw5-dev \
     tk-dev \
     libffi-dev \
     liblzma-dev \
-    python-openssl \
+    python3-openssl \
     # install script requirements
     sudo \
     locales \
@@ -142,6 +121,7 @@ COPY custom $JUPYTER_HOME/custom
 COPY jupyter_notebook_config.py $JUPYTER_HOME
 
 # copy workspace_cromwell.py script and make it runnable by all users
+# TODO why not move this script into this repo?
 RUN curl -o /usr/local/bin/workspace_cromwell.py https://raw.githubusercontent.com/broadinstitute/cromwhelm/1ceedf89587cffd355f37401b179001f029f77ed/scripts/workspace_cromwell.py \
     && chmod +x /usr/local/bin/workspace_cromwell.py
 
