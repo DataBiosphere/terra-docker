@@ -77,24 +77,38 @@ RUN pip3 -V \
     # Hence, make sure to manually test out "launch terminal" button (the button in the green bar next to start and stop buttons)
     # to make sure we don't accidentally break it every time we upgrade notebook version until we figure out an automation test for this
     && pip3 install python-datauri \
-    && pip3 install jupyter_contrib_nbextensions \
-    && pip3 install jupyter_nbextensions_configurator \
+    && pip3 install jupyter_contrib_nbextensions==0.7.0 \
+    && pip3 install jupyter_nbextensions_configurator==0.6.3 \
     && pip3 install markupsafe==2.1.2 \
+    && pip3 install traitlets==5.9.0 \
     # Avoid broken lower versions: https://github.com/jupyter/nbconvert/pull/1624, pinning to latest known working version on terra
     && pip3 install "nbconvert>=7.7.3" \
     # Avoid notebook extension issues
     && pip3 install "nbclassic<0.5" \
     # for jupyter_delocalize.py and jupyter_notebook_config.py
     # DO NOT CHANGE OR UNPIN NOTEBOOK OR JUPYTERLAB-SERVER! When trying with 6.5.5 and 2.24.0 notebook commands could not find the notebook config file
+    && pip3 install jupyter_core==5.3.1 \
+    && pip3 install jupyter-events==0.7.0 \
+    && pip3 install jupyterlab==3.4.8 \
     && pip3 install notebook==6.5.4 \
+    && pip3 install jupyter_server==1.24.0 \
     && pip3 install jupyterlab-server==2.23.0 \
+    && pip3 install notebook_shim==0.2.3 \
+    && pip3 install jupyter_server_proxy==4.0.0 \
+    && pip3 install jupyter_server_terminals==0.4.4 \
+    && pip3 install jupyterlab_git==0.42.0 \
+    && pip3 install jupyterlab-pygments==0.2.2 \
+    && pip3 install jupyterlab-widgets==3.0.8 \
+    && pip3 install jupytext==1.15.0 \
     && pip3 install requests \
     && pip3 install firecloud \
     && pip3 install terra-notebook-utils==0.13.0 \
     && pip3 install crcmod \
     # For gcloud alpha storage support.
     && pip3 install google-crc32c --target /usr/lib/google-cloud-sdk/lib/third_party \
-    && pip3 install cromshell==2.0.0
+    && pip3 install cromshell==2.0.0 \
+    # This plugin is part of the base image and doesn't support our older Jupyter version
+    && pip3 uninstall -y dataproc_jupyter_plugin
 
 # to allow file-saving in different formats
 # toc2 is not compatible with versions of notebooks over 5.x - deprecated
@@ -126,8 +140,6 @@ RUN curl -o /usr/local/bin/workspace_cromwell.py https://raw.githubusercontent.c
     && chmod +x /usr/local/bin/workspace_cromwell.py
 
 RUN chown -R $USER:users $JUPYTER_HOME \
-    # Disable nb_conda for now. Consider re-enable in the future
-    && jupyter nbextension disable nb_conda --py --sys-prefix \
     && find $JUPYTER_HOME/scripts -name '*.sh' -type f | xargs chmod +x \
     #  You can get kernel directory by running `jupyter kernelspec list`
     && $JUPYTER_HOME/scripts/kernel/kernelspec.sh $JUPYTER_HOME/scripts/kernel /opt/conda/share/jupyter/kernels
@@ -143,5 +155,5 @@ WORKDIR $HOME
 # Note: this entrypoint is provided for running Jupyter independently of Leonardo.
 # When Leonardo deploys this image onto a cluster, the entrypoint is overwritten to enable
 # additional setup inside the container before execution.  Jupyter execution occurs when the
-# init-actions.sh script uses 'docker exec' to call run-jupyter.sh.
+# Leonardo init-actions.sh script uses 'docker exec' to call run-jupyter.sh.
 ENTRYPOINT ["/opt/conda/bin/jupyter", "notebook"]
