@@ -1,3 +1,8 @@
+## 1.1.6 = 2023-04-09
+- Update `terra-jupyter-base` to `1.1.4`
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-python:1.1.6`
+
 ## 1.1.5 - 2023-11-28
 - Pin bleach to `6.0.0`
 
