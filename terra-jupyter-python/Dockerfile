@@ -50,10 +50,8 @@ RUN sed -i "s/^\( *'bq_stats',\)/#\1/g" /etc/ipython/ipython_kernel_config.py
 
 ENV USER=jupyter
 USER $USER
-
 # We want pip to install into the user's dir when the notebook is running.
 ENV PIP_USER=true
-
 # Enable Intel oneDNN optimizatoin by default
 ENV TF_ENABLE_ONEDNN_OPTS=1
 
