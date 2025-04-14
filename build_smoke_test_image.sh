@@ -21,7 +21,7 @@ build_smoke_test_image() {
   for BASE_IMAGE in ${BASE_IMAGES}; do
     local PULL_RESULT=$( docker pull -q $BASE_IMAGE )
 
-    if [[ -n "${PULL_RESULT}" ]]; then
+    if [[ ! -n "${PULL_RESULT}" ]]; then
       echo "${BASE_IMAGE} exists"
     else
       echo "${BASE_IMAGE} does not exist, building it locally"
