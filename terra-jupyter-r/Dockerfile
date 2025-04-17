@@ -11,15 +11,15 @@ ENV TERRA_R_PLATFORM_BINARY_VERSION=3.20
 # Install protobuf 3.20.3. Note this version comes from base deep learning image. Use `conda list` to see what's installed
 RUN cd /tmp \
   && wget https://github.com/protocolbuffers/protobuf/releases/download/v3.20.3/protobuf-all-3.20.3.tar.gz \
-	&& tar -xvzf protobuf-all-3.20.3.tar.gz \
-	&& cd protobuf-3.20.3/ \
-	&& ./configure \
-	&& make \
-	&& make check \
-	&& sudo make install \
-	&& sudo ldconfig \
-	&& rm -rf /tmp/protobuf-* \
-	&& cd ~
+    && tar -xvzf protobuf-all-3.20.3.tar.gz \
+    && cd protobuf-3.20.3/ \
+    && ./configurE \
+    && make \
+    && make check \
+    && sudo make install \
+    && sudo ldconfig \
+    && rm -rf /tmp/protobuf-* \
+    && cd ~
 
 # Add R kernel
 RUN find $JUPYTER_HOME/scripts -name '*.sh' -type f | xargs chmod +x \
@@ -32,71 +32,71 @@ RUN apt-get update \
     && apt-get install -yq --no-install-recommends apt-transport-https \
     && apt update \
     && apt install -yq --no-install-recommends \
-	apt-utils \
-	libssh2-1-dev \
-	libssl-dev \
-	libcurl4-gnutls-dev \
-	libgit2-dev \
-	libxml2-dev \
-	libgfortran-7-dev \
-	r-base-dev \
-	r-base-core \
-	## This section installs libraries
-	libnetcdf-dev \
-	libhdf5-serial-dev \
-	libfftw3-dev \
-	libopenbabel-dev \
-	libopenmpi-dev \
-	libexempi3 \
-	libgdal-dev \
-	libcairo2-dev \
-	libtiff5-dev \
-	libgsl0-dev \
-	libgtk2.0-dev \
-	libgl1-mesa-dev \
-	libglu1-mesa-dev \
-	libgmp3-dev \
-	libhdf5-dev \
-	libncurses-dev \
-	libxpm-dev \
-	libv8-3.14-dev \
-	libgtkmm-2.4-dev \
-	libmpfr-dev \
-	libudunits2-dev \
-	libmodule-build-perl \
-	libapparmor-dev \
-	libgeos-dev \
-	librdf0-dev \
-	libmagick++-dev \
-	libsasl2-dev \
-	libpoppler-cpp-dev \
-	libpq-dev \
-	libperl-dev \
-	libgfortran5 \
-	## software - perl extentions and modules
-	libarchive-extract-perl \
-	libfile-copy-recursive-perl \
-	libcgi-pm-perl \
-	libdbi-perl \
-	libdbd-mysql-perl \
-	libxml-simple-perl \
-	## Databases and other software
-	sqlite \
-	mpi-default-bin \
-	openmpi-common \
-	tcl8.5-dev \
-	imagemagick \
-	tabix \
-	ggobi \
-	graphviz \
-	jags \
-	## Additional resources
-	xfonts-100dpi \
-	xfonts-75dpi \
-	biber \
-	libzmq3-dev \
-	libsbml5-dev \
-	biber \
+    apt-utils \
+    libssh2-1-dev \
+    libssl-dev \
+    libcurl4-gnutls-dev \
+    libgit2-dev \
+    libxml2-dev \
+    libgfortran-7-dev \
+    r-base-dev \
+    r-base-core \
+    ## This section installs libraries
+    libnetcdf-dev \
+    libhdf5-serial-dev \
+    libfftw3-dev \
+    libopenbabel-dev \
+    libopenmpi-dev \
+    libexempi3 \
+    libgdal-dev \
+    libcairo2-dev \
+    libtiff5-dev \
+    libgsl0-dev \
+    libgtk2.0-dev \
+    libgl1-mesa-dev \
+    libglu1-mesa-dev \
+    libgmp3-dev \
+    libhdf5-dev \
+    libncurses-dev \
+    libxpm-dev \
+    libv8-3.14-dev \
+    libgtkmm-2.4-dev \
+    libmpfr-dev \
+    libudunits2-dev \
+    libmodule-build-perl \
+    libapparmor-dev \
+    libgeos-dev \
+    librdf0-dev \
+    libmagick++-dev \
+    libsasl2-dev \
+    libpoppler-cpp-dev \
+    libpq-dev \
+    libperl-dev \
+    libgfortran5 \
+    ## software - perl extentions and modules
+    libarchive-extract-perl \
+    libfile-copy-recursive-perl \
+    libcgi-pm-perl \
+    libdbi-perl \
+    libdbd-mysql-perl \
+    libxml-simple-perl \
+    ## Databases and other software
+    sqlite \
+    mpi-default-bin \
+    openmpi-common \
+    tcl8.5-dev \
+    imagemagick \
+    tabix \
+    ggobi \
+    graphviz \
+    jags \
+    ## Additional resources
+    xfonts-100dpi \
+    xfonts-75dpi \
+    biber \
+    libzmq3-dev \
+    libsbml5-dev \
+    biber \
         ## for gpuMagic package
         ocl-icd-opencl-dev \
         ## for ChemmineOB package
@@ -104,9 +104,9 @@ RUN apt-get update \
         ## for rawrr package
         mono-runtime \
         ## for nloptr package
-	cmake \
- 	## for archive package
- 	libarchive-dev \
+    cmake \
+    ## for archive package
+    libarchive-dev \
     && ln -s /usr/lib/gcc/x86_64-linux-gnu/7/libgfortran.so /usr/lib/x86_64-linux-gnu/libgfortran.so \
     && ln -s /usr/lib/gcc/x86_64-linux-gnu/7/libstdc++.so /usr/lib/x86_64-linux-gnu/libstdc++.so \
     && apt-get clean \
