@@ -1,3 +1,9 @@
+## 2.2.7 - 2025-04-17
+
+- Update `terra-jupyter-r` to `2.2.7`
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-bioconductor:2.2.7`
+
 ## 2.2.6 - 2024-12-04T17:30:49.275803406Z
 
 - Update `terra-jupyter-r` to `2.2.6`
@@ -35,7 +41,7 @@ Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-bioconductor:2.2.2`
 
 ## 2.2.1 - 2023-07-06
 
-- Fix bug introduced in https://github.com/DataBiosphere/terra-docker/commit/4a5b4c9212aedcafa2f41fbeb2b161089341c578 
+- Fix bug introduced in https://github.com/DataBiosphere/terra-docker/commit/4a5b4c9212aedcafa2f41fbeb2b161089341c578
 
 Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-bioconductor:2.2.1`
 
