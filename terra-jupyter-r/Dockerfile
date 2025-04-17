@@ -28,7 +28,7 @@ RUN find $JUPYTER_HOME/scripts -name '*.sh' -type f | xargs chmod +x \
 # https://cran.r-project.org/bin/linux/ubuntu/README.html
 RUN apt-get update \
     && apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E298A3A825C0D65DFD57CBB651716619E084DAB9 \
-    && add-apt-repository 'deb https://cloud.r-project.org/bin/linux/ubuntu bionic-cran40/' \
+    && add-apt-repository 'deb https://cloud.r-project.org/bin/linux/ubuntu jammy-cran40/' \
     && apt-get install -yq --no-install-recommends apt-transport-https \
     && apt update \
     && apt install -yq --no-install-recommends \
@@ -38,7 +38,6 @@ RUN apt-get update \
     libcurl4-gnutls-dev \
     libgit2-dev \
     libxml2-dev \
-    libgfortran-7-dev \
     r-base-dev \
     r-base-core \
     ## This section installs libraries
@@ -47,7 +46,6 @@ RUN apt-get update \
     libfftw3-dev \
     libopenbabel-dev \
     libopenmpi-dev \
-    libexempi3 \
     libgdal-dev \
     libcairo2-dev \
     libtiff5-dev \
@@ -59,7 +57,6 @@ RUN apt-get update \
     libhdf5-dev \
     libncurses-dev \
     libxpm-dev \
-    libv8-3.14-dev \
     libgtkmm-2.4-dev \
     libmpfr-dev \
     libudunits2-dev \
@@ -84,7 +81,6 @@ RUN apt-get update \
     sqlite \
     mpi-default-bin \
     openmpi-common \
-    tcl8.5-dev \
     imagemagick \
     tabix \
     ggobi \
