@@ -1,3 +1,8 @@
+## 1.1.13 - 2025-04-17
+- Update `terra-jupyter-python` to `1.1.6`
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-hail:1.1.13`
+
 ## 1.1.12 - 2024-08-12
 - Update `hail` to `0.2.130.post1`
   - See https://github.com/hail-is/hail/releases/tag/0.2.130.post1 for details
