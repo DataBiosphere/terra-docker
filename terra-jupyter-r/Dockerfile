@@ -6,7 +6,7 @@ COPY scripts $JUPYTER_HOME/scripts
 
 # Add env vars to identify binary package installation
 ENV TERRA_R_PLATFORM="terra-jupyter-r-2.2.6"
-ENV TERRA_R_PLATFORM_BINARY_VERSION=3.20
+ENV TERRA_R_PLATFORM_BINARY_VERSION=3.21
 
 # Install protobuf 3.20.3. Note this version comes from base deep learning image. Use `conda list` to see what's installed
 RUN cd /tmp \
@@ -31,6 +31,8 @@ RUN apt-get update \
     && add-apt-repository 'deb https://cloud.r-project.org/bin/linux/ubuntu jammy-cran40/' \
     && apt-get install -yq --no-install-recommends apt-transport-https \
     && apt update \
+    # Reconfigure dpkg to solve `Sub-process /usr/bin/dpkg returned an error code` when installing below packages
+    && dpkg --configure -a \
     && apt install -yq --no-install-recommends \
     apt-utils \
     libssh2-1-dev \
