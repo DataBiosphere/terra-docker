@@ -13,7 +13,7 @@ RUN cd /tmp \
   && wget https://github.com/protocolbuffers/protobuf/releases/download/v3.20.3/protobuf-all-3.20.3.tar.gz \
     && tar -xvzf protobuf-all-3.20.3.tar.gz \
     && cd protobuf-3.20.3/ \
-    && ./configurE \
+    && ./configure --disable-dependency-tracking \
     && make \
     && make check \
     && sudo make install \
