@@ -91,7 +91,11 @@ If you're on an M1 and building an image from a locally built image, replace the
 
 `FROM --platform=linux/amd64 terra-jupyter-base`
 
-It is not advised to run build.sh locally, as this will push to the remote docker repo and delete the image locally upon completion. 
+Apple Silicon chips later then M1 (ex. M3) need:
+
+`FROM --platform=linux/amd64/v2 <image name>`
+
+It is not advised to run build.sh locally, as this will push to the remote docker repo and delete the image locally upon completion.
 
 All images can be run locally. For example:
 ```
