@@ -279,5 +279,11 @@ RUN pip install --force-reinstall -v "Jinja2==3.0.3"
 
 ENV PATH="$PATH:/usr/local/RepeatMasker"
 
+# Turn off beatrix-jupyterlab and bq_stats plugins, they don't activate cleanly in our version
+# of jupyter and they're google-managed packages we don't have access to older versions of.
+# Retain two plugins: google.cloud.bigquery and sql
+RUN sed -i "s/^\( *'beatrix_jupyterlab',\)/#\1/g" /etc/ipython/ipython_kernel_config.py
+RUN sed -i "s/^\( *'bq_stats',\)/#\1/g" /etc/ipython/ipython_kernel_config.py
+
 ENV PIP_USER=true
 USER $USER
