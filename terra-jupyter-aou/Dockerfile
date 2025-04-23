@@ -225,9 +225,9 @@ RUN mkdir -p /tmp/cereal && \
 # Install pangenie
 RUN mkdir -p /tmp/pangenie && \
     cd /tmp/pangenie && \
-    curl -fsSL -o pangenie.tar.gz https://github.com/eblerjana/pangenie/archive/refs/tags/v3.0.1.tar.gz && \
+    curl -fsSL -o pangenie.tar.gz https://github.com/eblerjana/pangenie/archive/refs/tags/v4.1.0.tar.gz && \
     tar xvf pangenie.tar.gz && \
-    cd pangenie-3.0.1 && \
+    cd pangenie-4.1.0 && \
     mkdir build; cd build; cmake .. ; make && cd src && \
     mv *.so /lib && \
     mv * /bin/ && \
