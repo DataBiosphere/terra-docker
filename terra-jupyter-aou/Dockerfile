@@ -15,7 +15,7 @@ RUN apt-get update && apt-get install -yq --no-install-recommends \
   libc6 \
   libgcc1 \
   libgssapi-krb5-2 \
-  libicu67 \
+  libicu70 \
   liblttng-ust1 \
   libssl3 \
   libstdc++6 \
