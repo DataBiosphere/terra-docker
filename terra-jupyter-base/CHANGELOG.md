@@ -1,4 +1,4 @@
-## 1.1.4 - 2025-04-08
+## 1.1.4 - 2025-04-24
 - Build off Ubuntu 22 with base image `gcr.io/deeplearning-platform-release/tf2-cu123.2-17.py310`
 
 Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-base:1.1.4`

@@ -1,5 +1,6 @@
-## 1.1.6 = 2023-04-09
+## 1.1.6 = 2023-04-24
 - Update `terra-jupyter-base` to `1.1.4`
+  - Update base image to `gcr.io/deeplearning-platform-release/tf2-cu123.2-17.py310`
 
 Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-python:1.1.6`
 
@@ -29,7 +30,7 @@ Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-python:1.1.2`
 
 ## 1.1.1 - 2023-07-06
 
-- Fix bug introduced in https://github.com/DataBiosphere/terra-docker/commit/4a5b4c9212aedcafa2f41fbeb2b161089341c578 
+- Fix bug introduced in https://github.com/DataBiosphere/terra-docker/commit/4a5b4c9212aedcafa2f41fbeb2b161089341c578
 
 Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-python:1.1.1`
 

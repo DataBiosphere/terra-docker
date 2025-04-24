@@ -1,6 +1,7 @@
-## 2.2.7 - 2025-04-09
+## 2.2.7 - 2025-04-24
 
--  Update `terra-jupyter-base` to `1.1.4`
+- Update `terra-jupyter-base` to `1.1.4`
+  - Update base image to `gcr.io/deeplearning-platform-release/tf2-cu123.2-17.py310`
 
 Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-r:2.2.7`
 

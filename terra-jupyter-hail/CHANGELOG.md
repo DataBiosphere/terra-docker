@@ -1,5 +1,7 @@
-## 1.1.13 - 2025-04-17
+## 1.1.13 - 2025-04-24
 - Update `terra-jupyter-python` to `1.1.6`
+  - Update `terra-jupyter-base` to `1.1.4`
+    - Update base image to `gcr.io/deeplearning-platform-release/tf2-cu123.2-17.py310`
 
 Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-hail:1.1.13`
 
