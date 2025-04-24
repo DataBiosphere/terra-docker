@@ -1,20 +1,20 @@
 [
   {
-    "updated": "2024-05-15",
-    "image": "us.gcr.io/broad-dsp-gcr-public/terra-jupyter-bioconductor:2.2.5",
+    "updated": "2025-04-24",
+    "image": "us.gcr.io/broad-dsp-gcr-public/terra-jupyter-bioconductor:2.2.6",
     "label": "Legacy R / Bioconductor (R 4.4.0, Bioconductor 3.19, Python 3.10.12)",
-    "version": "2.2.5",
+    "version": "2.2.6",
     "requiresSpark": false,
-    "packages": "https://storage.googleapis.com/terra-docker-image-documentation/terra-jupyter-bioconductor-2.2.5-versions.json",
+    "packages": "https://storage.googleapis.com/terra-docker-image-documentation/terra-jupyter-bioconductor-2.2.6-versions.json",
     "id": "terra-jupyter-bioconductor_legacy"
   },
   {
-    "updated": "2023-06-23",
-    "image": "us.gcr.io/broad-dsp-gcr-public/terra-jupyter-gatk:2.2.14",
-    "label": "Legacy GATK (GATK 4.2.4.0, Python 3.7.12, R 4.3.0)",
-    "version": "2.2.14",
+    "updated": "2025-04-24",
+    "image": "us.gcr.io/broad-dsp-gcr-public/terra-jupyter-gatk:2.3.9",
+    "label": "Legacy GATK (GATK 4.3.0.0, Python 3.7.12, R 4.3.0)",
+    "version": "2.3.9",
     "requiresSpark": false,
-    "packages": "https://storage.googleapis.com/terra-docker-image-documentation/terra-jupyter-gatk:2.2.14-versions.json",
+    "packages": "https://storage.googleapis.com/terra-docker-image-documentation/terra-jupyter-gatk:2.3.9-versions.json",
     "id": "terra-jupyter-gatk_legacy"
   }
 ]
