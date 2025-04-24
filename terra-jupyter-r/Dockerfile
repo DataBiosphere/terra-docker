@@ -95,13 +95,13 @@ RUN apt-get update \
     libzmq3-dev \
     libsbml5-dev \
     biber \
-        ## for gpuMagic package
-        ocl-icd-opencl-dev \
-        ## for ChemmineOB package
-        libeigen3-dev \
-        ## for rawrr package
-        mono-runtime \
-        ## for nloptr package
+    ## for gpuMagic package
+    ocl-icd-opencl-dev \
+    ## for ChemmineOB package
+    libeigen3-dev \
+    ## for rawrr package
+    mono-runtime \
+    ## for nloptr package
     cmake \
     ## for archive package
     libarchive-dev \
