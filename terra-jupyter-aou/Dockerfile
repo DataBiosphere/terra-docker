@@ -1,4 +1,4 @@
-FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-gatk:2.3.8
+FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-gatk:2.3.9
 
 USER root
 
@@ -15,9 +15,9 @@ RUN apt-get update && apt-get install -yq --no-install-recommends \
   libc6 \
   libgcc1 \
   libgssapi-krb5-2 \
-  libicu60 \
-  liblttng-ust0 \
-  libssl1.0.0 \
+  libicu70 \
+  liblttng-ust1 \
+  libssl3 \
   libstdc++6 \
   zlib1g \
   && apt-get clean \
@@ -225,9 +225,9 @@ RUN mkdir -p /tmp/cereal && \
 # Install pangenie
 RUN mkdir -p /tmp/pangenie && \
     cd /tmp/pangenie && \
-    curl -fsSL -o pangenie.tar.gz https://github.com/eblerjana/pangenie/archive/refs/tags/v3.0.1.tar.gz && \
+    curl -fsSL -o pangenie.tar.gz https://github.com/eblerjana/pangenie/archive/refs/tags/v4.1.0.tar.gz && \
     tar xvf pangenie.tar.gz && \
-    cd pangenie-3.0.1 && \
+    cd pangenie-4.1.0 && \
     mkdir build; cd build; cmake .. ; make && cd src && \
     mv *.so /lib && \
     mv * /bin/ && \
@@ -278,6 +278,12 @@ RUN rm -f /usr/local/bin/workspace_cromwell.py
 RUN pip install --force-reinstall -v "Jinja2==3.0.3"
 
 ENV PATH="$PATH:/usr/local/RepeatMasker"
+
+# Turn off beatrix-jupyterlab and bq_stats plugins, they don't activate cleanly in our version
+# of jupyter and they're google-managed packages we don't have access to older versions of.
+# Retain two plugins: google.cloud.bigquery and sql
+RUN sed -i "s/^\( *'beatrix_jupyterlab',\)/#\1/g" /etc/ipython/ipython_kernel_config.py
+RUN sed -i "s/^\( *'bq_stats',\)/#\1/g" /etc/ipython/ipython_kernel_config.py
 
 ENV PIP_USER=true
 USER $USER

@@ -1,3 +1,12 @@
+## 2.2.15 - 2025-04-24
+
+- Update `terra-jupyter-gatk` to `2.3.9`
+  - Update `terra-jupyter-r` to `2.2.7` and `terra-jupyter-python` to `1.1.6`
+    - Update `terra-jupyter-base` to `1.1.4`
+      - Update base image to `gcr.io/deeplearning-platform-release/tf2-cu123.2-17.py310`
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-aou:2.2.15`
+
 ## 2.2.14 - 2024-12-04T17:30:49.302274524Z
 
 - Update `terra-jupyter-r` to `2.2.6`

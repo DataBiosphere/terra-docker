@@ -1,4 +1,4 @@
-FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-base:1.1.3
+FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-base:1.1.4
 
 USER root
 # This makes it so pip runs as root, not the user.
@@ -42,14 +42,18 @@ RUN pip3 -V \
 
 RUN pip3 install --upgrade markupsafe==2.1.2
 
-ENV USER jupyter
+# Turn off beatrix-jupyterlab and bq_stats plugins, they don't activate cleanly in our version
+# of jupyter and they're google-managed packages we don't have access to older versions of.
+# Retain two plugins: google.cloud.bigquery and sql
+RUN sed -i "s/^\( *'beatrix_jupyterlab',\)/#\1/g" /etc/ipython/ipython_kernel_config.py
+RUN sed -i "s/^\( *'bq_stats',\)/#\1/g" /etc/ipython/ipython_kernel_config.py
+
+ENV USER=jupyter
 USER $USER
 # We want pip to install into the user's dir when the notebook is running.
 ENV PIP_USER=true
 # Enable Intel oneDNN optimizatoin by default
 ENV TF_ENABLE_ONEDNN_OPTS=1
-
-
 
 # # Note: this entrypoint is provided for running Jupyter independently of Leonardo.
 # # When Leonardo deploys this image onto a cluster, the entrypoint is overwritten to enable

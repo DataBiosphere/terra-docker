@@ -1,3 +1,10 @@
+## 2.2.7 - 2025-04-24
+
+- Update `terra-jupyter-base` to `1.1.4`
+  - Update base image to `gcr.io/deeplearning-platform-release/tf2-cu123.2-17.py310`
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-r:2.2.7`
+
 ## 2.2.6 - 2024-12-04T17:30:49.258285293Z
 
 - Update for R 4.4.2 and Bioc 3.20

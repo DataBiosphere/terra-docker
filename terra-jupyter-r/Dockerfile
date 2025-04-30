@@ -1,4 +1,4 @@
-FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-base:1.1.3
+FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-base:1.1.4
 
 USER root
 
@@ -6,20 +6,20 @@ COPY scripts $JUPYTER_HOME/scripts
 
 # Add env vars to identify binary package installation
 ENV TERRA_R_PLATFORM="terra-jupyter-r-2.2.6"
-ENV TERRA_R_PLATFORM_BINARY_VERSION=3.20
+ENV TERRA_R_PLATFORM_BINARY_VERSION=3.21
 
 # Install protobuf 3.20.3. Note this version comes from base deep learning image. Use `conda list` to see what's installed
 RUN cd /tmp \
   && wget https://github.com/protocolbuffers/protobuf/releases/download/v3.20.3/protobuf-all-3.20.3.tar.gz \
-	&& tar -xvzf protobuf-all-3.20.3.tar.gz \
-	&& cd protobuf-3.20.3/ \
-	&& ./configure \
-	&& make \
-	&& make check \
-	&& sudo make install \
-	&& sudo ldconfig \
-	&& rm -rf /tmp/protobuf-* \
-	&& cd ~
+    && tar -xvzf protobuf-all-3.20.3.tar.gz \
+    && cd protobuf-3.20.3/ \
+    && ./configure --disable-dependency-tracking \
+    && make \
+    && make check \
+    && sudo make install \
+    && sudo ldconfig \
+    && rm -rf /tmp/protobuf-* \
+    && cd ~
 
 # Add R kernel
 RUN find $JUPYTER_HOME/scripts -name '*.sh' -type f | xargs chmod +x \
@@ -28,85 +28,83 @@ RUN find $JUPYTER_HOME/scripts -name '*.sh' -type f | xargs chmod +x \
 # https://cran.r-project.org/bin/linux/ubuntu/README.html
 RUN apt-get update \
     && apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E298A3A825C0D65DFD57CBB651716619E084DAB9 \
-    && add-apt-repository 'deb https://cloud.r-project.org/bin/linux/ubuntu bionic-cran40/' \
+    && add-apt-repository 'deb https://cloud.r-project.org/bin/linux/ubuntu jammy-cran40/' \
     && apt-get install -yq --no-install-recommends apt-transport-https \
     && apt update \
+    # Reconfigure dpkg to solve `Sub-process /usr/bin/dpkg returned an error code` when installing below packages
+    && dpkg --configure -a \
     && apt install -yq --no-install-recommends \
-	apt-utils \
-	libssh2-1-dev \
-	libssl-dev \
-	libcurl4-gnutls-dev \
-	libgit2-dev \
-	libxml2-dev \
-	libgfortran-7-dev \
-	r-base-dev \
-	r-base-core \
-	## This section installs libraries
-	libnetcdf-dev \
-	libhdf5-serial-dev \
-	libfftw3-dev \
-	libopenbabel-dev \
-	libopenmpi-dev \
-	libexempi3 \
-	libgdal-dev \
-	libcairo2-dev \
-	libtiff5-dev \
-	libgsl0-dev \
-	libgtk2.0-dev \
-	libgl1-mesa-dev \
-	libglu1-mesa-dev \
-	libgmp3-dev \
-	libhdf5-dev \
-	libncurses-dev \
-	libxpm-dev \
-	libv8-3.14-dev \
-	libgtkmm-2.4-dev \
-	libmpfr-dev \
-	libudunits2-dev \
-	libmodule-build-perl \
-	libapparmor-dev \
-	libgeos-dev \
-	librdf0-dev \
-	libmagick++-dev \
-	libsasl2-dev \
-	libpoppler-cpp-dev \
-	libpq-dev \
-	libperl-dev \
-	libgfortran5 \
-	## software - perl extentions and modules
-	libarchive-extract-perl \
-	libfile-copy-recursive-perl \
-	libcgi-pm-perl \
-	libdbi-perl \
-	libdbd-mysql-perl \
-	libxml-simple-perl \
-	## Databases and other software
-	sqlite \
-	mpi-default-bin \
-	openmpi-common \
-	tcl8.5-dev \
-	imagemagick \
-	tabix \
-	ggobi \
-	graphviz \
-	jags \
-	## Additional resources
-	xfonts-100dpi \
-	xfonts-75dpi \
-	biber \
-	libzmq3-dev \
-	libsbml5-dev \
-	biber \
-        ## for gpuMagic package
-        ocl-icd-opencl-dev \
-        ## for ChemmineOB package
-        libeigen3-dev \
-        ## for rawrr package
-        mono-runtime \
-        ## for nloptr package
-	cmake \
- 	## for archive package
- 	libarchive-dev \
+    apt-utils \
+    libssh2-1-dev \
+    libssl-dev \
+    libcurl4-gnutls-dev \
+    libgit2-dev \
+    libxml2-dev \
+    r-base-dev \
+    r-base-core \
+    ## This section installs libraries
+    libnetcdf-dev \
+    libhdf5-serial-dev \
+    libfftw3-dev \
+    libopenbabel-dev \
+    libopenmpi-dev \
+    libgdal-dev \
+    libcairo2-dev \
+    libtiff5-dev \
+    libgsl0-dev \
+    libgtk2.0-dev \
+    libgl1-mesa-dev \
+    libglu1-mesa-dev \
+    libgmp3-dev \
+    libhdf5-dev \
+    libncurses-dev \
+    libxpm-dev \
+    libgtkmm-2.4-dev \
+    libmpfr-dev \
+    libudunits2-dev \
+    libmodule-build-perl \
+    libapparmor-dev \
+    libgeos-dev \
+    librdf0-dev \
+    libmagick++-dev \
+    libsasl2-dev \
+    libpoppler-cpp-dev \
+    libpq-dev \
+    libperl-dev \
+    libgfortran5 \
+    ## software - perl extentions and modules
+    libarchive-extract-perl \
+    libfile-copy-recursive-perl \
+    libcgi-pm-perl \
+    libdbi-perl \
+    libdbd-mysql-perl \
+    libxml-simple-perl \
+    ## Databases and other software
+    sqlite \
+    mpi-default-bin \
+    openmpi-common \
+    imagemagick \
+    tabix \
+    ggobi \
+    graphviz \
+    jags \
+    ## Additional resources
+    xfonts-100dpi \
+    xfonts-75dpi \
+    biber \
+    libzmq3-dev \
+    libsbml5-dev \
+    biber \
+    ## for gpuMagic package
+    ocl-icd-opencl-dev \
+    ## for ChemmineOB package
+    libeigen3-dev \
+    ## for rawrr package
+    mono-runtime \
+    ## for nloptr package
+    cmake \
+    ## for archive package
+    libarchive-dev \
     && ln -s /usr/lib/gcc/x86_64-linux-gnu/7/libgfortran.so /usr/lib/x86_64-linux-gnu/libgfortran.so \
     && ln -s /usr/lib/gcc/x86_64-linux-gnu/7/libstdc++.so /usr/lib/x86_64-linux-gnu/libstdc++.so \
     && apt-get clean \

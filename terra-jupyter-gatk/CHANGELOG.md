@@ -1,3 +1,11 @@
+## 2.3.9 - 2025-04-24
+
+- Update `terra-jupyter-r` to `2.2.7` and `terra-jupyter-python` to `1.1.6`
+  - Update `terra-jupyter-base` to `1.1.4`
+    - Update base image to `gcr.io/deeplearning-platform-release/tf2-cu123.2-17.py310`
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-gatk:2.3.9`
+
 ## 2.3.8 - 2024-12-04T17:30:49.287815033Z
 
 - Update `terra-jupyter-r` to `2.2.6`
@@ -112,7 +120,7 @@ Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-gatk:2.2.8`
 
 - Update `terra-jupyter-base` to `1.0.10`
   - Fix leo_url variable in workspace_cromwell.py script for AoU projects
-  
+
 ## 2.2.6 - 2022-06-23T10:58:12.961300Z
 
 - reverted, do not use
@@ -405,7 +413,7 @@ Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-gatk:0.0.13`
 - Update `terra-jupyter-r` version to `0.0.11`
     - Fixes https://broadworkbench.atlassian.net/browse/IA-1676
 
-Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-gatk:0.0.12`                       
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-gatk:0.0.12`
 
 ## 0.0.11 - 02/05/2020
 
@@ -478,4 +486,3 @@ Use version 0.0.2 of python image
 - added Open JDK
 - added GATK 4.1.3.0
 - added Samtools
-
