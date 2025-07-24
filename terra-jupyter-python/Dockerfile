@@ -1,4 +1,7 @@
-FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-base:1.1.4
+FROM us.gcr.io/broad-dsp-gcr-public/terra-base:0.0.1
+
+COPY --from=gcr.io/deeplearning-platform-release/tf2-cu123.2-17.py310
+# FROM gcr.io/deeplearning-platform-release/tf2-cu123.2-17.py310
 
 USER root
 # This makes it so pip runs as root, not the user.
@@ -34,11 +37,11 @@ COPY requirements.txt /etc/terra-docker/
 RUN pip3 -V \
   && pip3 install --upgrade pip \
   && pip3 install --upgrade -r /etc/terra-docker/requirements.txt \
-  && sed -i 's/pandas.lib/pandas/g' /opt/conda/lib/python3.10/site-packages/ggplot/stats/smoothers.py \
+  && sed -i 's/pandas.lib/pandas/g' /home/jupyter/.envs/base-python3.10/site-packages/ggplot/stats/smoothers.py \
   # the next few `sed` lines are workaround for a ggplot bug. See https://github.com/yhat/ggpy/issues/662
-  && sed -i 's/pandas.tslib.Timestamp/pandas.Timestamp/g' /opt/conda/lib/python3.10/site-packages/ggplot/stats/smoothers.py \
-  && sed -i 's/pd.tslib.Timestamp/pd.Timestamp/g' /opt/conda/lib/python3.10/site-packages/ggplot/stats/smoothers.py \
-  && sed -i 's/pd.tslib.Timestamp/pd.Timestamp/g' /opt/conda/lib/python3.10/site-packages/ggplot/utils.py
+  && sed -i 's/pandas.tslib.Timestamp/pandas.Timestamp/g' /home/jupyter/.envs/base-python3.10/site-packages/ggplot/stats/smoothers.py \
+  && sed -i 's/pd.tslib.Timestamp/pd.Timestamp/g' /home/jupyter/.envs/base-python3.10/site-packages/ggplot/stats/smoothers.py \
+  && sed -i 's/pd.tslib.Timestamp/pd.Timestamp/g'/home/jupyter/.envs/base-python3.10/site-packages/ggplot/utils.py
 
 RUN pip3 install --upgrade markupsafe==2.1.2
 
@@ -59,4 +62,4 @@ ENV TF_ENABLE_ONEDNN_OPTS=1
 # # When Leonardo deploys this image onto a cluster, the entrypoint is overwritten to enable
 # # additional setup inside the container before execution.  Jupyter execution occurs when the
 # # init-actions.sh script uses 'docker exec' to call run-jupyter.sh.
-ENTRYPOINT ["/opt/conda/bin/jupyter", "notebook"]
+ENTRYPOINT ["/usr/jupytervenv/bin/jupyter", "notebook"]

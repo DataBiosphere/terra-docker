@@ -1,4 +1,6 @@
-FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-base:1.1.4
+FROM us.gcr.io/broad-dsp-gcr-public/terra-base:0.0.1
+
+# FROM gcr.io/deeplearning-platform-release/tf2-cu123.2-17.py310
 
 USER root
 
@@ -23,7 +25,7 @@ RUN cd /tmp \
 
 # Add R kernel
 RUN find $JUPYTER_HOME/scripts -name '*.sh' -type f | xargs chmod +x \
- && $JUPYTER_HOME/scripts/kernel/kernelspec.sh $JUPYTER_HOME/scripts/kernel /opt/conda/share/jupyter/kernels
+ && $JUPYTER_HOME/scripts/kernel/kernelspec.sh $JUPYTER_HOME/scripts/kernel usr/local/share/jupyter/kernels
 
 # https://cran.r-project.org/bin/linux/ubuntu/README.html
 RUN apt-get update \

@@ -1,0 +1,12 @@
+{
+ "language": "python",
+ "display_name": "Python ${PYTHON_VERSION}",
+ "argv": [
+  "${JUPYTER_HOME}/scripts/kernel/kernel_bootstrap.sh",
+  "python${PYTHON_VERSION}",
+  "-m",
+  "ipykernel_launcher",
+  "-f",
+  "{connection_file}"
+ ]
+}

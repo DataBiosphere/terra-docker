@@ -90,7 +90,7 @@ RUN pip3 install --upgrade markupsafe==2.1.2
 
 COPY cnn-models.patch /etc/gatk-$GATK_VERSION/cnn-models.patch
 
-RUN patch -u /opt/conda/lib/python3.10/site-packages/vqsr_cnn/vqsr_cnn/models.py -i /etc/gatk-$GATK_VERSION/cnn-models.patch
+RUN patch -u /home/jupyter/.envs/base-python3.10/site-packages/vqsr_cnn/vqsr_cnn/models.py -i /etc/gatk-$GATK_VERSION/cnn-models.patch
 
 # Newer version of nbconvert fail to convert notebooks to html
 RUN pip3 install --ignore-installed python-dateutil==2.8.2 \

@@ -1,0 +1,12 @@
+name: terra-base
+channels:
+  - defaults
+dependencies:
+  - pip=23.1.2
+  - python=3.10.12
+  - pip:
+      - bgzip==0.3.5
+      - firecloud>=0.16.38
+      - ipykernel==6.29.4
+      - terra-notebook-utils>=0.15.0
+      - cromshell>=2.1.1
