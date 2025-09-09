@@ -1,0 +1,86 @@
+[
+    {
+        "id": "terra-jupyter-bioconductor",
+        "image": "us.gcr.io/broad-dsp-gcr-public/terra-jupyter-bioconductor:2.2.7",
+        "label": "R / Bioconductor: (Python 3.10.16, R 4.5.0, Bioconductor 3.21, tidyverse 2.0.0)",
+        "packages": "https://storage.googleapis.com/terra-docker-image-documentation/terra-jupyter-bioconductor-2.2.7-versions.json",
+        "requiresSpark": false,
+        "updated": "2025-04-18",
+        "version": "2.2.7"
+    },
+    {
+        "id": "terra-jupyter-hail",
+        "image": "us.gcr.io/broad-dsp-gcr-public/terra-jupyter-hail:1.1.14",
+        "label": "Hail: (Python 3.10.16, Spark 3.5.0, hail 0.2.134)",
+        "packages": "https://storage.googleapis.com/terra-docker-image-documentation/terra-jupyter-hail-1.1.14-versions.json",
+        "requiresSpark": true,
+        "updated": "2025-05-01",
+        "version": "1.1.14"
+    },
+    {
+        "id": "terra-jupyter-python",
+        "image": "us.gcr.io/broad-dsp-gcr-public/terra-jupyter-python:1.1.6",
+        "label": "Python: (Python 3.10.16, pandas 2.0.3, scikit-learn 1.6.0)",
+        "packages": "https://storage.googleapis.com/terra-docker-image-documentation/terra-jupyter-python-1.1.6-versions.json",
+        "requiresSpark": false,
+        "updated": "2025-04-17",
+        "version": "1.1.6"
+    },
+    {
+        "id": "terra-jupyter-gatk",
+        "image": "us.gcr.io/broad-dsp-gcr-public/terra-jupyter-gatk:2.3.9",
+        "label": "Default: (GATK 4.3.0.0, Python 3.10.16, R 4.5.0)",
+        "packages": "https://storage.googleapis.com/terra-docker-image-documentation/terra-jupyter-gatk-2.3.9-versions.json",
+        "requiresSpark": false,
+        "updated": "2025-04-20",
+        "version": "2.3.9"
+    },
+    {
+        "id": "Pegasus",
+        "image": "cumulusprod/pegasus-terra:1.6.0",
+        "isCommunity": true,
+        "label": "Pegasus (Pegasuspy 1.6.0, Python 3.7.12, harmony-pytorch 0.1.7, nmf-torch 0.1.1, scVI-tools 0.16.0)",
+        "packages": "https://raw.githubusercontent.com/lilab-bcb/cumulus/master/docker/pegasus-terra/1.6.0/pegasus-terra-1_6_0-versions.json",
+        "requiresSpark": false,
+        "updated": "2022-04-16",
+        "version": "1.6.0"
+    },
+    {
+        "id": "RStudio",
+        "image": "us.gcr.io/broad-dsp-gcr-public/anvil-rstudio-bioconductor:3.21.0",
+        "isRStudio": true,
+        "label": "RStudio (R 4.5.1, Bioconductor 3.21, Python 3.12.3)",
+        "packages": "https://raw.githubusercontent.com/anvilproject/anvil-docker/main/anvil-rstudio-bioconductor/info/anvil-rstudio-bioconductor-3.21.0-versions.json",
+        "requiresSpark": false,
+        "updated": "2025-08-04",
+        "version": "3.21.0"
+    },
+    {
+        "id": "LegacyRStudio",
+        "image": "us.gcr.io/broad-dsp-gcr-public/anvil-rstudio-bioconductor:3.20.1",
+        "isRStudio": true,
+        "label": "Legacy RStudio (R 4.4.2, Bioconductor 3.20, Python 3.12.3)",
+        "packages": "https://raw.githubusercontent.com/anvilproject/anvil-docker/main/anvil-rstudio-bioconductor/info/anvil-rstudio-bioconductor-3.20.1-versions.json",
+        "requiresSpark": false,
+        "updated": "2024-12-12",
+        "version": "3.20.1"
+    },
+    {
+        "id": "terra-jupyter-gatk_legacy",
+        "image": "us.gcr.io/broad-dsp-gcr-public/terra-jupyter-gatk:2.2.14",
+        "label": "Legacy GATK: (GATK 4.2.4.0, Python 3.7.12, R 4.3.0)",
+        "packages": "https://storage.googleapis.com/terra-docker-image-documentation/terra-jupyter-gatk-2.2.14-versions.json",
+        "requiresSpark": false,
+        "updated": "2023-06-09",
+        "version": "2.2.14"
+    },
+    {
+        "id": "terra-jupyter-bioconductor_legacy",
+        "image": "us.gcr.io/broad-dsp-gcr-public/terra-jupyter-bioconductor:2.2.6",
+        "label": "Legacy R / Bioconductor (R 4.4.0, Bioconductor 3.19, Python 3.10.12)",
+        "packages": "https://storage.googleapis.com/terra-docker-image-documentation/terra-jupyter-bioconductor-2.2.6-versions.json",
+        "requiresSpark": false,
+        "updated": "2025-04-24",
+        "version": "2.2.6"
+    }
+]
