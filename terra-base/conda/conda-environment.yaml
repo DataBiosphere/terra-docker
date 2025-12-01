@@ -1,0 +1,7 @@
+name: python3
+channels:
+  - defaults
+dependencies:
+  - pip=23.1.2
+  - python=3.10
+  - ipykernel
