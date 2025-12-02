@@ -142,8 +142,6 @@ ENV PYTHONDONTWRITEBYTECODE=true
 RUN conda tos accept --override-channels --channel https://repo.anaconda.com/pkgs/main \
  && conda tos accept --override-channels --channel https://repo.anaconda.com/pkgs/r
 
-#RUN conda init bash \
-#    && . ~/.bashrc \
 RUN conda env create --prefix $CONDA_ENV_HOME --file $CONDA_FILES/conda-environment.yaml \
     # Remove packages tarballs and python bytecode files from the image
     && conda clean -afy \
@@ -203,24 +201,32 @@ RUN $JUPYTER_HOME/bin/jupyter kernelspec remove python3 -y
 
 # #######################
 # # Terra-specific Utilities
-# #######################
-# copy over jupyter extensions and kernel config files
-COPY jupyter/ $JUPYTER_HOME
+# ####################### \
+
+]# Copy over utility scripts and config files
+ENV JUPYTER_SCRIPTS $JUPYTER_HOME/scripts
+ENV JUPYTER_CUSTOM $JUPYTER_HOME/custom
+ENV JUPYTER_EXTENSIONS $JUPYTER_SCRIPTS/extension
+ENV JUPYTER_KERNEL $JUPYTER_SCRIPTS/kernel
+
+COPY scripts $JUPYTER_HOME/scripts
+COPY custom $JUPYTER_HOME/custom
+COPY jupyter_notebook_config.py $JUPYTER_HOME
 
 # give user ownership of jupyter home and conda env home
 # and make extension files executable
 RUN chown -R $USER:users $JUPYTER_HOME $CONDA_HOME  \
-&& find $JUPYTER_HOME/extensions/scripts -name '*.sh' -type f | xargs chmod +x
+&& find $JUPYTER_EXTENSIONS -name '*.sh' -type f | xargs chmod +x
 
 # make the run-jupyter script executable
-RUN chmod +x -R $JUPYTER_HOME/run-jupyter.sh
+RUN chmod +x -R $JUPYTER_SCRIPTS/run-jupyter.sh
 
 # Setup jupyter and r kernels
 ENV JUPYTER_KERNELSPEC_DIR=/usr/local/share/jupyter/
 RUN chown -R $USER:users $JUPYTER_KERNELSPEC_DIR \
-    && find $JUPYTER_HOME/kernel -name '*.sh' -type f | xargs chmod +x \
+    && find $JUPYTER_KERNEL -name '*.sh' -type f | xargs chmod +x \
     # You can get kernel directory by running `jupyter kernelspec list`
-    && $JUPYTER_HOME/kernel/kernelspec.sh $JUPYTER_HOME/kernel $JUPYTER_KERNELSPEC_DIR/kernels
+    && $JUPYTER_KERNEL/kernelspec.sh $JUPYTER_KERNEL $JUPYTER_KERNELSPEC_DIR/kernels
 
 # Create the welder user
 # The welder uid is consistent with the Welder docker definition here:
