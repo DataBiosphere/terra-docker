@@ -1,6 +1,10 @@
 # terra-jupyter-base image
 
-This repo contains the terra-jupyter-base image that is compatible with notebook service in [Terra]("https://app.terra.bio/") called Leonardo. For example, use `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-base:{version}` in terra.
+This repo contains the terra-jupyter-base image that is compatible with notebook service in [Terra]("https://app.terra.bio/") called Leonardo. For example, use `us.gcr.io/broad-dsp-gcr-public/terra-base:{version}` in terra.
+
+## Context
+This image is different from the legacy base image that is currently use to build the docker images cached in Terra (terra-jupyter-base).
+The current purpose of this new base image is to to unblock users from creating custom images in Terra.
 
 ## Image contents
 
@@ -50,9 +54,9 @@ If you change the following paths:
 
 You may need to update the following files appropriately here and in Leonardo:
 - terra-docker
-  - `conda_init.txt`
   - `run_jupyter.sh`
   - the notebook extension scripts
 - leonardo
   - `gce-init.sh`
+  - `init-action.sh`
   - the `jupyterUserhome` in RuntimeTemplateValues 

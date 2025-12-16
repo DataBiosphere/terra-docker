@@ -3,14 +3,6 @@ FROM --platform=linux/amd64 nvidia/cuda:13.0.1-base-ubuntu22.04
 
 LABEL maintainer="DSP Analysis Team <dsp-analysis@broadinstitute.org>"
 
-# TODO:
-# ! try moving conda setup before UV setup
-# ! specify that UV uses the conda python
-# add more comments/clearer naming around the python versions being used
-# double check that the correct CUDA/GPU drivers are available, otherwise copy from old base image via a multi-stage build
-# look into copying over apt-get packages from the old terra base image in next level of images
-# have examples of custom images extending this base image for different use cases (e.g. R, GATK, etc)
-
 # want the command to fail due to an error at any stage in the pipe: https://github.com/hadolint/hadolint/wiki/DL4006
 SHELL ["/usr/bin/bash", "-o", "pipefail", "-c"]
 
