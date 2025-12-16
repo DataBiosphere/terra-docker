@@ -96,6 +96,24 @@
             }
         },
         {
+            "name" : "terra-base",
+            "base_label" : "New Base",
+            "tools" : [
+                "python"
+            ],
+            "packages" : {
+
+            },
+            "version" : "0.0.1",
+            "automated_flags" : {
+                "generate_docs" : true,
+                "include_in_ui" : true,
+                "build" : true,
+                "include_in_custom_dataproc" : true,
+                "include_in_custom_gce" : true
+            }
+        },
+        {
             "name" : "terra-jupyter-r",
             "base_label" : "R",
             "tools" : [

@@ -21,7 +21,7 @@ Make sure to go through the [contributing guide](https://github.com/DataBiospher
 Custom docker images need to use a Terra base image (see above) in order to work with the service that runs notebooks on Terra.
 * You can use any of the base images above
   * `terra-base` is the smallest image, but doesn't include any scientific packages on top of Jupyter and R
-* Here is an example of how to build off of a base image: Add `FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-base:0.0.1` to your dockerfile (`terra-jupyter-base` is the smallest image you can extend from)
+* Here is an example of how to build off of a base image: Add `FROM us.gcr.io/broad-dsp-gcr-public/terra-base:0.0.1` to your dockerfile
 * Customize your image (see the [terra-jupyter-python](terra-jupyter-python/Dockerfile) dockerfile for an example of how to extend from one of our base images
 * Publish the image to either GAR or Dockerhub;
   * If using Dockerhub, the image **must be public** to be used
@@ -88,11 +88,11 @@ Detailed documentation on how to integrate the terra-docker image with Leonardo 
 Build the image:
 run `docker build [your_dir] -t [name]`.
 
-`docker build terra-jupyter-base -t terra-jupyter-base`
+`docker build terra-base -t terra-base`
 
 If you're on an M1 and building an image from a locally built image, replace the current FROM command:
 
-`FROM --platform=linux/amd64 terra-jupyter-base`
+`FROM --platform=linux/amd64 terra-base`
 
 Apple Silicon chips later then M1 (ex. M3) need:
 

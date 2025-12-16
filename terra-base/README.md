@@ -43,12 +43,12 @@ To build the image locally, run the following command in the root of the repo:
 ```
 
 ## NOTE:  Changing paths
-If you change the following paths for the:
+If you change the following paths:
 - `JUPYTER_HOME`
 - `JUPYTER_USER`
 - `CONDA_HOME` 
 
-You may need to update the following files appropriately:
+You may need to update the following files appropriately here and in Leonardo:
 - terra-docker
   - `conda_init.txt`
   - `run_jupyter.sh`

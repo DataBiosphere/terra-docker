@@ -203,7 +203,7 @@ RUN $JUPYTER_HOME/bin/jupyter kernelspec remove python3 -y
 # # Terra-specific Utilities
 # ####################### \
 
-]# Copy over utility scripts and config files
+# Copy over utility scripts and config files
 ENV JUPYTER_SCRIPTS $JUPYTER_HOME/scripts
 ENV JUPYTER_CUSTOM $JUPYTER_HOME/custom
 ENV JUPYTER_EXTENSIONS $JUPYTER_SCRIPTS/extension
@@ -237,6 +237,10 @@ ENV WELDER_USER welder-user
 # This UID must stay consistent with the UID defined in Welder
 ENV WELDER_UID 1001
 RUN useradd -m -s /bin/bash -N -u $WELDER_UID $WELDER_USER
+
+# Add an empty file to indicate that this is a terra-base image with a separate jupyer server environment
+# Need a flag to check in the startup scripts to know whether to use the conda environment jupyter
+RUN touch /etc/jupyter/.terra-base-marker
 
 # Make sure that the jupyter user will have access to the jupyter path in the working directory
 EXPOSE $JUPYTER_PORT
