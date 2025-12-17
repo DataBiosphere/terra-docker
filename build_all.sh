@@ -3,7 +3,7 @@
 # Example: ./build_all.sh
 
 # Create the ordered list of images to build
-# 1- terra-jupyter-base
+# 1- terra-base
 # 2- terra-jupyter-base
 # 3- terra-jupyter-python
 # 4- terra-jupyter-r
