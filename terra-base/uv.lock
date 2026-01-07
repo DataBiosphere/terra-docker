@@ -1262,7 +1262,7 @@ wheels = [
 
 [[package]]
 name = "terra-base"
-version = "0.0.1"
+version = "1.0.0"
 source = { virtual = "." }
 dependencies = [
     { name = "ipykernel" },

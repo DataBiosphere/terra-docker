@@ -8,12 +8,12 @@ The current purpose of this new base image is to to unblock users from creating 
 
 ## Image contents
 
-The terra-jupyter-base extends the [Ubuntu base image]() TODO by including the following:
+The terra-jupyter-base extends the [Ubuntu base image](https://hub.docker.com/layers/nvidia/cuda/13.0.1-base-ubuntu24.04/images/sha256-995e80db6d0c3a53d56bd00bba48a0ebd633b67b99a57e16acf9a306e7c744a7) by including the following:
 
 - OS prerequisites
 - google-cloud-sdk
 - Python 3.10
-- conda
+- Conda
 - Jupyter & JupyterLab
 - Leonardo customizations/extensions
 - Terra notebook utils
