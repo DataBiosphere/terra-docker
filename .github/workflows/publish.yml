@@ -7,6 +7,7 @@ on:
         required: true
         type: choice
         options:
+          - terra-base
           - terra-jupyter-aou
           - terra-jupyter-base
           - terra-jupyter-bioconductor
