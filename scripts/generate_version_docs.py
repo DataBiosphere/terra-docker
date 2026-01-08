@@ -35,9 +35,8 @@ def generate_docs():
   for image_config in image_configs:
       # Here we check first if the remote documentation exists, then if the local version is the same as the remote.
       # If the remote documentation exists and the version matches the local, we re-use the old documentation
-
-      remote_doc = list(filter(lambda image_doc: image_doc["id"] == image_config["name"], remote_docs))[0]
       if image_config["name"] in remote_versions and image_config["version"] == remote_versions[image_config["name"]]:
+        remote_doc = list(filter(lambda image_doc: image_doc["id"] == image_config["name"], remote_docs))[0]
         print("using remote doc: {}".format(remote_doc))
         doc = remote_doc
       else:
