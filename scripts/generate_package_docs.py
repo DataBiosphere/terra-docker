@@ -102,7 +102,7 @@ class ParamProcessor():
 
   def __init__(self, params):
     if not len(params) == 2:
-      raise ValueError("Usage: python generate_package_docs.py [STRING: image_dir], given: " + params)
+      raise ValueError(f"Usage: python generate_package_docs.py [STRING: image_dir], given: {params}")
 
     self.image_dir = argv[1]
 
