@@ -33,6 +33,7 @@ COPY scripts/init_userconf.sh /rocker_scripts/init_userconf.sh
 COPY scripts/pam-helper.sh /rocker_scripts/pam-helper.sh
 RUN /rocker_scripts/install_rstudio.sh
 
+ENV PASSWORD="bioc"
 
 EXPOSE 8787
 CMD ["/init"]
