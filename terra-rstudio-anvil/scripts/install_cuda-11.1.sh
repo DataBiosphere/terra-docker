@@ -16,10 +16,11 @@ apt_install \
     curl \
     ca-certificates
 
-apt-key adv --fetch-keys https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/7fa2af80.pub
-apt-key adv --fetch-keys https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/3bf863cc.pub
-echo "deb https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64 /" >/etc/apt/sources.list.d/cuda.list
-echo "deb https://developer.download.nvidia.com/compute/machine-learning/repos/ubuntu2004/x86_64 /" >/etc/apt/sources.list.d/nvidia-ml.list
+mkdir -p /etc/apt/trusted.gpg.d
+curl -fsSL https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/7fa2af80.pub | gpg --dearmor -o /etc/apt/trusted.gpg.d/nvidia-cuda-keyring.gpg
+curl -fsSL https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/3bf863cc.pub | gpg --dearmor -o /etc/apt/trusted.gpg.d/nvidia-ml-keyring.gpg
+echo "deb [signed-by=/etc/apt/trusted.gpg.d/nvidia-cuda-keyring.gpg] https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64 /" >/etc/apt/sources.list.d/cuda.list
+echo "deb [signed-by=/etc/apt/trusted.gpg.d/nvidia-ml-keyring.gpg] https://developer.download.nvidia.com/compute/machine-learning/repos/ubuntu2004/x86_64 /" >/etc/apt/sources.list.d/nvidia-ml.list
 apt-get update
 
 CUDA_VERSION=${CUDA_VERSION:-11.1.1}
