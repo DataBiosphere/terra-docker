@@ -105,6 +105,7 @@ cat <<EOF >/etc/services.d/rstudio/finish
 #!/bin/bash
 /usr/lib/rstudio-server/bin/rstudio-server stop
 EOF
+chmod +x /etc/services.d/rstudio/run /etc/services.d/rstudio/finish
 
 # If CUDA enabled, make sure RStudio knows (config_cuda_R.sh handles this anyway)
 if [ -n "$CUDA_HOME" ]; then
