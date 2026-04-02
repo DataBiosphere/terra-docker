@@ -1,52 +1,45 @@
-FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-base:1.1.4
+FROM --platform=linux/amd64 us.gcr.io/broad-dsp-gcr-public/terra-jupyter-base:1.2.0
 
+# need to run apt-get and other install commands as root, but switch back to jupyter user for running notebooks
 USER root
-# This makes it so pip runs as root, not the user.
-ENV PIP_USER=false
+
+SHELL ["/usr/bin/bash", "-o", "pipefail", "-c"]
+
+# Enables native Google Cloud Storage support in HTSlib
+# Allows tools to directly read/write files from GCS buckets using gs:// URLs
+ENV HTSLIB_CONFIGURE_OPTIONS="--enable-gcs"
 
 RUN apt-get update && apt-get install -yq --no-install-recommends \
+  # packages specific to terra-jupyter-python \
   python-tk \
-  tk-dev \
-  libssl-dev \
   xz-utils \
   libhdf5-dev \
   openssl \
   make \
   liblzo2-dev \
-  zlib1g-dev \
+  liblzo2-2 \
   libz-dev \
   libcurl4-openssl-dev \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/*
 
-ENV HTSLIB_CONFIGURE_OPTIONS="--enable-gcs"
+# Copy image pyproject.toml and workspace uv.lock for reproducible builds
+COPY terra-jupyter-base/pyproject.toml uv.lock ./
 
-COPY requirements.txt /etc/terra-docker/
 
-# Dev note: in general, do not pin Python packages to any particular version.
-# Depend on the smoke tests to help us identify any package incompatibilties.
-#
-# If we find that we do need to pin a package version, be sure to:
-# 1) Add a comment saying what needs to be true for us to remove the pin.
-#    (e.g. link to an issue and put the details there)
-# 2) If the smoke tests did not show the problem, add a new test case to improve
-#    test coverage for the identified problem.
-RUN pip3 -V \
-  && pip3 install --upgrade pip \
-  && pip3 install --upgrade -r /etc/terra-docker/requirements.txt \
-  && sed -i 's/pandas.lib/pandas/g' /opt/conda/lib/python3.10/site-packages/ggplot/stats/smoothers.py \
-  # the next few `sed` lines are workaround for a ggplot bug. See https://github.com/yhat/ggpy/issues/662
-  && sed -i 's/pandas.tslib.Timestamp/pandas.Timestamp/g' /opt/conda/lib/python3.10/site-packages/ggplot/stats/smoothers.py \
-  && sed -i 's/pd.tslib.Timestamp/pd.Timestamp/g' /opt/conda/lib/python3.10/site-packages/ggplot/stats/smoothers.py \
-  && sed -i 's/pd.tslib.Timestamp/pd.Timestamp/g' /opt/conda/lib/python3.10/site-packages/ggplot/utils.py
+# Install Python packages using UV with lock file for reproducibility
+# Note: We install into the conda environment that the user's notebooks will use
+# We need to explicitly install wheel and setuptools to avoid errors about missing these prerequisite packages during the general UV install
+RUN uv pip install --python ${CONDA_ENV_HOME}/bin/python -r pyproject.toml --no-cache \
+  && rm pyproject.toml uv.lock
+#  && sed -i 's/pandas.lib/pandas/g' ${CONDA_ENV_HOME}/lib/python3.10/site-packages/ggplot/stats/smoothers.py \
+#  # the next few `sed` lines are workaround for a ggplot bug. See https://github.com/yhat/ggpy/issues/662 \
+#  && sed -i 's/pandas.tslib.Timestamp/pandas.Timestamp/g' ${CONDA_ENV_HOME}/lib/python3.10/site-packages/ggplot/stats/smoothers.py \
+#  && sed -i 's/pd.tslib.Timestamp/pd.Timestamp/g' ${CONDA_ENV_HOME}/lib/python3.10/site-packages/ggplot/stats/smoothers.py \
+#  && sed -i 's/pd.tslib.Timestamp/pd.Timestamp/g' ${CONDA_ENV_HOME}/lib/python3.10/site-packages/ggplot/utils.py \
+  # Cleanup \
+#  && rm pyproject.toml uv.lock
 
-RUN pip3 install --upgrade markupsafe==2.1.2
-
-# Turn off beatrix-jupyterlab and bq_stats plugins, they don't activate cleanly in our version
-# of jupyter and they're google-managed packages we don't have access to older versions of.
-# Retain two plugins: google.cloud.bigquery and sql
-RUN sed -i "s/^\( *'beatrix_jupyterlab',\)/#\1/g" /etc/ipython/ipython_kernel_config.py
-RUN sed -i "s/^\( *'bq_stats',\)/#\1/g" /etc/ipython/ipython_kernel_config.py
 
 ENV USER=jupyter
 USER $USER
@@ -59,4 +52,4 @@ ENV TF_ENABLE_ONEDNN_OPTS=1
 # # When Leonardo deploys this image onto a cluster, the entrypoint is overwritten to enable
 # # additional setup inside the container before execution.  Jupyter execution occurs when the
 # # init-actions.sh script uses 'docker exec' to call run-jupyter.sh.
-ENTRYPOINT ["/opt/conda/bin/jupyter", "notebook"]
+ENTRYPOINT ["/etc/jupyter/bin/jupyter", "notebook"]

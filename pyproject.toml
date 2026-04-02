@@ -1,0 +1,20 @@
+[project]
+name = "terra-docker"
+version = "1.0.0"
+description = "Collection of inter-dependent docker images for Terra notebooks and services"
+readme = "README.md"
+requires-python = ">=3.10, <3.11"
+dependencies = [
+    "setuptools<71",
+    "terra-jupyter-base",
+    "terra-jupyter-python"
+]
+
+[tool.uv.workspace]
+# NOTE: We explicitly exclude terra-base from this because that defines the dependencies
+# for the isolated jupyter server NOT the conda environment for the notebooks
+members = ["terra-jupyter-base", "terra-jupyter-python"]
+
+[tool.uv.sources]
+terra-jupyter-base = { workspace = true }
+terra-jupyter-python = { workspace = true }
