@@ -1,7 +1,0 @@
-README.md
-pyproject.toml
-terra_jupyter_python.egg-info/PKG-INFO
-terra_jupyter_python.egg-info/SOURCES.txt
-terra_jupyter_python.egg-info/dependency_links.txt
-terra_jupyter_python.egg-info/requires.txt
-terra_jupyter_python.egg-info/top_level.txt
