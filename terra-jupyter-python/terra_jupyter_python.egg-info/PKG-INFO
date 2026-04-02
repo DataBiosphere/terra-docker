@@ -1,0 +1,49 @@
+Metadata-Version: 2.4
+Name: terra-jupyter-python
+Version: 1.1.14
+Summary: Python environment for Terra notebooks with scientific computing packages
+Requires-Python: <3.11,>=3.10
+Description-Content-Type: text/markdown
+Requires-Dist: biopython>=1.86
+Requires-Dist: bokeh>=3.9.0
+Requires-Dist: bx-python>=0.14.0
+Requires-Dist: certifi>=2026.2.25
+Requires-Dist: fastinterval>=0.1.1
+Requires-Dist: html5lib>=1.1
+Requires-Dist: jupyter-contrib-nbextensions==0.7.0
+Requires-Dist: matplotlib-venn>=1.1.2
+Requires-Dist: mizani==0.9.2
+Requires-Dist: nbstripout>=0.8.1
+Requires-Dist: packaging
+Requires-Dist: pdoc3>=0.11.6
+Requires-Dist: plotnine==0.10.1
+Requires-Dist: py4j>=0.10.9.9
+Requires-Dist: pyfasta>=0.5.2
+Requires-Dist: pymc3>=3.11.4
+Requires-Dist: pysam>=0.23.3
+Requires-Dist: pyvcf3>=1.0.4
+Requires-Dist: requests>=2.29.0
+Requires-Dist: theano>=1.0.5
+Requires-Dist: tqdm>=4.67.3
+Requires-Dist: pandas-gbq>=0.34.1
+Requires-Dist: google-cloud-bigquery-datatransfer>=3.22.0
+Requires-Dist: intel-openmp; sys_platform == "linux" and platform_machine == "x86_64"
+Requires-Dist: mkl; sys_platform == "linux" and platform_machine == "x86_64"
+Requires-Dist: scikit-learn-intelex; sys_platform == "linux" and platform_machine == "x86_64"
+Requires-Dist: python-lzo; sys_platform == "linux" and platform_machine == "x86_64"
+
+# terra-jupyter-python image
+
+This repo contains the terra-jupyter-python image that is compatible with notebook service in [Terra]("https://app.terra.bio/") called Leonardo. For example, use `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-python:{version}` in terra.
+
+## Image contents
+
+The terra-jupyter-python image extends the [terra-jupyter-base](../terra-jupyter-base) image, supported in this repo.
+
+To see the complete contents of this image please see the [Dockerfile](./Dockerfile).
+
+## Selecting prior versions of this image
+
+To select an older version this image, you can search the [CHANGELOG.md](./CHANGELOG.md) for a specific package version you need.
+
+Once you find an image version that you want, simply copy and paste the image url from the changelog into the corresponding custom docker field in the Terra notebook runtime widget. 

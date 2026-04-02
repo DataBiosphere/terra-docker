@@ -1,6 +1,4 @@
-# adapted from https://hub.docker.com/r/jupyter/base-notebook/ AKA https://github.com/jupyter/docker-stacks/tree/master/base-notebook
-
-FROM gcr.io/deeplearning-platform-release/tf2-cu123.2-17.py310
+FROM --platform=linux/amd64 us.gcr.io/broad-dsp-gcr-public/terra-base:1.0.1
 
 USER root
 
@@ -9,25 +7,19 @@ USER root
 #######################
 ENV DEBIAN_FRONTEND noninteractive
 
+# Some of the packages from the old deepleaning image in terra-base
+# this is an attempt to keep compatibility with the old image
 RUN apt-get update && apt-get install -yq --no-install-recommends \
-    # gnupg requirement
-    dirmngr \
-    gnupg \
-    # curl requirement
-    ca-certificates \
-    # useful utilities for debugging within the docker
-    nano \
-    procps \
-    lsb-release \
-    # python requirements
+    # packages from terra-jupyter-base missing in terra-base \
     checkinstall \
-    build-essential \
     zlib1g-dev \
-    # pip requirements
     libssl-dev \
     libbz2-dev \
     libreadline-dev \
     libsqlite3-dev \
+    libnvinfer8 \
+    libnvinfer-plugin8 \
+    python3-libnvinfer \
     llvm \
     libncurses5-dev \
     libncursesw5-dev \
@@ -35,125 +27,134 @@ RUN apt-get update && apt-get install -yq --no-install-recommends \
     libffi-dev \
     liblzma-dev \
     python3-openssl \
-    # install script requirements
-    sudo \
-    locales \
-    # for ssh-agent and ssh-add
-    keychain \
-    # openjdk 11
     default-jre \
     default-jdk \
-    # Uncomment en_US.UTF-8 for inclusion in generation
-    && sed -i 's/^# *\(en_US.UTF-8\)/\1/' /etc/locale.gen \
-    # Generate locale
-    && locale-gen \
+    apt-transport-https \
+    apt-utils \
+    blt \
+    bsdextrautils \
+    cpp-12 \
+    dctrl-tools \
+    dialog \
+    dkms \
+    emacs \
+    emacs-bin-common \
+    emacs-common \
+    emacs-gtk \
+    emacsen-common \
+    fonts-lmodern \
+    fuse \
+    gcc-12 \
+    groff-base \
+    hdf5-helpers \
+    htop \
+    inotify-tools \
+    install-info \
+    kmod \
+    libaec-dev \
+    libaec0 \
+    libasan8 \
+    libcmark-gfm-extensions0.29.0.gfm.3 \
+    libcmark-gfm0.29.0.gfm.3 \
+    libcurl4-openssl-dev \
+    libevent-core-2.1-7 \
+    libfuse2 \
+    libgcc-12-dev \
+    libgd3 \
+    libgpm2 \
+    libhdf5-103-1 \
+    libhdf5-cpp-103-1 \
+    libhdf5-dev \
+    libhdf5-fortran-102 \
+    libhdf5-hl-100 \
+    libhdf5-hl-cpp-100 \
+    libhdf5-hl-fortran-100 \
+    libibverbs1 \
+    libinotifytools0 \
+    libjansson4 \
+    libkpathsea6 \
+    libm17n-0 \
+    libnl-3-200 \
+    libnl-genl-3-200 \
+    libnl-route-3-200 \
+    libnuma-dev \
+    libnuma1 \
+    libopenblas-base \
+    libopenblas0 \
+    libopenblas0-pthread \
+    libotf1 \
+    libpci3 \
+    libpipeline1 \
+    libpopt0 \
+    libprotobuf23 \
+    libprotoc23 \
+    libptexenc1 \
+    libpython3.10 \
+    libsnappy-dev \
+    libsnappy1v5 \
+    libsodium23 \
+    libsynctex2 \
+    libsz2 \
+    libteckit0 \
+    libtexlua53 \
+    libtexluajit2 \
+    libtsan2 \
+    libuchardet0 \
+    libutempter0 \
+    libzzip-0-13 \
+    m17n-db \
+    man-db \
+    pandoc \
+    pandoc-data \
+    pci.ids \
+    pciutils \
+    pkg-config \
+    protobuf-compiler \
+    python3-distutils \
+    python3-lib2to3 \
+    python3-libnvinfer \
+    python3-pip \
+    python3-setuptools \
+    python3-snappy \
+    python3-tk \
+    python3-wheel \
+    rsync \
+    screen \
+    t1utils \
+    tex-common \
+    texlive \
+    texlive-base \
+    texlive-binaries \
+    texlive-fonts-recommended \
+    texlive-latex-base \
+    texlive-latex-recommended \
+    tk8.6-blt2.5 \
+    tmux \
+    tree \
+    vim \
+    vim-common \
+    vim-runtime \
+    xxd \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
 ENV LC_ALL en_US.UTF-8
 
-#######################
-# Python / Jupyter
-#######################
+##############################################
+# Install Python packages to the conda env
+##############################################
 
-ENV USER=jupyter
-RUN usermod -g users jupyter
-ENV HOME /home/$USER
+# Copy image pyproject.toml and workspace uv.lock for reproducible builds
+COPY terra-jupyter-base/pyproject.toml ./
+COPY uv.lock ./
 
-# The welder uid is consistent with the Welder docker definition here:
-#  https://github.com/DataBiosphere/welder/blob/master/project/Settings.scala
-# Adding welder-user to the Jupyter container isn't strictly required, but it makes welder-added
-# files display nicer when viewed in a terminal.
-ENV WELDER_USER=welder-user
-ENV WELDER_UID=1001
-RUN useradd -m -s /bin/bash -N -u $WELDER_UID $WELDER_USER
+RUN uv pip install --python ${CONDA_ENV_HOME}/bin/python -r pyproject.toml --no-cache \
+    && rm pyproject.toml uv.lock
 
-# ensure this matches c.NotebookApp.port in jupyter_notebook_config.py
-ENV JUPYTER_PORT=8000
-ENV JUPYTER_HOME=/etc/jupyter
-
-RUN pip3 -V \
-    # When we upgraded from jupyter 5.7.8 to 6.1.1, we broke terminal button on terra-ui.
-    # Hence, make sure to manually test out "launch terminal" button (the button in the green bar next to start and stop buttons)
-    # to make sure we don't accidentally break it every time we upgrade notebook version until we figure out an automation test for this
-    && pip3 install python-datauri \
-    && pip3 install jupyter_contrib_nbextensions==0.7.0 \
-    && pip3 install jupyter_nbextensions_configurator==0.6.3 \
-    && pip3 install markupsafe==2.1.2 \
-    && pip3 install traitlets==5.9.0 \
-    # Avoid broken lower versions: https://github.com/jupyter/nbconvert/pull/1624, pinning to latest known working version on terra
-    && pip3 install "nbconvert>=7.7.3" \
-    # Avoid notebook extension issues
-    && pip3 install "nbclassic<0.5" \
-    # for jupyter_delocalize.py and jupyter_notebook_config.py
-    # DO NOT CHANGE OR UNPIN NOTEBOOK OR JUPYTERLAB-SERVER! When trying with 6.5.5 and 2.24.0 notebook commands could not find the notebook config file
-    && pip3 install jupyter_core==5.3.1 \
-    && pip3 install jupyter-events==0.7.0 \
-    && pip3 install jupyterlab==3.4.8 \
-    && pip3 install notebook==6.5.4 \
-    && pip3 install jupyter_server==1.24.0 \
-    && pip3 install jupyterlab-server==2.23.0 \
-    && pip3 install notebook_shim==0.2.3 \
-    && pip3 install jupyter_server_proxy==4.0.0 \
-    && pip3 install jupyter_server_terminals==0.4.4 \
-    && pip3 install jupyterlab_git==0.42.0 \
-    && pip3 install jupyterlab-pygments==0.2.2 \
-    && pip3 install jupyterlab-widgets==3.0.8 \
-    && pip3 install jupytext==1.15.0 \
-    && pip3 install requests \
-    && pip3 install firecloud \
-    && pip3 install terra-notebook-utils==0.13.0 \
-    && pip3 install crcmod \
-    # For gcloud alpha storage support.
-    && pip3 install google-crc32c --target /usr/lib/google-cloud-sdk/lib/third_party \
-    && pip3 install cromshell==2.0.0 \
-    # This plugin is part of the base image and doesn't support our older Jupyter version
-    && pip3 uninstall -y dataproc_jupyter_plugin
-
-# to allow file-saving in different formats
-# toc2 is not compatible with versions of notebooks over 5.x - deprecated
-# RUN jupyter nbextension enable toc2/main
-
-# tmp hack min-5
-# I'm not installing jupyterlab and I can't update init-actions.sh to not access it
-RUN mkdir -p /usr/local/share/jupyter/lab
 
 # make pip install to a user directory, instead of a system directory which requires root.
 # this is useful so `pip install` commands can be run in the context of a notebook.
+ENV USER=jupyter
 ENV PIP_USER=true
-# When using PIP_USER=true packages are installed into Python site.USER_BASE, which is '/home/jupyter' for this system.
-# Append '/home/jupyter/.local/bin' to PATH
-# pip docs: https://pip.pypa.io/en/stable/reference/pip_install/#cmdoption-user
-ENV PATH="${PATH}:${HOME}/.local/bin:${HOME}/packages/bin"
 
-#######################
-# Utilities
-#######################
-
-COPY scripts $JUPYTER_HOME/scripts
-COPY custom $JUPYTER_HOME/custom
-COPY jupyter_notebook_config.py $JUPYTER_HOME
-
-# copy workspace_cromwell.py script and make it runnable by all users
-# TODO why not move this script into this repo?
-RUN curl -o /usr/local/bin/workspace_cromwell.py https://raw.githubusercontent.com/broadinstitute/cromwhelm/1ceedf89587cffd355f37401b179001f029f77ed/scripts/workspace_cromwell.py \
-    && chmod +x /usr/local/bin/workspace_cromwell.py
-
-RUN chown -R $USER:users $JUPYTER_HOME \
-    && find $JUPYTER_HOME/scripts -name '*.sh' -type f | xargs chmod +x \
-    #  You can get kernel directory by running `jupyter kernelspec list`
-    && $JUPYTER_HOME/scripts/kernel/kernelspec.sh $JUPYTER_HOME/scripts/kernel /opt/conda/share/jupyter/kernels
-
-# Run a `jupyter lab build` during the Docker image build step so users don't have to do it on their own
-# The webpack build during `jupyter lab build` is memory intensive so give it access to more memory as well
-RUN NODE_OPTIONS=--max-old-space-size=4096 jupyter lab build --minimize=True
-
-USER $USER
-EXPOSE $JUPYTER_PORT
-WORKDIR $HOME
-
-# Note: this entrypoint is provided for running Jupyter independently of Leonardo.
-# When Leonardo deploys this image onto a cluster, the entrypoint is overwritten to enable
-# additional setup inside the container before execution.  Jupyter execution occurs when the
-# Leonardo init-actions.sh script uses 'docker exec' to call run-jupyter.sh.
-ENTRYPOINT ["/opt/conda/bin/jupyter", "notebook"]
+ENTRYPOINT ["/etc/jupyter/bin/jupyter", "notebook"]
