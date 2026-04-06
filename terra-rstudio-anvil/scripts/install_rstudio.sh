@@ -80,10 +80,15 @@ mkdir -p /etc/R
 ## Make RStudio compatible with case when R is built from source
 ## (and thus is at /usr/local/bin/R), because RStudio doesn't obey
 ## path if a user apt-get installs a package
+
+## Include Liz Baldo's suggestion for disabling auth
+
 R_BIN="$(which R)"
-echo "rsession-which-r=${R_BIN}" >/etc/rstudio/rserver.conf
+
+echo "rsession-which-r=${R_BIN}" > /etc/rstudio/rserver.conf
 ## use more robust file locking to avoid errors when using shared volumes:
-echo "lock-type=advisory" >/etc/rstudio/file-locks
+echo "lock-type=advisory" >> /etc/rstudio/file-locks
+echo "auth-none=1" >> /etc/rstudio/rserver.conf
 
 ## Prepare optional configuration file to disable authentication
 ## To de-activate authentication, `disable_auth_rserver.conf` script

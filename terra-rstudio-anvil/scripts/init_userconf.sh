@@ -103,11 +103,6 @@ if [ "${RUNROOTLESS}" = "true" ]; then
     done
 fi
 
-if [[ ${DISABLE_AUTH,,} == "true" ]]; then
-    cp /etc/rstudio/disable_auth_rserver.conf /etc/rstudio/rserver.conf
-    echo "USER=$USER" >>/etc/environment
-fi
-
 if grep --quiet "auth-none=1" /etc/rstudio/rserver.conf; then
     echo "Skipping authentication as requested"
 elif [ -z "$PASSWORD" ]; then
@@ -190,3 +185,5 @@ if [ "$LANG" != "en_US.UTF-8" ]; then
     /usr/sbin/locale-gen --lang "$LANG"
     /usr/sbin/update-locale --reset LANG="$LANG"
 fi
+
+

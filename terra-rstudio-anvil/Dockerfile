@@ -36,7 +36,7 @@ RUN /rocker_scripts/install_rstudio.sh
 ENV PASSWORD="bioc"
 
 EXPOSE 8787
-CMD ["/init"]
+ENTRYPOINT ["/init"]
 
 COPY scripts/install_pandoc.sh /rocker_scripts/install_pandoc.sh
 RUN /rocker_scripts/install_pandoc.sh
