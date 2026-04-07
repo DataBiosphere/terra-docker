@@ -131,7 +131,6 @@ EOF
 # install user config initiation script
 cp /rocker_scripts/init_set_env.sh /etc/cont-init.d/01_set_env
 cp /rocker_scripts/init_userconf.sh /etc/cont-init.d/02_userconf
-cp /rocker_scripts/pam-helper.sh /usr/lib/rstudio-server/bin/pam-helper
 
 # Clean up
 rm -rf /var/lib/apt/lists/*
