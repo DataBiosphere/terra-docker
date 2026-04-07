@@ -30,7 +30,7 @@ COPY scripts/install_s6init.sh /rocker_scripts/install_s6init.sh
 COPY scripts/default_user.sh /rocker_scripts/default_user.sh
 COPY scripts/init_set_env.sh /rocker_scripts/init_set_env.sh
 COPY scripts/init_userconf.sh /rocker_scripts/init_userconf.sh
-COPY scripts/pam-helper.sh /rocker_scripts/pam-helper.sh
+
 RUN /rocker_scripts/install_rstudio.sh
 
 ENV PASSWORD="bioc"
