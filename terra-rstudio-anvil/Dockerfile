@@ -38,6 +38,7 @@ ENV PASSWORD="bioc"
 
 EXPOSE 8787
 ENTRYPOINT ["/init"]
+ENV RSTUDIO_HOME=/home/rstudio
 
 COPY scripts/install_pandoc.sh /rocker_scripts/install_pandoc.sh
 RUN /rocker_scripts/install_pandoc.sh
