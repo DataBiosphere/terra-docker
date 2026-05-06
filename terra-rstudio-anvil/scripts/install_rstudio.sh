@@ -89,6 +89,10 @@ echo "rsession-which-r=${R_BIN}" > /etc/rstudio/rserver.conf
 ## use more robust file locking to avoid errors when using shared volumes:
 echo "lock-type=advisory" >> /etc/rstudio/file-locks
 echo "auth-none=1" >> /etc/rstudio/rserver.conf
+echo "server-user=rstudio" >> /etc/rstudio/rserver.conf
+
+echo "session-default-working-dir=/home/jupyter" >> /etc/rstudio/rsession.conf
+echo "session-default-new-project-dir=/home/jupyter" >> /etc/rstudio/rsession.conf
 
 ## Prepare optional configuration file to disable authentication
 ## To de-activate authentication, `disable_auth_rserver.conf` script
@@ -141,3 +145,5 @@ echo -e "Check the RStudio Server version...\n"
 rstudio-server version
 
 echo -e "\nInstall RStudio Server, done!"
+
+
