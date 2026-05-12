@@ -106,7 +106,7 @@ function download_r_src() {
 if [ "$R_VERSION" == "devel" ]; then
     download_r_src "base-prerelease/R-devel.tar.gz"
 elif [ "$R_VERSION" == "patched" ]; then
-    download_r_src "base-prerelease/R-latest.tar.gz"
+    download_r_src "base-prerelease/R-patched.tar.gz"
 elif [ "$R_VERSION" == "latest" ]; then
     download_r_src "base/R-latest.tar.gz"
 else

@@ -3,7 +3,8 @@ FROM us.gcr.io/broad-dsp-gcr-public/terra-base:1.0.0
 
 USER root
 
-ENV R_VERSION="4.5.2"
+# should be one of patched, devel
+ENV R_VERSION="patched"  
 ENV R_HOME="/usr/local/lib/R"
 ENV TZ="Etc/UTC"
 
