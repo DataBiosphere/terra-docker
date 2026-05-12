@@ -10,4 +10,4 @@ rsession --standalone=1 \
          --program-mode=server \
          --session-timeout-minutes=0 \
          --user-identity=rstudio \
-         --www-port=8787
+         --www-port=8001

@@ -40,6 +40,6 @@ RUN /rocker_scripts/install_rstudio.sh
 ENV PASSWORD="bioc"
 
 ENV RSTUDIO_HOME=/home/rstudio
-EXPOSE 8787
+EXPOSE 8001
 ENTRYPOINT ["/init"]
 

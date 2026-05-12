@@ -90,6 +90,7 @@ echo "rsession-which-r=${R_BIN}" > /etc/rstudio/rserver.conf
 echo "lock-type=advisory" >> /etc/rstudio/file-locks
 echo "auth-none=1" >> /etc/rstudio/rserver.conf
 echo "server-user=rstudio" >> /etc/rstudio/rserver.conf
+echo "www-port=8001" >> /etc/rstudio/rserver.conf
 
 echo "session-default-working-dir=/home/jupyter" >> /etc/rstudio/rsession.conf
 echo "session-default-new-project-dir=/home/jupyter" >> /etc/rstudio/rsession.conf
