@@ -89,8 +89,8 @@ echo "rsession-which-r=${R_BIN}" > /etc/rstudio/rserver.conf
 ## use more robust file locking to avoid errors when using shared volumes:
 echo "lock-type=advisory" >> /etc/rstudio/file-locks
 echo "auth-none=1" >> /etc/rstudio/rserver.conf
-echo "server-user=rstudio" >> /etc/rstudio/rserver.conf
 echo "www-port=8001" >> /etc/rstudio/rserver.conf
+echo "www-address=0.0.0.0" >> /etc/rstudio/rserver.conf
 
 echo "session-default-working-dir=/home/jupyter" >> /etc/rstudio/rsession.conf
 echo "session-default-new-project-dir=/home/jupyter" >> /etc/rstudio/rsession.conf
