@@ -18,7 +18,8 @@ jobs:
       uses: actions/checkout@v7
 
     - name: Build the terra-base image locally
-      run: ./build_smoke_test_image.sh terra-base
+      run: |
+        docker build --pull ./terra-base --tag terra-base:smoke-test
 
     - name: Smoke test
       run: |
