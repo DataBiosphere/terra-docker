@@ -13,7 +13,7 @@
 # 8- terra-jupyter-bioconductor
 # 9- terra-rstudio-aou
 # 10- wondershaper
-images=("terra-base", "terra-jupyter-base" "terra-jupyter-python" "terra-jupyter-r" "terra-jupyter-gatk" "terra-jupyter-hail" "terra-jupyter-aou" "terra-jupyter-bioconductor" "terra-rstudio-aou" "wondershaper")
+images=("terra-base" "terra-jupyter-base" "terra-jupyter-python" "terra-jupyter-r" "terra-jupyter-gatk" "terra-jupyter-hail" "terra-jupyter-aou" "terra-jupyter-bioconductor" "terra-rstudio-aou" "wondershaper")
 
 # Loop over each image to build in the correct order
 for image in "${images[@]}"; do

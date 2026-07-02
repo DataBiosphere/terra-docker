@@ -1,0 +1,43 @@
+name: Test terra-base
+# Smoke-test the terra-base image on pull requests that touch it.
+
+on:
+  pull_request:
+    branches: [ master ]
+
+  workflow_dispatch:
+    # Allows manually triggering the workflow on a selected branch via the GitHub Actions tab.
+
+jobs:
+
+  test_docker_image:
+    runs-on: self-hosted
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v7
+
+    - name: Build the terra-base image locally
+      run: |
+        docker build --pull ./terra-base --tag terra-base:smoke-test
+
+    - name: Test Python version
+      run: |
+        version=$(docker run --rm --entrypoint="" terra-base:smoke-test python --version)
+        echo "$version"
+        [[ "$version" == "Python 3.10"* ]]
+
+    - name: Test OS version
+      run: |
+        version=$(docker run --rm --entrypoint="" terra-base:smoke-test \
+                    bash -c 'source /etc/os-release && echo "$VERSION"')
+        echo "$version"
+        [[ "$version" == "22.04"* ]]
+
+    - name: Smoke test
+      run: |
+        docker run --rm \
+          --volume "$GITHUB_WORKSPACE/terra-base/tests:/tests:ro" \
+          --entrypoint="" \
+          terra-base:smoke-test \
+          /etc/jupyter/bin/python /tests/smoke_test.py
