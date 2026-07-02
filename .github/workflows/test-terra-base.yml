@@ -21,6 +21,19 @@ jobs:
       run: |
         docker build --pull ./terra-base --tag terra-base:smoke-test
 
+    - name: Test Python version
+      run: |
+        version=$(docker run --rm --entrypoint="" terra-base:smoke-test python --version)
+        echo "$version"
+        [[ "$version" == "Python 3.10"* ]]
+
+    - name: Test OS version
+      run: |
+        version=$(docker run --rm --entrypoint="" terra-base:smoke-test \
+                    bash -c 'source /etc/os-release && echo "$VERSION"')
+        echo "$version"
+        [[ "$version" == "22.04"* ]]
+
     - name: Smoke test
       run: |
         docker run --rm \
