@@ -14,7 +14,6 @@ on:
           - terra-jupyter-hail
           - terra-jupyter-python
           - terra-jupyter-r
-          - wondershaper
         default: terra-rstudio-rstudio
       branch:
         description: 'Branch to run the workflow on'
