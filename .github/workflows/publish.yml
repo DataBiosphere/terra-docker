@@ -8,14 +8,12 @@ on:
         type: choice
         options:
           - terra-base
-          - terra-jupyter-aou
           - terra-jupyter-base
           - terra-jupyter-bioconductor
           - terra-jupyter-gatk
           - terra-jupyter-hail
           - terra-jupyter-python
           - terra-jupyter-r
-          - terra-rstudio-aou
           - wondershaper
         default: terra-rstudio-rstudio
       branch:
