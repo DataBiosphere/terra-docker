@@ -30,4 +30,4 @@ jobs:
       run: |
         df -h
         echo "--------------------------------------------------------"
-        docker system df || true
+        docker system df
