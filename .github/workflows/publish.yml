@@ -22,6 +22,9 @@ on:
 jobs:
   publish-job:
     runs-on: self-hosted
+    env:
+      # Create a plain image, not an attestation manifest list.
+      BUILDX_NO_DEFAULT_ATTESTATIONS: 1
     steps:
       - name: Checkout current code
         uses: actions/checkout@v3
@@ -49,6 +52,13 @@ jobs:
 
       - name: Explicitly auth Docker for GCR
         run: gcloud auth configure-docker --quiet
+
+      - name: Set up Docker Buildx
+        # driver: docker keeps build output in the local image store; the default
+        # docker-container driver would need --load and break the steps below.
+        uses: docker/setup-buildx-action@v4
+        with:
+          driver: docker
 
       - name: Build Docker image and publish
         run: |

@@ -34,6 +34,8 @@ on:
 
 env:
   GOOGLE_PROJECT: ${{ secrets.GCP_PROJECT_ID }}
+  # Create a plain image, not an attestation manifest list.
+  BUILDX_NO_DEFAULT_ATTESTATIONS: 1
 
 jobs:
 
@@ -62,6 +64,13 @@ jobs:
       uses: google-github-actions/setup-gcloud@v0.3.0
       with:
         project_id: ${{ secrets.GCP_PROJECT_ID }}
+
+    - name: Set up Docker Buildx
+      # driver: docker keeps build output in the local image store; the default
+      # docker-container driver would need --load and break the steps below.
+      uses: docker/setup-buildx-action@v4
+      with:
+        driver: docker
 
     - name: Build Docker image and base images too, if needed
       run: |
@@ -123,4 +132,3 @@ jobs:
           --entrypoint="" \
           terra-jupyter-hail:smoke-test \
           /bin/bash -c 'for nb in {terra-jupyter-python/tests,terra-jupyter-hail/tests}/*ipynb ; do jupyter nbconvert --to html_embed --execute "${nb}" ; done'
-
