@@ -1,0 +1,33 @@
+name: Runner diagnostics
+# Manually-triggered probe of the self-hosted runner's hardware, OS, and Docker daemon. Runs in seconds.
+
+on:
+  workflow_dispatch:
+
+jobs:
+
+  probe:
+    runs-on: self-hosted
+
+    steps:
+    - name: Operating system
+      run: |
+        cat /etc/os-release
+
+    - name: CPU and memory
+      run: |
+        cat /proc/cpuinfo
+        echo "--------------------------------------------------------"
+        cat /proc/meminfo
+
+    - name: Docker daemon info
+      run: |
+        docker version
+        echo "--------------------------------------------------------"
+        docker info
+
+    - name: Disk layout
+      run: |
+        df -h
+        echo "--------------------------------------------------------"
+        docker system df || true
