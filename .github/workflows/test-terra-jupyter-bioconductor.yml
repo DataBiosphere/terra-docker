@@ -28,6 +28,9 @@ on:
     - 'terra-jupyter-bioconductor/**'
     - '.github/workflows/test-terra-jupyter-bioconductor.yml'
 
+  schedule:
+    - cron: '30 6 * * *'
+
   workflow_dispatch:
     # Allows manually triggering of workflow on a selected branch via the GitHub Actions tab.
     # GitHub blog demo: https://github.blog/changelog/2020-07-06-github-actions-manual-triggers-with-workflow_dispatch/.

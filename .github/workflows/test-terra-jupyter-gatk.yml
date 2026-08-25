@@ -28,6 +28,9 @@ on:
     - 'terra-jupyter-gatk/**'
     - '.github/workflows/test-terra-jupyter-gatk.yml'
 
+  schedule:
+    - cron: '0 7 * * *'
+
   workflow_dispatch:
     # Allows manually triggering of workflow on a selected branch via the GitHub Actions tab.
     # GitHub blog demo: https://github.blog/changelog/2020-07-06-github-actions-manual-triggers-with-workflow_dispatch/.
