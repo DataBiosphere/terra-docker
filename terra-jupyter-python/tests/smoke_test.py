@@ -43,8 +43,8 @@ def test_pandas():
   
 def test_tensorflow_gfile():
   
-  tf.io.gfile.copy(src='gs://genomics-public-data/1000-genomes/other/sample_info/sample_info.csv',
-                   dst='/tmp/genomics-public-data-1000-genomes-sample_info.csv',
+  tf.io.gfile.copy(src='gs://gcp-public-data--broad-references/refdisk_manifest.json',
+                   dst='/tmp/refdisk_manifest.json',
                    overwrite=True)
 
 def test_tensorflow_hello_world():

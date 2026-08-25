@@ -150,60 +150,6 @@
                 "include_in_custom_dataproc" : true,
                 "include_in_custom_gce" : true
             }
-        },
-        {
-            "name" : "terra-jupyter-aou",
-            "base_label" : "All of Us",
-            "tools" : [
-                "python",
-                "r"
-            ],
-            "packages" : {
-                
-            },
-            "version" : "2.2.16",
-            "automated_flags" : {
-                "include_in_ui" : false,
-                "generate_docs" : false,
-                "build" : true,
-                "include_in_custom_dataproc" : true,
-                "include_in_custom_gce" : true
-            }
-        },
-        {
-            "name" : "terra-rstudio-aou",
-            "base_label" : "All of Us",
-            "tools" : [
-                "r"
-            ],
-            "packages" : {
-                
-            },
-            "version" : "0.1.1",
-            "automated_flags" : {
-                "include_in_ui" : false,
-                "generate_docs" : false,
-                "build" : true,
-                "include_in_custom_dataproc" : false,
-                "include_in_custom_gce" : false
-            }
-        },
-        {
-            "name" : "wondershaper",
-            "base_label" : "wondershaper",
-            "tools" : [
-            ],
-            "packages" : {
-                
-            },
-            "version" : "0.0.1",
-            "automated_flags" : {
-                "include_in_ui" : false,
-                "generate_docs" : false,
-                "build" : false,
-                "include_in_custom_dataproc" : false,
-                "include_in_custom_gce" : false
-            }
         }
     ]
 }
