@@ -1,0 +1,3 @@
+docker pull us.gcr.io/broad-dsp-gcr-public/anvil-rstudio-bioconductor:3.17.0
+docker inspect us.gcr.io/broad-dsp-gcr-public/anvil-rstudio-bioconductor:3.17.0 | \
+  python3 -m json.tool | grep -A 50 '"Labels"'
