@@ -1,0 +1,89 @@
+name: Test terra-base-jupyter
+# Perform smoke tests on the terra-base-jupyter Docker image to have some amount of confidence that
+# Python package versions are compatible.
+#
+# To configure the minimal auth needed for these tests to be able to read public data from Google Cloud Platform:
+# Step 1: Create a service account per these instructions:
+#         https://github.com/google-github-actions/setup-gcloud/blob/master/setup-gcloud/README.md
+# Step 2: Give the service account the following permissions within the project: BigQuery User
+# Step 3: Store its key and project id as GitHub repository secrets TD_GCP_SA_KEY and GCP_PROJECT_ID.
+#         https://docs.github.com/en/free-pro-team@latest/actions/reference/encrypted-secrets#creating-encrypted-secrets-for-a-repository
+
+on:
+  pull_request:
+    branches: [ master ]
+    paths:
+    - 'terra-base-jupyter/**'
+    - '.github/workflows/test-terra-base-jupyter.yml'
+
+  push:
+    # Note: GitHub secrets are not passed to pull requests from forks. For community contributions from
+    # regular contributors, its a good idea for the contributor to configure the GitHub actions to run correctly
+    # in their fork as described above.
+    #
+    # For occasional contributors, the dev team will merge the PR fork branch to a branch in upstream named
+    # test-community-contribution-<PR#> to run all the GitHub Action smoke tests.
+    branches: [ 'test-community-contribution*' ]
+    paths:
+    - 'terra-base-jupyter/**'
+    - '.github/workflows/test-terra-base-jupyter.yml'
+
+  workflow_dispatch:
+    # Allows manually triggering of workflow on a selected branch via the GitHub Actions tab.
+    # GitHub blog demo: https://github.blog/changelog/2020-07-06-github-actions-manual-triggers-with-workflow_dispatch/.
+
+env:
+  GOOGLE_PROJECT: ${{ secrets.GCP_PROJECT_ID }}
+
+jobs:
+
+  test_docker_image:
+    runs-on: self-hosted
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
+
+    - name: Free up some disk space
+      run: sudo rm -rf /usr/share/dotnet
+
+    - id: auth
+      uses: google-github-actions/auth@v2
+      with:
+        credentials_json: ${{ secrets.TD_GCP_SA_KEY }}
+        create_credentials_file: true
+
+    - name: Set up Cloud SDK
+      uses: google-github-actions/setup-gcloud@v0.3.0
+      with:
+        project_id: ${{ secrets.GCP_PROJECT_ID }}
+
+    - name: Build Docker image and base images too, if needed
+      run: |
+        gcloud auth configure-docker
+        ./build_smoke_test_image.sh terra-base-jupyter
+
+    - name: Upload workflow artifacts
+      uses: actions/upload-artifact@v2
+      with:
+        name: notebook-execution-results
+        path: terra-base-jupyter/tests/*.html
+        retention-days: 30
+
+    - name: Test Python code with pytest
+      run: |
+        chmod a+r "${{ steps.auth.outputs.credentials_file_path }}"
+        docker run \
+          --env GOOGLE_PROJECT \
+          --volume "${{ steps.auth.outputs.credentials_file_path }}":/tmp/credentials.json:ro \
+          --env GOOGLE_APPLICATION_CREDENTIALS="/tmp/credentials.json" \
+          --volume $GITHUB_WORKSPACE/terra-base-jupyter/tests:/tests \
+          --workdir=/tests \
+          --entrypoint="" \
+          terra-base-jupyter:smoke-test \
+          /bin/sh -c "pip3 install pytest; pytest"

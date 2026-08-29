@@ -15,7 +15,7 @@ set -o xtrace
 build_smoke_test_image() {
   local IMAGE_TYPE=$1
   pushd ${IMAGE_TYPE}
-  local BASE_IMAGES=$( egrep '^FROM (\S+)' Dockerfile |tr -s ' ' | cut -d ' ' -f 2 )
+  local BASE_IMAGES=$( egrep '^FROM (\S+)' Dockerfile | sed 's/--platform.*//' |tr -s ' ' | cut -d ' ' -f 2 )
 
   local BASE_IMAGE
   for BASE_IMAGE in ${BASE_IMAGES}; do
