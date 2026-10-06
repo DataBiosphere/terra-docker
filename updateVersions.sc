@@ -76,28 +76,22 @@ def main(updatedImage: String, updatedImageReleaseNote: String, bumpMajorVersion
       "terra-jupyter-python",
       "terra-jupyter-r",
       "terra-jupyter-gatk",
-      "terra-jupyter-aou",
     )
     case "terra-jupyter-r" => List(
       "terra-jupyter-r",
       "terra-jupyter-bioconductor",
       "terra-jupyter-gatk",
-      "terra-jupyter-aou",
     )
     case "terra-jupyter-python" => List(
       "terra-jupyter-python",
       "terra-jupyter-hail",
       "terra-jupyter-gatk",
-      "terra-jupyter-aou",
     )
     case "terra-jupyter-hail" => List(
       "terra-jupyter-hail"
     )
     case "terra-jupyter-gatk" => List(
       "terra-jupyter-gatk"
-    )
-    case "terra-jupyter-aou" => List(
-      "terra-jupyter-aou"
     )
     case "terra-base" => List(
       "terra-base"

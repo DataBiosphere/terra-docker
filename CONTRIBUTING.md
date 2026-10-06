@@ -1,6 +1,6 @@
 # Contributing
 
-`terra-docker` consists of docker images that are compatible with the notebooks service in Terra called Leonardo. We follow the naming convention of `terra-[application]-[image_name]` (for example `terra-jupyter-aou`).
+`terra-docker` consists of docker images that are compatible with the notebooks service in Terra called Leonardo. We follow the naming convention of `terra-[application]-[image_name]` (for example `terra-jupyter-bioconductor`).
 
 ## Opening a PR
 
@@ -8,7 +8,7 @@ We do our work on a feature branch based on master. When you open a pull request
 
 This is also a good opportunity to verify that all the appropriate image versions were bumped. It is important to keep in mind which images extend from where ([Image Dependecies](https://github.com/DataBiosphere/terra-docker#image-dependencies)). Make sure to bump the version of the image you are changing and update its reference in all images that extend from it.
 
-You can also run `amm ./updateVersions.sc <image name> <release note>` to upgrade derived images. If you're updating `terra-jupyter-aou` image, please make a pull request similar to [this PR](https://github.com/DataBiosphere/leonardo/pull/1612) (less updating `terra_jupyter_aou_old`).
+You can also run `amm ./updateVersions.sc <image name> <release note>` to upgrade derived images.
 
 ## Legacy Image Versioning
 
@@ -67,7 +67,7 @@ You can have a .json file with package versions and the tools that your image us
 
 ## Merging your PR
 
-Make sure to get two thumbs before merging your PR. We often reach out to the AOU or Bioconductor team to also review changes we are making to their images (Bioconductor team may also want to review changes to `terra-jupyter-r`).
+Make sure to get two thumbs before merging your PR. We often reach out to the Bioconductor team to also review changes we are making to their images (they may also want to review changes to `terra-jupyter-r`).
 
 Once you merge your PR, this will automatically kick off a Jenkins job (given title "terra-docker image hash update") to create a PR in Leonardo that bumps the image versions in [reference.conf](https://github.com/DataBiosphere/leonardo/blob/develop/automation/src/test/resources/reference.conf) under automation. This allows for our automation tests in Leonardo to run against your new docker image changes. 
 
