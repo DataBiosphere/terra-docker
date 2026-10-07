@@ -3,7 +3,7 @@ FROM us.gcr.io/broad-dsp-gcr-public/terra-base:1.0.1
 
 USER root
 
-ENV R_VERSION="4.5.2"
+ENV R_VERSION="4.6.1"
 ENV R_HOME="/usr/local/lib/R"
 ENV TZ="Etc/UTC"
 
@@ -23,7 +23,7 @@ fi
 EOF
 
 ENV S6_VERSION="v2.1.0.2"
-ENV RSTUDIO_VERSION="2026.01.1+403"
+ENV RSTUDIO_VERSION="2026.09.0+174"
 ENV DEFAULT_USER="rstudio"
 ENV RSTUDIO_PORT=8001
 ENV RSTUDIO_HOME=/etc/rstudio
