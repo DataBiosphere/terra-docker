@@ -35,6 +35,8 @@ COPY scripts/default_user.sh /rocker_scripts/default_user.sh
 COPY scripts/init_set_env.sh /rocker_scripts/init_set_env.sh
 COPY scripts/init_userconf.sh /rocker_scripts/init_userconf.sh
 
+RUN apt update && apt install zlib1g-dev
+
 RUN /rocker_scripts/install_rstudio.sh
 
 ENV PASSWORD="bioc"
