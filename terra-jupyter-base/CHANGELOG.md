@@ -1,3 +1,15 @@
+## 2.0.0 - 2026-10-16
+- Build off Ubuntu 26.04 with base image `nvidia/cuda:13.4.2-base-ubuntu26.04` (merged with terra-base)
+- Python 3.13 (Miniconda `py313_26.7.1-1`) for conda base, the Jupyter server venv and the user's conda env
+  - Downgraded from 3.14: Tensorflow and several scientific packages used by the child images have no Python 3.14 wheels yet
+  - Ubuntu's `/usr/bin/python3` (3.14) is not used for notebooks; `python3-pip` is no longer installed
+- Jupyter server runs in an isolated uv venv at `/etc/jupyter` (`pyproject.toml` / `uv.lock`), Notebook 7 + nbclassic
+- User's conda env at `/opt/conda/envs/python3`, registered as the `python3` kernel in `/usr/local/share/jupyter/kernels`
+- R and the CRAN `resolute-cran40` apt repository; the R kernel is registered by terra-jupyter-r
+- google-cloud-cli and OpenJDK 25
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-base:2.0.0`
+
 ## 1.1.4 - 2025-04-24
 - Build off Ubuntu 22 with base image `gcr.io/deeplearning-platform-release/tf2-cu123.2-17.py310`
 

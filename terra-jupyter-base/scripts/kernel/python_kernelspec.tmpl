@@ -3,7 +3,7 @@
  "display_name": "Python ${PY_VERSION}",
  "argv": [
   "${JUPYTER_HOME}/scripts/kernel/kernel_bootstrap.sh",
-  "python${PY_VERSION}",
+  "${CONDA_ENV_HOME}/bin/python",
   "-m",
   "ipykernel_launcher",
   "-f",
