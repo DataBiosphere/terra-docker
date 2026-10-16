@@ -26,11 +26,11 @@
                     "tidyverse"
                 ]
             },
-            "version" : "2.2.7",
+            "version" : "2.3.0-ek-10-15-2026",
             "automated_flags" : {
                 "generate_docs" : true,
                 "include_in_ui" : true,
-                "build" : true,
+                "build" : false,
                 "include_in_custom_dataproc" : true,
                 "include_in_custom_gce" : true
             }
@@ -47,11 +47,11 @@
                     "hail"
                 ]
             },
-            "version" : "1.1.14",
+            "version" : "1.2.0-ek-10-15-2026",
             "automated_flags" : {
                 "generate_docs" : true,
                 "include_in_ui" : true,
-                "build" : true,
+                "build" : false,
                 "include_in_custom_dataproc" : true,
                 "include_in_custom_gce" : false
             }
@@ -68,18 +68,18 @@
                     "scikit-learn"
                 ]
             },
-            "version" : "1.1.6",
+            "version" : "1.2.0-ek-10-15-2026",
             "automated_flags" : {
                 "generate_docs" : true,
                 "include_in_ui" : true,
-                "build" : true,
+                "build" : false,
                 "include_in_custom_dataproc" : true,
                 "include_in_custom_gce" : true
             }
         },
         {
             "name" : "terra-jupyter-base",
-            "base_label" : "Base",
+            "base_label" : "Base (Beta)",
             "tools" : [
                 "python"
             ],
@@ -89,7 +89,7 @@
             "version" : "2.0.0",
             "automated_flags" : {
                 "generate_docs" : true,
-                "include_in_ui" : false,
+                "include_in_ui" : true,
                 "build" : true,
                 "include_in_custom_dataproc" : true,
                 "include_in_custom_gce" : true
@@ -108,7 +108,7 @@
             "automated_flags" : {
                 "generate_docs" : true,
                 "include_in_ui" : true,
-                "build" : true,
+                "build" : false,
                 "include_in_custom_dataproc" : true,
                 "include_in_custom_gce" : true
             }
@@ -122,11 +122,11 @@
             "packages" : {
                 
             },
-            "version" : "2.2.7",
+            "version" : "2.3.0-ek-10-15-2026",
             "automated_flags" : {
                 "include_in_ui" : false,
                 "generate_docs" : true,
-                "build" : true,
+                "build" : false,
                 "include_in_custom_dataproc" : true,
                 "include_in_custom_gce" : true
             }
@@ -142,11 +142,11 @@
             "packages" : {
                 
             },
-            "version" : "2.3.9",
+            "version" : "2.4.0-ek-10-15-2026",
             "automated_flags" : {
                 "include_in_ui" : true,
                 "generate_docs" : true,
-                "build" : true,
+                "build" : false,
                 "include_in_custom_dataproc" : true,
                 "include_in_custom_gce" : true
             }
