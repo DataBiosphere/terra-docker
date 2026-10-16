@@ -88,11 +88,11 @@
             },
             "version" : "2.0.0",
             "automated_flags" : {
-              "generate_docs" : true,
-              "include_in_ui" : true,
-              "build" : true,
-              "include_in_custom_dataproc" : true,
-              "include_in_custom_gce" : true
+                "generate_docs" : true,
+                "include_in_ui" : true,
+                "build" : true,
+                "include_in_custom_dataproc" : true,
+                "include_in_custom_gce" : true
             }
         },
         {
