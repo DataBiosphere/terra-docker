@@ -1,3 +1,15 @@
+## 2.0.1 - 2026-10-16
+- Fix vulnerabilities reported in 2.0.0
+  - Conda base env: upgrade `anyio` (>= 4.14.2), `pyjwt` (>= 2.14.0) and `cryptography` (>= 50.0.0)
+  - Drop `python3-openssl`, which pulled in Ubuntu's `python3-cryptography` 46.0.5
+  - Remove the unused `/usr/bin/pebble` (Go 1.26.7) shipped by the `ubuntu:26.04` base
+  - google-cloud-cli: upgrade its bundled `cryptography` (>= 50.0.0) and `pyopenssl` (>= 26.4.0), and remove the
+    optional `gcloud-crc32c` binary (Go 1.26.6); `gcloud storage` falls back to the bundled `google_crc32c`
+  - npm: replace its bundled `brace-expansion` (5.0.12) and `undici` (6.29.1)
+  - nbclassic: replace its bundled `underscore` with 1.13.8
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-base:2.0.1`
+
 ## 2.0.0 - 2026-10-16
 - Build off Ubuntu 26.04 with base image `nvidia/cuda:13.4.2-base-ubuntu26.04` (merged with terra-base)
 - Python 3.13 (Miniconda `py313_26.7.1-1`) for conda base, the Jupyter server venv and the user's conda env
