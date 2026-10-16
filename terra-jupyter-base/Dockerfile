@@ -104,7 +104,6 @@ RUN sed -i '\|^path-exclude=/usr/share/man/\*|d' /etc/dpkg/dpkg.cfg.d/excludes \
     liblzma-dev \
     libcurl4-openssl-dev \
     # System python3 (3.13 on Ubuntu 26.04) helpers. Users should use the conda env. \
-    python3-openssl \
     python3-setuptools \
     python3-snappy \
     python3-tk \
@@ -154,6 +153,10 @@ RUN sed -i '\|^path-exclude=/usr/share/man/\*|d' /etc/dpkg/dpkg.cfg.d/excludes \
     # GHSA-qccp-gfcp-xxvc, GHSA-38jv-5279-wg99). PEP 668 blocks it from installing into the system
     # python anyway; users get pip from the conda env and uv manages the jupyter server env.
     # python3-pip \
+    # python3-openssl: it is the only package that pulls in Ubuntu's python3-cryptography 46.0.5 (GHSA-537c-gmf6-5ccf,
+    # GHSA-jwv3-5hgf-82ww, GHSA-g6cj-pr64-35w5, fixed in 50.0.0). Like python3-pip, nothing uses the system python;
+    # the conda env has pyopenssl/cryptography for notebooks.
+    # python3-openssl \
     # python3-distutils / python3-lib2to3: removed from Python in 3.12 / 3.13, no packages on 26.04 \
     # python3-distutils \
     # python3-lib2to3 \
@@ -242,6 +245,9 @@ RUN sed -i '\|^path-exclude=/usr/share/man/\*|d' /etc/dpkg/dpkg.cfg.d/excludes \
     && sed -i 's/^# *\(en_US.UTF-8\)/\1/' /etc/locale.gen \
     # Generate locale
     && locale-gen \
+    # The ubuntu:26.04 base ships Canonical's pebble service manager (/usr/bin/pebble, not owned by any
+    # package). Nothing here uses it, and it is built with Go 1.26.7 (GO-2026-6601..6613, GO-2026-6617, fixed in 1.26.9).
+    && rm -rf /usr/bin/pebble /var/lib/pebble \
     # cleanup
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
@@ -261,6 +267,14 @@ ENV LC_ALL=en_US.UTF-8
 # system interpreter and of both of the image's Python environments.
 # Note: it also bundles its own urllib3 copies (in lib/third_party, gsutil and bq) that image
 # scanners may flag; those can only be updated by a newer google-cloud-cli release.
+#
+# google-cloud-cli 589.0.0 also bundles:
+# - cryptography 46.0.7 in its python (GHSA-537c-gmf6-5ccf, GHSA-jwv3-5hgf-82ww, GHSA-g6cj-pr64-35w5, fixed in
+#   50.0.0). Upgrade it along with pyopenssl, whose 26.0.0 pins cryptography<47 (26.4.0 allows <51).
+# - gcloud-crc32c, a Go 1.26.6 binary (GO-2026-6601..6613, GO-2026-6617, fixed in 1.26.9). It is an optional speed-up:
+#   without it `gcloud storage` hashes with the bundled google_crc32c C extension instead.
+# Remove both once a google-cloud-cli release ships the fixed versions.
+ENV GCLOUD_PYTHON=/usr/lib/google-cloud-sdk/platform/bundledpythonunix/bin/python3
 RUN curl -fsSL https://packages.cloud.google.com/apt/doc/apt-key.gpg \
           | gpg --dearmor -o /usr/share/keyrings/cloud.google.gpg \
     # "cloud-sdk" is the name of Google's apt repository (it still serves google-cloud-cli), keep it as is
@@ -268,6 +282,10 @@ RUN curl -fsSL https://packages.cloud.google.com/apt/doc/apt-key.gpg \
          > /etc/apt/sources.list.d/google-cloud-cli.list \
     && apt-get update \
     && apt-get install -yq --no-install-recommends google-cloud-cli \
+    && $GCLOUD_PYTHON -m pip install --no-cache-dir --root-user-action=ignore --upgrade "cryptography>=50.0.0" "pyopenssl>=26.4.0" \
+    && $GCLOUD_PYTHON -c "import OpenSSL, google_crc32c, cryptography; assert int(cryptography.__version__.split('.')[0]) >= 50" \
+    && rm -f /usr/lib/google-cloud-sdk/bin/gcloud-crc32c \
+    && gcloud --version \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
@@ -290,18 +308,31 @@ RUN mkdir -p /etc/apt/keyrings \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
-# CVE-2026-93748 / GHSA-ch52-4w7c-c8xp: npm (even the latest, 12.2.0) bundles http-cache-semantics 4.2.0.
-# Swap in 4.3.0, the first release after the advisory. It has no dependencies and npm's
-# make-fetch-happen accepts it (^4.1.1). Remove this once nodesource ships an npm with >= 4.3.0.
-ENV HTTP_CACHE_SEMANTICS_VERSION=4.3.0
-RUN NPM_HCS=$(npm root -g)/npm/node_modules/http-cache-semantics \
-    && cd /tmp \
-    && npm pack --silent http-cache-semantics@$HTTP_CACHE_SEMANTICS_VERSION \
-    && rm -rf $NPM_HCS && mkdir -p $NPM_HCS \
-    && tar xzf http-cache-semantics-$HTTP_CACHE_SEMANTICS_VERSION.tgz --strip-components=1 -C $NPM_HCS \
-    && rm http-cache-semantics-$HTTP_CACHE_SEMANTICS_VERSION.tgz \
+# npm (11.20.0 from nodesource; even the latest, 12.2.0) bundles vulnerable copies of these dependencies. Swap
+# each one for the first fixed release in the range npm requires:
+# - http-cache-semantics 4.2.0 -> 4.3.0: CVE-2026-93748 / GHSA-ch52-4w7c-c8xp (make-fetch-happen wants ^4.1.1)
+# - brace-expansion 5.0.9 -> 5.0.12: GHSA-qhr7-859c-m2p7, GHSA-6j4f-fj2g-mc7p (minimatch wants ^5.0.5; its only
+#   dependency, balanced-match ^4.0.2, is already bundled at 4.0.4)
+# - undici 6.28.0 -> 6.29.1: CVE-2026-19534 / GHSA-rfgv-xxqx-mfg5 (node-gyp wants ^6.25.0). Node's own built-in
+#   undici (8.11.2) is already fixed.
+# Remove an entry once nodesource ships an npm with the fixed version.
+# Each package is installed into a scratch prefix and only its own directory is copied over npm's copy. npm extracts
+# the tarball itself: GNU tar fails with "Function not implemented" on tarballs with nested directories (e.g.
+# brace-expansion's dist/) when the amd64 image is built under emulation on Apple Silicon.
+ENV NPM_PATCHES="http-cache-semantics@4.3.0 brace-expansion@5.0.12 undici@6.29.1"
+RUN NPM_MODULES=$(npm root -g)/npm/node_modules \
+    && for PKG in $NPM_PATCHES; do \
+         NAME=${PKG%@*} && VERSION=${PKG##*@} && DEST=$NPM_MODULES/$NAME \
+         && test -d $DEST \
+         && npm install --silent --no-save --no-package-lock --ignore-scripts --omit=dev --prefix /tmp/npm-patch $PKG \
+         && rm -rf $DEST \
+         && cp -r /tmp/npm-patch/node_modules/$NAME $DEST \
+         && test "$(node -p "require('$DEST/package.json').version")" = "$VERSION" \
+         || exit 1; \
+       done \
+    && rm -rf /tmp/npm-patch \
     && npm cache clean --force \
-    && test "$(node -p "require('$NPM_HCS/package.json').version")" = "$HTTP_CACHE_SEMANTICS_VERSION"
+    && npm --version
 
 ##########################
 # Create the User's Jupyter User
@@ -359,15 +390,18 @@ ENV PATH="${PATH}:${CONDA_HOME}/bin"
 # not shrink this layer, it writes a second full copy of /opt/conda on top of it (~0.4GB for the
 # installer's package cache, ~0.6GB for the chown).
 # - conda tos: have to accept the conda terms of service to be able to install packages
-# - urllib3: the Miniconda py313_26.7.1 installer ships urllib3 2.7.0 in the base env
-#   (GHSA-vxq7-64xx-v4gw, GHSA-8988-9cw3-xx77, fixed in 2.8.0)
+# - the Miniconda py313_26.7.1 installer ships these vulnerable packages in the base env:
+#   - urllib3 2.7.0 (GHSA-vxq7-64xx-v4gw, GHSA-8988-9cw3-xx77, fixed in 2.8.0)
+#   - anyio 4.12.1 (GHSA-82r6-8w77-94w6, fixed in 4.14.2)
+#   - pyjwt 2.13.0 (GHSA-ffc3-869f-jxw9, GHSA-w2cx-738m-mc7w, GHSA-r6x4-923q-g947, GHSA-p4g4-x82p-q773,
+#     GHSA-9v7f-9g4p-ffgj, GHSA-9j54-fg26-wv3r, fixed in 2.14.0)
 RUN curl -so $HOME/miniconda.sh $CONDA_INSTALLER \
     && chmod +x $HOME/miniconda.sh \
     && $HOME/miniconda.sh -b -p $CONDA_HOME \
     && rm $HOME/miniconda.sh \
     && conda tos accept --override-channels --channel https://repo.anaconda.com/pkgs/main \
     && conda tos accept --override-channels --channel https://repo.anaconda.com/pkgs/r \
-    && conda install -n base -y "urllib3>=2.8.0" \
+    && conda install -n base -y "urllib3>=2.8.0" "anyio>=4.14.2" "pyjwt>=2.14.0" "cryptography>=50.0.0" \
     && conda clean -afy \
     && chown -R $USER:users $CONDA_HOME
 
@@ -447,6 +481,7 @@ RUN sh /uv-installer.sh && rm /uv-installer.sh
 ENV PATH="/root/.local/bin/:$PATH"
 
 ENV JUPYTER_HOME=/etc/jupyter
+ENV UNDERSCORE_VERSION=1.13.8
 
 # Create a virtual environment and install jupyter packages
 # setuptools and wheel are required for some of the jupyter extensions
@@ -462,6 +497,16 @@ RUN uv venv $JUPYTER_HOME --python $BASE_PYTHON_PATH \
     # Notebook 7 and JupyterLab are unaffected: they bundle MathJax 3 (mathjax-full 3.2.2).
     && rm -rf $JUPYTER_HOME/lib/python$PYTHON_VERSION/site-packages/nbclassic/static/components/MathJax \
     && ! find $JUPYTER_HOME -name MathJax.js | grep -q . \
+    # GHSA-qpx9-hpmf-5gmw: nbclassic 1.3.3 (the latest) bundles underscore 1.13.7, fixed in 1.13.8 (a patch release
+    # with the same API). Replace the copy in static/components, which is the one with a package.json that scanners
+    # match. Remove this once nbclassic ships underscore >= 1.13.8.
+    # Installed with npm rather than extracted with tar, for the reason given at the npm patches above.
+    && NBC_UNDERSCORE=$JUPYTER_HOME/lib/python$PYTHON_VERSION/site-packages/nbclassic/static/components/underscore \
+    && npm install --silent --no-save --no-package-lock --ignore-scripts --prefix /tmp/underscore underscore@$UNDERSCORE_VERSION \
+    && rm -rf $NBC_UNDERSCORE && mkdir -p $NBC_UNDERSCORE \
+    && cp -r /tmp/underscore/node_modules/underscore/{package.json,README.md,LICENSE,underscore-min.js,underscore-min.js.map,modules} $NBC_UNDERSCORE/ \
+    && rm -rf /tmp/underscore && npm cache clean --force \
+    && test "$(node -p "require('$NBC_UNDERSCORE/package.json').version")" = "$UNDERSCORE_VERSION" \
     # Remove default jupyter kernel (to force use of the conda python kernel)
     && $JUPYTER_HOME/bin/jupyter kernelspec remove python3 -y \
     # Cleanup
