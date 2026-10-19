@@ -1,3 +1,10 @@
+## 2.0.0 = 2026-10-14
+- Update `terra-jupyter-base` to `2.0.1`
+    - Update base image to `nvidia/cuda:13.4.2-base-ubuntu26.04`
+    - Update to python 3.13
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-python:2.0.0`
+
 ## 1.1.6 = 2023-04-24
 - Update `terra-jupyter-base` to `1.1.4`
   - Update base image to `gcr.io/deeplearning-platform-release/tf2-cu123.2-17.py310`
