@@ -47,11 +47,11 @@
                     "hail"
                 ]
             },
-            "version" : "1.1.14",
+            "version" : "2.0.0",
             "automated_flags" : {
                 "generate_docs" : true,
                 "include_in_ui" : true,
-                "build" : false,
+                "build" : true,
                 "include_in_custom_dataproc" : true,
                 "include_in_custom_gce" : false
             }

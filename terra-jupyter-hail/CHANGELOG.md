@@ -1,3 +1,10 @@
+## 2.0.0 - 2025-05-01
+- Update `hail` to `0.2.139`
+- Update `terra-jupyter-python` to `2.0.0`
+    - Update `terra-jupyter-base` to `2.0.1`
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-hail:2.0.0`
+
 ## 1.1.14 - 2025-05-01
 - Update `hail` to `0.2.134` to be compatible with dataproc 2.2.x versions
   - See https://github.com/hail-is/hail/releases/tag/0.2.134 for details
