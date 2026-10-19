@@ -1,7 +1,7 @@
 #!/bin/bash
 # Perform a local build of an image for smoke-testing purposes. Also build its tree of base images, when missing.
 #
-# Example: ./build_smoke_test_image.sh terra-jupyter-python  
+# Example: ./build_smoke_test_image.sh terra-jupyter-base
 #
 # Current working directory must be the directory in which this script resides (one level above all the Dockerfiles).
 # It walks down each relevant image directory, making changes to the FROM statements,
@@ -13,9 +13,10 @@ set -o nounset
 set -o xtrace 
 
 build_smoke_test_image() {
-  local IMAGE_TYPE=$1
+  local IMAGE_TYPE=${1:-"terra-jupyter-base"}
   pushd ${IMAGE_TYPE}
-  local BASE_IMAGES=$( egrep '^FROM (\S+)' Dockerfile |tr -s ' ' | cut -d ' ' -f 2 )
+  # The image is the first FROM argument that is not an option such as --platform=${BASE_PLATFORM}
+  local BASE_IMAGES=$( awk '/^FROM/ { for (i=2; i<=NF; i++) if ($i !~ /^--/) { print $i; break } }' Dockerfile )
 
   local BASE_IMAGE
   for BASE_IMAGE in ${BASE_IMAGES}; do
@@ -43,4 +44,4 @@ build_smoke_test_image() {
 # Log available disk space prior to building image
 df -kh
 
-build_smoke_test_image $1
+build_smoke_test_image "${1:-}"

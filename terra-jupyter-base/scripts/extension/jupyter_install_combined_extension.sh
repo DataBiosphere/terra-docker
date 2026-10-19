@@ -8,7 +8,8 @@ if [ -n "$1" ]; then
   mkdir ${JUPYTER_HOME}/${JUPYTER_EXTENSION_NAME}
   tar -xzf ${JUPYTER_EXTENSION} -C${JUPYTER_HOME}/${JUPYTER_EXTENSION_NAME}
   pip3 install -e ${JUPYTER_HOME}/${JUPYTER_EXTENSION_NAME}
-  sudo -E -u jupyter /opt/conda/bin/jupyter serverextension enable --py ${JUPYTER_EXTENSION_NAME}
-  sudo -E -u jupyter /opt/conda/bin/jupyter nbextension install --py ${JUPYTER_EXTENSION_NAME} --user
-  sudo -E -u jupyter /opt/conda/bin/jupyter nbextension enable --py ${JUPYTER_EXTENSION_NAME}
+  sudo -E -u jupyter /etc/jupyter/bin/jupyter serverextension enable --py ${JUPYTER_EXTENSION_NAME} --sys-prefix
+  # `jupyter nbextension` does not exist in Notebook 7 (classic nbextensions are not supported).
+  # sudo -E -u jupyter /etc/jupyter/bin/jupyter nbextension install --py ${JUPYTER_EXTENSION_NAME} --sys-prefix
+  # sudo -E -u jupyter /etc/jupyter/bin/jupyter nbextension enable --py ${JUPYTER_EXTENSION_NAME} --sys-prefix
 fi

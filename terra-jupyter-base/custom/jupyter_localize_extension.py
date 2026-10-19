@@ -5,11 +5,11 @@ import sys
 import tornado
 from tornado import gen
 from tornado.web import HTTPError
-from notebook.base.handlers import IPythonHandler
-from notebook.utils import url_path_join
+from jupyter_server.base.handlers import JupyterHandler
+from jupyter_server.utils import url_path_join
 from datauri import DataURI
 
-class LocalizeHandler(IPythonHandler):
+class LocalizeHandler(JupyterHandler):
   def _sanitize(self, pathstr):
     """Sanitizes paths. Handles local paths, gs: URIs, and data: URIs."""
     # return gs or data uris as is
@@ -140,10 +140,14 @@ class LocalizeHandler(IPythonHandler):
         self.set_status(200)
         self.finish()
 
-def load_jupyter_server_extension(nb_server_app):
+def _load_jupyter_server_extension(server_app):
   """Entrypoint for the Jupyter extension."""
-  web_app = nb_server_app.web_app
+  web_app = server_app.web_app
   host_pattern = '.*$'
   route_pattern = url_path_join(web_app.settings['base_url'], '/api/localize')
   web_app.add_handlers(host_pattern, [(route_pattern, LocalizeHandler)])
-  nb_server_app.log.info('initialized jupyter_localize_extension')
+  server_app.log.info('initialized jupyter_localize_extension')
+
+# jupyter-server 2.x looks for the underscore-prefixed name; the old name is kept
+# as an alias so anything still calling it directly keeps working.
+load_jupyter_server_extension = _load_jupyter_server_extension
