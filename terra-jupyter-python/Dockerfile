@@ -1,5 +1,5 @@
 ARG BASE_PLATFORM=linux/amd64
-FROM --platform=${BASE_PLATFORM} us.gcr.io/broad-dsp-gcr-public/terra-jupyter-base:2.0.0
+FROM --platform=${BASE_PLATFORM} us.gcr.io/broad-dsp-gcr-public/terra-jupyter-base:2.0.1
 
 # need to run apt-get and other install commands as root, but switch back to jupyter user for running notebooks
 USER root
@@ -10,18 +10,7 @@ SHELL ["/usr/bin/bash", "-o", "pipefail", "-c"]
 # Allows tools to directly read/write files from GCS buckets using gs:// URLs
 ENV HTSLIB_CONFIGURE_OPTIONS="--enable-gcs"
 
-RUN apt-get update && apt-get install -yq --no-install-recommends \
-  # packages specific to terra-jupyter-python \
-  xz-utils \
-  libhdf5-dev \
-  openssl \
-  make \
-  liblzo2-dev \
-  liblzo2-2 \
-  libz-dev \
-  libcurl4-openssl-dev \
-  && apt-get clean \
-  && rm -rf /var/lib/apt/lists/*
+
 
 # Install this image's Python packages into the user's conda env (the notebook kernel's python).
 # pyproject.toml stays at /etc/terra-docker/ so images built FROM this one (terra-jupyter-gatk) can
