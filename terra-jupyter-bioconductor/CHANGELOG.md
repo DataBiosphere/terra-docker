@@ -1,3 +1,10 @@
+## 3.0.0 - 2026-10-14
+
+- Update `terra-jupyter-r` to `3.0.0`
+    - Update `terra-jupyter-base` to `2.0.1`
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-bioconductor:3.0.0`
+
 ## 2.2.7 - 2025-04-24
 
 - Update `terra-jupyter-r` to `2.2.7`
