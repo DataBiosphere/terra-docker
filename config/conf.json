@@ -26,11 +26,11 @@
                     "tidyverse"
                 ]
             },
-            "version" : "2.2.7",
+            "version" : "3.0.0",
             "automated_flags" : {
                 "generate_docs" : true,
                 "include_in_ui" : true,
-                "build" : false,
+                "build" : true,
                 "include_in_custom_dataproc" : true,
                 "include_in_custom_gce" : true
             }
