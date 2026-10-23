@@ -1,3 +1,10 @@
+## 2.1.1 - 2026-10-23
+- update to `nvidia/cuda:13.4.3-base-ubuntu26.04`
+- update to `Miniconda3-py313_26.9.4-0-Linux-x86_64.sh`
+- update to use node `v26.12.1` or later
+
+- Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-base:2.1.1`
+
 ## 2.1.0 - 2026-10-23
 - Fix pip security issue https://discuss.python.org/t/python-3-15-1-3-14-9-and-3-13-17-are-out/109595
 

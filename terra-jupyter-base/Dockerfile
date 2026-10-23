@@ -2,7 +2,7 @@
 # package list, on the latest gpu-enabled base image on Ubuntu 26.
 ARG BASE_PLATFORM=linux/amd64
 # ARG BASE_PLATFORM=linux/amd64
-FROM --platform=${BASE_PLATFORM} nvidia/cuda:13.4.2-base-ubuntu26.04
+FROM --platform=${BASE_PLATFORM} nvidia/cuda:13.4.3-base-ubuntu26.04
 
 # want the command to fail due to an error at any stage in the pipe: https://github.com/hadolint/hadolint/wiki/DL4006
 SHELL ["/usr/bin/bash", "-o", "pipefail", "-c"]
@@ -20,10 +20,12 @@ ENV DEBIAN_FRONTEND=noninteractive
 ENV PYTHON_VERSION=3.13
 # Paired conda installer
 # See https://repo.anaconda.com/miniconda/ for list of miniconda
-ENV CONDA_INSTALLER=https://repo.anaconda.com/miniconda/Miniconda3-py313_26.7.1-1-Linux-x86_64.sh
+ENV CONDA_INSTALLER=https://repo.anaconda.com/miniconda/Miniconda3-py313_26.9.4-0-Linux-x86_64.sh
 ENV JUPYTER_VERSION=7.6.3
 ENV JUPYTER_PORT=8000
 ENV NODE_MAJOR=26
+# Minimum Node release; the build fails if nodesource installs anything older
+ENV NODE_MIN_VERSION=26.12.1
 
 USER root
 
@@ -305,6 +307,7 @@ RUN mkdir -p /etc/apt/keyrings \
     && echo "deb [signed-by=/etc/apt/keyrings/nodesource.gpg] https://deb.nodesource.com/node_$NODE_MAJOR.x nodistro main" > /etc/apt/sources.list.d/nodesource.list \
     && apt-get update \
     && apt-get install -yq --no-install-recommends nodejs \
+    && dpkg --compare-versions "$(node --version | sed 's/^v//')" ge "$NODE_MIN_VERSION" \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
