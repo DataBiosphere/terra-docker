@@ -1,3 +1,8 @@
+## 2.1.1 - 2026-10-23
+- Update `terra-jupyter-base` to `2.1.1`
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-python:2.1.1`
+
 ## 2.1.0 - 2026-10-23
 - Update `terra-jupyter-base` to `2.1.0`
     - Fix pip security issue https://discuss.python.org/t/python-3-15-1-3-14-9-and-3-13-17-are-out/109595

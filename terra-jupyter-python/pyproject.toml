@@ -1,6 +1,6 @@
 [project]
 name = "terra-jupyter-python"
-version = "2.1.0"
+version = "2.1.1"
 description = "Python environment for Terra notebooks with scientific computing packages"
 readme = "README.md"
 # TensorFlow supports only up to 3.13
