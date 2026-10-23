@@ -1,3 +1,8 @@
+## 2.1.0 - 2026-10-23
+- Update `terra-jupyter-python` to `2.1.0`
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-hail:2.1.0`
+
 ## 2.0.2 - 2026-10-23
 - Install `hail` with its dependencies, including `pyspark` 3.5.x
 - Install `java-21-openjdk-amd64` and set `JAVA_HOME` to it (Spark 3.5 cannot start on Ubuntu 26.04's default Java 25)
