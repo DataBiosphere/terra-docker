@@ -1,3 +1,8 @@
+## 2.1.0 - 2026-10-23
+- Fix pip security issue https://discuss.python.org/t/python-3-15-1-3-14-9-and-3-13-17-are-out/109595
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-base:2.1.0`
+
 ## 2.0.1 - 2026-10-16
 - Fix vulnerabilities reported in 2.0.0
   - Conda base env: upgrade `anyio` (>= 4.14.2), `pyjwt` (>= 2.14.0) and `cryptography` (>= 50.0.0)
