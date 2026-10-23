@@ -1,10 +1,10 @@
 [project]
 name = "terra-jupyter-python"
-version = "2.0.0"
+version = "2.1.0"
 description = "Python environment for Terra notebooks with scientific computing packages"
 readme = "README.md"
 # TensorFlow supports only up to 3.13
-requires-python = ">=3.13, <3.14"
+requires-python = ">=3.13.17, <3.14"
 dependencies = [
     "biopython>=1.86",
     "bokeh>=3.9.0",

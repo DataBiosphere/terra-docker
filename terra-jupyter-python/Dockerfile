@@ -1,5 +1,5 @@
 ARG BASE_PLATFORM=linux/amd64
-FROM --platform=${BASE_PLATFORM} us.gcr.io/broad-dsp-gcr-public/terra-jupyter-base:2.0.1
+FROM --platform=${BASE_PLATFORM} us.gcr.io/broad-dsp-gcr-public/terra-jupyter-base:2.1.0
 
 # need to run apt-get and other install commands as root, but switch back to jupyter user for running notebooks
 USER root
