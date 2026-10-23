@@ -1,3 +1,30 @@
+## 2.1.0 - 2026-10-23
+- Update `terra-jupyter-python` to `2.1.0`
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-hail:2.1.0`
+
+## 2.0.2 - 2026-10-23
+- Install `hail` with its dependencies, including `pyspark` 3.5.x
+- Install `java-21-openjdk-amd64` and set `JAVA_HOME` to it (Spark 3.5 cannot start on Ubuntu 26.04's default Java 25)
+- Install `g++`, `libopenblas0`, and `liblapack3`
+    - libopenblas-base is deprecated 
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-hail:2.0.2`
+
+## 2.0.1 - 2026-10-20
+- Install `hail` with its dependencies, including `pyspark` 3.5.x
+- Install `openjdk-11-jdk-headless` and set `JAVA_HOME` to it (Spark 3.5 cannot start on Ubuntu 26.04's default Java 25)
+- Install `g++` and `liblapack3`
+  
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-hail:2.0.1`
+
+## 2.0.0 - 2026-10-16
+- Update `hail` to `0.2.139`
+- Update `terra-jupyter-python` to `2.0.0`
+    - Update `terra-jupyter-base` to `2.0.1`
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-hail:2.0.0`
+
 ## 1.1.14 - 2025-05-01
 - Update `hail` to `0.2.134` to be compatible with dataproc 2.2.x versions
   - See https://github.com/hail-is/hail/releases/tag/0.2.134 for details
