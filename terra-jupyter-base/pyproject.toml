@@ -1,0 +1,50 @@
+[project]
+name = "terra-jupyter-base"
+version = "2.1.0"
+description = "Minimal Jupyter environment for Terra notebooks"
+readme = "README.md"
+# Note TensorFlow does not support 3.14
+# https://discuss.python.org/t/python-3-15-1-3-14-9-and-3-13-17-are-out/109595
+requires-python = ">=3.13.17, <3.14"
+# These are the dependencies of the isolated jupyter *server* environment
+# (/etc/jupyter), NOT the jupyter user's conda environment. Notebook packages
+# belong in conda/conda-environment.yaml.
+dependencies = [
+    "ipykernel>=7.4.0",
+    "jupyter-core==5.9.1",
+    "jupyter-server==2.21.1",
+    "jupyter-server-proxy==4.6.0",
+    "jupyterlab==4.6.4",
+    "jupyterlab-server==2.28.1",
+    # Classic Notebook 6 UI alongside Notebook 7, served at /nbclassic (or `jupyter nbclassic`).
+    # Installing it auto-enables the server extension; see
+    # https://nbclassic.readthedocs.io/en/latest/nbclassic.html#nbclassicusage
+    # Its extensions are managed with `jupyter nbclassic-extension`; it does NOT provide
+    # `jupyter nbextension`, so the scripts in scripts/extension no longer call that.
+    # nbclassic bundles MathJax 2.7.x (GHSA-v638-q856-grg8 / CVE-2023-39663, ReDoS, no patched 2.x
+    # release). The Dockerfile deletes it and jupyter_server_config.py disables MathJax in nbclassic.
+    "nbclassic>=1.3.3",
+    "nbconvert>=7.17.2",
+    "nbstripout>=0.9.1",
+    "notebook==7.6.3",
+    "python-datauri>=3.0.2",
+    "requests>=2.34.2",
+    # distutils left the stdlib in 3.12, so custom/jupyter_localize_extension.py's
+    # `distutils.util.strtobool` now resolves through the shim that setuptools
+    # installs via distutils-precedence.pth. Declared here so the shim is locked
+    # rather than pulled in as a side effect of `uv pip install setuptools`.
+    "setuptools>=80.9.0",
+    "tornado>=6.5.10",
+    "traitlets==5.16.1",
+]
+
+[tool.uv]
+# The image is only ever built for linux/amd64; lock for that even when `uv lock`
+# runs on an Apple Silicon workstation.
+required-environments = ["sys_platform == 'linux' and platform_machine == 'x86_64'"]
+# This project only pins an environment, it is never built or installed as a package.
+package = false
+build-constraint-dependencies = [
+    "setuptools>=70.3.0",
+    "wheel>=0.45.1",
+]

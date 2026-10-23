@@ -1,0 +1,15 @@
+name: python3
+channels:
+  - defaults
+dependencies:
+  - pip=26.2.1
+  - python=3.13
+  - ipykernel
+  # Terra client libraries, for the user's notebook kernel rather than the
+  # jupyter server env in pyproject.toml. Neither has a conda package, and both
+  # publish sdists only, so they are compiled here against the build-essential
+  # and zlib1g-dev installed earlier in the Dockerfile (terra-notebook-utils
+  # pulls in bgzip, which needs zlib.h and OpenMP).
+  - pip:
+    - firecloud==0.16.39
+    - terra-notebook-utils==0.16.2
