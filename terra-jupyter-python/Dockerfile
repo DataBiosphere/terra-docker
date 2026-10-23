@@ -10,6 +10,11 @@ SHELL ["/usr/bin/bash", "-o", "pipefail", "-c"]
 # Allows tools to directly read/write files from GCS buckets using gs:// URLs
 ENV HTSLIB_CONFIGURE_OPTIONS="--enable-gcs"
 
+# python-lzo has no wheel for Python 3.13, so it is built from source and needs the LZO headers
+RUN apt-get update && apt-get install -yq --no-install-recommends \
+  liblzo2-dev \
+  && apt-get clean \
+  && rm -rf /var/lib/apt/lists/*
 
 
 # Install this image's Python packages into the user's conda env (the notebook kernel's python).
