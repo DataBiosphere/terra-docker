@@ -64,7 +64,7 @@ jobs:
         credentials_json: ${{ secrets.TD_GCP_SA_KEY }}
         create_credentials_file: true
 
-    - name: Set up Cloud SDK
+    - name: Set up Google Cloud CLI
       uses: google-github-actions/setup-gcloud@v3
       with:
         project_id: ${{ secrets.GCP_PROJECT_ID }}
@@ -98,5 +98,6 @@ jobs:
           --volume $GITHUB_WORKSPACE/terra-jupyter-base/tests:/tests \
           --workdir=/tests \
           --entrypoint="" \
+          --env PIP_USER=false \
           terra-jupyter-base:smoke-test \
-          /bin/sh -c "pip3 install pytest; pytest"
+          /bin/bash -c '"$CONDA_ENV_HOME"/bin/python -m pip install pytest && "$CONDA_ENV_HOME"/bin/python -m pytest'
