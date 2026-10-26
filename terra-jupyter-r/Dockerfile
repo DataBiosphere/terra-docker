@@ -1,4 +1,4 @@
-FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-base:2.0.1
+FROM us.gcr.io/broad-dsp-gcr-public/terra-jupyter-base:2.1.1
 
 USER root
 
@@ -11,7 +11,8 @@ USER root
 COPY --chown=jupyter:users scripts/kernel $JUPYTER_KERNEL
 
 # Add env vars to identify binary package installation
-ENV TERRA_R_PLATFORM="terra-jupyter-r-3.0.0"
+ENV TERRA_R_PLATFORM="terra-jupyter-r-3.1.0"
+# Please have a look at https://bioconductor.org/developers/release-schedule/
 ENV TERRA_R_PLATFORM_BINARY_VERSION=3.23
 
 # Package names verified against Ubuntu 26.04 (resolute).
@@ -191,6 +192,7 @@ RUN R -e 'install.packages("BiocManager")' \
 
 # Install Bioconductor packages found at:
 # https://raw.githubusercontent.com/anvilproject/anvil-docker/master/anvil-rstudio-bioconductor/install.R
+# This has moved to https://github.com/anvilproject/anvil-docker/blob/main/anvil-rstudio-bioconductor/info/anvil-rstudio-bioconductor-3.21.0-versions.json#L92
 RUN R -e 'BiocManager::install(c( \
     "AnVIL", \
     "SingleCellExperiment", \
