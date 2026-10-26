@@ -1,3 +1,17 @@
+## 3.1.0 - 2026-10-26
+- 
+- Update `terra-jupyter-base` to `2.1.1`
+    
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-r:3.1.0`
+
+## 3.0.0 - 2026-10-19
+
+- Update `terra-jupyter-base` to `2.0.1`
+    - Update base image to `nvidia/cuda:13.4.2-base-ubuntu26.04`
+    - Update for R 4.6.1  Bioc to v 3.23
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-r:3.0.0`
+
 ## 2.2.7 - 2025-04-24
 
 - Update `terra-jupyter-base` to `1.1.4`
