@@ -1,3 +1,25 @@
+## 3.0.0 - 2026-10-20
+
+- Update `terra-jupyter-r` to `3.0.0` and `terra-jupyter-python` to `2.0.0`
+    - Update `terra-jupyter-base` to `2.0.1`
+    - Update base image to `nvidia/cuda:13.4.2-base-ubuntu26.04`, Python `3.13` conda env, R `4.6.1`
+- Update GATK to `4.7.0.0`
+    - GATK now runs on Java 17: install `openjdk-17-jdk-headless`, make it the default `java` through `update-alternatives` (`/usr/bin/java` was 25, and Leonardo's fixed `PATH` always resolves `java` there) and set `JAVA_HOME`
+    - Add a `gatk` conda env (`$GATK_CONDA_ENV_HOME`) built from the `gatkcondaenv.yml` shipped with GATK (Python `3.10`, pymc `5.10.1`, pytorch), as in GATK's own docker image. gcnvkernel requires pymc `5.10.1` exactly, which cannot be installed in the Python `3.13` notebook env (pymc 6)
+    - `/bin/gatk` is now a wrapper that puts Java 17 (`$JAVA_HOME/bin`) and the `gatk` env first on `PATH`, so GATK runs on Java 17 even under Leonardo's fixed `PATH`, and its python tools (gCNV, `NVScoreVariants`) use the `gatk` env. The GATK python packages are no longer installed in the notebook env
+    - Clear the executable-stack flag on `libtorch_cpu.so` in the `gatk` env (with `patchelf`): glibc 2.43 refuses to load it otherwise, which broke `import torch` and `NVScoreVariants`
+    - Remove `CNNScoreVariants` and the `cnn-models.patch` for its `vqsr_cnn` package, which GATK removed in `4.6.1.0`. Use `NVScoreVariants` instead
+- Update Nextflow to `26.10.3` and drop `NXF_MODE=google`, which the launcher no longer reads
+- Update Samtools to `1.24`, bcftools to `1.24` and bedtools to `2.31.1`
+- Reinstall the `terra-jupyter-python` packages from its `pyproject.toml` (was `requirements.txt`) into the conda env with `uv`
+- Uninstall `jupyter-contrib-nbextensions` (and `jupyter-nbextensions-configurator`, `jupyter-contrib-core`, `jupyter-highlight-selected-word`) from the notebook env: it imports `notebook.services`, which Notebook 7 removed, and broke `jupyter nbconvert` / `import nbconvert`
+- Remove the `setuptools<71`, `markupsafe==2.1.2`, `python-dateutil==2.8.2` and `nbconvert==7.11.0` pins
+- Remove apt packages that no longer exist on Ubuntu 26.04 (`python-tk`, `libz-dev`) or that `terra-jupyter-base` already installs
+- Smoke test runs `NVScoreVariants` on local copies of public `gatk-tutorials` inputs instead of `CNNScoreVariants`, and checks the `gatk` env and `nbconvert` imports
+- Smoke test workflow exports notebooks with `--to html --embed-images`; the `html_embed` exporter came from `jupyter-contrib-nbextensions`
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-gatk:3.0.0`
+
 ## 2.3.9 - 2025-04-24
 
 - Update `terra-jupyter-r` to `2.2.7` and `terra-jupyter-python` to `1.1.6`

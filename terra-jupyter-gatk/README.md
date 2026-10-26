@@ -6,9 +6,10 @@ This repo contains the terra-jupyter-gatk image that is compatible with notebook
 
 The terra-jupyter-gatk extends the [terra-jupyter-python](../terra-jupyter-python/README.md) and [terra-jupyter-r](../terra-jupyter-r/README.md) by including the following:
 
-- Open JDK 
-- GATK
-- Samtools
+- OpenJDK 17 (`JAVA_HOME`)
+- GATK, with its own `gatk` conda env (Python 3.10, from GATK's `gatkcondaenv.yml`) for GATK's python tools
+- Samtools, bcftools and bedtools
+- Nextflow
 
 To see the complete contents of this image please see the [Dockerfile](./Dockerfile).
 

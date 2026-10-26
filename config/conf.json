@@ -142,11 +142,11 @@
             "packages" : {
                 
             },
-            "version" : "2.3.9",
+            "version" : "3.1.1",
             "automated_flags" : {
                 "include_in_ui" : true,
                 "generate_docs" : true,
-                "build" : false,
+                "build" : true,
                 "include_in_custom_dataproc" : true,
                 "include_in_custom_gce" : true
             }
