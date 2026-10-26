@@ -2,7 +2,7 @@
 # package list, on the latest gpu-enabled base image on Ubuntu 26.
 ARG BASE_PLATFORM=linux/amd64
 # ARG BASE_PLATFORM=linux/amd64
-FROM --platform=${BASE_PLATFORM} nvidia/cuda:13.4.2-base-ubuntu26.04
+FROM --platform=${BASE_PLATFORM} nvidia/cuda:13.4.3-base-ubuntu26.04
 
 # want the command to fail due to an error at any stage in the pipe: https://github.com/hadolint/hadolint/wiki/DL4006
 SHELL ["/usr/bin/bash", "-o", "pipefail", "-c"]
@@ -20,10 +20,12 @@ ENV DEBIAN_FRONTEND=noninteractive
 ENV PYTHON_VERSION=3.13
 # Paired conda installer
 # See https://repo.anaconda.com/miniconda/ for list of miniconda
-ENV CONDA_INSTALLER=https://repo.anaconda.com/miniconda/Miniconda3-py313_26.7.1-1-Linux-x86_64.sh
+ENV CONDA_INSTALLER=https://repo.anaconda.com/miniconda/Miniconda3-py313_26.9.4-0-Linux-x86_64.sh
 ENV JUPYTER_VERSION=7.6.3
 ENV JUPYTER_PORT=8000
 ENV NODE_MAJOR=26
+# Minimum Node release; the build fails if nodesource installs anything older
+ENV NODE_MIN_VERSION=26.12.1
 
 USER root
 
@@ -268,7 +270,7 @@ ENV LC_ALL=en_US.UTF-8
 # Note: it also bundles its own urllib3 copies (in lib/third_party, gsutil and bq) that image
 # scanners may flag; those can only be updated by a newer google-cloud-cli release.
 #
-# google-cloud-cli 589.0.0 also bundles:
+# google-cloud-cli also bundles:
 # - cryptography 46.0.7 in its python (GHSA-537c-gmf6-5ccf, GHSA-jwv3-5hgf-82ww, GHSA-g6cj-pr64-35w5, fixed in
 #   50.0.0). Upgrade it along with pyopenssl, whose 26.0.0 pins cryptography<47 (26.4.0 allows <51).
 # - gcloud-crc32c, a Go 1.26.6 binary (GO-2026-6601..6613, GO-2026-6617, fixed in 1.26.9). It is an optional speed-up:
@@ -305,10 +307,11 @@ RUN mkdir -p /etc/apt/keyrings \
     && echo "deb [signed-by=/etc/apt/keyrings/nodesource.gpg] https://deb.nodesource.com/node_$NODE_MAJOR.x nodistro main" > /etc/apt/sources.list.d/nodesource.list \
     && apt-get update \
     && apt-get install -yq --no-install-recommends nodejs \
+    && dpkg --compare-versions "$(node --version | sed 's/^v//')" ge "$NODE_MIN_VERSION" \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
-# npm (11.20.0 from nodesource; even the latest, 12.2.0) bundles vulnerable copies of these dependencies. Swap
+# npm (11.20.0 from nodesource) bundles vulnerable copies of these dependencies. Swap
 # each one for the first fixed release in the range npm requires:
 # - http-cache-semantics 4.2.0 -> 4.3.0: CVE-2026-93748 / GHSA-ch52-4w7c-c8xp (make-fetch-happen wants ^4.1.1)
 # - brace-expansion 5.0.9 -> 5.0.12: GHSA-qhr7-859c-m2p7, GHSA-6j4f-fj2g-mc7p (minimatch wants ^5.0.5; its only
@@ -390,7 +393,7 @@ ENV PATH="${PATH}:${CONDA_HOME}/bin"
 # not shrink this layer, it writes a second full copy of /opt/conda on top of it (~0.4GB for the
 # installer's package cache, ~0.6GB for the chown).
 # - conda tos: have to accept the conda terms of service to be able to install packages
-# - the Miniconda py313_26.7.1 installer ships these vulnerable packages in the base env:
+# - the Miniconda installer ships these vulnerable packages in the base env:
 #   - urllib3 2.7.0 (GHSA-vxq7-64xx-v4gw, GHSA-8988-9cw3-xx77, fixed in 2.8.0)
 #   - anyio 4.12.1 (GHSA-82r6-8w77-94w6, fixed in 4.14.2)
 #   - pyjwt 2.13.0 (GHSA-ffc3-869f-jxw9, GHSA-w2cx-738m-mc7w, GHSA-r6x4-923q-g947, GHSA-p4g4-x82p-q773,
