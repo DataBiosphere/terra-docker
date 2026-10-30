@@ -111,6 +111,8 @@ jobs:
         retention-days: 30
 
     - name: Test Python code with pytest
+      # Run pytest with the user's conda env (the notebook kernel's python): a bare pip3/pytest is
+      # conda base's, which has none of the image's packages. PIP_USER=false puts pytest in the env.
       run: |
         chmod a+r "${{ steps.auth.outputs.credentials_file_path }}"
         docker run \
@@ -124,7 +126,7 @@ jobs:
           --workdir=/tests \
           --entrypoint="" \
           terra-jupyter-python:smoke-test \
-          /bin/sh -c "pip3 install pytest --user ; pytest"
+          /bin/bash -c 'PIP_USER=false "$CONDA_ENV_HOME"/bin/python -m pip install pytest && "$CONDA_ENV_HOME"/bin/python -m pytest'
 
     - name: Test Python code specific to notebooks with nbconvert
       # Simply 'Cell -> Run All` these notebooks and expect no errors in the case of a successful run of the test suite.

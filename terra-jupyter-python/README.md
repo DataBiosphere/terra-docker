@@ -6,7 +6,20 @@ This repo contains the terra-jupyter-python image that is compatible with notebo
 
 The terra-jupyter-python image extends the [terra-jupyter-base](../terra-jupyter-base) image, supported in this repo.
 
-To see the complete contents of this image please see the [Dockerfile](./Dockerfile).
+It installs the packages in [pyproject.toml](pyproject.toml.bak) (Python 3.13) into the user's conda env
+(`$CONDA_ENV_HOME`), which the `python3` notebook kernel runs, including:
+
+- tensorflow
+- pandas, numpy, scipy, scikit-learn (with scikit-learn-intelex)
+- pymc (replaces pymc3 / theano, which do not support Python 3.13)
+- matplotlib, seaborn, plotnine, bokeh, matplotlib-venn
+- pysam, biopython, pyvcf3
+- pandas-gbq, google-cloud-bigquery-datatransfer
+
+The pyproject.toml is kept in the image at `/etc/terra-docker/pyproject.toml`;
+[terra-jupyter-gatk](../terra-jupyter-gatk) reinstalls the same packages from it.
+
+To see the complete contents of this image please see the [Dockerfile](Dockerfile.bak).
 
 ## Selecting prior versions of this image
 
