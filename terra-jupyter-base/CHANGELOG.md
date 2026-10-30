@@ -1,3 +1,55 @@
+## 2.1.3 - 2026-10-29
+- Added tensorflow version 2.21.0 (`tensorflow[and-cuda]`) to the user's `python3` conda env
+- Fix vulnerabilities in the conda base env
+  - upgrade `libbrotlicommon`, `libbrotlidec` and `libbrotlienc` (>= 1.2.1) for CVE-2026-111497
+  - upgrade `msgpack-python` (>= 1.2.3) for GHSA-j586-36cw-2gc2 / CVE-2026-114613
+- Don't keep pip's download cache in the image when building the `python3` conda env
+
+- Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-base:2.1.3`
+
+## 2.1.2 - 2026-10-28
+- Added cromshell version 2.1.1
+- Added bioconda
+- user created conda env saved to /home/jupyter for persistence
+
+- Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-base:2.1.2`
+
+## 2.1.1 - 2026-10-23
+- update to `nvidia/cuda:13.4.3-base-ubuntu26.04`
+- update to `Miniconda3-py313_26.9.4-0-Linux-x86_64.sh`
+- update to use node `v26.12.1` or later
+
+- Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-base:2.1.1`
+
+## 2.1.0 - 2026-10-23
+- Fix pip security issue https://discuss.python.org/t/python-3-15-1-3-14-9-and-3-13-17-are-out/109595
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-base:2.1.0`
+
+## 2.0.1 - 2026-10-16
+- Fix vulnerabilities reported in 2.0.0
+  - Conda base env: upgrade `anyio` (>= 4.14.2), `pyjwt` (>= 2.14.0) and `cryptography` (>= 50.0.0)
+  - Drop `python3-openssl`, which pulled in Ubuntu's `python3-cryptography` 46.0.5
+  - Remove the unused `/usr/bin/pebble` (Go 1.26.7) shipped by the `ubuntu:26.04` base
+  - google-cloud-cli: upgrade its bundled `cryptography` (>= 50.0.0) and `pyopenssl` (>= 26.4.0), and remove the
+    optional `gcloud-crc32c` binary (Go 1.26.6); `gcloud storage` falls back to the bundled `google_crc32c`
+  - npm: replace its bundled `brace-expansion` (5.0.12) and `undici` (6.29.1)
+  - nbclassic: replace its bundled `underscore` with 1.13.8
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-base:2.0.1`
+
+## 2.0.0 - 2026-10-16
+- Build off Ubuntu 26.04 with base image `nvidia/cuda:13.4.2-base-ubuntu26.04` (merged with terra-base)
+- Python 3.13 (Miniconda `py313_26.7.1-1`) for conda base, the Jupyter server venv and the user's conda env
+  - Downgraded from 3.14: Tensorflow and several scientific packages used by the child images have no Python 3.14 wheels yet
+  - Ubuntu's `/usr/bin/python3` (3.14) is not used for notebooks; `python3-pip` is no longer installed
+- Jupyter server runs in an isolated uv venv at `/etc/jupyter` (`pyproject.toml` / `uv.lock`), Notebook 7 + nbclassic
+- User's conda env at `/opt/conda/envs/python3`, registered as the `python3` kernel in `/usr/local/share/jupyter/kernels`
+- R and the CRAN `resolute-cran40` apt repository; the R kernel is registered by terra-jupyter-r
+- google-cloud-cli and OpenJDK 25
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-base:2.0.0`
+
 ## 1.1.4 - 2025-04-24
 - Build off Ubuntu 22 with base image `gcr.io/deeplearning-platform-release/tf2-cu123.2-17.py310`
 

@@ -4,6 +4,6 @@ set -e
 
 if [ -n "$1" ]; then
   JUPYTER_EXTENSION=$1
-  pip3 install ${JUPYTER_EXTENSION}
-  sudo -E -u jupyter jupyter serverextension enable --py ${JUPYTER_EXTENSION}
+  uv pip install ${JUPYTER_EXTENSION}
+  sudo -E -u jupyter /etc/jupyter/bin/jupyter serverextension enable --py ${JUPYTER_EXTENSION} --sys-prefix
 fi

@@ -5,7 +5,10 @@ This repo provides docker images for running jupyter notebook in [Terra](https:/
 Make sure to go through the [contributing guide](https://github.com/DataBiosphere/terra-docker/blob/master/CONTRIBUTING.md#contributing) as you make changes to this repo.
 
 # Terra Base Images
+
 [terra-base](terra-base/README.md)
+
+[terra-jupyter-base](terra-jupyter-base/README.md)
 
 [terra-jupyter-python](terra-jupyter-python/README.md)
 
@@ -16,6 +19,12 @@ Make sure to go through the [contributing guide](https://github.com/DataBiospher
 [terra-jupyter-gatk](terra-jupyter-gatk/README.md)
 
 [terra-jupyter-bioconductor](terra-jupyter-bioconductor/README.md)
+
+## Image dependencies
+
+![Image dependencies](dependencies.png)
+To update this map, install the PlantUML intelliJ extension, then edit the `mind.puml` file.
+
 
 # How to create your own Custom image to use with notebooks on Terra
 Custom docker images need to use a Terra base image (see above) in order to work with the service that runs notebooks on Terra.
@@ -83,12 +92,27 @@ Detailed documentation on how to integrate the terra-docker image with Leonardo 
 - Ensure that the `terra-docker-versions-candidate.json` file (which is what the UI sources the dropdown from) in the `terra-docjker-image-documentation-[env]` bucket correclty references your new docker image
 - [Update the terra-docker version candidate json](https://broadworkbench.atlassian.net/wiki/spaces/IA/pages/2519564289/Integrating+new+Terra+docker+images+with+Leonardo#6.-Update-terra-docker-versions-candidate.json)
 
+## UV and updating dependencies
+This repo uses [uv](https://pypi.org/project/uv/) to manage python dependencies. 
+The uv.lock file at the root of the directory ensures package versions across all the docker images are compatible. 
+Each image has a pyproject.toml file that defines the additional dependencies for that image.
+- To make a general update to all dependencies, cd into the image directory and run `uv update`.
+- If you want to update a specific dependency, you can run `uv add [package name]@[version]` to update to a specific version or just `uv add [package name]` to update to the latest version.
+- Because the uv.lock file is at the root of the repo, you will need to run `uv sync` in each image directory after making changes to the dependencies to update the lockfile.
+
+IMPORTANT NOTE: The terra-base image has a separate uv.lock file because its pyproject.toml defines dependencies for the isolated jupyter server environment, which has different dependencies than the other images. 
+This means that if you are updating dependencies for the terra-base image, you will need to cd into the terra-base directory to update the uv.lock file for that image. 
+For all other images, the uv.lock file at the root of the repo is used and therefore docker image must be built from the root of the repo.
+
 ## Testing your image manually
 
-Build the image:
-run `docker build [your_dir] -t [name]`.
+#### Build the image from the root of the repo:
+This is necessary to ensure the workspace `uv.lock` file can be accessed. 
+The one exception is if you are building the `terra-base` image, you will need to cd into the `terra-base` directory and build from there)
 
-`docker build terra-base -t terra-base`
+run `docker build -f [your_dir]/Dockerfile . -t [name]`.
+
+`docker build -f terra-jupyter-base/Dockerfile . -t  us.gcr.io/broad-dsp-gcr-public/terra-base:{tag}`
 
 If you're on an M1 and building an image from a locally built image, replace the current FROM command:
 
@@ -111,7 +135,8 @@ You can gain root access and open a bash terminal as follows:
 docker run --rm -it -u root -p 8000:8000 --entrypoint /bin/bash us.gcr.io/broad-dsp-gcr-public/terra-jupyter-base:0.0.7
 ```
 
-Running locally is conventient for quick development and exploring the image. However it has some limitations compared to running through Terra. Namely:
+Running locally is convenient for quick development and exploring the image. 
+However it has some limitations compared to running through Terra. Namely:
 - there are no service account credentials when run locally
 - there are no environment variables like `GOOGLE_PROJECT`, `WORKSPACE_NAME`, `WORKSPACE_BUCKET`, etc when running locally
 - there is no workspace-syncing when run locally
@@ -168,10 +193,6 @@ The scripts folder has scripts used for building.
 - `generate_package_docs.py` This script is run once by build.sh each time an image is built. It is used to generate a .json with the versions for the packages in the image.
 - `generate_version_docs.py` This script is run each time an image is built. It builds a new file master version file for the UI to look up the current versions to reference.
 
-## Image dependencies
-
-Note that this dependency graph needs to be updated!
-![Image dependencies](dependencies.png)
 
 ## Push Images to GCR
 

@@ -1,0 +1,20 @@
+name: python3
+channels:
+  - defaults
+dependencies:
+  - pip=26.2.1
+  - python=3.13
+  - ipykernel
+  # Terra client libraries, for the user's notebook kernel rather than the
+  # jupyter server env in pyproject.toml. Neither has a conda package, and both
+  # publish sdists only, so they are compiled here against the build-essential
+  # and zlib1g-dev installed earlier in the Dockerfile (terra-notebook-utils
+  # pulls in bgzip, which needs zlib.h and OpenMP).
+  - pip:
+    - firecloud==0.16.39
+    - terra-notebook-utils==0.16.2
+    # Cromwell CLI, for submitting and monitoring workflows from the notebook terminal
+    - cromshell==2.1.1
+    # [and-cuda] pulls the CUDA 12 / cuDNN runtime as pip wheels (~4.3GB installed), since the nvidia/cuda
+    # base image only ships the CUDA driver API. Without it TensorFlow falls back to CPU.
+    - tensorflow[and-cuda]==2.21.0
