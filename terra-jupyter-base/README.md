@@ -33,6 +33,22 @@ The `python3` kernel is registered in `/usr/local/share/jupyter/kernels`.
 
 To see the complete contents of this image please see the [Dockerfile](./Dockerfile).
 
+## Conda environments
+
+`conda install` and `conda create` use the conda-forge, bioconda and defaults channels, in that order, with
+strict channel priority.
+
+Conda envs live in `/opt/conda/envs`, which is part of the image, so they are lost when the runtime is
+recreated. Only `/home/jupyter` is on the persistent disk. To keep them:
+
+- After every conda command that changes an env, a conda plugin (`conda/plugin`) saves each env you created
+  to `/home/jupyter/<env>-environment.yml`. The file lists the packages you asked for and your pip
+  packages. Removing the env deletes its file. `base` and `python3` come from the image and are not saved.
+- When Jupyter starts, `run-jupyter.sh` recreates any missing env from those files in the background
+  (`scripts/restore-conda-envs.sh`, log in `~/.conda-restore.log`). A large env can take several minutes,
+  so its kernel may not be usable straight away.
+- Delete an `<env>-environment.yml` file to stop that env from being recreated.
+
 ## Selecting prior versions of this image
 
 To select an older version this image, you can search the [CHANGELOG.md](./CHANGELOG.md) for a specific package version you need.

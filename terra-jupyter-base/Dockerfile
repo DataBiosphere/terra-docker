@@ -346,6 +346,7 @@ ENV USER=jupyter
 ENV USER_UID=1002
 
 # Create the user home and add to the users group
+# The Ubuntu 26.04 base ships an `ubuntu` user and group with UID/GID 1000; remove them to free the UID.
 ENV USER_HOME=/home/$USER
 RUN useradd -m -s /bin/bash -d $USER_HOME -N -u $USER_UID  $USER \
     && usermod -g users $USER
@@ -398,13 +399,20 @@ ENV PATH="${PATH}:${CONDA_HOME}/bin"
 #   - anyio 4.12.1 (GHSA-82r6-8w77-94w6, fixed in 4.14.2)
 #   - pyjwt 2.13.0 (GHSA-ffc3-869f-jxw9, GHSA-w2cx-738m-mc7w, GHSA-r6x4-923q-g947, GHSA-p4g4-x82p-q773,
 #     GHSA-9v7f-9g4p-ffgj, GHSA-9j54-fg26-wv3r, fixed in 2.14.0)
+#   - msgpack-python 1.2.1 (GHSA-j586-36cw-2gc2 / CVE-2026-114613, fixed in 1.2.3)
+#   - libbrotlicommon/dec/enc 1.2.0, used by brotlicffi (CVE-2026-111497, fixed in 1.2.1)
+# (The apt libbrotli1 is Ubuntu's fixed 1.2.0-3ubuntu0.1, and nodesource node >= 26.12.1, see NODE_MIN_VERSION,
+# carries the brotli fix as a cherry-pick although process.versions.brotli still reports 1.2.0.)
 RUN curl -so $HOME/miniconda.sh $CONDA_INSTALLER \
     && chmod +x $HOME/miniconda.sh \
     && $HOME/miniconda.sh -b -p $CONDA_HOME \
     && rm $HOME/miniconda.sh \
-    && conda tos accept --override-channels --channel https://repo.anaconda.com/pkgs/main \
-    && conda tos accept --override-channels --channel https://repo.anaconda.com/pkgs/r \
+    # --system stores the acceptance in /opt/conda; the default (--user) only covers root, which left the
+    # jupyter user failing every defaults-channel install with CondaToSNonInteractiveError
+    && conda tos accept --system --override-channels --channel https://repo.anaconda.com/pkgs/main \
+    && conda tos accept --system --override-channels --channel https://repo.anaconda.com/pkgs/r \
     && conda install -n base -y "urllib3>=2.8.0" "anyio>=4.14.2" "pyjwt>=2.14.0" "cryptography>=50.0.0" \
+         "msgpack-python>=1.2.3" "libbrotlicommon>=1.2.1" "libbrotlidec>=1.2.1" "libbrotlienc>=1.2.1" \
     && conda clean -afy \
     && chown -R $USER:users $CONDA_HOME
 
@@ -439,7 +447,9 @@ ENV PYTHONDONTWRITEBYTECODE=true
 # certifi) are already installed at compatible versions, and the import check below verifies it.
 # --root-user-action=ignore: installing into the env as root during the build is intended.
 # Remove the patch once getm / terra-notebook-utils publish urllib3 2 compatible releases.
-RUN conda env create --prefix $CONDA_ENV_HOME --file $CONDA_FILES/conda-environment.yaml \
+# PIP_NO_CACHE_DIR: the pip: section of the env file is installed by pip, whose download cache
+# (/root/.cache/pip) `conda clean` does not remove. With tensorflow that left ~3.3GB of wheels in this layer.
+RUN PIP_NO_CACHE_DIR=1 conda env create --prefix $CONDA_ENV_HOME --file $CONDA_FILES/conda-environment.yaml \
     && SITE_PACKAGES=$($CONDA_ENV_HOME/bin/python -c "import sysconfig; print(sysconfig.get_paths()['purelib'])") \
     && sed -i 's/method_whitelist=/allowed_methods=/' \
          $SITE_PACKAGES/getm/http.py \
@@ -447,6 +457,8 @@ RUN conda env create --prefix $CONDA_ENV_HOME --file $CONDA_FILES/conda-environm
     && ! grep -rq "method_whitelist" --include='*.py' $SITE_PACKAGES/getm $SITE_PACKAGES/terra_notebook_utils \
     && $CONDA_ENV_HOME/bin/python -m pip install --no-cache-dir --no-deps --root-user-action=ignore --upgrade "urllib3>=2.8.0" "requests>=2.32.4" \
     && $CONDA_ENV_HOME/bin/python -c "import urllib3, requests, getm.http, terra_notebook_utils.table, firecloud.api; assert int(urllib3.__version__.split('.')[0]) >= 2" \
+    # The env's bin dir is not on PATH, so expose the cromshell CLI to terminals
+    && ln -s $CONDA_ENV_HOME/bin/cromshell /usr/local/bin/cromshell \
     # Register the conda env as the 'python3' kernel
     && $CONDA_ENV_HOME/bin/python -m ipykernel install --name=$CONDA_ENV_NAME \
     # Remove packages tarballs and python bytecode files from the image
@@ -454,6 +466,23 @@ RUN conda env create --prefix $CONDA_ENV_HOME --file $CONDA_FILES/conda-environm
     && rm $CONDA_FILES/conda-environment.yaml \
     # Make sure the USER owns the env (created as root after /opt/conda was chowned above)
     && chown -R $USER:users $CONDA_ENV_HOME
+
+# Enable bioconda for the user's `conda install` / `conda create`. Set after the python3 env is built so
+# that env still resolves from defaults only. Bioconda requires conda-forge above it and strict priority:
+# https://bioconda.github.io/#usage
+# Written to the system condarc (/opt/conda/.condarc) so it applies to every user.
+RUN conda config --system --add channels bioconda \
+    && conda config --system --add channels conda-forge \
+    && conda config --system --set channel_priority strict \
+    && chown $USER:users $CONDA_HOME/.condarc
+
+# Conda plugin that saves the user's conda envs to the persistent disk as ~/<env>-environment.yml after
+# every conda command that changes them. run-jupyter.sh recreates them from there with
+# scripts/restore-conda-envs.sh. Installed after the python3 env is built, and it skips root, so the
+# image's own conda commands are never saved.
+RUN $CONDA_HOME/bin/python -m pip install --no-cache-dir --no-deps --root-user-action=ignore $CONDA_FILES/plugin \
+    && rm -rf $CONDA_FILES/plugin \
+    && conda plugins list 2>/dev/null | grep -q terra-conda-env-sync
 
 ##############################
 # Setup UV Environment for Jupyter
@@ -548,7 +577,7 @@ COPY --chown=jupyter:users jupyter_notebook_config.py $JUPYTER_HOME
 RUN echo "$JUPYTER_CUSTOM" > $JUPYTER_HOME/lib/python$PYTHON_VERSION/site-packages/terra-custom.pth \
     && find $JUPYTER_HOME $CONDA_HOME ! -user $USER -exec chown -h $USER:users {} + \
     && find $JUPYTER_EXTENSIONS $JUPYTER_KERNEL -name '*.sh' -type f -exec chmod +x {} + \
-    && chmod +x $JUPYTER_SCRIPTS/run-jupyter.sh
+    && chmod +x $JUPYTER_SCRIPTS/run-jupyter.sh $JUPYTER_SCRIPTS/restore-conda-envs.sh
 
 # Setup the jupyter (python3) kernel. The R kernel is registered by terra-jupyter-r after it installs IRkernel.
 ENV JUPYTER_KERNELSPEC_DIR=/usr/local/share/jupyter/
@@ -577,6 +606,8 @@ WORKDIR $USER_HOME
 # make pip install to a user directory, instead of a system directory which requires root.
 # this is useful so `pip install` commands can be run in the context of a notebook.
 ENV PIP_USER=true
+# With PIP_USER=true, console scripts of user-installed packages land in ~/.local/bin (on the persistent disk)
+ENV PATH="${PATH}:${USER_HOME}/.local/bin"
 USER $USER
 
 # Note: this entrypoint is provided for running Jupyter independently of Leonardo.

@@ -1,3 +1,19 @@
+## 2.1.3 - 2026-10-29
+- Added tensorflow version 2.21.0 (`tensorflow[and-cuda]`) to the user's `python3` conda env
+- Fix vulnerabilities in the conda base env
+  - upgrade `libbrotlicommon`, `libbrotlidec` and `libbrotlienc` (>= 1.2.1) for CVE-2026-111497
+  - upgrade `msgpack-python` (>= 1.2.3) for GHSA-j586-36cw-2gc2 / CVE-2026-114613
+- Don't keep pip's download cache in the image when building the `python3` conda env
+
+- Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-base:2.1.3`
+
+## 2.1.2 - 2026-10-28
+- Added cromshell version 2.1.1
+- Added bioconda
+- user created conda env saved to /home/jupyter for persistence
+
+- Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-jupyter-base:2.1.2`
+
 ## 2.1.1 - 2026-10-23
 - update to `nvidia/cuda:13.4.3-base-ubuntu26.04`
 - update to `Miniconda3-py313_26.9.4-0-Linux-x86_64.sh`
