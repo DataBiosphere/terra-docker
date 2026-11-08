@@ -3,7 +3,7 @@ FROM us.gcr.io/broad-dsp-gcr-public/terra-base:1.0.1
 
 USER root
 
-ENV R_VERSION="4.6.1"
+ENV R_VERSION="4.6.2"
 ENV R_HOME="/usr/local/lib/R"
 ENV TZ="Etc/UTC"
 

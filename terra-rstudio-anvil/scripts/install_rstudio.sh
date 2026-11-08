@@ -55,6 +55,10 @@ if [ "$UBUNTU_CODENAME" = "noble" ]; then
     UBUNTU_CODENAME="jammy"
 fi
 
+if [ "$UBUNTU_CODENAME" = "resolute" ]; then
+    UBUNTU_CODENAME="jammy"
+fi
+
 if [ "$RSTUDIO_VERSION" = "stable" ] || [ "$RSTUDIO_VERSION" = "preview" ] || [ "$RSTUDIO_VERSION" = "daily" ]; then
     if [ "$UBUNTU_CODENAME" = "bionic" ]; then
         UBUNTU_CODENAME="focal"
@@ -80,20 +84,10 @@ mkdir -p /etc/R
 ## Make RStudio compatible with case when R is built from source
 ## (and thus is at /usr/local/bin/R), because RStudio doesn't obey
 ## path if a user apt-get installs a package
-
-## Include Liz Baldo's suggestion for disabling auth
-
 R_BIN="$(which R)"
-
-echo "rsession-which-r=${R_BIN}" > /etc/rstudio/rserver.conf
+echo "rsession-which-r=${R_BIN}" >/etc/rstudio/rserver.conf
 ## use more robust file locking to avoid errors when using shared volumes:
-echo "lock-type=advisory" >> /etc/rstudio/file-locks
-echo "auth-none=1" >> /etc/rstudio/rserver.conf
-echo "server-user=rstudio" >> /etc/rstudio/rserver.conf
-echo "www-port=8001" >> /etc/rstudio/rserver.conf
-
-echo "session-default-working-dir=/home/jupyter" >> /etc/rstudio/rsession.conf
-echo "session-default-new-project-dir=/home/jupyter" >> /etc/rstudio/rsession.conf
+echo "lock-type=advisory" >/etc/rstudio/file-locks
 
 ## Prepare optional configuration file to disable authentication
 ## To de-activate authentication, `disable_auth_rserver.conf` script
@@ -103,32 +97,11 @@ cp /etc/rstudio/rserver.conf /etc/rstudio/disable_auth_rserver.conf
 echo "auth-none=1" >>/etc/rstudio/disable_auth_rserver.conf
 
 ## Set up RStudio init scripts
-## mkdir -p /etc/services.d/rstudio
-## cat <<"EOF" >/etc/services.d/rstudio/run
-## #!/usr/bin/with-contenv bash
-## ## load /etc/environment vars first:
-## for line in $( cat /etc/environment ) ; do export $line > /dev/null; done
-## ## Write www-root-path dynamically using Terra-injected variables.
-## ## These files are readable here (before 01_set_env does chmod 600).
-## ## On non-Terra systems the files won't exist and the block is skipped.
-## WS_NS=$(cat /var/run/s6/container_environment/WORKSPACE_NAMESPACE 2>/dev/null)
-## RT_NAME=$(cat /var/run/s6/container_environment/RUNTIME_NAME 2>/dev/null)
-## if [ -n "$WS_NS" ] && [ -n "$RT_NAME" ]; then
-##     sed -i '/^www-root-path=/d' /etc/rstudio/rserver.conf
-##     echo "www-root-path=/proxy/${WS_NS}/${RT_NAME}/rstudio/" >> /etc/rstudio/rserver.conf
-## fi
-## exec /usr/lib/rstudio-server/bin/rserver --server-daemonize 0
-## EOF
-
-
 mkdir -p /etc/services.d/rstudio
-
 cat <<"EOF" >/etc/services.d/rstudio/run
 #!/usr/bin/with-contenv bash
 ## load /etc/environment vars first:
 for line in $( cat /etc/environment ) ; do export $line > /dev/null; done
-WS_NS=$(cat /var/run/s6/container_environment/WORKSPACE_NAMESPACE 2>/dev/null)
-RT_NAME=$(cat /var/run/s6/container_environment/RUNTIME_NAME 2>/dev/null)
 exec /usr/lib/rstudio-server/bin/rserver --server-daemonize 0
 EOF
 
@@ -136,7 +109,6 @@ cat <<EOF >/etc/services.d/rstudio/finish
 #!/bin/bash
 /usr/lib/rstudio-server/bin/rstudio-server stop
 EOF
-chmod +x /etc/services.d/rstudio/run /etc/services.d/rstudio/finish
 
 # If CUDA enabled, make sure RStudio knows (config_cuda_R.sh handles this anyway)
 if [ -n "$CUDA_HOME" ]; then
@@ -144,7 +116,7 @@ if [ -n "$CUDA_HOME" ]; then
     echo "rsession-ld-library-path=$LD_LIBRARY_PATH" >>/etc/rstudio/rserver.conf
 fi
 
-# Log to syslog
+# Log to stderr
 cat <<EOF >/etc/rstudio/logging.conf
 [*]
 log-level=warn
@@ -153,11 +125,11 @@ EOF
 
 # set up default user
 /rocker_scripts/default_user.sh "${DEFAULT_USER}"
-echo "rstudio ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
 
 # install user config initiation script
 cp /rocker_scripts/init_set_env.sh /etc/cont-init.d/01_set_env
 cp /rocker_scripts/init_userconf.sh /etc/cont-init.d/02_userconf
+cp /rocker_scripts/pam-helper.sh /usr/lib/rstudio-server/bin/pam-helper
 
 # Clean up
 rm -rf /var/lib/apt/lists/*
@@ -168,4 +140,3 @@ echo -e "Check the RStudio Server version...\n"
 rstudio-server version
 
 echo -e "\nInstall RStudio Server, done!"
-
