@@ -1,3 +1,9 @@
+## 1.0.2 - 11/10/2026
+
+- Add google-cloud-cli
+
+Image URL: `us.gcr.io/broad-dsp-gcr-public/terra-base:1.0.2`
+
 ## 1.0.0 - 12/16/2025
 
 - Extends GPU-enabled Ubuntu base image
