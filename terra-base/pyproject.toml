@@ -1,6 +1,6 @@
 [project]
 name = "terra-base"
-version = "1.0.0"
+version = "1.0.2"
 description = "Minimal Jupyter environment for Terra notebooks"
 readme = "README.md"
 requires-python = ">=3.10, <3.11"

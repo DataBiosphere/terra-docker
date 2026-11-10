@@ -68,6 +68,17 @@ RUN echo "deb [signed-by=/etc/apt/keyrings/nodesource.gpg] https://deb.nodesourc
 RUN dpkg --remove --force-remove-reinstreq libnode-dev
 RUN apt-get update && apt-get install -f -yq nodejs
 
+##############################
+# Install Google Cloud SDK/CLI (gcloud, gsutil, bq)
+##############################
+# NOTE google-cloud-sdk apt package was renamed to google-cloud-cli
+RUN curl -fsSL https://packages.cloud.google.com/apt/doc/apt-key.gpg | gpg --dearmor --yes -o /usr/share/keyrings/cloud.google.gpg \
+    && echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt cloud-sdk main" \
+        > /etc/apt/sources.list.d/google-cloud-sdk.list \
+    && apt-get update && apt-get install -yq --no-install-recommends google-cloud-cli \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
+
 ##########################
 # Create the User's Jupyter User
 ##########################
