@@ -54,8 +54,8 @@ jobs:
         run: gcloud auth configure-docker --quiet
 
       - name: Set up Docker Buildx
-        # driver: docker keeps build output in the local image store; the default
-        # docker-container driver would need --load and break the steps below.
+        # build.sh creates and uses its own docker-container builder (TERRA_BUILDER)
+        # to push, so this builder is only the default for any other buildx calls.
         uses: docker/setup-buildx-action@v4
         with:
           driver: docker

@@ -100,9 +100,10 @@ RUN echo "$USER ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/$USER \
 ############
 # Install R
 ############
-# add R repo for later R package installation \
+# add R repo for later R package installation
+# marutter_pubkey.asc is the CRAN signing key (E298A3A825C0D65DFD57CBB651716619E084DAB9),
+# so no keyserver lookup is needed (keyserver.ubuntu.com:11371 is often unreachable)
 RUN wget -qO- https://cloud.r-project.org/bin/linux/ubuntu/marutter_pubkey.asc | tee -a /etc/apt/trusted.gpg.d/cran_ubuntu_key.asc \
-    && apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E298A3A825C0D65DFD57CBB651716619E084DAB9 \
     && apt-get update && apt-get install -yq --no-install-recommends software-properties-common \
     && add-apt-repository --no-update "deb https://cloud.r-project.org/bin/linux/ubuntu jammy-cran40/" \
     # Install R base
