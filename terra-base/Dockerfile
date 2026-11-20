@@ -68,6 +68,17 @@ RUN echo "deb [signed-by=/etc/apt/keyrings/nodesource.gpg] https://deb.nodesourc
 RUN dpkg --remove --force-remove-reinstreq libnode-dev
 RUN apt-get update && apt-get install -f -yq nodejs
 
+##############################
+# Install Google Cloud SDK/CLI (gcloud, gsutil, bq)
+##############################
+# NOTE google-cloud-sdk apt package was renamed to google-cloud-cli
+RUN curl -fsSL https://packages.cloud.google.com/apt/doc/apt-key.gpg | gpg --dearmor --yes -o /usr/share/keyrings/cloud.google.gpg \
+    && echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt cloud-sdk main" \
+        > /etc/apt/sources.list.d/google-cloud-sdk.list \
+    && apt-get update && apt-get install -yq --no-install-recommends google-cloud-cli \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
+
 ##########################
 # Create the User's Jupyter User
 ##########################
@@ -89,9 +100,10 @@ RUN echo "$USER ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/$USER \
 ############
 # Install R
 ############
-# add R repo for later R package installation \
+# add R repo for later R package installation
+# marutter_pubkey.asc is the CRAN signing key (E298A3A825C0D65DFD57CBB651716619E084DAB9),
+# so no keyserver lookup is needed (keyserver.ubuntu.com:11371 is often unreachable)
 RUN wget -qO- https://cloud.r-project.org/bin/linux/ubuntu/marutter_pubkey.asc | tee -a /etc/apt/trusted.gpg.d/cran_ubuntu_key.asc \
-    && apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E298A3A825C0D65DFD57CBB651716619E084DAB9 \
     && apt-get update && apt-get install -yq --no-install-recommends software-properties-common \
     && add-apt-repository --no-update "deb https://cloud.r-project.org/bin/linux/ubuntu jammy-cran40/" \
     # Install R base
