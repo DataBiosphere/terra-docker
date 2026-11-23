@@ -1,5 +1,5 @@
 # Minimal OS layer shared by Terra tool images. No tool, no Python/R/conda, no CUDA.
-FROM --platform=linux/amd64 ubuntu:24.04
+FROM ubuntu:24.04
 
 LABEL maintainer="DSP Analysis Team <dsp-analysis@broadinstitute.org>"
 
