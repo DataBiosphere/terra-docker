@@ -1,0 +1,14 @@
+#!/bin/bash
+# Runs the child image's start script as the rstudio user. Leonardo calls this when the runtime is
+# created and each time it starts.
+set -euo pipefail
+
+readonly APP_START=/etc/terra/app-start.sh
+
+if [[ ! -x "${APP_START}" ]]; then
+  echo "terra-app: ${APP_START} is missing or not executable; the child image must provide it" >&2
+  exit 1
+fi
+
+exec setpriv --reuid=rstudio --regid=users --init-groups \
+  env HOME=/home/rstudio USER=rstudio "${APP_START}"

@@ -17,6 +17,11 @@ Make sure to go through the [contributing guide](https://github.com/DataBiospher
 
 [terra-jupyter-bioconductor](terra-jupyter-bioconductor/README.md)
 
+# Terra App Images
+[terra-core](terra-core/README.md): minimal OS layer shared by Terra tool images
+
+[terra-app](terra-app/README.md): base for a single-container web app that runs as a Terra cloud environment
+
 # How to create your own Custom image to use with notebooks on Terra
 Custom docker images need to use a Terra base image (see above) in order to work with the service that runs notebooks on Terra.
 * You can use any of the base images above
