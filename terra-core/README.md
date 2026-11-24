@@ -6,7 +6,7 @@ Python, R, conda or CUDA. Use a tool image (for example [terra-base](../terra-ba
 
 ## Image contents
 
-`terra-core` extends `ubuntu:24.04` with:
+`terra-core` extends `ubuntu:26.04` with:
 
 - `bash`, `ca-certificates`, `curl`, `jq`, `less`, `locales`, `procps`, `sudo`
 - The `en_US.UTF-8` locale (`LC_ALL=en_US.UTF-8`)
