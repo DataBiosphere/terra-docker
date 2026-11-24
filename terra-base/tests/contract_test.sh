@@ -47,9 +47,12 @@ check "python3 and r kernelspecs are installed" \
   run '/etc/jupyter/bin/jupyter kernelspec list | grep -qw python3 && /etc/jupyter/bin/jupyter kernelspec list | grep -qw r'
 
 # Leonardo's init steps that run outside its retry wrapper.
+# Same environment as Leonardo's jupyter-docker-compose-gce.yaml, including its PATH override.
+LEO_PATH="/root/.local/bin:/etc/jupyter/bin:/opt/conda/bin:/usr/local/nvidia/bin:/usr/local/cuda/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/home/jupyter/.local/bin:/home/jupyter/packages/bin"
 docker run -d --name "${CONTAINER}" --entrypoint tail \
-  -e GOOGLE_PROJECT=${PROJECT} -e CLUSTER_NAME=${RUNTIME} -e WELDER_ENABLED=false \
-  -e NOTEBOOKS_DIR=/home/jupyter -e PYTHONPATH=/etc/jupyter/custom \
+  -e GOOGLE_PROJECT=${PROJECT} -e CLUSTER_NAME=${RUNTIME} -e RUNTIME_NAME=${RUNTIME} -e WELDER_ENABLED=false \
+  -e NOTEBOOKS_DIR=/home/jupyter -e PIP_USER=true -e R_LIBS=/home/jupyter/packages \
+  -e PYTHONPATH=/etc/jupyter/custom:/usr/lib/spark/python:/home/jupyter/packages -e PATH="${LEO_PATH}" \
   "${IMAGE}" -f /dev/null >/dev/null
 
 check "custom JS copy chain succeeds as root" docker exec -u 0 "${CONTAINER}" /bin/bash -c '
@@ -68,6 +71,16 @@ check "nbstripout install and git config succeed as the default user" docker exe
   'pip install nbstripout && nbstripout --install --global && git config --global core.excludesfile /home/jupyter/gitignore_global'
 check "sed on jupyter_notebook_config.py succeeds" docker exec "${CONTAINER}" \
   sed -i '/^# to mount there as it effectively deletes existing files on the image/,+5d' /etc/jupyter/jupyter_notebook_config.py
+
+notebook_with() {
+  local kernel=$1 language=$2 source=$3
+  printf '{"cells": [{"cell_type": "code", "source": %s, "metadata": {}, "outputs": [], "execution_count": null}], "metadata": {"kernelspec": {"name": "%s", "display_name": "%s", "language": "%s"}}, "nbformat": 4, "nbformat_minor": 5}' \
+    "$(printf '%s' "${source}" | python3 -c 'import json,sys; print(json.dumps(sys.stdin.read()))')" "${kernel}" "${kernel}" "${language}"
+}
+docker exec "${CONTAINER}" /bin/bash -c "cat > /tmp/py.ipynb" <<<"$(notebook_with python3 python 'import sys; assert sys.executable.startswith("/home/jupyter/.envs/python3/"), sys.executable')"
+docker exec "${CONTAINER}" /bin/bash -c "cat > /tmp/r.ipynb" <<<"$(notebook_with r R 'stopifnot(1 + 1 == 2)')"
+check "python3 kernel runs code in the user's conda env" docker exec "${CONTAINER}" /etc/jupyter/bin/jupyter execute /tmp/py.ipynb
+check "r kernel runs code" docker exec "${CONTAINER}" /etc/jupyter/bin/jupyter execute /tmp/r.ipynb
 
 # Start the server the way Leonardo does and call the endpoints Leonardo and Terra UI use.
 docker exec -d "${CONTAINER}" /bin/bash -c '/etc/jupyter/scripts/run-jupyter.sh /home/jupyter'

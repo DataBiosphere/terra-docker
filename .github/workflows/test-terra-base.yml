@@ -31,3 +31,6 @@ jobs:
 
     - name: Check the Leonardo contract
       run: ./terra-base/tests/contract_test.sh terra-base:smoke-test
+
+    - name: Check the Jupyter frontend in a headless browser
+      run: ./terra-base/tests/browser_smoke_test.sh terra-base:smoke-test

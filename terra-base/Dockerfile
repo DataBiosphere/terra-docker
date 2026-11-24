@@ -1,7 +1,7 @@
 ###############################
 # Build the Terra JupyterLab extension (prebuilt, shipped as a wheel)
 ###############################
-FROM --platform=linux/amd64 node:24-trixie AS labextension
+FROM node:24-trixie AS labextension
 
 RUN apt-get update && apt-get install -yq --no-install-recommends python3 python3-venv \
     && rm -rf /var/lib/apt/lists/*
@@ -108,7 +108,7 @@ RUN echo "$USER ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/$USER \
 RUN curl -fsSL https://cloud.r-project.org/bin/linux/ubuntu/marutter_pubkey.asc | gpg --dearmor -o /etc/apt/keyrings/cran.gpg \
     && . /etc/os-release \
     && echo "deb [signed-by=/etc/apt/keyrings/cran.gpg] https://cloud.r-project.org/bin/linux/ubuntu ${VERSION_CODENAME}-cran40/" > /etc/apt/sources.list.d/cran.list \
-    && apt-get update && apt-get install -yq --no-install-recommends r-base r-base-dev \
+    && apt-get update && apt-get install -yq --no-install-recommends r-base r-base-dev r-cran-irkernel \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
