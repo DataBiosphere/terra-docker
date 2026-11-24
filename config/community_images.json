@@ -10,11 +10,11 @@
 },
 {
     "id": "RStudio",
-    "label": "RStudio (R 4.5.1, Bioconductor 3.21, Python 3.12.3)",
-    "version": "3.20.1",
-    "updated": "2025-08-04",
-    "packages": "https://raw.githubusercontent.com/anvilproject/anvil-docker/main/anvil-rstudio-bioconductor/info/anvil-rstudio-bioconductor-3.21.0-versions.json",
-    "image": "us.gcr.io/broad-dsp-gcr-public/anvil-rstudio-bioconductor:3.21.0",
+    "label": "RStudio (R 4.6.2, Bioconductor 3.23, Python 3.10.19)",
+    "version": "3.23.1",
+    "updated": "2026-11-24",
+    "packages": "https://raw.githubusercontent.com/anvilproject/anvil-docker/main/anvil-rstudio-r46/info/anvil-rstudio-r46-3.23.1-versions.json",
+    "image": "us.gcr.io/broad-dsp-gcr-public/anvil-rstudio-r46:3.23.1",
     "requiresSpark": false,
     "isRStudio": true
 },
