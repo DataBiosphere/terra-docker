@@ -105,6 +105,7 @@
 
             },
             "version" : "2.0.0",
+            "ui_version" : "1.0.0",
             "automated_flags" : {
                 "generate_docs" : true,
                 "include_in_ui" : true,

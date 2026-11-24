@@ -150,6 +150,8 @@ Each time you update or add an image, you will need to update the appropriate en
                                   //The difference between a package and a tool is that a tool can have a set of packages associated with it (i.e. pip packages for python)
                                   // A package  must have a tool associated with it
     "version": "0.0.4",           //The current version the image is at
+    "ui_version": "0.0.3",        //Optional. The version the Terra UI dropdown lists, when it should stay on an older
+                                  //version while "version" is published but not yet validated. Remove it to list "version"
 
     "automated_flags": {          //Flags used as control flow for scripts
 
