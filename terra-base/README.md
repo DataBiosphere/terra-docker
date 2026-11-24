@@ -8,17 +8,27 @@ The current purpose of this new base image is to to unblock users from creating 
 
 ## Image contents
 
-The terra-jupyter-base extends the [Ubuntu base image](https://hub.docker.com/layers/nvidia/cuda/13.0.1-base-ubuntu24.04/images/sha256-995e80db6d0c3a53d56bd00bba48a0ebd633b67b99a57e16acf9a306e7c744a7) by including the following:
+`terra-base` extends [`terra-core`](../terra-core) (Ubuntu 26.04) with:
 
-- OS prerequisites
-- google-cloud-sdk
-- Python 3.10
-- Conda
-- Jupyter & JupyterLab
-- Leonardo customizations/extensions
-- Terra notebook utils
+- the CUDA 13.5 runtime (as in `nvidia/cuda:13.5.0-base-ubuntu26.04`)
+- Python 3.13, with Conda for the user's environment
+- Jupyter Server 2, Notebook 7 and JupyterLab 4
+- R, Node 24 and `uv`
+- Leonardo customizations: the Welder contents manager and server extension in [`custom`](./custom),
+  and [`terra-jupyterlab-extension`](./jupyterlab-extension) for edit mode, playground mode and the
+  Terra UI iframe integration
 
 To see the complete contents of this image please see the [Dockerfile](./Dockerfile).
+
+## Testing
+
+```bash
+./build_smoke_test_image.sh terra-base
+./terra-base/tests/contract_test.sh terra-base:smoke-test
+```
+
+The contract test checks what Leonardo and Terra UI expect from the image and runs the Python tests
+in [`tests`](./tests) inside it.
 
 ## Selecting prior versions of this image
 

@@ -1,9 +1,6 @@
 #!/bin/bash
-set -e
-
+# Leonardo calls this for user-specified classic nbextensions.
+# Notebook 7 and JupyterLab 4 do not load them, so warn and skip instead of failing the runtime.
 if [ -n "$1" ]; then
-  JUPYTER_EXTENSION=$1
-  uv pip install ${JUPYTER_EXTENSION}
-  sudo -E -u jupyter /etc/jupyter/bin/jupyter nbextension install --py ${JUPYTER_EXTENSION} --sys-prefixr
-  sudo -E -u jupyter /etc/jupyter/bin/jupyter nbextension enable --py ${JUPYTER_EXTENSION} --sys-prefix
+  echo "terra-base 2.x: classic nbextension '$1' is not supported by Notebook 7; skipping."
 fi

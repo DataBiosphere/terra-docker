@@ -1,11 +1,8 @@
-from datetime import timedelta
 import json
 import os
 import requests
 import tornado
-from notebook.services.contents.largefilemanager import LargeFileManager
-
-METADATA_TTL = timedelta(minutes=5)
+from jupyter_server.services.contents.largefilemanager import LargeFileManager
 
 class WelderContentsManager(LargeFileManager):
   """
@@ -87,7 +84,7 @@ class WelderContentsManager(LargeFileManager):
       orig_model = self.get(path)
     except tornado.web.HTTPError as err:
       if err.status_code != 404:
-        self.log.warn('failed to get file "{}", cannot revert: {}'.format(path, err.log_message))
+        self.log.warning('failed to get file "{}", cannot revert: {}'.format(path, err.log_message))
 
     # Welder reads the file from local disk, so we need to write the updated file
     # before calling Welder.
@@ -100,7 +97,7 @@ class WelderContentsManager(LargeFileManager):
     try:
       self._post_welder('safeDelocalize', path)
     except IOError as werr:
-      self.log.warn("welder save failed, attempting to revert local file: " + str(werr))
+      self.log.warning("welder save failed, attempting to revert local file: " + str(werr))
       try:
         if orig_model:
           super(WelderContentsManager, self).save(orig_model, path)
