@@ -150,6 +150,42 @@
                 "include_in_custom_dataproc" : true,
                 "include_in_custom_gce" : true
             }
+        },
+        {
+            "name" : "terra-core",
+            "base_label" : "Core",
+            "tools" : [
+
+            ],
+            "packages" : {
+
+            },
+            "version" : "0.0.1",
+            "automated_flags" : {
+                "generate_docs" : true,
+                "include_in_ui" : false,
+                "build" : true,
+                "include_in_custom_dataproc" : false,
+                "include_in_custom_gce" : false
+            }
+        },
+        {
+            "name" : "terra-app",
+            "base_label" : "App",
+            "tools" : [
+
+            ],
+            "packages" : {
+
+            },
+            "version" : "0.0.1",
+            "automated_flags" : {
+                "generate_docs" : true,
+                "include_in_ui" : false,
+                "build" : true,
+                "include_in_custom_dataproc" : false,
+                "include_in_custom_gce" : false
+            }
         }
     ]
 }

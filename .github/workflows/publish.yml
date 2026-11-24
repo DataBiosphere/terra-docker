@@ -7,6 +7,8 @@ on:
         required: true
         type: choice
         options:
+          - terra-core
+          - terra-app
           - terra-base
           - terra-jupyter-base
           - terra-jupyter-bioconductor
