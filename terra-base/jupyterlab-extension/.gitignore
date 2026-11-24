@@ -1,0 +1,9 @@
+node_modules/
+lib/
+coverage/
+dist/
+.yarn/
+*.egg-info/
+tsconfig.tsbuildinfo
+terra_jupyterlab_extension/labextension/
+terra_jupyterlab_extension/_version.py
