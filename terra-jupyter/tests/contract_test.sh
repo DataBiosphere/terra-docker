@@ -79,8 +79,14 @@ notebook_with() {
 }
 docker exec "${CONTAINER}" /bin/bash -c "cat > /tmp/py.ipynb" <<<"$(notebook_with python3 python 'import sys; assert sys.executable.startswith("/home/jupyter/.envs/python3/"), sys.executable')"
 docker exec "${CONTAINER}" /bin/bash -c "cat > /tmp/r.ipynb" <<<"$(notebook_with r R 'stopifnot(1 + 1 == 2)')"
-check "python3 kernel runs code in the user's conda env" docker exec "${CONTAINER}" /etc/jupyter/bin/jupyter execute /tmp/py.ipynb
-check "r kernel runs code" docker exec "${CONTAINER}" /etc/jupyter/bin/jupyter execute /tmp/r.ipynb
+# Jupyter kernels (ZeroMQ) hang when an amd64 image runs under QEMU, e.g. on Apple Silicon. Set
+# SKIP_KERNEL_CHECKS=1 there; CI runs on native amd64 and keeps these checks.
+if [[ "${SKIP_KERNEL_CHECKS:-0}" != 1 ]]; then
+  check "python3 kernel runs code in the user's conda env" docker exec "${CONTAINER}" /etc/jupyter/bin/jupyter execute /tmp/py.ipynb
+  check "r kernel runs code" docker exec "${CONTAINER}" /etc/jupyter/bin/jupyter execute /tmp/r.ipynb
+else
+  echo "SKIP: kernel checks (SKIP_KERNEL_CHECKS=1)"
+fi
 
 # Start the server the way Leonardo does and call the endpoints Leonardo and Terra UI use.
 docker exec -d "${CONTAINER}" /bin/bash -c '/etc/jupyter/scripts/run-jupyter.sh /home/jupyter'
