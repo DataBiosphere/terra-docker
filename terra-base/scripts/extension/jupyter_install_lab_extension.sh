@@ -1,13 +1,29 @@
 #!/bin/bash
-# Installs a JupyterLab 4 extension. JupyterLab 4 only loads prebuilt extensions, which are
-# distributed as Python packages: pass a pip requirement, a wheel, or a source archive.
+
 set -e
+
 
 if [ -n "$1" ]; then
   JUPYTER_EXTENSION=$1
-  if [[ ${JUPYTER_EXTENSION} == *'.js' || ${JUPYTER_EXTENSION} == *'.ts' ]]; then
-    echo "terra-base 2.x: single-file JupyterLab extensions ('${JUPYTER_EXTENSION}') are not supported; package it as a prebuilt extension. Skipping."
-    exit 0
+  if [[ ${JUPYTER_EXTENSION} == *'.js' ]]; then
+    # use jupyterlab extension template to create an extension using the specified JS file
+    # see https://github.com/jupyterlab/extension-cookiecutter-js
+    JUPYTER_EXTENSION_NAME=`basename ${JUPYTER_EXTENSION%%.*}`
+    cookiecutter --no-input https://github.com/jupyterlab/extension-cookiecutter-js extension_name=${JUPYTER_EXTENSION_NAME}
+    cp -f ${JUPYTER_EXTENSION} ${JUPYTER_EXTENSION_NAME}/lib/plugin.js
+    cd ${JUPYTER_EXTENSION_NAME}
+    jlpm
+    jupyter labextension install .
+  elif [[ ${JUPYTER_EXTENSION} == *'.ts' ]]; then
+    # same as above but in typescript, see https://github.com/jupyterlab/extension-cookiecutter-ts
+    JUPYTER_EXTENSION_NAME=`basename ${JUPYTER_EXTENSION%%.*}`
+    cookiecutter --no-input https://github.com/jupyterlab/extension-cookiecutter-ts extension_name=${JUPYTER_EXTENSION_NAME}
+    cp -f ${JUPYTER_EXTENSION} ${JUPYTER_EXTENSION_NAME}/src/index.ts
+    cd ${JUPYTER_EXTENSION_NAME}
+    jlpm
+    jupyter labextension install .
+  else
+    jupyter labextension install $JUPYTER_EXTENSION
   fi
-  uv pip install --python ${JUPYTER_HOME}/bin/python ${JUPYTER_EXTENSION}
 fi
+

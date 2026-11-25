@@ -1,19 +1,5 @@
-###############################
-# Build the Terra JupyterLab extension (prebuilt, shipped as a wheel)
-###############################
-FROM node:24-trixie AS labextension
-
-RUN apt-get update && apt-get install -yq --no-install-recommends python3 python3-venv \
-    && rm -rf /var/lib/apt/lists/*
-COPY jupyterlab-extension /src
-RUN python3 -m venv /build \
-    && /build/bin/pip install --no-cache-dir build \
-    && /build/bin/python -m build --wheel --outdir /wheels /src
-
-###############################
-# terra-base
-###############################
-FROM us.gcr.io/broad-dsp-gcr-public/terra-core:0.0.1
+# Latest gpu-enabled base image on Ubuntu 22, 132 MB compressed
+FROM --platform=linux/amd64 nvidia/cuda:13.0.1-base-ubuntu22.04
 
 LABEL maintainer="DSP Analysis Team <dsp-analysis@broadinstitute.org>"
 
@@ -24,65 +10,63 @@ SHELL ["/usr/bin/bash", "-o", "pipefail", "-c"]
 # General Environment Variables
 #######################
 ENV DEBIAN_FRONTEND=noninteractive
+ENV LC_ALL=en_US.UTF-8
 
 # Version of python to be installed and used
-ENV PYTHON_VERSION=3.13
+ENV PYTHON_VERSION=3.10
 # Paired conda installer
-ENV CONDA_INSTALLER=https://repo.anaconda.com/miniconda/Miniconda3-py313_26.9.4-1-Linux-x86_64.sh
-ENV NODE_MAJOR=24
+ENV CONDA_INSTALLER=https://repo.anaconda.com/miniconda/Miniconda3-py310_25.9.1-1-Linux-x86_64.sh
+ENV JUPYTER_VERSION=5.7.2
+ENV NODE_MAJOR=20
 
 #################
 # Install Prerequisites
 #################
 RUN apt-get update && apt-get install -yq --no-install-recommends \
+    # basic necessities
+    sudo \
+    ca-certificates \
+    curl \
+    jq \
     # gnupg requirement
     gnupg \
     dirmngr \
-    # useful utilities for debugging within docker itself
+    # useful utilities for debugging within docker itself \
     nano \
+    less \
+    procps \
+    lsb-release \
     # gcc compiler
     build-essential \
+    locales \
     # for ssh-agent and ssh-add
     keychain \
-    # extras
+    # extras \
     wget \
     bzip2 \
     git \
+    # Uncomment en_US.UTF-8 for inclusion in generation
+    && sed -i 's/^# *\(en_US.UTF-8\)/\1/' /etc/locale.gen \
+    # Generate locale
+    && locale-gen \
+    # cleanup
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
-#######################
-# CUDA runtime, as in nvidia/cuda:13.5.0-base-ubuntu26.04
-#######################
-ENV NV_CUDA_CUDART_VERSION=13.5.37-1
-RUN curl -fsSLo /tmp/cuda-keyring.deb https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2604/x86_64/cuda-keyring_1.1-1_all.deb \
-    && dpkg -i /tmp/cuda-keyring.deb \
-    && rm /tmp/cuda-keyring.deb \
-    && apt-get update && apt-get install -yq --no-install-recommends \
-        cuda-cudart-13-5=${NV_CUDA_CUDART_VERSION} \
-        cuda-toolkit-13-5-config-common=${NV_CUDA_CUDART_VERSION} \
-        cuda-toolkit-13-config-common=${NV_CUDA_CUDART_VERSION} \
-        cuda-toolkit-config-common=${NV_CUDA_CUDART_VERSION} \
-        cuda-compat-13-5 \
-    && echo "/usr/local/cuda/lib64" >> /etc/ld.so.conf.d/nvidia.conf \
-    && apt-get clean \
-    && rm -rf /var/lib/apt/lists/*
-ENV CUDA_VERSION=13.5.0
-ENV PATH=/usr/local/nvidia/bin:/usr/local/cuda/bin:${PATH}
-ENV LD_LIBRARY_PATH=/usr/local/nvidia/lib:/usr/local/nvidia/lib64:/usr/local/cuda/lib64
-ENV NVIDIA_VISIBLE_DEVICES=all
-ENV NVIDIA_DRIVER_CAPABILITIES=compute,utility
-ENV NVIDIA_REQUIRE_CUDA="cuda>=13.5"
+##############################
+# Set up Node for Jupyterlab
+##############################
+RUN curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key --keyring /usr/share/keyrings/cloud.google.gpg add -
+RUN curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
 
-##############################
-# Node, for JupyterLab extensions that users build
-##############################
-RUN mkdir -p /etc/apt/keyrings \
-    && curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key | gpg --dearmor -o /etc/apt/keyrings/nodesource.gpg \
-    && echo "deb [signed-by=/etc/apt/keyrings/nodesource.gpg] https://deb.nodesource.com/node_$NODE_MAJOR.x nodistro main" > /etc/apt/sources.list.d/nodesource.list \
-    && apt-get update && apt-get install -yq --no-install-recommends nodejs \
-    && apt-get clean \
-    && rm -rf /var/lib/apt/lists/*
+# Install Node >18
+RUN apt-get update && apt-get install -yq --no-install-recommends
+RUN mkdir -p /etc/apt/keyrings
+RUN curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key | gpg --dearmor -o /etc/apt/keyrings/nodesource.gpg
+
+RUN echo "deb [signed-by=/etc/apt/keyrings/nodesource.gpg] https://deb.nodesource.com/node_$NODE_MAJOR.x nodistro main" | tee /etc/apt/sources.list.d/nodesource.list
+RUN dpkg --remove --force-remove-reinstreq libnode-dev
+RUN apt-get update && apt-get install -f -yq nodejs
 
 ##########################
 # Create the User's Jupyter User
@@ -98,17 +82,20 @@ RUN useradd -m -s /bin/bash -d $USER_HOME -N -u $USER_UID  $USER
 RUN usermod -g users $USER
 
 # We want to grant the user sudo permissions without password
-# so they can install the necessary packages that they want to use on the docker container
+ # so they can install the necessary packages that they want to use on the docker container
 RUN echo "$USER ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/$USER \
     && chmod 0440 /etc/sudoers.d/$USER
 
 ############
 # Install R
 ############
-RUN curl -fsSL https://cloud.r-project.org/bin/linux/ubuntu/marutter_pubkey.asc | gpg --dearmor -o /etc/apt/keyrings/cran.gpg \
-    && . /etc/os-release \
-    && echo "deb [signed-by=/etc/apt/keyrings/cran.gpg] https://cloud.r-project.org/bin/linux/ubuntu ${VERSION_CODENAME}-cran40/" > /etc/apt/sources.list.d/cran.list \
-    && apt-get update && apt-get install -yq --no-install-recommends r-base r-base-dev r-cran-irkernel \
+# add R repo for later R package installation \
+RUN wget -qO- https://cloud.r-project.org/bin/linux/ubuntu/marutter_pubkey.asc | tee -a /etc/apt/trusted.gpg.d/cran_ubuntu_key.asc \
+    && apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E298A3A825C0D65DFD57CBB651716619E084DAB9 \
+    && apt-get update && apt-get install -yq --no-install-recommends software-properties-common \
+    && add-apt-repository --no-update "deb https://cloud.r-project.org/bin/linux/ubuntu jammy-cran40/" \
+    # Install R base
+    && apt-get update && apt-get install -y r-base \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
@@ -117,7 +104,7 @@ RUN curl -fsSL https://cloud.r-project.org/bin/linux/ubuntu/marutter_pubkey.asc 
 ############################################
 ## CONDA should not be used by devs to manage package dependencies,
 # but is a widely used tool to manage python environments in a runtime
-# and we should provide it to users
+ # and we should provide it to users
 
 # download and install conda
 ENV CONDA_HOME=/opt/conda
@@ -126,6 +113,7 @@ RUN curl -so $HOME/miniconda.sh $CONDA_INSTALLER \
     && chmod +x $HOME/miniconda.sh \
     && $HOME/miniconda.sh -b -p $CONDA_HOME \
     && rm $HOME/miniconda.sh
+# ENV PATH="${PATH}:${CONDA_ENV_HOME}/bin:${CONDA_HOME}/bin"
 ENV PATH="${PATH}:${CONDA_HOME}/bin"
 
 # In order to override the default kernel, the conda environment must be named 'python3'
@@ -135,6 +123,7 @@ ENV CONDA_FILES=$CONDA_HOME/custom
 
 # Copy over the conda environment files
 COPY conda/ $CONDA_FILES
+ENV CONDA_FILES=$CONDA_HOME/custom
 
 # Set up the path to the user python from conda
 ENV BASE_PYTHON_PATH=$CONDA_HOME/bin/python$PYTHON_VERSION
@@ -177,19 +166,24 @@ ENV UV_LINK_MODE=copy \
     UV_VENV_SEED=false \
     UV_NO_CACHE=true
 
-# Install uv where every user can run it: Leonardo's extension scripts call it as the jupyter user.
+# Download the latest installer
 ADD https://astral.sh/uv/install.sh /uv-installer.sh
-RUN UV_INSTALL_DIR=/usr/local/bin UV_NO_MODIFY_PATH=1 sh /uv-installer.sh && rm /uv-installer.sh
+RUN sh /uv-installer.sh && rm /uv-installer.sh
+
+# Add local bin to PATH for uv
+ENV PATH="/root/.local/bin/:$PATH"
 
 ENV JUPYTER_HOME=/etc/jupyter
 
-# Create a virtual environment and install the jupyter packages
-COPY --from=labextension /wheels /tmp/wheels
+# Create a virtual environment and install jupyter packages
+# setuptools and wheel are required for some of the jupyter extensions
 RUN uv venv $JUPYTER_HOME --python $BASE_PYTHON_PATH \
-    && uv pip install --python $JUPYTER_HOME/bin/python -r pyproject.toml \
-    && uv pip install --python $JUPYTER_HOME/bin/python /tmp/wheels/*.whl \
+    && source $JUPYTER_HOME/bin/activate \
+    && uv pip install wheel \
+    && uv pip install setuptools \
+     && uv pip install -r pyproject.toml  --no-cache --no-build-isolation \
     # Cleanup
-    && rm -rf uv.lock pyproject.toml /tmp/wheels
+     && rm uv.lock && rm pyproject.toml
 
 # add jupyter to path
 ENV PATH="${PATH}:${JUPYTER_HOME}/bin"
@@ -199,22 +193,17 @@ RUN $JUPYTER_HOME/bin/jupyter kernelspec remove python3 -y
 
 # #######################
 # # Terra-specific Utilities
-# #######################
+# ####################### \
 
 # Copy over utility scripts and config files
-ENV JUPYTER_SCRIPTS=$JUPYTER_HOME/scripts
-ENV JUPYTER_CUSTOM=$JUPYTER_HOME/custom
-ENV JUPYTER_EXTENSIONS=$JUPYTER_SCRIPTS/extension
-ENV JUPYTER_KERNEL=$JUPYTER_SCRIPTS/kernel
+ENV JUPYTER_SCRIPTS $JUPYTER_HOME/scripts
+ENV JUPYTER_CUSTOM $JUPYTER_HOME/custom
+ENV JUPYTER_EXTENSIONS $JUPYTER_SCRIPTS/extension
+ENV JUPYTER_KERNEL $JUPYTER_SCRIPTS/kernel
 
 COPY scripts $JUPYTER_HOME/scripts
 COPY custom $JUPYTER_HOME/custom
-COPY jupyter_server_config.py jupyter_notebook_config.py $JUPYTER_HOME/
-COPY jupyter_server_config.d $JUPYTER_HOME/jupyter_server_config.d
-COPY tests $JUPYTER_HOME/tests
-
-# Leonardo also sets this in the container; set it here so the image works on its own.
-ENV PYTHONPATH=$JUPYTER_CUSTOM
+COPY jupyter_notebook_config.py $JUPYTER_HOME
 
 # give user ownership of jupyter home and conda env home
 # and make extension files executable
@@ -231,11 +220,22 @@ RUN chown -R $USER:users $JUPYTER_KERNELSPEC_DIR \
     # You can get kernel directory by running `jupyter kernelspec list`
     && $JUPYTER_KERNEL/kernelspec.sh $JUPYTER_KERNEL $JUPYTER_KERNELSPEC_DIR/kernels
 
-# Leonardo's start script checks this file to know the jupyter command is in /etc/jupyter/bin
+# Create the welder user
+# The welder uid is consistent with the Welder docker definition here:
+#  https://github.com/DataBiosphere/welder/blob/master/project/Settings.scala
+# Adding welder-user to the Jupyter container isn't strictly required, but it makes welder-added
+# files display nicer when viewed in a terminal.
+ENV WELDER_USER welder-user
+# This UID must stay consistent with the UID defined in Welder
+ENV WELDER_UID 1001
+RUN useradd -m -s /bin/bash -N -u $WELDER_UID $WELDER_USER
+
+# Add an empty file to indicate that this is a terra-base image with a separate jupyer server environment
+# Need a flag to check in the startup scripts to know whether to use the conda environment jupyter
 RUN touch /etc/jupyter/.terra-base-marker
 
 # Make sure that the jupyter user will have access to the jupyter path in the working directory
-EXPOSE 8000
+EXPOSE $JUPYTER_PORT
 WORKDIR $USER_HOME
 
 # make pip install to a user directory, instead of a system directory which requires root.

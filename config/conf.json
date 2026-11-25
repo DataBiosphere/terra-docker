@@ -104,8 +104,7 @@
             "packages" : {
 
             },
-            "version" : "2.0.0",
-            "ui_version" : "1.0.0",
+            "version" : "1.0.0",
             "automated_flags" : {
                 "generate_docs" : true,
                 "include_in_ui" : true,
@@ -180,6 +179,24 @@
 
             },
             "version" : "0.0.1",
+            "automated_flags" : {
+                "generate_docs" : true,
+                "include_in_ui" : false,
+                "build" : true,
+                "include_in_custom_dataproc" : false,
+                "include_in_custom_gce" : false
+            }
+        },
+        {
+            "name" : "terra-jupyter",
+            "base_label" : "Jupyter",
+            "tools" : [
+                "python"
+            ],
+            "packages" : {
+
+            },
+            "version" : "1.0.0",
             "automated_flags" : {
                 "generate_docs" : true,
                 "include_in_ui" : false,

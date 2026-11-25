@@ -1,11 +1,11 @@
 #!/bin/bash
-# Checks a terra-base image against what Leonardo's GCE init and start scripts and Terra UI expect,
+# Checks a terra-jupyter image against what Leonardo's GCE init and start scripts and Terra UI expect,
 # then runs the Python tests inside the image.
-# Example: ./terra-base/tests/contract_test.sh terra-base:smoke-test
+# Example: ./terra-jupyter/tests/contract_test.sh terra-jupyter:smoke-test
 set -euo pipefail
 
-IMAGE=${1:-terra-base:smoke-test}
-CONTAINER=terra-base-contract-$$
+IMAGE=${1:-terra-jupyter:smoke-test}
+CONTAINER=terra-jupyter-contract-$$
 PROJECT=test-project
 RUNTIME=test-runtime
 BASE=/notebooks/${PROJECT}/${RUNTIME}
@@ -27,7 +27,7 @@ check() {
 }
 
 # Static checks on the image.
-check "JUPYTER_HOME is /etc/jupyter and the terra-base marker exists" \
+check "JUPYTER_HOME is /etc/jupyter and Leonardo's .terra-base-marker exists" \
   run 'test "${JUPYTER_HOME}" = /etc/jupyter && test -f /etc/jupyter/.terra-base-marker'
 check "jupyter user has UID 1002 in group users; welder-user has UID 1001" \
   run 'test "$(id -u jupyter)" = 1002 && id -gn jupyter | grep -qw users && test "$(id -u welder-user)" = 1001'
@@ -106,4 +106,4 @@ check "pytest suite" docker run --rm --entrypoint /bin/bash "${IMAGE}" -c '
   uv pip install -q --python /etc/jupyter/bin/python pytest "pytest-jupyter[server]" requests-mock \
   && cd /etc/jupyter/tests && /etc/jupyter/bin/python -m pytest -q -p no:cacheprovider'
 
-echo "All terra-base contract checks passed"
+echo "All terra-jupyter contract checks passed"

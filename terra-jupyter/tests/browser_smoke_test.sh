@@ -1,13 +1,13 @@
 #!/bin/bash
-# Starts a terra-base container the way Leonardo does and runs browser_smoke_test.py against it
+# Starts a terra-jupyter container the way Leonardo does and runs browser_smoke_test.py against it
 # from a Playwright container on the same Docker network.
-# Example: ./terra-base/tests/browser_smoke_test.sh terra-base:smoke-test
+# Example: ./terra-jupyter/tests/browser_smoke_test.sh terra-jupyter:smoke-test
 set -euo pipefail
 
-IMAGE=${1:-terra-base:smoke-test}
+IMAGE=${1:-terra-jupyter:smoke-test}
 PLAYWRIGHT_IMAGE=mcr.microsoft.com/playwright/python:v1.65.2-noble
-NETWORK=terra-base-browser-$$
-SERVER=terra-base-$$
+NETWORK=terra-jupyter-browser-$$
+SERVER=terra-jupyter-$$
 WELDER=welder-$$
 BASE=/notebooks/test-project/test-runtime
 TESTS_DIR=$(cd "$(dirname "$0")" && pwd)

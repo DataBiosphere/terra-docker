@@ -1,5 +1,11 @@
 #!/usr/bin/env bash
-# Leonardo runs this on every runtime create, outside its retry wrapper, so it must exit 0.
-# Notebook 7 and JupyterLab 4 do not load classic nbextensions; table of contents and code
-# folding are built in.
-echo "terra-base 2.x: classic contrib nbextensions are not supported; skipping."
+
+set -e
+# installs jupyter_contrib_nbextensions https://github.com/ipython-contrib/jupyter_contrib_nbextensions
+# also installs the jupyter_nbextensions_configurator https://github.com/Jupyter-contrib/jupyter_nbextensions_configurator
+sudo -E -u jupyter /etc/jupyter/bin/jupyter nbextensions_configurator enable --sys-prefix
+sudo -E -u jupyter /etc/jupyter/bin/jupyter contrib nbextension install --sys-prefix
+sudo -E -u jupyter /etc/jupyter/bin/jupyter nbextension enable toc2/main --sys-prefix
+sudo -E -u jupyter /etc/jupyter/bin/jupyter nbextension enable codefolding/main --sys-prefix
+sudo -E -u jupyter /etc/jupyter/bin/jupyter nbextension enable collapsible_headings/main --sys-prefix
+

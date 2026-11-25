@@ -9,6 +9,7 @@ on:
         options:
           - terra-core
           - terra-app
+          - terra-jupyter
           - terra-base
           - terra-jupyter-base
           - terra-jupyter-bioconductor

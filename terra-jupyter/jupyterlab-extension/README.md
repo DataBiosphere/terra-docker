@@ -13,7 +13,7 @@ extensions that `terra-base` 1.x shipped:
   `save` message, and closes with `close` after shutting the kernel down.
 
 It reads `googleProject`, `clusterName` and `welderEnabled` from the server endpoint
-`api/terra/config` (provided by terra-base's server extension), and falls back to parsing the
+`api/terra/config` (provided by terra-jupyter's server extension), and falls back to parsing the
 `/notebooks/{project}/{runtime}/` base URL with Welder disabled.
 
 ## Development

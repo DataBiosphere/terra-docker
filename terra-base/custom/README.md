@@ -1,7 +1,6 @@
-# Jupyter server customizations
+#Before you merge, lint the files with eslint.
 
-- `jupyter_localize_extension.py`: server extension with `api/localize` and `api/terra/config`.
-- `jupyter_delocalize.py`: `WelderContentsManager`, which syncs saves, renames and deletes through Welder.
-- `*.js`: empty files that Leonardo's init script copies. The frontend is `../jupyterlab-extension`.
-
-Tests are in `../tests` and run in the image: see `../tests/README.md`.
+#  `brew install eslint`
+#  `brew install npm`
+#  `npm i`
+#  `eslint --fix *.js`

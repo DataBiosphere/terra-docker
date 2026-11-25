@@ -33,17 +33,14 @@ def generate_docs():
   legacy_bioconductor_doc = utils.read_json_file(static_config_location)[0] # hard coding this until next bioconductor release (~06/2022)
 
   for image_config in image_configs:
-      # An image can list an older version in Terra UI while a newer one is published but not yet
-      # validated: "ui_version" overrides "version" for the UI list only.
-      ui_version = image_config.get("ui_version", image_config["version"])
       # Here we check first if the remote documentation exists, then if the local version is the same as the remote.
       # If the remote documentation exists and the version matches the local, we re-use the old documentation
-      if image_config["name"] in remote_versions and ui_version == remote_versions[image_config["name"]]:
+      if image_config["name"] in remote_versions and image_config["version"] == remote_versions[image_config["name"]]:
         remote_doc = list(filter(lambda image_doc: image_doc["id"] == image_config["name"], remote_docs))[0]
         print("using remote doc: {}".format(remote_doc))
         doc = remote_doc
       else:
-        doc = generate_doc_for_image({**image_config, "version": ui_version})
+        doc = generate_doc_for_image(image_config)
 
       #Computing legacy  images for gatk and bioconductor
       if image_config["name"] == "terra-jupyter-gatk":

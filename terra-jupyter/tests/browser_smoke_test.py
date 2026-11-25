@@ -7,7 +7,7 @@ import sys
 
 from playwright.sync_api import sync_playwright
 
-SERVER = sys.argv[1]  # e.g. http://terra-base:8000/notebooks/test-project/test-runtime
+SERVER = sys.argv[1]  # e.g. http://terra-jupyter:8000/notebooks/test-project/test-runtime
 FAILURE_BANNER = 'Failed to check notebook status'
 CLOSE_TITLE = "Shutdown this notebook's kernel, and close this window"
 
