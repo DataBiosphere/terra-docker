@@ -1,0 +1,52 @@
+/* Sync mode banner in the notebook toolbar. */
+.terra-SyncBanner {
+  align-self: center;
+  margin: 0 4px;
+  padding: 1px 8px;
+  border-radius: 2px;
+  font-size: var(--jp-ui-font-size1);
+  line-height: 20px;
+  white-space: nowrap;
+}
+
+.terra-SyncBanner-edit {
+  border: 1px solid var(--jp-border-color1);
+  color: var(--jp-ui-font-color1);
+}
+
+.terra-SyncBanner-warning {
+  background: var(--jp-warn-color2);
+  color: var(--jp-ui-inverse-font-color0);
+}
+
+.terra-SyncBanner-error {
+  background: var(--jp-error-color1);
+  color: var(--jp-ui-inverse-font-color0);
+}
+
+/* Playground (safe) mode: hide controls that save, open, create or copy notebooks. */
+body.terra-playground-mode [data-command='docmanager:save'],
+body.terra-playground-mode [data-command='docmanager:save-as'],
+body.terra-playground-mode [data-command='docmanager:save-all'],
+body.terra-playground-mode [data-command='docmanager:duplicate'],
+body.terra-playground-mode [data-command='docmanager:clone'],
+body.terra-playground-mode [data-command='docmanager:restore-checkpoint'],
+body.terra-playground-mode [data-command='application:duplicate'],
+body.terra-playground-mode [data-command='notebook:create-new'],
+body.terra-playground-mode [data-command='filebrowser:open-path'],
+body.terra-playground-mode .jp-NotebookCheckpoint {
+  display: none !important;
+}
+
+/* Inside Terra UI's iframe: no New/Open entries, and Terra's close command replaces the stock one. */
+body.terra-in-iframe [data-command='notebook:create-new'],
+body.terra-in-iframe [data-command='fileeditor:create-new'],
+body.terra-in-iframe [data-command='fileeditor:create-new-markdown-file'],
+body.terra-in-iframe [data-command='console:create'],
+body.terra-in-iframe [data-command='launcher:create'],
+body.terra-in-iframe [data-command='filebrowser:open-path'],
+body.terra-in-iframe [data-command='filebrowser:open-url'],
+body.terra-in-iframe [data-command='notebook:open-tree-tab'],
+body.terra-in-iframe [data-command='filemenu:close-and-cleanup'] {
+  display: none !important;
+}

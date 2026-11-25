@@ -1,5 +1,8 @@
 # terra-jupyter-base image
 
+> `terra-base` stays at 1.x. Its successor is [`terra-jupyter`](../terra-jupyter), built on Ubuntu 26.04 with
+> Notebook 7 and JupyterLab 4.
+
 This repo contains the terra-jupyter-base image that is compatible with notebook service in [Terra]("https://app.terra.bio/") called Leonardo. For example, use `us.gcr.io/broad-dsp-gcr-public/terra-base:{version}` in terra.
 
 ## Context

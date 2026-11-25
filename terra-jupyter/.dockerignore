@@ -1,0 +1,10 @@
+# Host-side test runners: only the pytest files run inside the image. Keeping these out also means
+# changing a runner does not change the image.
+tests/*.sh
+tests/*.txt
+tests/README.md
+tests/browser_smoke_test.py
+# Local extension build output; the image builds the extension itself.
+jupyterlab-extension/node_modules
+jupyterlab-extension/lib
+jupyterlab-extension/terra_jupyterlab_extension/labextension

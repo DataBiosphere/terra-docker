@@ -1,0 +1,36 @@
+name: Test terra-jupyter
+# Builds terra-core and terra-jupyter, checks terra-jupyter against what Leonardo and Terra UI expect,
+# and runs its Python tests (see terra-jupyter/tests).
+
+on:
+  pull_request:
+    branches: [ master ]
+    paths:
+    - 'terra-core/**'
+    - 'terra-jupyter/**'
+    - 'build_smoke_test_image.sh'
+    - '.github/workflows/test-terra-jupyter.yml'
+
+  workflow_dispatch:
+
+env:
+  # Create a plain image, not an attestation manifest list.
+  BUILDX_NO_DEFAULT_ATTESTATIONS: 1
+
+jobs:
+
+  test_docker_image:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+
+    - name: Build Docker image and base images too, if needed
+      run: ./build_smoke_test_image.sh terra-jupyter
+
+    - name: Check the Leonardo contract
+      run: ./terra-jupyter/tests/contract_test.sh terra-jupyter:smoke-test
+
+    - name: Check the Jupyter frontend in a headless browser
+      run: ./terra-jupyter/tests/browser_smoke_test.sh terra-jupyter:smoke-test
